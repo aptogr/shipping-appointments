@@ -1,0 +1,68 @@
+/*!
+ * General Mixin Functions
+ * By APTO OE
+ */
+
+
+//============================================/
+//    Media Queries
+//==========================================/
+$breakpoints: (
+        "phone":        400px,
+        "phone-wide":   480px,
+        "phablet":      560px,
+        "tablet-small": 640px,
+        "tablet":       768px,
+        "tablet-wide":  1024px,
+        "desktop":      1248px,
+        "desktop-wide": 1440px
+);
+
+@mixin media($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive {
+  width:100%;
+  height:auto;
+}
+
+@mixin pseudo-block {
+  content: '';
+  display: block;
+  position:absolute;
+}
+
+@mixin background-image( $image ) {
+  background-image: url( $image );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin font-face( $font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url('../fonts/' + $file-name + '.eot');
+    src: url('../fonts/' + $file-name + '.eot?#iefix')  format('embedded-opentype'),
+    url('../fonts/' + $file-name + '.woff') format('woff'),
+    url('../fonts/' + $file-name + '.ttf')  format('truetype'),
+    url('../fonts/' + $file-name + '.svg##{$font-name}')  format('svg');
+    font-weight: $weight;
+    font-style: $style;
+  }
+}

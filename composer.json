@@ -1,0 +1,19 @@
+{
+  "name": "aptogr/shipping-appointments",
+  "description": "Description of the repository",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "APTO OE",
+      "email": "apto@users.noreply.github.com"
+    }
+  ],
+  "require": {
+    "php": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ShippingAppointments\\": "src/"
+    }
+  }
+}

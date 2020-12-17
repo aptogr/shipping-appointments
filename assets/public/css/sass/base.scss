@@ -1,0 +1,30 @@
+//============================================/
+//    Load the basic default css
+//==========================================/
+@import "default/utility";
+@import "default/layout";
+@import "default/normalize";
+@import "default/mixins";
+
+
+
+//======================================================================================================================
+//
+//    Sample code to include custom fonts to project:
+//
+//----------------------------------------------------------------------------------------------------------------------
+//    Create a folder under shipping-appointments/assets/public/fonts/ for the font you want to include
+//    Add all the font files under that folder and change the 'FontFamilyName' and 'FontFamilyFolder/FontFamilyName
+//
+//    @include font-face("FontFamilyName", "FontFamilyFolder/FontFamilyName", $style: normal, $weight: normal);
+//
+//======================================================================================================================
+
+
+
+//============================================/
+//    Import the components below:
+//==========================================/
+@import "components/global";
+@import "components/header";
+@import "components/footer";
