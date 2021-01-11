@@ -5,7 +5,7 @@ get_header();
 //$availability->weekdays_available;
 ?>
 
-Edit availability page here by Swtos
+Edit availability page here by giannis
 
 <?php
 
