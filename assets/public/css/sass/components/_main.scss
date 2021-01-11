@@ -1,9 +1,12 @@
 @import "../project/colors";
 
 .availability {
+
+  background-color:$hospital-white;
   position: relative;
-  margin-left: 250px;
-  width: calc(100% - 250px);
+  //margin-left: 250px;
+  //width: calc(100% - 250px);
+  width:100%;
 
   h1 {
     color:$h1Color;
@@ -31,18 +34,19 @@
 
   .dayBox {
     background-color: $gallery;
-    padding: 15px 30px 15px 50px;
+    padding: 7px 30px 8px 50px;
     display: block;
     position: relative;
-  }
 
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      border: none;
+    }
 
-  .dayBox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
   }
 
 
@@ -104,6 +108,7 @@
 
   .timeFromTo {
     display: none;
+    font-size: 15px;
     //padding: 0px 0px 20px;
     //border-bottom: 3px solid $gallery;
 
@@ -121,6 +126,7 @@
     font-weight: bold;
     float: right;
     text-align: right;
+    padding: 0px;
 
   }
 
@@ -140,6 +146,24 @@
 
   .fa-clock-o {
     margin-right: 10px;
+  }
+
+  .exludeDaysBox {
+
+    width: 155px;
+    margin-bottom: 5px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    background-color: $gallery;
+
+    .selectedDateDelete {
+      float: right;
+      margin-right: 5px;
+      font-weight: bold;
+      color: #f00;
+      cursor: pointer;
+    }
+
   }
 
 }

@@ -58,6 +58,7 @@ class PublicController implements PublicInterface {
 	public function enqueueStyles() {
 
 		wp_enqueue_style( $this->getPluginName(), $this->getPluginDirUrl() . self::PUBLIC_CSS_FOLDER . 'public.min.css', array(), null, 'all' );
+		wp_enqueue_style( 'fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=5.5.3', array(), null, 'all' );
 
 	}
 

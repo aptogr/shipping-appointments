@@ -88,11 +88,6 @@
                     $('.schedule').css('background-color','#fff')
                     $('[data-eventdate='+context.storage.schedules[0].date+']').css('background-color','#059100');
 
-                } else {
-
-                    $('.schedule').css('background-color','#fff')
-                    console.log('No Events');
-
                 }
 
             },
@@ -100,49 +95,30 @@
             click: function(event, context) {
 
                 var that = $(this);
+                var date = that[0].dataset.date;
                 event.preventDefault();
 
-                if (!that.hasClass("pignose-calendar-unit-disabled")) {
 
-                    // console.log(that);
+                if (excludedDatesSelected.indexOf(date) === -1) {
 
-                    var date = that[0].dataset.date;
+                    excludedDatesSelected.push(date);
+                    $('#excluded_dates').val(excludedDatesSelected);
+                    var dateDiv = "<div class='exludeDaysBox' data-selecteddate='"+ date +"'>" + date + " <div class='selectedDateDelete' data-selecteddate='"+ date +"' >x</div></div>";
+                    $('#excludedDatesDiv').append(dateDiv)
 
-                    if (that.find('a').hasClass("dateSelected")) {
-
-                        that.find('a').removeClass('dateSelected');
-
-                        // var index = excludedDatesSelected.indexOf(date);
-                        // if (index !== -1) {
-                        //     excludedDatesSelected.splice(index, 1);
-                        // }
-
-
-                        excludedDatesSelectedTemp = excludedDatesSelected.filter(function(x){
-                            return x !== date;
-                        });
-
-                        excludedDatesSelected = excludedDatesSelectedTemp;
-
-                        $('#excluded_dates').val(excludedDatesSelected);
-                        $('*[data-selecteddate='+date+']').remove();
-
-                    } else {
-
-                        that.find('a').addClass('dateSelected');
-                        excludedDatesSelected.push(date);
-                        $('#excluded_dates').val(excludedDatesSelected);
-
-                        var dateDiv = "<div data-selecteddate='"+ date +"'>" + date + " <div class='selectedDateDelete' data-selecteddate='"+ date +"' >x</div></div>";
-
-                        $('#excludedDatesDiv').append(dateDiv)
-
-                    }
-
+                } else {
+                    console.log("This date already exists");
+                    // excludedDatesSelectedTemp = excludedDatesSelected.filter(function(x){
+                    //     return x !== date;
+                    // });
+                    //
+                    // excludedDatesSelected = excludedDatesSelectedTemp;
+                    //
+                    // $('#excluded_dates').val(excludedDatesSelected);
+                    // $('*[data-selecteddate='+date+']').remove();
                 }
 
             }
-
 
         });
 
@@ -153,7 +129,9 @@
 
             var that = $(this);
 
-            date = that.parent().data('selecteddate');
+            var date = that.parent().data('selecteddate');
+
+            console.log(date);
 
             excludedDatesSelectedTemp = [];
 
@@ -165,7 +143,7 @@
             $('#excluded_dates').val(excludedDatesSelected);
             that.parent().remove();
 
-            console.log(date);
+
 
         });
 
@@ -211,5 +189,3 @@
     });
 
 })( jQuery );
-
-
