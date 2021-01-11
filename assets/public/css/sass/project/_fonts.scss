@@ -7,3 +7,24 @@
 
 $primaryFont: '';
 $secondaryFont: '';
+
+.shippingappointments {
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 115%;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 115%;
+  }
+
+  p {
+    margin: 15px 0;
+  }
+
+}
