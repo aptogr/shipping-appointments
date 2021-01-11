@@ -137,7 +137,7 @@ get_header();
                                 <div class="daDay">
 
                                     <div class="dayBox">
-                                        <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="Friday">
+                                        <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri">
                                         <span class="checkmark"></span>
                                         <label for="weekDayFriday">Friday</label>
                                     </div>
@@ -163,7 +163,7 @@ get_header();
                                 <div class="daDay">
 
                                     <div class="dayBox">
-                                        <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="Saturday">
+                                        <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat">
                                         <span class="checkmark"></span>
                                         <label for="weekDaySaturday">Saturday</label>
                                     </div>
@@ -189,7 +189,7 @@ get_header();
                                 <div class="daDay">
 
                                     <div class="dayBox">
-                                        <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="Sunday">
+                                        <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun">
                                         <span class="checkmark"></span>
                                         <label for="weekDaySunday">Sunday</label>
                                     </div>
