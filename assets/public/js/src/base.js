@@ -180,8 +180,8 @@
             var that = $(this);
             var id = that.attr('id');
 
-            console.log(that.val());
-            console.log(id);
+            // console.log(that.val());
+            // console.log(id);
 
             $('.'+id+'_ov').find('span').html(that.val())
         })

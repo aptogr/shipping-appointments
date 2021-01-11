@@ -245,7 +245,7 @@ get_header();
 
                 <div class="col l3 m4"></div>
                 <div class="col l12 m12">
-                    <input type="submit" class="saveavailability" name="saveavailability" value="SAVE MY AVAILABILITY">
+                    <button type="submit" class="saveAvailability" name="refresh_action" value="save_availability">SAVE MY AVAILABILITY</button>
                 </div>
 
             </form>
