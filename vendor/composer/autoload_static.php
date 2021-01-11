@@ -4,12 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5a05b2f02ab18facb7c4bd567b095a61
+class ComposerStaticInitbeee84e4b27bf01798b38f20f31e7728
 {
+    public static $files = array (
+        '8ca8a91f0a826d6c6c8f274c90ca7d88' => __DIR__ . '/..' . '/wpmetabox/meta-box/meta-box.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'A' => 
+        'S' => 
         array (
-            'ShippingAppointments\\' => 9,
+            'ShippingAppointments\\' => 21,
         ),
     );
 
@@ -23,8 +27,8 @@ class ComposerStaticInit5a05b2f02ab18facb7c4bd567b095a61
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5a05b2f02ab18facb7c4bd567b095a61::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5a05b2f02ab18facb7c4bd567b095a61::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbeee84e4b27bf01798b38f20f31e7728::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbeee84e4b27bf01798b38f20f31e7728::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

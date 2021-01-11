@@ -1,0 +1,78 @@
+@import "colors";
+
+#shippingappointments {
+  width: 70%;
+  margin: 30px auto;
+  background-color: $blockBg;
+  box-shadow:0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+
+  .settings-header {
+    padding: 20px 20px 10px;
+    border-bottom: 3px solid $inputBg;
+  }
+
+  .nav-tab-wrapper {
+    padding: 0;
+    border: 0;
+    background-color: $tabBg;
+
+    .nav-tab {
+      margin-left: 0;
+      padding: 15px 20px;
+      border: 0;
+      background-color: transparent;
+      color: #fff;
+      outline:none;
+      box-shadow: none;
+
+      &.nav-tab-active,
+      &.nav-tab-active:focus,
+      &.nav-tab-active:focus:active,
+      &.nav-tab-active:hover
+      {
+        color:$tree-poppy;
+      }
+
+    }
+
+  }
+
+  form {
+    padding:20px;
+
+    .form-wrap p, p.description, p.help, span.description {
+      color:$fieldDescriptionColor;
+      display: block;
+      margin-top: 10px;
+    }
+
+  }
+
+  .settings-container {
+
+    h2  {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .settings-container--description {
+      margin-bottom: 15px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid $tuna;
+      font-size: 15px;
+      margin-top: 0;
+      color:$fieldDescriptionColor;
+    }
+
+  }
+
+  .multiple-checkbox-field > label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .radio-item {
+    margin-right: 10px;
+  }
+
+}

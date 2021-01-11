@@ -71,7 +71,7 @@ gulp.task('sass:compile', function () {
     var tasks = styles.map(function( file){
         return gulp.src( file.src )
             .pipe( concat(file.name + '.css' ) )
-            .pipe(gcmq())
+            // .pipe(gcmq())
             .pipe( sass({outputStyle: 'compressed'}).on('error', sass.logError) )
             .pipe( autoprefixer({
                 overrideBrowserslist: ['last 6 versions'],

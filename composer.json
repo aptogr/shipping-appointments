@@ -9,6 +9,7 @@
     }
   ],
   "require": {
+    "wpmetabox/meta-box": "^4.17",
     "php": "^7.0"
   },
   "autoload": {

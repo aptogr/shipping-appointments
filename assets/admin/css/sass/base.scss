@@ -1,3 +1,10 @@
-a {
-  transform:translateX(100px);
+@import "components/admin-pages-global";
+@import "components/settings-pages";
+@import "components/utility-classes";
+
+@media screen and (max-width: 600px) {
+  a {
+    outline:none;
+  }
 }
+

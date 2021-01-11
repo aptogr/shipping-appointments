@@ -28,3 +28,12 @@
 @import "components/global";
 @import "components/header";
 @import "components/footer";
+
+
+@media screen and (max-width: 600px) {
+
+  a {
+    outline:none;
+  }
+
+}

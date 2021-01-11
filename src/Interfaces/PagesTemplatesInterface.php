@@ -16,7 +16,12 @@ Interface PagesTemplatesInterface {
 	 * set as value value the name of the template
 	 */
 	const PAGE_TEMPLATES    = array(
-		'shipping-appointments-custom.php'   => 'Shipping Appointments Custom Template',
+		'shipping-appointments-custom.php'      => 'Shipping Appointments Custom Template',
+		'dashboard/dashboard.php'               => 'Profenda Dashboard',
+		'dashboard/availability.php'            => 'Profenda Availability',
+		'dashboard/appointments.php'            => 'Profenda Appointments',
+		'dashboard/booking-settings.php'        => 'Profenda Booking Settings',
+		'dashboard/personal-settings.php'       => 'Profenda Personal Settings',
 	);
 
 
