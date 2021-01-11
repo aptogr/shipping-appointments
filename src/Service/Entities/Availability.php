@@ -9,6 +9,8 @@ class Availability {
 
 	use PostEntity;
 
+	public $weekdays_available;
+
 	public function __construct( $id ) {
 
 		$this->ID         = $id;

@@ -3,7 +3,7 @@
 namespace ShippingAppointments\Service\Entities;
 
 use ShippingAppointments\Service\PostType\BoilerplatePost;
-use Castify\Traits\PostEntity;
+use ShippingAppointments\Traits\PostEntity;
 use WP_Query;
 
 class BoilerplateEntity {

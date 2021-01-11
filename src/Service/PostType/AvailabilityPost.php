@@ -22,7 +22,7 @@ class AvailabilityPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'google'  => self::POST_TYPE_NAME . '_google',
+		'weekdays_available'  => self::POST_TYPE_NAME . '_weekdays_available',
 	];
 
 
