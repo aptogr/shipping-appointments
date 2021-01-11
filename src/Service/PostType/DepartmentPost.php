@@ -27,7 +27,8 @@ class DepartmentPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'google'  => self::POST_TYPE_NAME . '_google',
+		'company'   => self::POST_TYPE_NAME . '_company',
+		'type'      => self::POST_TYPE_NAME . '_type',
 	];
 
 
@@ -93,8 +94,8 @@ class DepartmentPost implements TemplatesInterface{
 			'show_in_rest'          => true,
 			'rest_base'             => '',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'rewrite'               => array( 'slug' => 'suppliers', 'with_front' => false ),
-			'has_archive'           => true,
+			'rewrite'               => array( 'slug' => 'departments', 'with_front' => false ),
+			'has_archive'           => false,
 			'show_in_menu'          => 'edit.php?post_type=shipping_company',
 			'show_in_nav_menus'     => true,
 			'exclude_from_search'   => true,
@@ -107,9 +108,9 @@ class DepartmentPost implements TemplatesInterface{
 
 		register_post_type( self::POST_TYPE_NAME, $args );
 
-//		add_rewrite_tag('%episodes%', '([^/]+)', 'castify_episode=');
-//		add_permastruct('episodes', '/podcasts/%podcast%/%episode%', false);
-//		add_rewrite_rule('^podcasts/([^/]+)/([^/]+)/?$','index.php?castify_episode=$matches[2]','top');
+		add_rewrite_tag('%departments%', '([^/]+)', 'shipping_department=');
+		add_permastruct('departments', '/shipping-companies/%company%/%department%', false);
+		add_rewrite_rule('^shipping-companies/([^/]+)/([^/]+)/?$','index.php?shipping_department=$matches[2]','top');
 
 	}
 
@@ -137,9 +138,12 @@ class DepartmentPost implements TemplatesInterface{
 			'autosave'   => 'false',
 			'fields'     => array(
 				array(
-					'id'   => self::META_FIELDS_SLUG['google'],
-					'name' => esc_html__( 'Google Podcast', ShippingAppointments::PLUGIN_NAME ),
-					'type' => 'text',
+					'id'   => self::META_FIELDS_SLUG['company'],
+					'name' => esc_html__( 'Company', ShippingAppointments::PLUGIN_NAME ),
+					'type'        => 'post',
+					'post_type'   => ShippingCompanyPost::POST_TYPE_NAME,
+					'field_type'  => 'select_advanced',
+					'placeholder' => 'Select a company',
 				),
 			),
 		);
@@ -183,6 +187,46 @@ class DepartmentPost implements TemplatesInterface{
 
 		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "department.php";
 		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
+
+	}
+
+
+	/**
+	 * Function changePermalinks()
+	 * Changes the permalinks of departments
+	 *
+	 * @param $permalink
+	 * @param $post
+	 * @param $leavename
+	 *
+	 * @return string|string[]
+	 */
+	public function changePermalinks( $permalink, $post, $leavename) {
+
+		if( $post->post_type === self::POST_TYPE_NAME ) {
+
+			$company = get_post_meta( $post->ID, self::META_FIELDS_SLUG['company'], true );
+
+			$linkParts = explode('/', $permalink );
+			$departmentTitle = $linkParts[ count($linkParts) - 2 ];
+
+			if( !empty( $company ) ){
+
+				$companySlug    = get_post_field('post_name', $company );
+				$permalink      = str_replace('departments',  "shipping-companies/$companySlug", $permalink);
+
+			}
+
+//			if( !empty($departmentTitle) ){
+//
+//				$permalink  = str_replace( $departmentTitle,  "sales-department", $permalink);
+//
+//			}
+
+		}
+
+
+		return $permalink;
 
 	}
 

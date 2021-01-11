@@ -4,7 +4,7 @@
 namespace ShippingAppointments\Service\Entities;
 
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
-use Castify\Traits\PostEntity;
+use ShippingAppointments\Traits\Core\PostEntity;
 
 class ShippingCompany {
 

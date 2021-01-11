@@ -176,7 +176,7 @@ class ShippingCompanyPost implements TemplatesInterface{
 
 		global $post;
 
-		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "boilerplate-post.php";
+		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "shipping-company.php";
 		return (  $post->post_type === self::POST_TYPE_NAME && file_exists( $template ) ? $template : $single_template );
 
 	}
@@ -194,7 +194,7 @@ class ShippingCompanyPost implements TemplatesInterface{
 	 */
 	public function customPostTypeTemplateArchive( $archive_template ) {
 
-		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "boilerplate-post.php";
+		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "shipping-company.php";
 		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
 
 	}

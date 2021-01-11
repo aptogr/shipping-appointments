@@ -4,6 +4,7 @@ namespace ShippingAppointments\Traits;
 
 use ShippingAppointments\Controller\Admin\AdminController;
 use ShippingAppointments\Controller\Front\PublicController;
+use ShippingAppointments\Controller\Save\SaveController;
 use ShippingAppointments\Includes\PageTemplates;
 use ShippingAppointments\Includes\Shortcodes;
 use ShippingAppointments\Includes\Widgets;
@@ -16,6 +17,7 @@ use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
 use ShippingAppointments\Service\PostType\SupplierCompanyPost;
 use ShippingAppointments\Service\User\UserCapabilities;
+use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Service\User\UserRoles;
 
 Trait Hooks {
@@ -205,14 +207,13 @@ Trait Hooks {
 		 * @see DepartmentPost::registerPostType()
 		 * @see DepartmentPost::addMetaBoxes()
 		 * @see DepartmentPost::customPostTypeTemplateSingle()
-		 * @see DepartmentPost::customPostTypeTemplateArchive()
+		 * @see DepartmentPost::changePermalinks()
 		 */
 		$departmentPost = new DepartmentPost( $this->getPluginName(), $this->getPluginDirPath() );
 		$this->loader->addAction( 'init', $departmentPost, 'registerPostType' );
 		$this->loader->addAction( 'rwmb_meta_boxes', $departmentPost, 'addMetaBoxes', 33, 1 );
 		$this->loader->addFilter( 'single_template', $departmentPost,'customPostTypeTemplateSingle', 10, 1 );
-		$this->loader->addFilter( 'archive_template', $departmentPost,'customPostTypeTemplateArchive' );
-
+		$this->loader->addFilter( 'post_type_link', $departmentPost, 'changePermalinks', 5, 3);
 
 
 		/**
@@ -221,14 +222,10 @@ Trait Hooks {
 		 * Functions Hooked:
 		 * @see AvailabilityPost::registerPostType()
 		 * @see AvailabilityPost::addMetaBoxes()
-		 * @see AvailabilityPost::customPostTypeTemplateSingle()
-		 * @see AvailabilityPost::customPostTypeTemplateArchive()
 		 */
 		$availabilityPost = new AvailabilityPost( $this->getPluginName(), $this->getPluginDirPath() );
 		$this->loader->addAction( 'init', $availabilityPost, 'registerPostType' );
 		$this->loader->addAction( 'rwmb_meta_boxes', $availabilityPost, 'addMetaBoxes', 33, 1 );
-		$this->loader->addFilter( 'single_template', $availabilityPost,'customPostTypeTemplateSingle', 10, 1 );
-		$this->loader->addFilter( 'archive_template', $availabilityPost,'customPostTypeTemplateArchive' );
 
 
 
@@ -239,13 +236,25 @@ Trait Hooks {
 		 * @see AppointmentPost::registerPostType()
 		 * @see AppointmentPost::addMetaBoxes()
 		 * @see AppointmentPost::customPostTypeTemplateSingle()
-		 * @see AppointmentPost::customPostTypeTemplateArchive()
 		 */
 		$appointmentPost = new AppointmentPost( $this->getPluginName(), $this->getPluginDirPath() );
 		$this->loader->addAction( 'init', $appointmentPost, 'registerPostType' );
 		$this->loader->addAction( 'rwmb_meta_boxes', $appointmentPost, 'addMetaBoxes', 33, 1 );
 		$this->loader->addFilter( 'single_template', $appointmentPost,'customPostTypeTemplateSingle', 10, 1 );
-		$this->loader->addFilter( 'archive_template', $appointmentPost,'customPostTypeTemplateArchive' );
+
+
+
+		/**
+		 * User Fields
+		 *
+		 * Functions Hooked:
+		 * @see UserFields::registerUserCapabilities()
+		 */
+		$userFields = new UserFields();
+		$this->loader->addAction( 'rwmb_meta_boxes', $userFields, 'registerUserFields', 44, 1 );
+
+		$saveController = new SaveController();
+		$this->loader->addAction('wp_loaded', $saveController, 'saveFields');
 
 	}
 

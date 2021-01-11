@@ -22,7 +22,22 @@ class AvailabilityPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'weekdays_available'  => self::POST_TYPE_NAME . '_weekdays_available',
+		'weekdays_available'    => self::POST_TYPE_NAME . '_weekdays_available',
+		'mon_time_from'         => self::POST_TYPE_NAME . '_mon_time_from',
+		'mon_time_to'           => self::POST_TYPE_NAME . '_mon_time_to',
+		'tue_time_from'         => self::POST_TYPE_NAME . '_tue_time_from',
+		'tue_time_to'           => self::POST_TYPE_NAME . '_tue_time_to',
+		'wed_time_from'         => self::POST_TYPE_NAME . '_wed_time_from',
+		'wed_time_to'           => self::POST_TYPE_NAME . '_wed_time_to',
+		'thu_time_from'         => self::POST_TYPE_NAME . '_thu_time_from',
+		'thu_time_to'           => self::POST_TYPE_NAME . '_thu_time_to',
+		'fri_time_from'         => self::POST_TYPE_NAME . '_fri_time_from',
+		'fri_time_to'           => self::POST_TYPE_NAME . '_fri_time_to',
+		'sat_time_from'         => self::POST_TYPE_NAME . '_sat_time_from',
+		'sat_time_to'           => self::POST_TYPE_NAME . '_sat_time_to',
+		'sun_time_from'         => self::POST_TYPE_NAME . '_sun_time_from',
+		'sun_time_to'           => self::POST_TYPE_NAME . '_sun_time_to',
+		'excluded_dates'        => self::POST_TYPE_NAME . '_excluded_dates',
 	];
 
 
@@ -89,7 +104,7 @@ class AvailabilityPost implements TemplatesInterface{
 			'rest_base'             => '',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'rewrite'               => array( 'slug' => 'availability', 'with_front' => false ),
-			'has_archive'           => true,
+			'has_archive'           => false,
 			'show_in_menu'          => 'users.php',
 			'show_in_nav_menus'     => true,
 			'exclude_from_search'   => true,
@@ -97,7 +112,7 @@ class AvailabilityPost implements TemplatesInterface{
 			'map_meta_cap'          => true,
 			'hierarchical'          => false,
 			'query_var'             => true,
-			'supports'              => array( 'title', 'thumbnail', 'editor', 'excerpt', 'author'),
+			'supports'              => array( 'title','author'),
 		);
 
 		register_post_type( self::POST_TYPE_NAME, $args );
@@ -125,59 +140,86 @@ class AvailabilityPost implements TemplatesInterface{
 
 		$meta_boxes[] = array(
 			'id'         => self::POST_TYPE_NAME . '_information',
-			'title'      => esc_html__( 'Information', ShippingAppointments::PLUGIN_NAME ),
+			'title'      => esc_html__( 'Availability', ShippingAppointments::PLUGIN_NAME ),
 			'post_types' => array( self::POST_TYPE_NAME ),
 			'context'    => 'normal',
 			'priority'   => 'default',
 			'autosave'   => 'false',
 			'fields'     => array(
 				array(
-					'id'   => self::META_FIELDS_SLUG['google'],
-					'name' => esc_html__( 'Google Podcast', ShippingAppointments::PLUGIN_NAME ),
+					'id'   => self::META_FIELDS_SLUG['weekdays_available'],
+					'name' => esc_html__( 'Week days Available', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['mon_time_from'],
+					'name' => esc_html__( 'Monday time from', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['mon_time_to'],
+					'name' => esc_html__( 'Monday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['tue_time_from'],
+					'name' => esc_html__( 'Tuesday time from', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['tue_time_to'],
+					'name' => esc_html__( 'Tuesday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['wed_time_from'],
+					'name' => esc_html__( 'Wednesday time from', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['thu_time_to'],
+					'name' => esc_html__( 'Wednesday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['fri_time_from'],
+					'name' => esc_html__( 'Friday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['fri_time_to'],
+					'name' => esc_html__( 'Friday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['sat_time_from'],
+					'name' => esc_html__( 'Saturday time from', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['sat_time_to'],
+					'name' => esc_html__( 'Saturday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['sun_time_from'],
+					'name' => esc_html__( 'Sunday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['sun_time_to'],
+					'name' => esc_html__( 'Sunday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['excluded_dates'],
+					'name' => esc_html__( 'Excluded Dates', ShippingAppointments::PLUGIN_NAME ),
 					'type' => 'text',
 				),
 			),
 		);
 
 		return $meta_boxes;
-
-	}
-
-
-
-	/**
-	 * This function filters the default single template for the posts
-	 * It's responsible for loading a custom template for the single custom type post
-	 *
-	 * The function is hooked on the 'single_template' hook @see \ShippingAppointments\Traits\Hooks
-	 *
-	 * @param $single_template string - Path to the template.
-	 * @return string
-	 */
-	public function customPostTypeTemplateSingle( $single_template ) {
-
-		global $post;
-
-		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "availability.php";
-		return (  $post->post_type === self::POST_TYPE_NAME && file_exists( $template ) ? $template : $single_template );
-
-	}
-
-
-
-	/**
-	 * This function filters the default archive template for the posts
-	 * It's responsible for loading a custom template for the archive custom type post
-	 *
-	 * The function is hooked on the 'archive_template' hook @see \ShippingAppointments\Traits\Hooks
-	 *
-	 * @param $archive_template string - Path to the template.
-	 * @return string
-	 */
-	public function customPostTypeTemplateArchive( $archive_template ) {
-
-		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "department.php";
-		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
 
 	}
 

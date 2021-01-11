@@ -175,7 +175,7 @@ class SupplierCompanyPost implements TemplatesInterface{
 
 		global $post;
 
-		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "supplier.php";
+		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "supplier-company.php";
 		return (  $post->post_type === self::POST_TYPE_NAME && file_exists( $template ) ? $template : $single_template );
 
 	}
@@ -193,7 +193,7 @@ class SupplierCompanyPost implements TemplatesInterface{
 	 */
 	public function customPostTypeTemplateArchive( $archive_template ) {
 
-		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "supplier.php";
+		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "supplier-company.php";
 		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
 
 	}

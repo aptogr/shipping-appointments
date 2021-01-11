@@ -3,13 +3,35 @@
 
 namespace ShippingAppointments\Traits\Core;
 
+use WP_Post;
+use WP_User;
+
 Trait PostEntity {
 
-    protected $ID;
-    protected $post;
-    protected $author;
-    private $metaSlugs;
-    private $postMeta;
+	/**
+	 * @var $ID int
+	 */
+	public $ID;
+
+	/**
+	 * @var $post WP_Post
+	 */
+	public $post;
+
+	/**
+	 * @var $author WP_User
+	 */
+	public $author;
+
+	/**
+	 * @var $metaSlugs array
+	 */
+	public $metaSlugs;
+
+	/**
+	 * @var $postMeta array
+	 */
+	public $postMeta;
 
     public function setProperties(){
 

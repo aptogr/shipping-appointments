@@ -99,9 +99,9 @@ class AppointmentPost implements TemplatesInterface{
 			'show_in_rest'          => true,
 			'rest_base'             => '',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'rewrite'               => array( 'slug' => 'appointments', 'with_front' => false ),
+			'rewrite'               => array( 'slug' => 'dashboard/appointments', 'with_front' => false ),
 			'menu_icon'             => 'data:image/svg+xml;base64,' . base64_encode( self::POST_TYPE_ICON ),
-			'has_archive'           => true,
+			'has_archive'           => false,
 			'show_in_menu'          => true,
 			'show_in_nav_menus'     => true,
 			'exclude_from_search'   => true,
@@ -170,26 +170,8 @@ class AppointmentPost implements TemplatesInterface{
 
 		global $post;
 
-		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "boilerplate-post.php";
+		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment.php";
 		return (  $post->post_type === self::POST_TYPE_NAME && file_exists( $template ) ? $template : $single_template );
-
-	}
-
-
-
-	/**
-	 * This function filters the default archive template for the posts
-	 * It's responsible for loading a custom template for the archive custom type post
-	 *
-	 * The function is hooked on the 'archive_template' hook @see \ShippingAppointments\Traits\Hooks
-	 *
-	 * @param $archive_template string - Path to the template.
-	 * @return string
-	 */
-	public function customPostTypeTemplateArchive( $archive_template ) {
-
-		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "boilerplate-post.php";
-		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
 
 	}
 

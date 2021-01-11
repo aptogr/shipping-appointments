@@ -1,9 +1,11 @@
 <?php
+
 get_header();
+
 
 ?>
 
-User availability
+All Shipping Companies
 
 <?php
 
