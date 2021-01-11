@@ -16,15 +16,20 @@
 
         //
 
-        var disabledatesHTML = $('.calendar').data('disabledates');
-        var disabledatesHTML = disabledatesHTML.split(",");
+        if ($('.calendar').data('disabledates')) {
+            var disabledatesHTML = $('.calendar').data('disabledates');
+            var disabledatesHTML = disabledatesHTML.split(",");
+        }
+
 
         // console.log('disabledates from html',disabledatesHTML);
 
 
+        if ($('.calendar').data('scheduledates')) {
+            var scheduledatesHTML = $('.calendar').data('scheduledates');
+            var scheduledatesHTML = scheduledatesHTML.split(",");
+        }
 
-        var scheduledatesHTML = $('.calendar').data('scheduledates');
-        var scheduledatesHTML = scheduledatesHTML.split(",");
 
         // console.log(scheduledatesHTML);
 
@@ -131,7 +136,7 @@
 
             var date = that.parent().data('selecteddate');
 
-            console.log(date);
+            // console.log(date);
 
             excludedDatesSelectedTemp = [];
 
@@ -153,7 +158,6 @@
                 timediv = "#" + that.data('timediv');
             // timedivov = "#" + that.data('timediv') + "_ov";
 
-            // console.log()
 
             if(that.is(":checked")){
                 $(timediv).addClass('display-block')
@@ -168,23 +172,24 @@
 
 
         function timeChange() {
-            var that = $(this);
-            var id = that.attr('id');
-
-            console.log(that.val());
-            console.log(id);
-        }
-
-        $( ".timeFromTo" ).on( "submit", ".timeSelect", function() {
-
-            var that = $(this);
-            var id = that.attr('id');
-
+            var that = $(this)
+            that.attr('value', that.val())
             // console.log(that.val());
             // console.log(id);
+        }
 
-            $('.'+id+'_ov').find('span').html(that.val())
-        })
+        // $( ".timeFromTo" ).on( "submit", ".timeSelect", function() {
+        //
+        //     var that = $(this);
+        //     var id = that.attr('id');
+        //
+        //
+        //
+        //     // console.log(that.val());
+        //     // console.log(id);
+        //
+        //     // $('.'+id+'_ov').find('span').html(that.val())
+        // })
 
     });
 
