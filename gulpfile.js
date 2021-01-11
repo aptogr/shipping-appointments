@@ -57,6 +57,9 @@ var scripts = [
     },
     {
         src : [
+            config.srcDirJS + '/jquery.timepicker.min.js',
+            config.srcDirJS + '/moment.js',
+            config.srcDirJS + '/pignose.calendar.min.js',
             config.srcDirJS + '/base.js'
         ],
         name : 'public.min',

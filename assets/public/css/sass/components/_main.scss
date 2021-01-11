@@ -1,0 +1,145 @@
+@import "../project/colors";
+
+.availability {
+  position: relative;
+  margin-left: 250px;
+  width: calc(100% - 250px);
+
+  h1 {
+    color:$h1Color;
+  }
+
+  h2 {
+    color:$h2Color;
+  }
+
+  h3 {
+    color:$h3Color;
+  }
+
+  .main-section {
+    border-bottom: 3px solid $gallery;
+  }
+
+  .main-calendar {
+    padding: 25px 0 0 75px;
+  }
+
+  .daDay {
+    width: 155px;
+  }
+
+  .dayBox {
+    background-color: $gallery;
+    padding: 15px 30px 15px 50px;
+    display: block;
+    position: relative;
+  }
+
+
+  .dayBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+
+  .checkmark {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    height: 25px;
+    width: 25px;
+    background-color: $hospital-white;
+    border-radius: 50%;
+  }
+
+  .checkmark::before {
+    left: 10px;
+    top: 7px;
+    width: 5px;
+    height: 10px;
+    border: black;
+    border-top-width: medium;
+    border-right-width: medium;
+    border-bottom-width: medium;
+    border-left-width: medium;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .dayBox:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  .dayBox input:checked ~ .checkmark {
+    background-color: $mainBGColor;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .dayBox input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .dayBox .checkmark:after {
+    left: 10px;
+    top: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .timeFromTo {
+    display: none;
+    //padding: 0px 0px 20px;
+    //border-bottom: 3px solid $gallery;
+
+    span {
+      color:$mainColor;
+    }
+  }
+
+  .timepicker {
+    background-color: transparent;
+    width: 60px;
+    //text-align: center;
+    border: none;
+    color: $mainColor;
+    font-weight: bold;
+    float: right;
+    text-align: right;
+
+  }
+
+  .ui-timepicker-container {
+    font-size: 14px!important;
+  }
+
+  .timeFrom, .timeTo {
+    background-color: $gallery;
+    padding: 10px 14px;
+    //margin-right: 15px;
+  }
+
+  .timeFrom {
+    border-top: 1px solid #304ffe;
+  }
+
+  .fa-clock-o {
+    margin-right: 10px;
+  }
+
+}
