@@ -8,7 +8,7 @@ get_header();
     <main>
         <div class="row availability">
 
-            <form action="">
+            <form action="" method="post">
 
                 <div class="col l9 m9">
 
@@ -244,7 +244,10 @@ get_header();
                 </div>
 
                 <div class="col l3 m4"></div>
-                <input type="submit" name="saveavailability">
+                <div class="col l12 m12">
+                    <input type="submit" class="saveavailability" name="saveavailability" value="SAVE MY AVAILABILITY">
+                </div>
+
             </form>
         </div>
     </main>
