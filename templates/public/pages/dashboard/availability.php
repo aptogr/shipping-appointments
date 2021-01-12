@@ -1,8 +1,12 @@
 <?php
 get_header();
 
+$platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
+
 //$availability = new \ShippingAppointments\Service\Entities\Availability(1234);
 //$availability->weekdays_available;
+
+//var_dump($platformUser);
 ?>
 
     <main>
@@ -29,14 +33,14 @@ get_header();
                                 <p>Suppliers will be able to book an appointment only on the days of the week you will set.</p>
                             </div>
 
-                            <div class="full-width flex flex-just-space-a margin-top-20 margin-bottom-20">
+                            <div class="full-width flex margin-top-20 margin-bottom-20">
 
                                 <div class="daDay">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayMonday" class="weekDay" data-timediv="mon_time" name="weekdays_available[]" value="mon">
                                         <span class="checkmark"></span>
-                                        <label for="weekDayMonday">Monday</label>
+                                        <span for="weekDayMonday">Monday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="mon_time">
@@ -62,7 +66,7 @@ get_header();
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayTuesday" class="weekDay" data-timediv="tue_time" name="weekdays_available[]" value="tue">
                                         <span class="checkmark"></span>
-                                        <label for="weekDayTuesday">Tuesday</label>
+                                        <span for="weekDayTuesday">Tuesday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="tue_time">
@@ -88,7 +92,7 @@ get_header();
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayWednesday" class="weekDay" data-timediv="wed_time" name="weekdays_available[]" value="wed">
                                         <span class="checkmark"></span>
-                                        <label for="weekDayWednesday">Wednesday</label>
+                                        <span for="weekDayWednesday">Wednesday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="wed_time">
@@ -113,7 +117,7 @@ get_header();
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayThursday" class="weekDay" data-timediv="thu_time" name="weekdays_available[]" value="thu">
                                         <span class="checkmark"></span>
-                                        <label for="weekDayThursday">Thursday</label>
+                                        <span for="weekDayThursday">Thursday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="thu_time">
@@ -139,7 +143,7 @@ get_header();
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri">
                                         <span class="checkmark"></span>
-                                        <label for="weekDayFriday">Friday</label>
+                                        <span for="weekDayFriday">Friday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="fri_time">
@@ -165,7 +169,7 @@ get_header();
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat">
                                         <span class="checkmark"></span>
-                                        <label for="weekDaySaturday">Saturday</label>
+                                        <span for="weekDaySaturday">Saturday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="sat_time">
@@ -191,7 +195,7 @@ get_header();
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun">
                                         <span class="checkmark"></span>
-                                        <label for="weekDaySunday">Sunday</label>
+                                        <span for="weekDaySunday">Sunday</span>
                                     </div>
 
                                     <div class="timeFromTo" id="sun_time">

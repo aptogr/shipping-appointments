@@ -129,6 +129,7 @@
 
 
 
+
         $( "#excludedDatesDiv" ).on( "click", ".selectedDateDelete", function() {
 
 
@@ -152,31 +153,47 @@
 
         });
 
-        $( ".weekDay" ).change(function() {
-
-            var that = $(this),
-                timediv = "#" + that.data('timediv');
-            // timedivov = "#" + that.data('timediv') + "_ov";
-
-
-            if(that.is(":checked")){
-                $(timediv).addClass('display-block')
-                // $(timedivov).addClass('display-block')
-            }
-            else if(that.is(":not(:checked)")){
-                $(timediv).removeClass('display-block')
-                // $(timedivov).removeClass('active')
-            }
-
-        });
+        // $( ".weekDay" ).change(function() {
+        //
+        //     var that = $(this),
+        //         timediv = "#" + that.data('timediv');
+        //     // timedivov = "#" + that.data('timediv') + "_ov";
+        //
+        //
+        //     if(that.is(":checked")){
+        //         $(timediv).addClass('display-block')
+        //         // $(timedivov).addClass('display-block')
+        //     }
+        //     else if(that.is(":not(:checked)")){
+        //         $(timediv).removeClass('display-block')
+        //         // $(timedivov).removeClass('active')
+        //     }
+        //
+        // });
 
 
         function timeChange() {
             var that = $(this)
             that.attr('value', that.val())
             // console.log(that.val());
-            // console.log(id);
         }
+
+        $( ".daDay" ).on( "click",function() {
+            var  that = $(this);
+
+            if (that.find('.weekDay').prop("checked")) {
+
+                that.find('.weekDay').attr('checked', false)
+                that.find('.timeFromTo').removeClass('display-block')
+
+            } else {
+
+                that.find('.weekDay').attr('checked', true);
+                that.find('.timeFromTo').addClass('display-block')
+
+            }
+
+        })
 
         // $( ".timeFromTo" ).on( "submit", ".timeSelect", function() {
         //
