@@ -54,8 +54,7 @@
 
 ?>
 
-    <main>
-        <div class="row availability">
+        <div class="row availability no-margin-bottom">
 
             <form action="" method="post">
 
@@ -304,7 +303,6 @@
 
             </form>
         </div>
-    </main>
 
 <?php
 

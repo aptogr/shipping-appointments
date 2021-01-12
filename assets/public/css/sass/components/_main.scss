@@ -36,10 +36,6 @@ input:focus {
     border-bottom: 3px solid $gallery;
   }
 
-  .main-calendar {
-    padding: 25px 0 0 75px;
-  }
-
   .daDay {
     min-width: 155px;
     margin-right: 15px;
@@ -197,7 +193,7 @@ input:focus {
   }
 
   .saveAvailability {
-    margin: 10px 0px 10px 75px;
+    //margin: 10px 0px 10px 75px;
     padding: 25px 30px;
     font-weight: bold;
     background-color: $mainColor;
