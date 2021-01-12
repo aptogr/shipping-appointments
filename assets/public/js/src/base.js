@@ -35,11 +35,10 @@
         // console.log('disabledates from html',disabledatesHTML);
 
 
-        if ($('.calendar').data('scheduledates')) {
+        if ($('.calendar').data('scheduledates').length > 0) {
             var scheduledatesHTML = $('.calendar').data('scheduledates');
             var scheduledatesHTML = scheduledatesHTML.split(",");
         }
-
 
         // console.log(scheduledatesHTML);
 
@@ -55,7 +54,7 @@
         // console.log(disabledWeekdaysHTML);
 
 
-        var schedules = [];
+        var schedules = ['null/2020-01-17'];
 
         scheduledatesHTML.forEach(function(entry) {
 
@@ -69,7 +68,7 @@
 
         });
 
-        var schedules = schedules.sort((a, b) => (a.date > b.date) ? 1 : -1)
+        // var schedules = schedules.sort((a, b) => (a.date > b.date) ? 1 : -1)
 
         // console.log(schedules);
 

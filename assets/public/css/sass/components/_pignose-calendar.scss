@@ -1,10 +1,66 @@
+@import "../project/colors";
+
 .calendar {
 
   margin-left: 0!important;
+  padding:0!important;
 
   .pignose-calendar {
     width:100%;
     max-width: 100%;
+    background-color: $gallery;
+    box-shadow: 0 0px 4px rgba(0,0,0,0.25);
+
+    .pignose-calendar-top {
+      background-color:transparent;
+      border-bottom: none;
+      box-shadow: none;
+      padding: 1em 0;
+    }
+
+    .pignose-calendar-top-date {
+      color:$mainColor;
+      padding: 0.6em 0!important;
+      text-transform:none!important;
+    }
+
+
+    .pignose-calendar-top-year {
+      display: none!important;
+    }
+
+    .pignose-calendar-header {
+      margin-top:0;
+    }
+
+    .pignose-calendar-row {
+      margin:-25px 0;
+    }
+
+    .pignose-calendar-unit {
+      a {
+        color:#616161!important;
+      }
+    }
+
+    .pignose-calendar-unit-active {
+      a {
+        color:$hospital-white!important;
+        background-color:$mainBGColor!important;
+      }
+    }
+
+    .pignose-calendar-week {
+      color: #b0b0b0!important;
+    }
+
+    .pignose-calendar-top-icon {
+      color:$mainColorLight!important;
+    }
+    .pignose-calendar-top-icon:hover {
+      color:$mainColor!important;
+    }
+
   }
 
 }

@@ -26,27 +26,30 @@
     }
 
 
-    function checkIfNull($day, $type) {
-        if (empty($day)) {
+    function checkIfNull($time, $type) {
+        if (empty($time)) {
             if ($type == 'from') {
                 echo '6:00';
             } else {
                 echo '23:00';
             }
         } else {
-            echo $day;
+            echo $time;
         }
     }
 
     function displayDay($day, $availability_weekdays,$type) {
-        if (in_array($day,$availability_weekdays)) {
-            if ($type == 'div') {
-                echo "display-block";
-            } elseif ($type == 'input') {
-                echo "checked";
-            }
+        if (!empty($availability_weekdays)) {
+            if (in_array($day,$availability_weekdays)) {
+                if ($type == 'div') {
+                    echo "display-block";
+                } elseif ($type == 'input') {
+                    echo "checked";
+                }
 
+            }
         }
+
     }
 
 ?>
@@ -274,8 +277,7 @@
                                         class="calendar col l6 m6"
                                         data-disabledates="2021-01-04,2021-01-14,2021-01-19,2021-01-27,2021-01-03"
                                         data-disabledweekdays=""
-                                        data-scheduledates="Giorgos/2021-01-17,Nikos/2021-01-21,Kostas/2021-01-23,Matsamplokos/2021-01-30,Τα γενέθλια του Μένιου/2021-01-09"
-                                        style="width: 500px;"
+                                        data-scheduledates="null/2001-01-01"
                                 ></div>
                                 <div id="excludedDatesDiv" class="col l6 m6">
                                     <?php excluded_dates_display($excluded_dates);?>
