@@ -4,9 +4,19 @@
     var excludedDatesSelected = new Array();
     var excludedDatesSelectedTemp = new Array();
 
+
+
     $(document).ready(function(){
 
-        console.log('public script loaded');
+        // console.log('public script loaded');
+
+        var excludedDatesSelectedInput = $('#excluded_dates').val();
+
+        if (excludedDatesSelectedInput.length > 0) {
+            excludedDatesSelected = excludedDatesSelectedInput.split(",");
+        }
+
+        console.log(excludedDatesSelectedInput);
 
         $('input.timepicker').timepicker({
             timeFormat: 'HH:mm',
@@ -107,6 +117,7 @@
                 if (excludedDatesSelected.indexOf(date) === -1) {
 
                     excludedDatesSelected.push(date);
+                    console.log(excludedDatesSelected);
                     $('#excluded_dates').val(excludedDatesSelected);
                     var dateDiv = "<div class='exludeDaysBox' data-selecteddate='"+ date +"'>" + date + " <div class='selectedDateDelete' data-selecteddate='"+ date +"' >x</div></div>";
                     $('#excludedDatesDiv').append(dateDiv)
