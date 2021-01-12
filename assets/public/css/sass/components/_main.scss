@@ -1,5 +1,13 @@
 @import "../project/colors";
 
+a:focus {
+  text-decoration: none!important;
+}
+
+input:focus {
+  outline: none!important;
+}
+
 .availability {
 
   section {
@@ -165,16 +173,25 @@
 
     width: 155px;
     margin-bottom: 5px;
-    padding: 0px 10px;
-    border-radius: 5px;
-    background-color: $gallery;
+    padding: 5px 10px;
+    border-radius: 0;
+    background-color: #304ffe;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .selectedDateDelete {
       float: right;
-      margin-right: 5px;
+      margin-left: 15px;
       font-weight: bold;
-      color: #f00;
+      background-color: #659cf2;
       cursor: pointer;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 18px;
+      border-radius: 50%;
     }
 
   }
