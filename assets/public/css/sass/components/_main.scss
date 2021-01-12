@@ -199,6 +199,8 @@ input:focus {
     background-color: $mainColor;
     border: 1px solid $mainColor;
     color: $hospital-white;
+    cursor: pointer;
+    transition: 0.3s;
   }
 
   .saveAvailability:hover {
