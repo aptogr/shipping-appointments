@@ -178,18 +178,18 @@
             // console.log(that.val());
         }
 
-        $( ".daDay" ).on( "click",function() {
+        $( ".dayBox" ).on( "click",function() {
             var  that = $(this);
 
             if (that.find('.weekDay').prop("checked")) {
 
                 that.find('.weekDay').attr('checked', false)
-                that.find('.timeFromTo').removeClass('display-block')
+                that.parent().find('.timeFromTo').removeClass('display-block')
 
             } else {
 
                 that.find('.weekDay').attr('checked', true);
-                that.find('.timeFromTo').addClass('display-block')
+                that.parent().find('.timeFromTo').addClass('display-block')
 
             }
 
