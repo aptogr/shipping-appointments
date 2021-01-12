@@ -19,6 +19,7 @@ use ShippingAppointments\Service\PostType\SupplierCompanyPost;
 use ShippingAppointments\Service\User\UserCapabilities;
 use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Service\User\UserRoles;
+use ShippingAppointments\Service\User\UserTemplates;
 
 Trait Hooks {
 
@@ -253,6 +254,25 @@ Trait Hooks {
 		$userFields = new UserFields();
 		$this->loader->addAction( 'rwmb_meta_boxes', $userFields, 'registerUserFields', 44, 1 );
 
+
+
+		/**
+		 * User Fields
+		 *
+		 * Functions Hooked:
+		 * @see UserTemplates::changeAuthorBaseUrl()
+		 */
+		$userTemplates = new UserTemplates(  $this->getPluginName(), $this->getPluginDirPath()  );
+		$this->loader->addAction( 'init', $userTemplates, 'changeAuthorBaseUrl');
+		$this->loader->addFilter( 'author_template', $userTemplates, 'customUserTemplate', 10, 1 );
+
+
+		/**
+		 * User Fields
+		 *
+		 * Functions Hooked:
+		 * @see SaveController::saveFields()
+		 */
 		$saveController = new SaveController();
 		$this->loader->addAction('wp_loaded', $saveController, 'saveFields');
 

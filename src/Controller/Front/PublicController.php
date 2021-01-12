@@ -85,9 +85,30 @@ class PublicController implements PublicInterface {
 	 */
 	public function pluginNameBodyClass( $classes ){
 
-		$classes[] = $this->getPluginName();
+		$classes[]  = $this->getPluginName();
+		$classes[] = ( $this->isDashboardPage() ? 'platform-dashboard-page' : '');
 
 		return $classes;
+
+	}
+
+
+	private function isDashboardPage(){
+
+		global $post;
+
+		if ($post->post_parent)	{
+			$ancestors=get_post_ancestors($post->ID);
+			$root=count($ancestors)-1;
+			$parent = $ancestors[$root];
+		}
+		else {
+			$parent = $post->ID;
+		}
+
+		$slug = get_post_field( 'post_name', $parent );
+
+		return $slug === 'dashboard';
 
 	}
 
