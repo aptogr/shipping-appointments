@@ -3,7 +3,7 @@ get_header();
 
 ?>
 
-    Find supplier companies
+    Find companies page
 
 <?php
 

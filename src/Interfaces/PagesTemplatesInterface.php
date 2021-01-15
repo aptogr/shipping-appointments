@@ -16,12 +16,16 @@ Interface PagesTemplatesInterface {
 	 * set as value value the name of the template
 	 */
 	const PAGE_TEMPLATES    = array(
-		'shipping-appointments-custom.php'      => 'Shipping Appointments Custom Template',
 		'dashboard/dashboard.php'               => 'Profenda Dashboard',
 		'dashboard/availability.php'            => 'Profenda Availability',
-		'dashboard/appointments.php'            => 'Profenda Appointments',
-		'dashboard/booking-settings.php'        => 'Profenda Booking Settings',
-		'dashboard/personal-settings.php'       => 'Profenda Personal Settings',
+        'dashboard/appointments/appointments.php'            => 'Profenda / Appointments',
+        'dashboard/appointments/my-appointments.php'            => 'Profenda / My Appointments',
+        'dashboard/appointments/company-appointments.php'            => 'Profenda / Company Appointments',
+		'dashboard/booking/booking-settings.php'        => 'Profenda Booking Settings',
+		'dashboard/settings/personal-settings.php'       => 'Profenda Personal Settings',
+		'dashboard/find/find.php'                       => 'Profenda Find Companies',
+		'dashboard/find/shipping-companies.php'       => 'Profenda Find Shipping Companies',
+		'dashboard/find/supplier-companies.php'       => 'Profenda Find Suppliers',
 	);
 
 

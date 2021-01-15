@@ -3,7 +3,7 @@ get_header();
 
 ?>
 
-    Find supplier companies
+   Company Appointments page here
 
 <?php
 

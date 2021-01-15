@@ -12,6 +12,30 @@ class UserCapabilities {
 	 * Value is an array of user roles slugs
 	 */
 	const CUSTOM_USER_CAPABILITIES = array(
+	    'shipping_user' => array(
+            'shipping_company_admin',
+            'shipping_company_department_admin',
+            'shipping_company_employee',
+        ),
+	    'supplier_user' => array(
+            'supplier_company_admin',
+            'supplier_company_employee'
+        ),
+	    'shipping_company_admin' => array(
+            'shipping_company_admin',
+        ),
+	    'shipping_company_department_admin' => array(
+            'shipping_company_department_admin',
+        ),
+	    'shipping_company_employee' => array(
+            'shipping_company_employee',
+        ),
+	    'supplier_company_admin' => array(
+            'supplier_company_admin',
+        ),
+	    'supplier_company_employee' => array(
+            'supplier_company_employee',
+        ),
 		'edit_shipping_company_profile'             => array(
 			'shipping_company_admin'
 		),
