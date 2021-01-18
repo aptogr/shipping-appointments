@@ -105,9 +105,9 @@ class UserFields {
 					'name'              => 'Booking request type',
 					'id'                => self::META_FIELDS_SLUG['booking_request_type'],
 					'desc'              => 'The way the booking requests are made. Email or instant booking',
-					'type'              => 'select',
+					'type'              => 'radio',
 					'options'         => array(
-						'email'          => 'Ask via Email first',
+						'email'             => 'Ask via Email first',
 						'instant'           => 'Instant Booking',
 					),
 				),
