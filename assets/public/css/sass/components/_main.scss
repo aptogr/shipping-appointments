@@ -8,11 +8,119 @@ input:focus {
   outline: none!important;
 }
 
+h1 {
+  color:$h1Color;
+}
+
+h2 {
+  color:$h2Color;
+}
+
+h3 {
+  color:$h3Color;
+}
+
+.save-button {
+  padding: 25px 30px;
+  font-weight: bold;
+  background-color: $mainColor;
+  border: 1px solid $mainColor;
+  color: $hospital-white;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: $hospital-white;
+    color: $mainColor;
+  }
+
+  &:focus {
+    background-color: $hospital-white;
+    color: $mainColor;
+  }
+
+}
+
+//.save-button:hover, .save-button:focus {
+//  background-color: $hospital-white;
+//  color: $mainColor;
+//}
+
+
+.main-section {
+  border-bottom: 3px solid $gallery;
+  padding:30px 0px;
+}
+
+
+
+// jQuery UI Spinner/Number
+
+.ui-spinner {
+
+  border: none!important;
+  background-color: $gallery!important;
+
+  .ui-spinner-input {
+    color: $mainColor!important;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px !important;
+  }
+
+  a {
+
+    background-color:$mainColorLight!important;
+    transition: 0.3s;
+
+    &:hover {
+      background-color:$mainColor!important;
+    }
+
+  }
+
+  .ui-icon {
+
+    background-image: url("images/ui-icons_ffffff_256x240.png") !important;
+
+    &:hover {
+      background-image: url("images/ui-icons_ffffff_256x240.png") !important;
+    }
+
+  }
+
+}
+
+
+// jQuery UI CheckBox
+
+.ui-state-active {
+  background-color: $mainColorLight!important;
+  border-color: $mainColor !important;
+  box-shadow: 0 0 3px $mainColor;
+}
+
+
+.ui-checkboxradio-label {
+
+  &:hover {
+    background-color: $mainColorLight!important;
+    border-color: $mainColor !important;
+  }
+
+  .ui-icon {
+    width: 8px!important;
+    height: 8px!important;
+  }
+
+  .ui-checkboxradio-icon-space {
+    margin-right: 2px;
+  }
+
+}
+
 .availability {
 
-  section {
-    padding:30px 0px;
-  }
 
   background-color:$hospital-white;
   position: relative;
@@ -20,26 +128,9 @@ input:focus {
   //width: calc(100% - 250px);
   width:100%;
 
-  h1 {
-    color:$h1Color;
-  }
-
-  h2 {
-    color:$h2Color;
-  }
-
-  h3 {
-    color:$h3Color;
-  }
-
-  .main-section {
-    border-bottom: 3px solid $gallery;
-  }
-
   .daDay {
     min-width: 155px;
-    margin-right: 15px;
-    cursor: pointer;
+    margin-right: 7px;
 
     span {
       font-weight: 700;
@@ -51,9 +142,12 @@ input:focus {
 
   .dayBox {
     background-color: $gallery;
-    padding: 7px 30px 8px 50px;
+    padding: 10px 30px 10px 50px;
     display: block;
     position: relative;
+    cursor: pointer;
+    border:1px solid $gallery;
+    transition: 0.3s;
 
     input {
       position: absolute;
@@ -66,15 +160,23 @@ input:focus {
 
   }
 
+  .dayBox:hover {
+    border-color:$mainColor;
+  }
+
+  .active .dayBox:hover {
+    border-bottom: 1px solid $gallery;
+  }
 
   .checkmark {
     position: absolute;
-    top: 12px;
+    top: 9px;
     left: 15px;
     height: 25px;
     width: 25px;
     background-color: $hospital-white;
     border-radius: 50%;
+    transition: 0.3s;
   }
 
   .checkmark::before {
@@ -126,8 +228,6 @@ input:focus {
   .timeFromTo {
     display: none;
     font-size: 15px;
-    //padding: 0px 0px 20px;
-    //border-bottom: 3px solid $gallery;
 
     span {
       color:$mainColor;
@@ -135,15 +235,15 @@ input:focus {
   }
 
   .timepicker {
-    background-color: transparent;
+    background-color: $hospital-white;
     width: 60px;
-    //text-align: center;
+    text-align: center;
     border: none;
     color: $mainColor;
     font-weight: bold;
     float: right;
-    text-align: right;
     padding: 0px;
+    cursor: pointer;
 
   }
 
@@ -190,22 +290,6 @@ input:focus {
       border-radius: 50%;
     }
 
-  }
-
-  .saveAvailability {
-    //margin: 10px 0px 10px 75px;
-    padding: 25px 30px;
-    font-weight: bold;
-    background-color: $mainColor;
-    border: 1px solid $mainColor;
-    color: $hospital-white;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .saveAvailability:hover {
-    background-color: $hospital-white;
-    color: $mainColor;
   }
 
 }

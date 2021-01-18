@@ -9,7 +9,8 @@
     width:100%;
     max-width: 100%;
     background-color: $gallery;
-    box-shadow: 0 0px 4px rgba(0,0,0,0.25);
+    box-shadow: none!important;
+    border:0;
 
     .pignose-calendar-top {
       background-color:transparent;

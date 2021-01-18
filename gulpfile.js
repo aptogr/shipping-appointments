@@ -60,7 +60,8 @@ var scripts = [
             config.srcDirJS + '/jquery.timepicker.min.js',
             config.srcDirJS + '/moment.js',
             config.srcDirJS + '/pignose.calendar.min.js',
-            config.srcDirJS + '/base.js'
+            config.srcDirJS + '/base.js',
+            config.srcDirJS + '/jquery-ui.min.js'
         ],
         name : 'public.min',
         dest : config.destDirJS + ''
