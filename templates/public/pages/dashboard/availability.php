@@ -17,7 +17,7 @@
         $availability_weekdays = explode(",", $platformUser->availability->postMeta['user_availability_weekdays_available'][0]);
     }
 
-    function excluded_dates_display($excluded_dates) {
+    function excludedDatesDisplay($excluded_dates) {
         if (!empty($excluded_dates[0])) {
             foreach ($excluded_dates as $value) {
                 echo "<div class='exludeDaysBox' data-selecteddate='".$value."'>".$value." <div class='selectedDateDelete' data-selecteddate='".$value."' >x</div></div>";
@@ -39,12 +39,15 @@
     }
 
     function displayDay($day, $availability_weekdays,$type) {
+
         if (!empty($availability_weekdays)) {
             if (in_array($day,$availability_weekdays)) {
                 if ($type == 'div') {
-                    echo "display-block";
+                    echo "display:block;";
                 } elseif ($type == 'input') {
                     echo "checked";
+                } elseif ($type == 'act') {
+                    echo "active";
                 }
 
             }
@@ -79,7 +82,7 @@
 
                             <div class="full-width flex margin-top-20 margin-bottom-20">
 
-                                <div class="daDay">
+                                <div class="daDay <?php displayDay('mon',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayMonday" class="weekDay" data-timediv="mon_time" name="weekdays_available[]" value="mon" <?php displayDay('mon',$availability_weekdays,'input'); ?>>
@@ -87,7 +90,7 @@
                                         <span for="weekDayMonday">Monday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('mon',$availability_weekdays,'div'); ?>" id="mon_time">
+                                    <div class="timeFromTo" style="<?php displayDay('mon',$availability_weekdays,'div'); ?>" id="mon_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -105,7 +108,7 @@
                                 </div>
 
 
-                                <div class="daDay">
+                                <div class="daDay  <?php displayDay('tue',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayTuesday" class="weekDay" data-timediv="tue_time" name="weekdays_available[]" value="tue" <?php displayDay('tue',$availability_weekdays,'input'); ?>>
@@ -113,7 +116,7 @@
                                         <span for="weekDayTuesday">Tuesday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('tue',$availability_weekdays,'div'); ?>" id="tue_time">
+                                    <div class="timeFromTo" style="<?php displayDay('tue',$availability_weekdays,'div'); ?>" id="tue_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -131,7 +134,7 @@
 
                                 </div>
 
-                                <div class="daDay">
+                                <div class="daDay  <?php displayDay('wed',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayWednesday" class="weekDay" data-timediv="wed_time" name="weekdays_available[]" value="wed" <?php displayDay('wed',$availability_weekdays,'input'); ?>>
@@ -139,7 +142,7 @@
                                         <span for="weekDayWednesday">Wednesday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('wed',$availability_weekdays,'div'); ?>" id="wed_time">
+                                    <div class="timeFromTo" style="<?php displayDay('wed',$availability_weekdays,'div'); ?>" id="wed_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -156,7 +159,7 @@
                                     </div>
                                 </div>
 
-                                <div class="daDay">
+                                <div class="daDay  <?php displayDay('thu',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayThursday" class="weekDay" data-timediv="thu_time" name="weekdays_available[]" value="thu" <?php displayDay('thu',$availability_weekdays,'input'); ?>>
@@ -164,7 +167,7 @@
                                         <span for="weekDayThursday">Thursday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('thu',$availability_weekdays,'div'); ?>" id="thu_time">
+                                    <div class="timeFromTo" style="<?php displayDay('thu',$availability_weekdays,'div'); ?>" id="thu_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -182,7 +185,7 @@
 
                                 </div>
 
-                                <div class="daDay">
+                                <div class="daDay  <?php displayDay('fri',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri" <?php displayDay('fri',$availability_weekdays,'input'); ?>>
@@ -190,7 +193,7 @@
                                         <span for="weekDayFriday">Friday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('fri',$availability_weekdays,'div'); ?>" id="fri_time">
+                                    <div class="timeFromTo" style="<?php displayDay('fri',$availability_weekdays,'div'); ?>" id="fri_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -208,7 +211,7 @@
 
                                 </div>
 
-                                <div class="daDay">
+                                <div class="daDay  <?php displayDay('sat',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat" <?php displayDay('sat',$availability_weekdays,'input'); ?>>
@@ -216,7 +219,7 @@
                                         <span for="weekDaySaturday">Saturday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('sat',$availability_weekdays,'div'); ?>" id="sat_time">
+                                    <div class="timeFromTo" style="<?php displayDay('sat',$availability_weekdays,'div'); ?>" id="sat_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -234,7 +237,7 @@
 
                                 </div>
 
-                                <div class="daDay">
+                                <div class="daDay  <?php displayDay('sun',$availability_weekdays,'act'); ?>">
 
                                     <div class="dayBox">
                                         <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun" <?php displayDay('sun',$availability_weekdays,'input'); ?>>
@@ -242,7 +245,7 @@
                                         <span for="weekDaySunday">Sunday</span>
                                     </div>
 
-                                    <div class="timeFromTo <?php displayDay('sun',$availability_weekdays,'div'); ?>" id="sun_time">
+                                    <div class="timeFromTo" style="<?php displayDay('sun',$availability_weekdays,'div'); ?>" id="sun_time">
 
                                         <div class="full-width flex flex-dir-col">
 
@@ -279,7 +282,7 @@
                                         data-scheduledates="null/2001-01-01"
                                 ></div>
                                 <div id="excludedDatesDiv" class="col l6 m6">
-                                    <?php excluded_dates_display($excluded_dates);?>
+                                    <?php excludedDatesDisplay($excluded_dates);?>
                                 </div>
                                 <input type="hidden" name="excluded_dates" id="excluded_dates" value="<?php
                                     if (isset($platformUser->availability->postMeta['user_availability_excluded_dates'][0])) {
@@ -297,8 +300,8 @@
                 </div>
 
                 <div class="col l3 m4"></div>
-                <div class="col l12 m12">
-                    <button type="submit" class="saveAvailability" name="refresh_action" value="save_availability">SAVE MY AVAILABILITY</button>
+                <div class="col l12 m12 margin-top-30">
+                    <button type="submit" class="saveAvailability save-button" name="refresh_action" value="save_availability">SAVE MY AVAILABILITY</button>
                 </div>
 
             </form>

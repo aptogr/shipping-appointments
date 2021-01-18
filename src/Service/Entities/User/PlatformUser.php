@@ -71,10 +71,13 @@ class PlatformUser extends WP_User  {
 		$this->setPropertiesObjects();
 		$this->setAppointments();
 
+
 	}
 
 
 	public function setProperties(){
+
+
 
 		$metaSlugs = UserFields::META_FIELDS_SLUG;
 
