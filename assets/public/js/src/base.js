@@ -5,47 +5,47 @@
     var excludedDatesSelectedTemp = new Array();
 
 
-
     $(document).ready(function(){
 
-        if ($('body.page-template-booking-settings').length > 0) {
-
-            $( "#meeting_duration" ).spinner();
-            $( "#meeting_buffer" ).spinner();
-            $( "#max_meetings_per_day" ).spinner();
-            $( "#book_in_advance_days" ).spinner();
-            $( "#meet_same_supplier_times" ).spinner();
-
-            $( "#booking_request_type_email" ).checkboxradio();
-            $( "#booking_request_type_instant" ).checkboxradio();
+        if ($('body.shippingappointments').length > 0) {
+            var disableTimeRanges = [
+                ['11:00', '11:31'],
+                ['15:00', '17:00'],
+                ['20:00', '21:31']
+            ];
+            // $('input.timepicker').timepicker({
+            //     'timeFormat': 'HH:mm',
+            //     // scrollbar: true,
+            //     change: timeChange
+            // });
+            $('input.timepicker').timepicker({
+                'timeFormat': 'H:i',
+                'show2400': true,
+                'disableTimeRanges': disableTimeRanges
+            });
 
         }
 
-        if ($('body.page-template-availability').length > 0) {
+        function timeChange() {
+            // var that = $(this)
+            // that.attr('value', that.val())
+            // console.log(that.val());
+            console.log('ou lala');
+        }
 
-            var excludedDatesSelectedInput = $('#excluded_dates').val();
+        $('input.timepicker').on("selectTime", function() {
+            var that = $(this)
+            that.attr('value', that.val())
+            console.log(that.val());
+        });
 
-            if (excludedDatesSelectedInput.length > 0) {
-                excludedDatesSelected = excludedDatesSelectedInput.split(",");
-            }
+        if ($('.calendar').length > 0) {
+            console.log('calendar detected');
 
-            console.log(excludedDatesSelectedInput);
-
-            $('input.timepicker').timepicker({
-                timeFormat: 'HH:mm',
-                // scrollbar: true,
-                change: timeChange
-            });
-
-            //
-
-            if ($('.calendar').data('disabledates')) {
+            if ($('.calendar').data('disabledates').length > 0) {
                 var disabledatesHTML = $('.calendar').data('disabledates');
                 var disabledatesHTML = disabledatesHTML.split(",");
             }
-
-
-            // console.log('disabledates from html',disabledatesHTML);
 
 
             if ($('.calendar').data('scheduledates').length > 0) {
@@ -111,13 +111,22 @@
 
                     }
 
+
                 },
 
                 click: function (event, context) {
 
                     var that = $(this);
-                    var date = that[0].dataset.date;
+                    var date = that[0].dataset.date; //Hmerominia sto click
                     event.preventDefault();
+
+                    if ($('body.shippingappointments').length > 0) {
+                        console.log('shippingappointments click');
+                        // var dateId = date.replace(new RegExp('-', 'g'),"")
+                        // console.log(dateId)
+                        $('#shippingDay').attr('value', date)
+                        $('.dayDisplay').html(date)
+                    }
 
 
                     if (excludedDatesSelected.indexOf(date) === -1) {
@@ -144,6 +153,40 @@
 
             });
 
+        }
+
+        if ($('body.page-template-booking-settings').length > 0) {
+
+            $( "#meeting_duration" ).spinner();
+            $( "#meeting_buffer" ).spinner();
+            $( "#max_meetings_per_day" ).spinner();
+            $( "#book_in_advance_days" ).spinner();
+            $( "#meet_same_supplier_times" ).spinner();
+
+            $( "#booking_request_type_email" ).checkboxradio();
+            $( "#booking_request_type_instant" ).checkboxradio();
+
+        }
+
+        if ($('body.page-template-availability').length > 0) {
+
+            var excludedDatesSelectedInput = $('#excluded_dates').val();
+
+            if (excludedDatesSelectedInput.length > 0) {
+                excludedDatesSelected = excludedDatesSelectedInput.split(",");
+            }
+
+            console.log(excludedDatesSelectedInput);
+
+            $('input.timepicker').timepicker({
+                'timeFormat': 'H:i',
+                'show2400': true,
+            });
+
+            //
+
+
+
 
             $("#excludedDatesDiv").on("click", ".selectedDateDelete", function () {
 
@@ -166,11 +209,6 @@
 
             });
 
-            function timeChange() {
-                var that = $(this)
-                that.attr('value', that.val())
-                // console.log(that.val());
-            }
 
             $(".dayBox").on("click", function () {
                 var that = $(this);

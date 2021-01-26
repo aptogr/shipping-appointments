@@ -119,6 +119,38 @@ h3 {
 
 }
 
+//TimePicker
+.timepicker {
+  background-color: $hospital-white;
+  width: 60px;
+  text-align: center;
+  border: none;
+  color: $mainColor;
+  font-weight: bold;
+  float: right;
+  padding: 0px;
+  cursor: pointer;
+
+}
+
+.ui-timepicker-container {
+  font-size: 14px!important;
+}
+
+.timeFrom, .timeTo {
+  background-color: $gallery;
+  padding: 10px 14px;
+  //margin-right: 15px;
+}
+
+.timeFrom {
+  border-top: 1px solid #304ffe;
+}
+
+.fa-clock-o {
+  margin-right: 10px;
+}
+
 .availability {
 
 
@@ -232,37 +264,6 @@ h3 {
     span {
       color:$mainColor;
     }
-  }
-
-  .timepicker {
-    background-color: $hospital-white;
-    width: 60px;
-    text-align: center;
-    border: none;
-    color: $mainColor;
-    font-weight: bold;
-    float: right;
-    padding: 0px;
-    cursor: pointer;
-
-  }
-
-  .ui-timepicker-container {
-    font-size: 14px!important;
-  }
-
-  .timeFrom, .timeTo {
-    background-color: $gallery;
-    padding: 10px 14px;
-    //margin-right: 15px;
-  }
-
-  .timeFrom {
-    border-top: 1px solid #304ffe;
-  }
-
-  .fa-clock-o {
-    margin-right: 10px;
   }
 
   .exludeDaysBox {
