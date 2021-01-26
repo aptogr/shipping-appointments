@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Controller\Front;
 
+use ShippingAppointments\Controller\Ajax\AjaxController;
 use ShippingAppointments\Interfaces\PublicInterface;
 use ShippingAppointments\Traits\Core\Plugin;
 
@@ -70,6 +71,18 @@ class PublicController implements PublicInterface {
 	public function enqueueScripts() {
 
 		wp_enqueue_script( $this->getPluginName(), $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'public.min.js', array( 'jquery' ), null, true );
+
+        $ajaxController = new AjaxController();
+        wp_localize_script(
+            $this->getPluginName(),
+            'AjaxController',
+            array_merge( [
+                'ajax_url'   => admin_url( 'admin-ajax.php' ),
+                'security'   => wp_create_nonce( $this->getPluginName() ),
+            ],
+                $ajaxController->getJSAjaxActions()
+            )
+        );
 
 	}
 

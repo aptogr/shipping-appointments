@@ -3,7 +3,7 @@ get_header();
 
 ?>
 
-User page
+User page test
 
 <?php
 get_footer();

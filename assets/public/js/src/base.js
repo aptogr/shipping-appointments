@@ -1,3 +1,4 @@
+/*  global AjaxController */
 (function ($) {
     'use strict';
 
@@ -230,7 +231,37 @@
 
                 }
 
-            })
+            });
+
+            $('.kati').on('click', function(){
+
+
+                jQuery.ajax({
+                    url: AjaxController.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: AjaxController.getBookingTimes,
+                        data: $modalContent.find('form').serialize()
+                    },
+                    beforeSend: function () {
+
+                        $modalLoader.removeClass('hide');
+
+                    },
+                    success: function (response) {
+
+                        console.log(response);
+
+                        $.each( response.formData, function(index, value){
+                            $(".edit-property-object-block--content--field[data-field='" + index + "']").find('.col-value').text(value);
+                        });
+
+                        closeModal();
+                    }
+
+                });//end ajax
+
+            });
 
         }
     });

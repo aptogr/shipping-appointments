@@ -77,8 +77,6 @@ class PlatformUser extends WP_User  {
 
 	public function setProperties(){
 
-
-
 		$metaSlugs = UserFields::META_FIELDS_SLUG;
 
 		foreach ( $metaSlugs as $property => $metaKey ){

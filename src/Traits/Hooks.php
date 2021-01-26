@@ -3,6 +3,7 @@
 namespace ShippingAppointments\Traits;
 
 use ShippingAppointments\Controller\Admin\AdminController;
+use ShippingAppointments\Controller\Ajax\AjaxController;
 use ShippingAppointments\Controller\Front\PublicController;
 use ShippingAppointments\Controller\Save\SaveController;
 use ShippingAppointments\Includes\PageTemplates;
@@ -275,6 +276,29 @@ Trait Hooks {
 		 */
 		$saveController = new SaveController();
 		$this->loader->addAction('wp_loaded', $saveController, 'saveFields');
+
+
+        /**
+         * Ajax Controller
+         *
+         * Functions Hooked:
+         * @see AjaxController
+         */
+        $ajaxController = new AjaxController();
+
+        foreach( AjaxController::AJAX_ACTIONS as $ajaxAction => $ajaxData ){
+
+            if( isset( $ajaxData['callback'] ) && method_exists( $ajaxController, $ajaxData['callback'] ) ){
+
+                $this->loader->addAction( "wp_ajax_$ajaxAction", $ajaxController, $ajaxData['callback'] );
+
+                if( $ajaxData['nopriv'] === true ){
+                    $this->loader->addAction( "wp_ajax_nopriv_$ajaxAction", $ajaxController, $ajaxData['callback'] );
+                }
+
+            }
+
+        }
 
 	}
 
