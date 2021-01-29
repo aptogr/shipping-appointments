@@ -9,8 +9,8 @@ Interface AjaxInterface {
             'callback' => 'testAjax',
             'nopriv'   => false,
         ),
-        'getBookingTimes' => array(
-            'callback' => 'getBookingTimes',
+        'getTime' => array(
+            'callback' => 'getTime',
             'nopriv'   => false,
         ),
     );

@@ -276,9 +276,10 @@
 
                             <div class="full-width flex">
                                 <div
-                                        class="calendar col l6 m6"
-                                        data-disabledates="2021-01-04,2021-01-14,2021-01-19,2021-01-27,2021-01-03"
+                                        class="calendar availability col l6 m6"
+                                        data-disabledates="2021-01-04"
                                         data-disabledweekdays=""
+                                        data-bookinadvance=""
                                         data-scheduledates="null/2001-01-01"
                                 ></div>
                                 <div id="excludedDatesDiv" class="col l6 m6">

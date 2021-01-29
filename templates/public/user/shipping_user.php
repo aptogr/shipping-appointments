@@ -1,15 +1,16 @@
 <?php
-get_header();
+//get_header();
 
 
-$platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
+$platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_queried_object_id() );
 
 
 
-echo "<pre>";
-print_r($platformUser->availability->postMeta);
-print_r($platformUser);
-echo "</pre>";
+
+//echo "<pre>";
+////print_r($platformUser->availability->postMeta);
+//print_r($platformUser);
+//echo "</pre>";
 
 //echo $platformUser->availability->excluded_dates;
 
@@ -51,30 +52,33 @@ function weekdaysDisalable($weekDays) {
 
         <div class="col m6 l6">
             <div
-                    class="calendar col l6 m6"
+                    class="calendar shippingUser col l6 m6"
                     data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
                     data-disabledweekdays="<?php weekdaysDisalable($platformUser->availability->weekdays_available);?>"
+                    data-bookinadvance="<?php echo $platformUser->book_in_advance_days;?>"
                     data-scheduledates="null/2001-01-01"
             ></div>
         </div>
 
         <div class="col m6 l6">
-            <div id="selectedShippingDates">
+            <div class="dayDisplay">
+
+            </div>
                 <input type="hidden" id='shippingDay' name='shippingDay' value=''>
+            <div id="selectedShippingDates">
 
-                <div class="col l4 m4 flex flex-dir-col">
-                    <div class="dayDisplay">
-                        <?php echo date("Y-m-d");?>
-                    </div>
-                    <div class="timeFrom">
-                        <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="shippingDayFrom" name="shippingDayFrom" value="06:00" data-disTime="08:00,10:00|">
-                    </div>
+<!--                <div class="col l4 m4 flex flex-dir-col">-->
 
-                    <div class="timeTo">
-                        <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="shippingDayTo" name="shippingDayTo" value="23:00">
-                    </div>
 
-                </div>
+<!--                    <div class="timeFrom">-->
+<!--                        <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="shippingDayFrom" name="shippingDayFrom" value="06:00" data-disTime="08:00,10:00|">-->
+<!--                    </div>-->
+
+<!--                    <div class="timeTo">-->
+<!--                        <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="shippingDayTo" name="shippingDayTo" value="23:00">-->
+<!--                    </div>-->
+
+<!--                </div>-->
  
             </div>
         </div>
@@ -87,4 +91,4 @@ function weekdaysDisalable($weekDays) {
 </div>
 
 <?php
-get_footer();
+//get_footer();
