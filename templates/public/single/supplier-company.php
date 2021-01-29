@@ -203,7 +203,7 @@ $supplierCompany = new SupplierCompany( $companyID );
                             </div>
                             <div class="swiper-slide">
 
-                                <div class="col s12">
+                                <div class="col s12 marign-top-30">
 
                                     <h2>
                                         Book an appointment

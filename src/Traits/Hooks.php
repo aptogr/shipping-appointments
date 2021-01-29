@@ -323,6 +323,7 @@ Trait Hooks {
 		 *
 		 * Functions Hooked:
 		 * @see UserTemplates::changeAuthorBaseUrl()
+		 * @see UserTemplates::customUserTemplate()
 		 */
 		$userTemplates = new UserTemplates(  $this->getPluginName(), $this->getPluginDirPath()  );
 		$this->loader->addAction( 'init', $userTemplates, 'changeAuthorBaseUrl');

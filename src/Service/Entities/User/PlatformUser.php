@@ -8,6 +8,7 @@ use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\SupplierCompany;
 use ShippingAppointments\Service\PostType\AppointmentPost;
+use ShippingAppointments\Service\Taxonomy\CountryTaxonomy;
 use ShippingAppointments\Service\User\UserFields;
 use WP_Query;
 use WP_User;
@@ -15,6 +16,8 @@ use ShippingAppointments\Service\Entities\Availability;
 
 class PlatformUser extends WP_User  {
 
+	public $location;
+	public $timezone;
 	public $shipping_company_id;
 	public $shipping_company_department_id;
 	public $supplier_company_id;
@@ -136,7 +139,39 @@ class PlatformUser extends WP_User  {
 
 		}
 
+	}
 
+	public function getCountryDisplayName(){
+
+		if( !empty( $this->location ) ){
+
+			$countries = CountryTaxonomy::COUNTRIES_ARRAY;
+
+			return ( isset( $countries[$this->location] ) ? ucfirst( strtolower($countries[$this->location])) : '');
+
+
+		}
+		else {
+			return '';
+		}
+
+	}
+
+
+	public function getTimezoneDisplayName(){
+
+
+		if( !empty( $this->timezone ) ){
+
+			$timeZones = UserFields::TIME_ZONES;
+
+			return ( isset( $timeZones[$this->timezone] ) ? $timeZones[$this->timezone] : '');
+
+
+		}
+		else {
+			return '';
+		}
 
 	}
 
