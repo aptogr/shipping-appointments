@@ -19,6 +19,8 @@ class ServiceSaveController {
 
     public function save( $formData ){
 
+    	$this->actionsBeforeSave();
+
         if( is_array( $this->fieldsSlug) && !empty( $this->fieldsSlug ) ){
 
             foreach( $this->fieldsSlug as $formField => $metaKey ){
