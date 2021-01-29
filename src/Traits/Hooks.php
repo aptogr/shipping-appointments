@@ -17,6 +17,11 @@ use ShippingAppointments\Service\PostType\AvailabilityPost;
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
 use ShippingAppointments\Service\PostType\SupplierCompanyPost;
+use ShippingAppointments\Service\Taxonomy\BrandTaxonomy;
+use ShippingAppointments\Service\Taxonomy\CountryTaxonomy;
+use ShippingAppointments\Service\Taxonomy\DepartmentType;
+use ShippingAppointments\Service\Taxonomy\PortTaxonomy;
+use ShippingAppointments\Service\Taxonomy\ProductType;
 use ShippingAppointments\Service\User\UserCapabilities;
 use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Service\User\UserRoles;
@@ -216,6 +221,62 @@ Trait Hooks {
 		$this->loader->addAction( 'rwmb_meta_boxes', $departmentPost, 'addMetaBoxes', 33, 1 );
 		$this->loader->addFilter( 'single_template', $departmentPost,'customPostTypeTemplateSingle', 10, 1 );
 		$this->loader->addFilter( 'post_type_link', $departmentPost, 'changePermalinks', 5, 3);
+
+
+        /**
+         * Department Type Taxonomy hooks
+         *
+         * Functions Hooked:
+         * @see DepartmentType::registerTaxonomy()
+         */
+        $departmentType = new DepartmentType( $this->getPluginName(), $this->getPluginDirPath() );
+        $this->loader->addAction( 'init', $departmentType, 'registerTaxonomy' );
+
+
+
+        /**
+         * Product Type Taxonomy hooks
+         *
+         * Functions Hooked:
+         * @see ProductType::registerTaxonomy()
+         */
+        $departmentType = new ProductType( $this->getPluginName(), $this->getPluginDirPath() );
+        $this->loader->addAction( 'init', $departmentType, 'registerTaxonomy' );
+
+
+
+        /**
+         * Product Brand Taxonomy hooks
+         *
+         * Functions Hooked:
+         * @see BrandTaxonomy::registerTaxonomy()
+         */
+        $brandTaxonomy = new BrandTaxonomy( $this->getPluginName(), $this->getPluginDirPath() );
+        $this->loader->addAction( 'init', $brandTaxonomy, 'registerTaxonomy' );
+
+
+        /**
+         * Port Taxonomy hooks
+         *
+         * Functions Hooked:
+         * @see PortTaxonomy::registerTaxonomy()
+         */
+        $portTaxonomy = new PortTaxonomy( $this->getPluginName(), $this->getPluginDirPath() );
+        $this->loader->addAction( 'init', $portTaxonomy, 'registerTaxonomy' );
+
+
+
+        /**
+         * Department Type Taxonomy hooks
+         *
+         * Functions Hooked:
+         * @see CountryTaxonomy::registerTaxonomy()
+         * @see CountryTaxonomy::addCountries()
+         */
+        $countryTaxonomy = new CountryTaxonomy( $this->getPluginName(), $this->getPluginDirPath() );
+        $this->loader->addAction( 'init', $countryTaxonomy, 'registerTaxonomy' );
+//        $this->loader->addAction( 'init', $countryTaxonomy, 'addCountries' );
+
 
 
 		/**

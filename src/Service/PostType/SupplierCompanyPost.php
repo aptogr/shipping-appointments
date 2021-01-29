@@ -104,7 +104,7 @@ class SupplierCompanyPost implements TemplatesInterface{
 			'show_in_rest'          => true,
 			'rest_base'             => '',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'rewrite'               => array( 'slug' => 'suppliers', 'with_front' => false ),
+			'rewrite'               => array( 'slug' => 'dashboard/companies/suppliers', 'with_front' => false ),
 			'menu_icon'             => 'data:image/svg+xml;base64,' . base64_encode( self::POST_TYPE_ICON ),
 			'has_archive'           => true,
 			'show_in_menu'          => true,

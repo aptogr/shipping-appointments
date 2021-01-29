@@ -16,6 +16,7 @@ Interface PagesTemplatesInterface {
 	 * set as value value the name of the template
 	 */
 	const PAGE_TEMPLATES    = array(
+		'front/homepage.php'               => 'Profenda Homepage',
 		'dashboard/dashboard.php'               => 'Profenda Dashboard',
 		'dashboard/availability.php'            => 'Profenda Availability',
         'dashboard/appointments/appointments.php'            => 'Profenda / Appointments',

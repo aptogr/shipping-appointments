@@ -99,7 +99,7 @@ class PublicController implements PublicInterface {
 	public function pluginNameBodyClass( $classes ){
 
 		$classes[]  = $this->getPluginName();
-		$classes[] = ( $this->isDashboardPage() ? 'platform-dashboard-page' : '');
+		$classes[] = ( $this->isDashboardPage() ? 'platform-dashboard-page' : 'front-page ');
 
 		return $classes;
 
@@ -108,20 +108,30 @@ class PublicController implements PublicInterface {
 
 	private function isDashboardPage(){
 
-		global $post;
+        if( is_page() ){
 
-		if ($post->post_parent)	{
-			$ancestors=get_post_ancestors($post->ID);
-			$root=count($ancestors)-1;
-			$parent = $ancestors[$root];
-		}
-		else {
-			$parent = $post->ID;
-		}
+            global $post;
 
-		$slug = get_post_field( 'post_name', $parent );
+            if ($post->post_parent)	{
+                $ancestors=get_post_ancestors($post->ID);
+                $root=count($ancestors)-1;
+                $parent = $ancestors[$root];
+            }
+            else {
+                $parent = $post->ID;
+            }
 
-		return $slug === 'dashboard';
+            $slug = get_post_field( 'post_name', $parent );
+
+            return $slug === 'dashboard';
+
+        }
+        else if( is_author() || is_singular(array('shipping_company', 'supplier_company', 'user_appointments') )  ){
+            return true;
+        }
+        else {
+            return false;
+        }
 
 	}
 

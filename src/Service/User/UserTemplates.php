@@ -32,13 +32,13 @@ class UserTemplates implements TemplatesInterface{
 
 	public function changeAuthorBaseUrl() {
 		global $wp_rewrite;
-		$wp_rewrite->author_base = 'user';
+		$wp_rewrite->author_base = 'dashboard/user';
 	}
 
 
 	public function customUserTemplate( $template ) {
 
-		return $this->getPluginDirPath() . self::USER_TEMPLATES_FOLDER . "shipping_user.php";
+		return $this->getPluginDirPath() . self::USER_TEMPLATES_FOLDER . "user-template.php";
 
 	}
 
