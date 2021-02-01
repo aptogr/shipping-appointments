@@ -3,6 +3,37 @@ get_header();
 
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_queried_object_id() );
 
+function weekdaysDisalable($weekDays) {
+
+    $weekDaysReturnArray = array();
+
+    if (!stristr($weekDays, "mon")) {
+        array_push($weekDaysReturnArray, "1");
+    }
+    if (!stristr($weekDays, "tue")) {
+        array_push($weekDaysReturnArray, "2");
+    }
+    if (!stristr($weekDays, "wed")) {
+        array_push($weekDaysReturnArray, "3");
+    }
+    if (!stristr($weekDays, "thu")) {
+        array_push($weekDaysReturnArray, "4");
+    }
+    if (!stristr($weekDays, "fri")) {
+        array_push($weekDaysReturnArray, "5");
+    }
+    if (!stristr($weekDays, "sat")) {
+        array_push($weekDaysReturnArray, "6");
+    }
+    if (!stristr($weekDays, "sun")) {
+        array_push($weekDaysReturnArray, "0");
+    }
+
+    $weekDaysReturn = implode(",", $weekDaysReturnArray);
+    echo $weekDaysReturn;
+}
+
+
 ?>
 
     <section class="dashboard-template-opener full-width padding-top-30 padding-bottom-30">
@@ -98,7 +129,7 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-                                30min
+                                <?php echo $platformUser->meeting_duration;?> Min
                             </div>
 
                         </div>
@@ -118,7 +149,7 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-                                8
+                                <?php echo $platformUser->max_meetings_per_day;?>
                             </div>
 
                         </div>
@@ -138,7 +169,7 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-                                Instant Booking
+                                <?php echo $platformUser->booking_request_type;?>
                             </div>
 
                         </div>
@@ -158,7 +189,7 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-                                3 days
+                                <?php echo $platformUser->book_in_advance_days;?> days
                             </div>
 
                         </div>
@@ -178,7 +209,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-                                Mon, Tue, Wed, Thu, Fri
+                                <a href="#availabilityModal" class="trigger-modal">
+                                    View
+                                </a>
                             </div>
 
                         </div>
@@ -207,7 +240,7 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 
                 </div>
 
-                <div class="schedule-appointment-block">
+                <div class="schedule-appointment-block full-width display-inline-block">
 
                     <h3>
                         Schedule Appointment
@@ -215,7 +248,31 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 
                     <div class="schedule-appointment-block--content">
 
-                        Calendar here
+                        <form action="">
+
+                            <div class="col m6 l6">
+                                <div
+                                        class="calendar shippingUser col l6 m6"
+                                        data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
+                                        data-disabledweekdays="<?php weekdaysDisalable($platformUser->availability->weekdays_available);?>"
+                                        data-bookinadvance="<?php echo $platformUser->book_in_advance_days;?>"
+                                        data-scheduledates="null/2001-01-01"
+                                ></div>
+                            </div>
+
+                            <div class="col m6 l6">
+                                <div class="dayDisplay">
+
+                                </div>
+                                <input type="hidden" id='shippingDay' name='shippingDay' value=''>
+                                <div id="selectedShippingDates"></div>
+                            </div>
+
+                            <div class="col l12 m12 margin-top-50 margin-bottom-20">
+                                <button type="submit" class="saveAvailability save-button" name="refresh_action" value="create_appointment">CREATE APPOINTMENT</button>
+                            </div>
+
+                        </form>
 
                     </div>
 
@@ -225,5 +282,49 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 
     </section>
 
+    <div id="availabilityModal" class="profenda-modal">
+
+        <div class="profenda-modal-header">
+            Availability
+        </div>
+        <div class="profenda-modal-content">
+
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td><?php echo $platformUser->availability->mon_time_from; ?></td>
+                    <td><?php echo $platformUser->availability->tue_time_from; ?></td>
+                    <td><?php echo $platformUser->availability->wed_time_from; ?></td>
+                    <td><?php echo $platformUser->availability->thu_time_from; ?></td>
+                    <td><?php echo $platformUser->availability->fri_time_from; ?></td>
+                    <td><?php echo $platformUser->availability->sat_time_from; ?></td>
+                    <td><?php echo $platformUser->availability->sun_time_from; ?></td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td><?php echo $platformUser->availability->mon_time_to; ?></td>
+                    <td><?php echo $platformUser->availability->tue_time_to; ?></td>
+                    <td><?php echo $platformUser->availability->wed_time_to; ?></td>
+                    <td><?php echo $platformUser->availability->thu_time_to; ?></td>
+                    <td><?php echo $platformUser->availability->fri_time_to; ?></td>
+                    <td><?php echo $platformUser->availability->sat_time_to; ?></td>
+                    <td><?php echo $platformUser->availability->sun_time_to; ?></td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <div class="modal-overlay"></div>
 <?php
 get_footer();

@@ -33,7 +33,19 @@ class AppointmentPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'google'  => self::POST_TYPE_NAME . '_google',
+		'status'  => self::POST_TYPE_NAME . '_status',
+		'date'  => self::POST_TYPE_NAME . '_date',
+		'from_time'  => self::POST_TYPE_NAME . '_from_time',
+		'to_time'  => self::POST_TYPE_NAME . '_to_time',
+		'appointment_method'  => self::POST_TYPE_NAME . '_appointment_method',
+		'location'  => self::POST_TYPE_NAME . '_location',
+		'zoom_link'  => self::POST_TYPE_NAME . '_zoom_link',
+		'webex_link'  => self::POST_TYPE_NAME . '_webex_link',
+		'meeting_type'  => self::POST_TYPE_NAME . '_meeting_type',
+		'participants'  => self::POST_TYPE_NAME . '_participants',
+		'invite_questions'  => self::POST_TYPE_NAME . '_invite_questions',
+		'guests'  => self::POST_TYPE_NAME . '_guests',
+		'meeting_time_duration'  => self::POST_TYPE_NAME . '_meeting_time_duration',
 	];
 
 
@@ -143,12 +155,141 @@ class AppointmentPost implements TemplatesInterface{
 			'priority'   => 'default',
 			'autosave'   => 'false',
 			'fields'     => array(
-				array(
-					'id'   => self::META_FIELDS_SLUG['google'],
-					'name' => esc_html__( 'Google Podcast', ShippingAppointments::PLUGIN_NAME ),
-					'type' => 'text',
-				),
-			),
+
+                array(
+                    'id'              => self::META_FIELDS_SLUG['status'],
+                    'name'            => esc_html__( 'Status', ShippingAppointments::PLUGIN_NAME ),
+                    'type'            => 'select',
+                    'options'         => array(
+                        'confirmed'         => 'Confirmed',
+                        'pending_approval'  => 'Pending Approval',
+                        'cancelled'         => 'Cancelled',
+                    ),
+                    'multiple'        => false,
+                    'placeholder'     => 'Select Status',
+                ),
+
+                array(
+                    'name'       => esc_html__( 'Date', ShippingAppointments::PLUGIN_NAME ),
+                    'id'         => self::META_FIELDS_SLUG['date'],
+                    'type'       => 'date',
+
+                    'js_options' => array(
+                        'dateFormat'      => 'yy-mm-dd',
+                        'showButtonPanel' => false,
+                    ),
+                    'inline'     => false,
+                    'timestamp'  => false,
+                ),
+
+                array(
+                    'name'       => esc_html__( 'From Time', ShippingAppointments::PLUGIN_NAME ),
+                    'id'         => self::META_FIELDS_SLUG['from_time'],
+                    'type'       => 'time',
+                    'js_options' => array(
+                        'stepMinute'      => 15,
+                        'controlType'     => 'select',
+                        'showButtonPanel' => false,
+                        'oneLine'         => true,
+                    ),
+                    'inline'     => false,
+                ),
+
+                array(
+                    'name'       => esc_html__( 'To Time', ShippingAppointments::PLUGIN_NAME ),
+                    'id'         => self::META_FIELDS_SLUG['to_time'],
+                    'type'       => 'time',
+                    'js_options' => array(
+                        'stepMinute'      => 15,
+                        'controlType'     => 'select',
+                        'showButtonPanel' => false,
+                        'oneLine'         => true,
+                    ),
+                    'inline'     => false,
+                ),
+                array(
+                    'name'       => esc_html__( 'Meeting Time Duration', ShippingAppointments::PLUGIN_NAME ),
+                    'id'         => self::META_FIELDS_SLUG['meeting_time_duration'],
+                    'type' => 'number',
+
+                    'min'  => 15,
+                    'step' => 15,
+                ),
+
+
+                array(
+                    'id'              => self::META_FIELDS_SLUG['appointment_method'],
+                    'name'            => esc_html__( 'Appointment Method', ShippingAppointments::PLUGIN_NAME ),
+                    'type'            => 'radio',
+                    'options'         => array(
+                        'in_person'       => 'In Person',
+                        'phone_call'      => 'Phone Call',
+                        'conference'      => 'Conference',
+                        'online'          => 'Online',
+                    ),
+                    'inline' => true,
+                ),
+
+                array(
+                    'id'   => self::META_FIELDS_SLUG['location'],
+                    'name' => esc_html__( 'Location', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+
+                array(
+                    'id'   => self::META_FIELDS_SLUG['zoom_link'],
+                    'name' => esc_html__( 'Zoom Link', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+
+                array(
+                    'id'   => self::META_FIELDS_SLUG['webex_link'],
+                    'name' => esc_html__( 'Webex Link', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+
+                array(
+                    'id'        => self::META_FIELDS_SLUG['meeting_type'],
+                    'name'      => esc_html__( 'Meeting Type', ShippingAppointments::PLUGIN_NAME ),
+                    'type'      => 'radio',
+                    'options'   => array(
+                        'one_on_one' => 'One on one',
+                        'group'      => 'Group',
+                    ),
+                    // Show choices in the same line?
+                    'inline'    => true,
+                ),
+
+                array(
+                    'id'            => self::META_FIELDS_SLUG['participants'],
+                    'name'          => esc_html__( 'Participants', ShippingAppointments::PLUGIN_NAME ),
+                    'type'          => 'user',
+                    'field_type'    => 'select_advanced',
+                    'placeholder'   => 'Select Participants',
+                    'query_args'    => array(),
+                ),
+
+                array(
+                    'id'            => self::META_FIELDS_SLUG['invite_questions'],
+                    'name'          => esc_html__( 'Invite Questions', ShippingAppointments::PLUGIN_NAME ),
+                    'type'          => 'wysiwyg',
+                    'raw'           => false,
+                    'options'       => array(
+                        'textarea_rows' => 4,
+                        'teeny'         => true,
+                    ),
+                ),
+
+                array(
+                    'id'            => self::META_FIELDS_SLUG['guests'],
+                    'name'          => esc_html__( 'Guests', ShippingAppointments::PLUGIN_NAME ),
+                    'type'          => 'user',
+                    'field_type'    => 'select_advanced',
+                    'placeholder'   => 'Select Guests',
+                    'query_args'    => array(),
+                ),
+
+            ),
 		);
 
 		return $meta_boxes;
