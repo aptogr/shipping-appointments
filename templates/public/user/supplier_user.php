@@ -41,10 +41,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 
         <div class="container">
 
-            <div class="col s12">
+            <div class="company-stats flex full-width">
 
-                <div class="company-stats flex full-width">
-
+                <div class="col xl3 l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -58,13 +57,15 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-	                            <?php echo $platformUser->getCountryDisplayName(); ?>
+						        <?php echo $platformUser->getCountryDisplayName(); ?>
                             </div>
 
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -78,13 +79,16 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             </div>
 
                             <div class="info--value">
-                                <?php echo $platformUser->getTimezoneDisplayName(); ?>
+						        <?php echo $platformUser->getTimezoneDisplayName(); ?>
                             </div>
 
                         </div>
 
                     </div>
+                </div>
 
+
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -105,6 +109,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 
                     </div>
 
+                </div>
+
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -124,7 +131,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -144,7 +153,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -164,7 +175,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -184,7 +197,9 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -204,8 +219,11 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                         </div>
 
                     </div>
-
                 </div>
+
+            </div>
+
+            <div class="col s12">
 
                 <div class="schedule-appointment-block">
 
