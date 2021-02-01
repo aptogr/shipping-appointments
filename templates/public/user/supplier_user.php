@@ -72,10 +72,9 @@ function weekdaysDisalable($weekDays) {
 
         <div class="container">
 
-            <div class="col s12">
+            <div class="company-stats flex full-width">
 
-                <div class="company-stats flex full-width">
-
+                <div class="col xl3 l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -89,13 +88,15 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-	                            <?php echo $platformUser->getCountryDisplayName(); ?>
+						        <?php echo $platformUser->getCountryDisplayName(); ?>
                             </div>
 
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -109,13 +110,16 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-                                <?php echo $platformUser->getTimezoneDisplayName(); ?>
+						        <?php echo $platformUser->getTimezoneDisplayName(); ?>
                             </div>
 
                         </div>
 
                     </div>
+                </div>
 
+
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -136,6 +140,9 @@ function weekdaysDisalable($weekDays) {
 
                     </div>
 
+                </div>
+
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -155,7 +162,9 @@ function weekdaysDisalable($weekDays) {
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -175,7 +184,9 @@ function weekdaysDisalable($weekDays) {
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -195,7 +206,9 @@ function weekdaysDisalable($weekDays) {
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -217,7 +230,9 @@ function weekdaysDisalable($weekDays) {
                         </div>
 
                     </div>
+                </div>
 
+                <div class="col xl3  l6 m6 s12">
                     <div class="company-stats-item flex flex-center flex-dir-col center">
 
                         <div class="icon">
@@ -237,10 +252,17 @@ function weekdaysDisalable($weekDays) {
                         </div>
 
                     </div>
-
                 </div>
 
+<<<<<<< HEAD
                 <div class="schedule-appointment-block full-width display-inline-block">
+=======
+            </div>
+
+            <div class="col s12">
+
+                <div class="schedule-appointment-block">
+>>>>>>> 522f84971cba583ec372dad41944f6aba78ee8d6
 
                     <h3>
                         Schedule Appointment
