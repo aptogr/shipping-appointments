@@ -175,4 +175,34 @@ class PlatformUser extends WP_User  {
 
 	}
 
+	public function weekdaysDisalable($weekDays) {
+
+        $weekDaysReturnArray = array();
+
+        if (!stristr($weekDays, "mon")) {
+            array_push($weekDaysReturnArray, "1");
+        }
+        if (!stristr($weekDays, "tue")) {
+            array_push($weekDaysReturnArray, "2");
+        }
+        if (!stristr($weekDays, "wed")) {
+            array_push($weekDaysReturnArray, "3");
+        }
+        if (!stristr($weekDays, "thu")) {
+            array_push($weekDaysReturnArray, "4");
+        }
+        if (!stristr($weekDays, "fri")) {
+            array_push($weekDaysReturnArray, "5");
+        }
+        if (!stristr($weekDays, "sat")) {
+            array_push($weekDaysReturnArray, "6");
+        }
+        if (!stristr($weekDays, "sun")) {
+            array_push($weekDaysReturnArray, "0");
+        }
+
+        $weekDaysReturn = implode(",", $weekDaysReturnArray);
+        echo $weekDaysReturn;
+    }
+
 }

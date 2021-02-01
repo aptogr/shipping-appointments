@@ -263,7 +263,7 @@ function weekdaysDisalable($weekDays) {
                                 <div
                                         class="calendar shippingUser col l6 m6"
                                         data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
-                                        data-disabledweekdays="<?php weekdaysDisalable($platformUser->availability->weekdays_available);?>"
+                                        data-disabledweekdays="<?php $platformUser->weekdaysDisalable($platformUser->availability->weekdays_available);?>"
                                         data-bookinadvance="<?php echo $platformUser->book_in_advance_days;?>"
                                         data-scheduledates="null/2001-01-01"
                                 ></div>
