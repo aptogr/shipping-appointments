@@ -3,6 +3,7 @@
 
 namespace ShippingAppointments\Service\Entities\User;
 
+use ShippingAppointments\Interfaces\PlatformUserInterface;
 use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\ShippingCompany;
@@ -14,7 +15,7 @@ use WP_Query;
 use WP_User;
 use ShippingAppointments\Service\Entities\Availability;
 
-class PlatformUser extends WP_User  {
+class PlatformUser extends WP_User implements PlatformUserInterface{
 
 	public $location;
 	public $timezone;
