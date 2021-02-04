@@ -6,7 +6,6 @@
     var yesterdayDate = new Date(Date.now() - 864e5).toJSON().slice(0,10).toString();
 
 
-
     $(document).ready(function(){
 
         if ($('body.shippingappointments').length > 0) {
@@ -18,6 +17,7 @@
             $('input.timepicker').timepicker({
                 'timeFormat': 'H:i',
                 'show2400': true,
+                'step': 15,
                 // 'disableTimeRanges': disableTimeRanges
             });
 
@@ -53,7 +53,14 @@
             return (h+"").padStart(2,"0")  +":" +(m+"").padStart(2,"0") //create string padded with zeros for HH and MM
         }
 
-        function shippingUserAjaxAppend(date) {
+
+        function timeSubtractMinutes(now, then) {
+
+            return moment.utc(moment(now,"HH:mm").diff(moment(then,"HH:mm"))).format("HH:mm")
+        }
+
+
+        function shippingUserAjaxAppend(date,da_post_author) {
 
             $('#shippingDay').attr('value', date)
 
@@ -63,41 +70,103 @@
                 type: 'POST',
                 data: {
                     action: AjaxController.getTime,
-                    date: date
+                    date: date,
+                    da_post_author: da_post_author,
                 },
                 success: function (response) {
 
                     console.log(response);
                     // console.log(response.disableTime);
 
-
+                    $('#bookingMethods').empty();
                     $('#selectedShippingDates').empty()
-                    $('#selectedShippingDates').append(response.html).ready(function () {
 
-                        $('input.timepicker').timepicker({
-                            'timeFormat': 'H:i',
-                            'show2400': true,
-                            'disableTimeRanges': response.disableTime
+                    if (response.appointmentLimit == true) {
+
+
+
+                        $('#selectedShippingDates').append('<div class="full-width">Select time:</div>')
+                        $('#selectedShippingDates').append(response.html).ready(function () {
+
+                            $('input.timepicker').timepicker({
+                                'timeFormat': 'H:i',
+                                'step': 15,
+                                'show2400': true,
+                                'disableTimeRanges': response.disableTime
+                            });
+
                         });
 
-                    })
+                        $('#bookingMethods').append('<div class="full-width margin-bottom-20">Select booking method:</div>');
+                        $.each( response.booking_method, function( key, value ) {
 
-                    $('.dayDisplay').html(
-                        response.fullDay + ' ' + response.date +
-                        ' <br> ' +
-                        'Meeting time duration: ' + response.meetingDuration + ' minutes'
-                    )
+                            var labelName =  value.replace("_", " ");
+                            labelName = labelName.charAt(0).toUpperCase() + labelName.slice(1);
 
-                    $('input.timepicker').on("selectTime", function() {
-                        var that = $(this)
-                        that.attr('value', that.val())
-                        console.log(that.val());
+                            var bookingCheckBox = '<div class="col no-padding-left">' +
+                                '<input type="radio" id="booking_method_'+value+'" name="appointment_method" value="'+ value +'">' +
+                                '<label for="booking_method_'+value+'">'+labelName+'</label><br>' +
+                                '</div>';
+                            $('#bookingMethods').append(bookingCheckBox).ready(function () {
+                                $( '#booking_method_'+value ).checkboxradio();
+                            })
+                        });
 
-                        var newDateObj = timeAddMinutes(that.val(),response.meetingDuration)
+                        if (response.booking_request_type=='instant') {
 
-                        $('.shippingDayTo').val(newDateObj);
-                        $('.shippingDayTo').attr('value', newDateObj)
-                    });
+                            $('.dayDisplay').html(
+                                '<strong>' +
+                                response.fullDay + ' ' + response.date +
+                                '</strong> <br> ' +
+                                'Meeting time duration: ' + response.meetingDuration + ' minutes'
+                            )
+
+                            $('.shippingDayFrom').on("selectTime", function() {
+                                var that = $(this)
+                                that.attr('value', that.val())
+                                console.log(that.val());
+
+                                var newDateObj = timeAddMinutes(that.val(),response.meetingDuration)
+
+                                $('.shippingDayTo').val(newDateObj);
+                                $('.shippingDayTo').attr('value', newDateObj)
+                            });
+
+                        } else if (response.booking_request_type=='email') {
+
+                            $('.dayDisplay').html(
+                                '<strong>' +
+                                response.fullDay + ' ' + response.date +
+                                '</strong>'
+                            )
+
+                            $('.shippingDayTo').on("selectTime", function() {
+                                var that = $(this)
+                                that.attr('value', that.val())
+
+                                var meeting_time_duration = timeSubtractMinutes(that.val(), $('.shippingDayFrom').val());
+                                console.log(meeting_time_duration)
+                                $('#meeting_time_duration').attr('value', meeting_time_duration)
+                            });
+
+                            // var meeting_time_duration = timeSubtractMinutes(now, then);
+
+                        }
+
+
+
+                    } else {
+
+                        $('.dayDisplay').html(
+                            '<strong>' +
+                            response.fullDay + ' ' + response.date +
+                            '</strong> <br> ' +
+                            'Max Appointments for this Day.'
+                        )
+
+                    }
+
+
 
                 }
 
@@ -209,7 +278,8 @@
 
                         if (that.closest('.calendar').hasClass( "shippingUser" )) {
 
-                            shippingUserAjaxAppend( date )
+                            var da_post_author = $('#da_post_author').val();
+                            shippingUserAjaxAppend( date,da_post_author )
 
                         }
 
@@ -233,14 +303,19 @@
 
         if ($('body.page-template-booking-settings').length > 0) {
 
-            $( "#meeting_duration" ).spinner({min: 0});
-            $( "#meeting_buffer" ).spinner({min: 0});
+            $( "#meeting_duration" ).spinner({min: 0,step: 15});
+            $( "#meeting_buffer" ).spinner({min: 0,step: 15});
             $( "#max_meetings_per_day" ).spinner({min: 0});
             $( "#book_in_advance_days" ).spinner({min: 0});
             $( "#meet_same_supplier_times" ).spinner({min: 0});
 
             $( "#booking_request_type_email" ).checkboxradio();
             $( "#booking_request_type_instant" ).checkboxradio();
+
+            $( "#booking_method_in_person" ).checkboxradio();
+            $( "#booking_method_phone_call" ).checkboxradio();
+            $( "#booking_method_conference" ).checkboxradio();
+            $( "#booking_method_online" ).checkboxradio();
 
         }
 
@@ -257,6 +332,7 @@
             $('input.timepicker').timepicker({
                 'timeFormat': 'H:i',
                 'show2400': true,
+                'step': 15,
             });
 
             //

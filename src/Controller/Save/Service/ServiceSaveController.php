@@ -19,7 +19,7 @@ class ServiceSaveController {
 
     public function save( $formData ){
 
-    	$this->actionsBeforeSave();
+    	$this->actionsBeforeSave($formData);
 
         if( is_array( $this->fieldsSlug) && !empty( $this->fieldsSlug ) ){
 
@@ -55,7 +55,7 @@ class ServiceSaveController {
     }
 
 
-    public function actionsBeforeSave(){
+    public function actionsBeforeSave($formData){
 
     }
 

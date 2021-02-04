@@ -29,6 +29,7 @@ class PlatformUser extends WP_User  {
 	public $booking_request_type;
 	public $meet_same_supplier_times;
 	public $cancellation_policy;
+	public $booking_method;
 
 
 	/**
@@ -203,6 +204,15 @@ class PlatformUser extends WP_User  {
 
         $weekDaysReturn = implode(",", $weekDaysReturnArray);
         echo $weekDaysReturn;
+    }
+
+    public function dayActive($weekDays,$day,$time) {
+        if (!stristr($weekDays, $day)) {
+            $return = '-';
+        } else {
+            $return = $time;
+        }
+        return $return;
     }
 
 }

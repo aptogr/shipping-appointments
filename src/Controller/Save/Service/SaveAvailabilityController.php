@@ -26,7 +26,7 @@ class SaveAvailabilityController extends ServiceSaveController {
     }
 
 
-    public function actionsBeforeSave() {
+    public function actionsBeforeSave($formData) {
 
         if( ! $this->platformUser->availability instanceof Availability ){
 

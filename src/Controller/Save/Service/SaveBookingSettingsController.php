@@ -15,7 +15,24 @@ class SaveBookingSettingsController extends ServiceSaveController {
 
     public function saveField( $metaKey, $value ) {
 
-        update_user_meta( $this->platformUser->ID, $metaKey, $value );
+        if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
+
+            $value = explode( ',', $value );
+
+        }
+
+        if (is_array($value)) {
+
+            delete_user_meta( $this->platformUser->ID, $metaKey );
+
+            foreach ( $value as $val ){
+                add_user_meta( $this->platformUser->ID, $metaKey, $val );
+            }
+
+
+        } else {
+            update_user_meta( $this->platformUser->ID, $metaKey, $value );
+        }
 
     }
 

@@ -27,6 +27,7 @@ class Availability {
 	public $sun_time_to;
 	public $weekdays_available_toArray;
 	public $excluded_dates_toArray;
+//	public $excluded_dates_toArray;
 
 	public function __construct( $id ) {
 

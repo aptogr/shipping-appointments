@@ -24,6 +24,13 @@ function displayRadioValue ($id,$value) {
     echo ($id == $value) ? 'checked' : "" ;
 }
 
+function displayCheckboxValue ($id,$value) {
+//    if ($id == $value) {
+//        echo 'checked';
+//    }
+    echo (in_array($id,$value)) ? 'checked' : "" ;
+}
+
 ?>
     <div class="row booking-settings no-margin-bottom full-width">
 
@@ -126,11 +133,41 @@ function displayRadioValue ($id,$value) {
 
                     <section class="main-section full-width">
 
-                        <h2>Cancellation Policy</h2>
+                        <h2>Booking Methods</h2>
 
-                        <p>The cancellation policy for bookings.</p>
+                        <p>Select your booking methods.</p>
 
-                        <textarea id="cancellation_policy" name="cancellation_policy" rows="5" cols="80"><?php displayInputValue($platformUser->cancellation_policy);?></textarea>
+                        <div class="full-width flex">
+
+                            <div class="col no-padding-left">
+
+                                <input type="checkbox" id="booking_method_in_person" name="booking_method[]" value="in_person" <?php displayCheckboxValue ('in_person',$platformUser->booking_method);?>>
+                                <label for="booking_method_in_person">In Person</label><br>
+
+                            </div>
+
+                            <div class="col no-padding-left">
+
+                                <input type="checkbox" id="booking_method_phone_call" name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
+                                <label for="booking_method_phone_call">Phone Call</label><br>
+
+                            </div>
+
+                            <div class="col no-padding-left">
+
+                                <input type="checkbox" id="booking_method_conference" name="booking_method[]" value="conference" <?php displayCheckboxValue ('conference',$platformUser->booking_method);?>>
+                                <label for="booking_method_conference">Conference</label><br>
+
+                            </div>
+
+                            <div class="col no-padding-left">
+
+                                <input type="checkbox" id="booking_method_online" name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
+                                <label for="booking_method_online">Online</label><br>
+
+                            </div>
+
+                        </div>
 
                     </section>
 

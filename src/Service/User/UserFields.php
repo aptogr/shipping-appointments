@@ -451,6 +451,7 @@ class UserFields {
 		'book_in_advance_days'              => 'user_book_in_advance_days',
 		'booking_request_type'              => 'user_booking_request_type',
 		'meet_same_supplier_times'          => 'user_meet_same_supplier_times',
+		'booking_method'                    => 'user_booking_method',
 	];
 
 	public function registerUserFields( $meta_boxes ) {
@@ -508,6 +509,7 @@ class UserFields {
 					'field_type'        => 'select_advanced',
 					'placeholder'       => 'Select a supplier company',
 				),
+
 			),
 		);
 
@@ -552,7 +554,7 @@ class UserFields {
 					'id'                => self::META_FIELDS_SLUG['booking_request_type'],
 					'desc'              => 'The way the booking requests are made. Email or instant booking',
 					'type'              => 'radio',
-					'options'         => array(
+					'options'           => array(
 						'email'             => 'Ask via Email first',
 						'instant'           => 'Instant Booking',
 					),
@@ -563,12 +565,19 @@ class UserFields {
 					'desc'              => 'The maximum number of times the user can meet a supplier',
 					'type'              => 'number',
 				),
-				array(
-					'name'              => 'Cancellation Policy',
-					'id'                => self::META_FIELDS_SLUG['cancellation_policy'],
-					'desc'              => 'The cancellation policy for bookings.',
-					'type'              => 'textarea',
-				),
+                array(
+                    'name'              => 'Booking Method',
+                    'id'                => self::META_FIELDS_SLUG['booking_method'],
+                    'type'              => 'checkbox_list',
+                    'options'           => array(
+                        'in_person'         => 'In Person',
+                        'phone_call'        => 'Phone Call',
+                        'conference'        => 'Conference',
+                        'online'            => 'Online',
+                    ),
+                    'inline'            => true,
+                    'select_all_none'   => true,
+                ),
 			),
 		);
 

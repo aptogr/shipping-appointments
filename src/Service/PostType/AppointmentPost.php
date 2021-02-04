@@ -42,7 +42,7 @@ class AppointmentPost implements TemplatesInterface{
 		'zoom_link'  => self::POST_TYPE_NAME . '_zoom_link',
 		'webex_link'  => self::POST_TYPE_NAME . '_webex_link',
 		'meeting_type'  => self::POST_TYPE_NAME . '_meeting_type',
-		'participants'  => self::POST_TYPE_NAME . '_participants',
+		'requester'  => self::POST_TYPE_NAME . '_requester',
 		'invite_questions'  => self::POST_TYPE_NAME . '_invite_questions',
 		'guests'  => self::POST_TYPE_NAME . '_guests',
 		'meeting_time_duration'  => self::POST_TYPE_NAME . '_meeting_time_duration',
@@ -210,10 +210,7 @@ class AppointmentPost implements TemplatesInterface{
                 array(
                     'name'       => esc_html__( 'Meeting Time Duration', ShippingAppointments::PLUGIN_NAME ),
                     'id'         => self::META_FIELDS_SLUG['meeting_time_duration'],
-                    'type' => 'number',
-
-                    'min'  => 15,
-                    'step' => 15,
+                    'type' => 'text',
                 ),
 
 
@@ -261,11 +258,13 @@ class AppointmentPost implements TemplatesInterface{
                 ),
 
                 array(
-                    'id'            => self::META_FIELDS_SLUG['participants'],
-                    'name'          => esc_html__( 'Participants', ShippingAppointments::PLUGIN_NAME ),
+                    'id'            => self::META_FIELDS_SLUG['requester'],
+                    'name'          => esc_html__( 'Requester ID', ShippingAppointments::PLUGIN_NAME ),
+//                    'type'          => 'text',
                     'type'          => 'user',
                     'field_type'    => 'select_advanced',
                     'placeholder'   => 'Select Participants',
+                    'multiple'      => true,
                     'query_args'    => array(),
                 ),
 
@@ -286,6 +285,7 @@ class AppointmentPost implements TemplatesInterface{
                     'type'          => 'user',
                     'field_type'    => 'select_advanced',
                     'placeholder'   => 'Select Guests',
+                    'multiple'      => true,
                     'query_args'    => array(),
                 ),
 

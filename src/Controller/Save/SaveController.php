@@ -3,6 +3,7 @@
 
 namespace ShippingAppointments\Controller\Save;
 
+use ShippingAppointments\Controller\Save\Service\SaveAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAvailabilityController;
 use ShippingAppointments\Controller\Save\Service\SaveBookingSettingsController;
 
@@ -33,6 +34,15 @@ class SaveController {
                     $redirectUrl                    = 'dashboard/booking/settings';
 
 					break;
+
+                case 'create_appointment':
+
+
+                    $saveAppointmentController  = new SaveAppointmentController();
+                    $action                         = $saveAppointmentController->save( $_POST );
+                    $redirectUrl                    = 'dashboard';
+
+                    break;
 
 			}
 

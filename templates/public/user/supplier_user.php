@@ -3,39 +3,16 @@ get_header();
 
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_queried_object_id() );
 
-function weekdaysDisalable($weekDays) {
+$logedInUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
 
-	$weekDaysReturnArray = array();
+$allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
-	if (!stristr($weekDays, "mon")) {
-		array_push($weekDaysReturnArray, "1");
-	}
-	if (!stristr($weekDays, "tue")) {
-		array_push($weekDaysReturnArray, "2");
-	}
-	if (!stristr($weekDays, "wed")) {
-		array_push($weekDaysReturnArray, "3");
-	}
-	if (!stristr($weekDays, "thu")) {
-		array_push($weekDaysReturnArray, "4");
-	}
-	if (!stristr($weekDays, "fri")) {
-		array_push($weekDaysReturnArray, "5");
-	}
-	if (!stristr($weekDays, "sat")) {
-		array_push($weekDaysReturnArray, "6");
-	}
-	if (!stristr($weekDays, "sun")) {
-		array_push($weekDaysReturnArray, "0");
-	}
-
-	$weekDaysReturn = implode(",", $weekDaysReturnArray);
-	echo $weekDaysReturn;
-}
-
+//echo "<pre>";
+////print_r($platformUser);
+//print_r($logedInUser);
+//echo "</pre>";
 
 ?>
-
     <section class="dashboard-template-opener full-width padding-top-30 padding-bottom-30">
 
         <div class="container relative z-index-1">
@@ -133,7 +110,7 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-                                30min
+                                <?php echo $platformUser->meeting_duration;?> Min
                             </div>
 
                         </div>
@@ -156,7 +133,7 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-                                8
+                                <?php echo $platformUser->max_meetings_per_day;?>
                             </div>
 
                         </div>
@@ -178,7 +155,7 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-                                Instant Booking
+                                <?php echo ucfirst($platformUser->booking_request_type);?>
                             </div>
 
                         </div>
@@ -200,7 +177,7 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-                                3 days
+                                <?php echo $platformUser->book_in_advance_days;?> days
                             </div>
 
                         </div>
@@ -222,7 +199,9 @@ function weekdaysDisalable($weekDays) {
                             </div>
 
                             <div class="info--value">
-                                Mon, Tue, Wed, Thu, Fri
+                                <a href="#availabilityModal" class="trigger-modal">
+                                    View
+                                </a>
                             </div>
 
                         </div>
@@ -256,7 +235,7 @@ function weekdaysDisalable($weekDays) {
 
             <div class="col s12">
 
-                <div class="schedule-appointment-block">
+                <div class="schedule-appointment-block full-width display-inline-block">
 
                     <h3>
                         Schedule Appointment
@@ -264,7 +243,35 @@ function weekdaysDisalable($weekDays) {
 
                     <div class="schedule-appointment-block--content">
 
-                        Calendar here
+                        <input id="da_post_author" type="hidden" value="<?php echo $platformUser->availability->post->post_author; ?>">
+                        <form action="" method="post">
+
+                            <input type="hidden" name="appointmentUserId" value="<?php echo $platformUser->availability->post->post_author;?>">
+                            <input type="hidden" name="requester" value="<?php echo $logedInUser->availability->post->post_author; ?>">
+                            <input type="hidden" id="meeting_time_duration" name="meeting_time_duration" value="<?php echo $platformUser->meeting_duration ;?>">
+
+                            <div class="col m6 l6">
+                                <div
+                                        class="calendar shippingUser"
+                                        data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
+                                        data-disabledweekdays="<?php $platformUser->weekdaysDisalable($platformUser->availability->weekdays_available);?>"
+                                        data-bookinadvance="<?php echo $platformUser->book_in_advance_days;?>"
+                                        data-scheduledates="null/2001-01-01"
+                                ></div>
+                            </div>
+
+                            <div class="col m6 l6 flex flex-dir-col">
+                                <div class="dayDisplay"></div>
+                                <input type="hidden" id='shippingDay' name='date' value=''>
+                                <div id="bookingMethods" class="margin-top-20"></div>
+                                <div id="selectedShippingDates" class="margin-top-20"></div>
+                            </div>
+
+                            <div class="col l12 m12 margin-top-50 margin-bottom-20">
+                                <button type="submit" class="saveAvailability save-button" name="refresh_action" value="create_appointment">CREATE APPOINTMENT</button>
+                            </div>
+
+                        </form>
 
                     </div>
 
@@ -273,6 +280,51 @@ function weekdaysDisalable($weekDays) {
             </div> 
 
     </section>
+
+    <div id="availabilityModal" class="profenda-modal">
+
+        <div class="profenda-modal-header">
+            Availability
+        </div>
+        <div class="profenda-modal-content">
+
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <?php
+                    foreach ($allDays as $day) {
+                        ?>
+                        <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_from'}); ?></td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <?php
+                    foreach ($allDays as $day) {
+                        ?>
+                        <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_to'}); ?></td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <div class="modal-overlay"></div>
 
 <?php
 get_footer();
