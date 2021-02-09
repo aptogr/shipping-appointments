@@ -207,13 +207,23 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
         echo $weekDaysReturn;
     }
 
-    public function dayActive($weekDays,$day,$time) {
-        if (!stristr($weekDays, $day)) {
-            $return = '-';
-        } else {
-            $return = $time;
-        }
-        return $return;
+    /**
+     * @param $weekDays
+     * @param $day
+     * @param $time
+     * @return string
+     */
+    public function dayActive($weekDays, $day, $time) {
+// ( condition ? true : false)
+
+        return (!stristr($weekDays, $day)? '-' : $time);
+
+//        if (!stristr($weekDays, $day)) {
+//            $return = '-';
+//        } else {
+//            $return = $time;
+//        }
+//        return $return;
     }
 
 }

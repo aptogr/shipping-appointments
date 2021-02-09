@@ -7,6 +7,8 @@ $logedInUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get
 
 $allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
+
+
 //echo "<pre>";
 ////print_r($platformUser);
 //print_r($logedInUser);
@@ -302,17 +304,17 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                 <tr>
                     <td>From</td>
                     <?php
-                    foreach ($allDays as $day) {
+                    foreach ($platformUser::ALL_DAYS as $day) {
                         ?>
                         <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_from'}); ?></td>
                         <?php
                     }
                     ?>
                 </tr>
-                <tr>
+                <tr> 
                     <td>To</td>
                     <?php
-                    foreach ($allDays as $day) {
+                    foreach ($platformUser::ALL_DAYS as $day) {
                         ?>
                         <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_to'}); ?></td>
                         <?php

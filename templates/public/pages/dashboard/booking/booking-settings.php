@@ -55,7 +55,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>Timeframe of the meeting in minutes (ex.30)</p>
 
-                        <input name="meeting_duration" id="meeting_duration" value="<?php displayInputValue($platformUser->meeting_duration);?>">
+                        <input name="meeting_duration" id="meeting_duration" class="spinner15" value="<?php displayInputValue($platformUser->meeting_duration);?>">
 
                     </section>
 
@@ -66,7 +66,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>Buffer duration (in minutes) before and after meetings</p>
 
-                        <input name="meeting_buffer" id="meeting_buffer" value="<?php displayInputValue($platformUser->meeting_buffer);?>">
+                        <input name="meeting_buffer" id="meeting_buffer" class="spinner15" value="<?php displayInputValue($platformUser->meeting_buffer);?>">
 
                     </section>
 
@@ -77,7 +77,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>The maximum meetings the current user can be booked for.</p>
 
-                        <input name="max_meetings_per_day" id="max_meetings_per_day" value="<?php displayInputValue($platformUser->max_meetings_per_day);?>">
+                        <input name="max_meetings_per_day" id="max_meetings_per_day" class="spinner0" value="<?php displayInputValue($platformUser->max_meetings_per_day);?>">
 
                     </section>
 
@@ -88,7 +88,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>The minimum days notice to book the current user for.</p>
 
-                        <input name="book_in_advance_days" id="book_in_advance_days" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
+                        <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
 
                     </section>
 
@@ -103,14 +103,14 @@ function displayCheckboxValue ($id,$value) {
 
                             <div class="col no-padding-left">
 
-                                <input type="radio" id="booking_request_type_email" name="booking_request_type" value="email" <?php displayRadioValue('email',$platformUser->booking_request_type);?>>
+                                <input type="radio" id="booking_request_type_email" class="checkboxradio"  name="booking_request_type" value="email" <?php displayRadioValue('email',$platformUser->booking_request_type);?>>
                                 <label for="booking_request_type_email">Ask via Email first</label><br>
 
                             </div>
 
                             <div class="col no-padding-left">
 
-                                <input type="radio" id="booking_request_type_instant" name="booking_request_type" value="instant" <?php displayRadioValue('instant',$platformUser->booking_request_type);?>>
+                                <input type="radio" id="booking_request_type_instant" class="checkboxradio"  name="booking_request_type" value="instant" <?php displayRadioValue('instant',$platformUser->booking_request_type);?>>
                                 <label for="booking_request_type_instant">Instant Booking</label><br>
 
                             </div>
@@ -126,7 +126,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>The maximum number of times the user can meet a supplier</p>
 
-                        <input name="meet_same_supplier_times" id="meet_same_supplier_times" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
+                        <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
 
                     </section>
 
@@ -141,28 +141,28 @@ function displayCheckboxValue ($id,$value) {
 
                             <div class="col no-padding-left">
 
-                                <input type="checkbox" id="booking_method_in_person" name="booking_method[]" value="in_person" <?php displayCheckboxValue ('in_person',$platformUser->booking_method);?>>
+                                <input type="checkbox" id="booking_method_in_person" class="checkboxradio"  name="booking_method[]" value="in_person" <?php displayCheckboxValue ('in_person',$platformUser->booking_method);?>>
                                 <label for="booking_method_in_person">In Person</label><br>
 
                             </div>
 
                             <div class="col no-padding-left">
 
-                                <input type="checkbox" id="booking_method_phone_call" name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
+                                <input type="checkbox" id="booking_method_phone_call" class="checkboxradio"  name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
                                 <label for="booking_method_phone_call">Phone Call</label><br>
 
                             </div>
 
                             <div class="col no-padding-left">
 
-                                <input type="checkbox" id="booking_method_conference" name="booking_method[]" value="conference" <?php displayCheckboxValue ('conference',$platformUser->booking_method);?>>
+                                <input type="checkbox" id="booking_method_conference" class="checkboxradio"  name="booking_method[]" value="conference" <?php displayCheckboxValue ('conference',$platformUser->booking_method);?>>
                                 <label for="booking_method_conference">Conference</label><br>
 
                             </div>
 
                             <div class="col no-padding-left">
 
-                                <input type="checkbox" id="booking_method_online" name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
+                                <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
                                 <label for="booking_method_online">Online</label><br>
 
                             </div>
