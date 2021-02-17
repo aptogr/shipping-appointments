@@ -41,7 +41,7 @@ get_header();
                 <div class="col l6 m6 s12">
 
                     <div class="illustration">
-                        <?php echo wp_get_attachment_image( 260, 'full'); ?>
+                        <?php echo wp_get_attachment_image( 377, 'full'); ?>
                     </div>
 
                 </div>
