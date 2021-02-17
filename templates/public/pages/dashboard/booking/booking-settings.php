@@ -167,6 +167,13 @@ function displayCheckboxValue ($id,$value) {
 
                             </div>
 
+                            <div class="col no-padding-left">
+
+                                <input type="checkbox" id="booking_method_premises" class="checkboxradio"  name="booking_method[]" value="premises" <?php displayCheckboxValue ('premises',$platformUser->booking_method);?>>
+                                <label for="booking_method_premises">Premises</label><br>
+
+                            </div>
+
                         </div>
 
                     </section>

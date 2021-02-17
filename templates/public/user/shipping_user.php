@@ -245,7 +245,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                         <input id="da_post_author" type="hidden" value="<?php echo $platformUser->availability->post->post_author; ?>">
                         <form action="">
 
-                            <div class="col m6 l6">
+                            <div class="col m4 l4 s12">
                                 <div
                                         class="calendar shippingUser"
                                         data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
@@ -255,7 +255,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                                 ></div>
                             </div>
 
-                            <div class="col m6 l6">
+                            <div class="col m8 l8 s12">
                                 <div class="dayDisplay">
 
                                 </div>
