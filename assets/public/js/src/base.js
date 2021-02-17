@@ -3,8 +3,17 @@
 
     $(document).ready(function(){
 
-        if ($('body.shippingappointments').length > 0) {
+        $( ".checkboxradio" ).checkboxradio();
 
+
+        $('input.timepickerGeneral').timepicker({
+            'timeFormat': 'H:i',
+            'show2400': true,
+            'step': 15,
+        });
+
+
+        if ($('body.shippingappointments').length > 0) {
 
             $('input.timepicker').timepicker({
                 'timeFormat': 'H:i',
@@ -14,7 +23,7 @@
         }
 
 
-        $('input.timepicker').on("selectTime", function() {
+        $('input.timepicker, input.timepickerGeneral').on("selectTime", function() {
 
             var that = $(this)
             that.attr('value', that.val())

@@ -1,0 +1,36 @@
+.cancel-button {
+  padding: 25px 30px;
+  font-weight: bold;
+  background-color: #fe3030;
+  border: 1px solid #fe3030;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #fff;
+    color: #fe3030;
+  }
+
+}
+
+
+.approve-button {
+  padding: 25px 30px;
+  font-weight: bold;
+  background-color: #6ac600;
+  border: 1px solid #6ac600;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #fff;
+    color: #6ac600;
+  }
+
+}

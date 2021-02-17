@@ -33,19 +33,20 @@ class AppointmentPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'status'  => self::POST_TYPE_NAME . '_status',
-		'date'  => self::POST_TYPE_NAME . '_date',
-		'from_time'  => self::POST_TYPE_NAME . '_from_time',
-		'to_time'  => self::POST_TYPE_NAME . '_to_time',
-		'appointment_method'  => self::POST_TYPE_NAME . '_appointment_method',
-		'location'  => self::POST_TYPE_NAME . '_location',
-		'zoom_link'  => self::POST_TYPE_NAME . '_zoom_link',
-		'webex_link'  => self::POST_TYPE_NAME . '_webex_link',
-		'meeting_type'  => self::POST_TYPE_NAME . '_meeting_type',
-		'requester'  => self::POST_TYPE_NAME . '_requester',
-		'invite_questions'  => self::POST_TYPE_NAME . '_invite_questions',
-		'guests'  => self::POST_TYPE_NAME . '_guests',
-		'meeting_time_duration'  => self::POST_TYPE_NAME . '_meeting_time_duration',
+		'status'                        => self::POST_TYPE_NAME . '_status',
+		'date'                          => self::POST_TYPE_NAME . '_date',
+		'from_time'                     => self::POST_TYPE_NAME . '_from_time',
+		'to_time'                       => self::POST_TYPE_NAME . '_to_time',
+		'appointment_method'            => self::POST_TYPE_NAME . '_appointment_method',
+		'appointment_method_selected'   => self::POST_TYPE_NAME . '_appointment_method_selected',
+		'location'                      => self::POST_TYPE_NAME . '_location',
+		'zoom_link'                     => self::POST_TYPE_NAME . '_zoom_link',
+		'webex_link'                    => self::POST_TYPE_NAME . '_webex_link',
+		'meeting_type'                  => self::POST_TYPE_NAME . '_meeting_type',
+		'requester'                     => self::POST_TYPE_NAME . '_requester',
+		'invite_questions'              => self::POST_TYPE_NAME . '_invite_questions',
+		'guests'                        => self::POST_TYPE_NAME . '_guests',
+		'meeting_time_duration'         => self::POST_TYPE_NAME . '_meeting_time_duration',
 	];
 
 
@@ -216,15 +217,30 @@ class AppointmentPost implements TemplatesInterface{
 
                 array(
                     'id'              => self::META_FIELDS_SLUG['appointment_method'],
-                    'name'            => esc_html__( 'Appointment Method', ShippingAppointments::PLUGIN_NAME ),
-                    'type'            => 'radio',
+                    'name'            => esc_html__( 'Available Appointment Methods', ShippingAppointments::PLUGIN_NAME ),
+                    'type'            => 'checkbox_list',
                     'options'         => array(
                         'in_person'       => 'In Person',
                         'phone_call'      => 'Phone Call',
                         'conference'      => 'Conference',
                         'online'          => 'Online',
+                        'premises'        => 'Premises',
                     ),
                     'inline' => true,
+                ),
+
+                array(
+                    'name'       => esc_html__( 'Selected Appointment Method', ShippingAppointments::PLUGIN_NAME ),
+                    'id'         => self::META_FIELDS_SLUG['appointment_method_selected'],
+                    'type'      => 'radio',
+                    'options'   => array(
+                        'in_person'       => 'In Person',
+                        'phone_call'      => 'Phone Call',
+                        'conference'      => 'Conference',
+                        'online'          => 'Online',
+                        'premises'        => 'Premises',
+                    ),
+                    'inline'    => true,
                 ),
 
                 array(
@@ -311,7 +327,27 @@ class AppointmentPost implements TemplatesInterface{
 
 		global $post;
 
-		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment.php";
+//        echo "<pre>";
+//        print_r($post);
+//        echo "</pre>";
+
+        $current_user = get_current_user_id();
+
+
+        $appointment = new \ShippingAppointments\Service\Entities\Appointment($post->ID);
+//        echo "<pre>";
+//        print_r($appointment);
+//        echo "</pre>";
+
+
+        if ($appointment->requester == $current_user) {
+            $template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment-requestor.php";
+        } elseif ($appointment->receiver == $current_user) {
+            $template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment-receiver.php";
+        } else {
+            $template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment.php";
+        }
+
 		return (  $post->post_type === self::POST_TYPE_NAME && file_exists( $template ) ? $template : $single_template );
 
 	}

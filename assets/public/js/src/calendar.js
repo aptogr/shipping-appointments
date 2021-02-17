@@ -98,7 +98,7 @@
                             labelName = labelName.charAt(0).toUpperCase() + labelName.slice(1);
 
                             var bookingCheckBox = '<div class="col no-padding-left">' +
-                                '<input type="radio" id="booking_method_'+value+'" name="appointment_method" value="'+ value +'">' +
+                                '<input type="checkbox" id="booking_method_'+value+'" name="appointment_method[]" value="'+ value +'">' +
                                 '<label for="booking_method_'+value+'">'+labelName+'</label><br>' +
                                 '</div>';
                             $('#bookingMethods').append(bookingCheckBox).ready(function () {

@@ -6,6 +6,9 @@ namespace ShippingAppointments\Controller\Save;
 use ShippingAppointments\Controller\Save\Service\SaveAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAvailabilityController;
 use ShippingAppointments\Controller\Save\Service\SaveBookingSettingsController;
+use ShippingAppointments\Controller\Save\Service\ApproveAppointmentController;
+use ShippingAppointments\Controller\Save\Service\UpdateAppointmentController;
+use ShippingAppointments\Controller\Save\Service\CancelAppointmentController;
 
 class SaveController {
 
@@ -40,6 +43,33 @@ class SaveController {
 
                     $saveAppointmentController  = new SaveAppointmentController();
                     $action                         = $saveAppointmentController->save( $_POST );
+                    $redirectUrl                    = 'dashboard';
+
+                    break;
+
+                case 'approve_appointment':
+
+
+                    $approveAppointmentController  = new ApproveAppointmentController();
+                    $action                         = $approveAppointmentController->save( $_POST );
+                    $redirectUrl                    = 'dashboard';
+
+                    break;
+
+                case 'update_appointment':
+
+
+                    $updateAppointmentController  = new UpdateAppointmentController();
+                    $action                         = $updateAppointmentController->save( $_POST );
+                    $redirectUrl                    = 'dashboard';
+
+                    break;
+
+                case 'cancel_appointment':
+
+
+                    $cancelAppointmentController  = new CancelAppointmentController();
+                    $action                         = $cancelAppointmentController->save( $_POST );
                     $redirectUrl                    = 'dashboard';
 
                     break;

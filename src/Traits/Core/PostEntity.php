@@ -43,8 +43,18 @@ Trait PostEntity {
 
                 if( isset( $this->postMeta[ $metaKey ] ) ){
 
-                    $value = $this->postMeta[$metaKey][0];
+                    if( count( $this->postMeta[$metaKey] ) > 1 ){
 
+                        $value = $this->postMeta[$metaKey];
+
+                    }
+                    else {
+
+                        $value = $this->postMeta[$metaKey][0];
+
+                    }
+
+//                    var_dump($this->postMeta[$metaKey]);
                     if ( @unserialize( $value ) !== false ){
 
                         $this->$property = unserialize( $value );

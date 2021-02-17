@@ -252,7 +252,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                             <input type="hidden" name="requester" value="<?php echo $logedInUser->availability->post->post_author; ?>">
                             <input type="hidden" id="meeting_time_duration" name="meeting_time_duration" value="<?php echo $platformUser->meeting_duration ;?>">
 
-                            <div class="col m6 l6">
+                            <div class="col m4 l4 s12">
                                 <div
                                         class="calendar shippingUser"
                                         data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
@@ -262,7 +262,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                                 ></div>
                             </div>
 
-                            <div class="col m6 l6 flex flex-dir-col">
+                            <div class="col m8 l8 s12 flex flex-dir-col">
                                 <div class="dayDisplay"></div>
                                 <input type="hidden" id='shippingDay' name='date' value=''>
                                 <div id="bookingMethods" class="margin-top-20"></div>
