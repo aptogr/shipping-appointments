@@ -234,18 +234,18 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
             <div class="col s12">
 
-                <div class="schedule-appointment-block full-width display-inline-block">
+                <div class="schedule-appointment-block  full-width display-inline-block">
 
                     <h3>
                         Schedule Appointment
                     </h3>
 
-                    <div class="schedule-appointment-block--content">
+                    <div class="schedule-appointment-block--content full-width display-inline-block margin-top-2">
 
                         <input id="da_post_author" type="hidden" value="<?php echo $platformUser->availability->post->post_author; ?>">
-                        <form action="">
+                        <form action="" method="post">
 
-                            <div class="col m4 l4 s12">
+                            <div class="col m6 l5 s12">
                                 <div
                                         class="calendar shippingUser"
                                         data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
@@ -255,7 +255,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                                 ></div>
                             </div>
 
-                            <div class="col m8 l8 s12">
+                            <div class="col m6 l7 s12">
                                 <div class="dayDisplay">
 
                                 </div>
@@ -263,7 +263,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                                 <div id="selectedShippingDates"></div>
                             </div>
 
-                            <div class="col l12 m12 margin-top-50 margin-bottom-20">
+                            <div class="col l12 m12 margin-top-30  margin-bottom-20">
                                 <button type="submit" class="saveAvailability save-button" name="refresh_action" value="create_appointment">CREATE APPOINTMENT</button>
                             </div>
 

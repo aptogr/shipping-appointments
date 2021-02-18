@@ -1,0 +1,25 @@
+@import "../project/colors";
+
+.platform-dashboard-page {
+
+  .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+  html .ui-button.ui-state-disabled:active {
+    border: 0;
+    background: #e6f1ff;
+    color: #02569c;
+    font-weight: 700;
+  }
+
+  .ui-button {
+    transition: 0.2s ease-in-out;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: #02569c;
+      color: #fff;
+    }
+
+  }
+
+}

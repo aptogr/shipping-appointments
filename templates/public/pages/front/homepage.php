@@ -7,7 +7,7 @@ get_header();
 
     <section id="opener" class="profenda-section padding-top-50 padding-bottom-50 relative">
 
-        <svg class="curved-divider curved-bottom-left" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="590 165.4 1599 265.9" xml:space="preserve" style="position: absolute;top: -100px;z-index: 0;width: 100%;left: 0;">
+        <svg class="curved-divider curved-bottom-left" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="590 165.4 1599 265.9" xml:space="preserve" style="position: absolute;top: -62px;z-index: 0;width: 100%;left: 0;">
             <g id="Design-1">
                 <g id="landing-page-1" transform="translate(-1.000000, -660.000000)">
                     <g id="Group-19" transform="translate(1.000000, 660.000000)">
@@ -24,10 +24,10 @@ get_header();
                 <div class="col l6 m6 s12">
 
                     <h1 style="font-size:2.6rem;">
-                        A Platform for Scheduling Appointments Online in the Shipping Industry.
+                        A Platform for Scheduling Appointments Online in the <span class="accent-color">Shipping Industry</span>.
                     </h1>
 
-                    <p style="color:#222;">
+                    <p style="color:#222;" class="margin-top-30">
                         Profenda is an online appointment scheduling platform that connects Shipping Companies with Suppliers.
                         It's a professional agenda which simplifies how you schedule and run customer meetings.
                         Let your clients choose how, when and where to meet you in just a few clicks.
@@ -52,11 +52,15 @@ get_header();
 
     </section>
 
-    <section id="whyProfenda" class="profenda-section padding-top-50 padding-bottom-50 relative" style="background-color: #bfd8fa;">
+    <section id="whyProfenda" class="profenda-section padding-top-50 padding-bottom-50 relative sea-pattern primary-bg">
 
-        <div class="container">
+        <div class="container relative z-index-1">
 
-            <div class="flex full-width">
+            <h2 class="color-white center">
+                Why use a digital appointments platform?
+            </h2>
+
+            <div class="flex full-width margin-top-30">
 
                 <div class="col l4 m6 s12">
 

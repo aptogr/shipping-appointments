@@ -243,7 +243,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                         Schedule Appointment
                     </h3>
 
-                    <div class="schedule-appointment-block--content">
+                    <div class="schedule-appointment-block--content full-width display-inline-block margin-top-20">
 
                         <input id="da_post_author" type="hidden" value="<?php echo $platformUser->availability->post->post_author; ?>">
                         <form action="" method="post">
@@ -252,7 +252,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                             <input type="hidden" name="requester" value="<?php echo $logedInUser->availability->post->post_author; ?>">
                             <input type="hidden" id="meeting_time_duration" name="meeting_time_duration" value="<?php echo $platformUser->meeting_duration ;?>">
 
-                            <div class="col m4 l4 s12">
+                            <div class="col m6 l5 s12">
                                 <div
                                         class="calendar shippingUser"
                                         data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
@@ -262,14 +262,14 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                                 ></div>
                             </div>
 
-                            <div class="col m8 l8 s12 flex flex-dir-col">
+                            <div class="col m6 l7 s12 flex flex-dir-col">
                                 <div class="dayDisplay"></div>
                                 <input type="hidden" id='shippingDay' name='date' value=''>
                                 <div id="bookingMethods" class="margin-top-20"></div>
                                 <div id="selectedShippingDates" class="margin-top-20"></div>
                             </div>
 
-                            <div class="col l12 m12 margin-top-50 margin-bottom-20">
+                            <div class="col l12 m12 margin-top-30 margin-bottom-20">
                                 <button type="submit" class="saveAvailability save-button" name="refresh_action" value="create_appointment">CREATE APPOINTMENT</button>
                             </div>
 
@@ -279,7 +279,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
                 </div>
 
-            </div> 
+            </div>
 
     </section>
 
@@ -311,7 +311,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                     }
                     ?>
                 </tr>
-                <tr> 
+                <tr>
                     <td>To</td>
                     <?php
                     foreach ($platformUser::ALL_DAYS as $day) {

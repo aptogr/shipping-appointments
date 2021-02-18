@@ -25,11 +25,12 @@ $mercury: #e5e5e5;
 //============================================/
 //    Color Palette of the Project
 //==========================================/
-$palette-color1: #5e0821;
-$palette-color2: #660c26;
-$palette-color3: #712c38;
-$palette-color4: #fba919;
-$palette-color5: #fdf2cc;
+$color-palette-1: #02569c;
+$color-palette-2: #0569be;
+$color-palette-3: #20ace1;
+$color-palette-4: #afd2f0;
+$color-palette-5: #02408d;
+$color-palette-6: #e6f1ff;
 
 $blue-ribbon: #304ffe;
 $boulder: #747474;
@@ -48,3 +49,11 @@ $mainColorLight: $portage;
 $h1Color: $blue-ribbon;
 $h2Color: $black-metal;
 $h3Color: $boulder;
+
+
+//============================================/
+//    Calendar Colors
+//==========================================/
+
+$calendar-bg: $color-palette-6;
+$calendar-active-color: $color-palette-1;

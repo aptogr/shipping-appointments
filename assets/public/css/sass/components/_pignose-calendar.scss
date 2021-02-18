@@ -8,7 +8,7 @@
   .pignose-calendar {
     width:100%;
     max-width: 100%;
-    background-color: $gallery;
+    background-color: $calendar-bg;
     box-shadow: none!important;
     border:0;
 
@@ -20,7 +20,7 @@
     }
 
     .pignose-calendar-top-date {
-      color:$mainColor;
+      color:$calendar-active-color;
       padding: 0.6em 0!important;
       text-transform:none!important;
     }
@@ -40,26 +40,30 @@
 
     .pignose-calendar-unit {
       a {
-        color:#616161!important;
+        color:$calendar-active-color!important;
       }
     }
 
     .pignose-calendar-unit-active {
       a {
         color:$hospital-white!important;
-        background-color:$mainBGColor!important;
+        background-color:$calendar-active-color!important;
       }
     }
 
+    .pignose-calendar-unit-disabled a {
+      cursor: not-allowed;
+    }
+
     .pignose-calendar-week {
-      color: #b0b0b0!important;
+      color: $calendar-active-color!important;
     }
 
     .pignose-calendar-top-icon {
-      color:$mainColorLight!important;
+      color:$calendar-active-color!important;
     }
     .pignose-calendar-top-icon:hover {
-      color:$mainColor!important;
+      color:$calendar-active-color!important;
     }
 
   }
