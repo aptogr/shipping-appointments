@@ -4,6 +4,7 @@ namespace ShippingAppointments\Controller\Front;
 
 use ShippingAppointments\Controller\Ajax\AjaxController;
 use ShippingAppointments\Interfaces\PublicInterface;
+use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Traits\Core\Plugin;
 
 /**
@@ -100,6 +101,28 @@ class PublicController implements PublicInterface {
 
 		$classes[]  = $this->getPluginName();
 		$classes[] = ( $this->isDashboardPage() ? 'platform-dashboard-page' : 'front-page ');
+
+		$post = get_queried_object();
+
+		if( $post->post_type === AppointmentPost::POST_TYPE_NAME ){
+
+
+            $appointment = new \ShippingAppointments\Service\Entities\Appointment($post->ID);
+
+            if( is_user_logged_in() ){
+
+
+                $currentUser = get_current_user_id();
+
+                if ($appointment->requester == $currentUser) {
+                    $classes[] = 'appointment-requester';
+                } elseif ($appointment->receiver == $currentUser) {
+                    $classes[] = 'appointment-receiver';
+                }
+
+            }
+
+        }
 
 		return $classes;
 

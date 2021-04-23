@@ -62,7 +62,10 @@ var scripts = [
             config.srcDirJS + '/pignose.calendar.min.js',
             config.srcDirJS + '/base.js',
             config.srcDirJS + '/jquery-ui.min.js',
-            config.srcDirJS + '/calendar.js'
+            config.srcDirJS + '/calendar.js',
+            config.srcDirJS + '/appointments.js',
+            config.srcDirJS + '/products.js',
+            config.srcDirJS + '/brands.js',
         ],
         name : 'public.min',
         dest : config.destDirJS + ''

@@ -27,8 +27,41 @@ class DepartmentPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'company'   => self::POST_TYPE_NAME . '_company',
-		'type'      => self::POST_TYPE_NAME . '_type',
+		'company'                       => self::POST_TYPE_NAME . '_company',
+		'department_users_visibility'   => self::POST_TYPE_NAME . '_department_users_visibility',
+		'type'                          => self::POST_TYPE_NAME . '_type',
+        'weekdays_available'            => self::POST_TYPE_NAME . '_weekdays_available',
+        'mon_time_from'                 => self::POST_TYPE_NAME . '_mon_time_from',
+        'mon_time_to'                   => self::POST_TYPE_NAME . '_mon_time_to',
+        'tue_time_from'                 => self::POST_TYPE_NAME . '_tue_time_from',
+        'tue_time_to'                   => self::POST_TYPE_NAME . '_tue_time_to',
+        'wed_time_from'                 => self::POST_TYPE_NAME . '_wed_time_from',
+        'wed_time_to'                   => self::POST_TYPE_NAME . '_wed_time_to',
+        'thu_time_from'                 => self::POST_TYPE_NAME . '_thu_time_from',
+        'thu_time_to'                   => self::POST_TYPE_NAME . '_thu_time_to',
+        'fri_time_from'                 => self::POST_TYPE_NAME . '_fri_time_from',
+        'fri_time_to'                   => self::POST_TYPE_NAME . '_fri_time_to',
+        'sat_time_from'                 => self::POST_TYPE_NAME . '_sat_time_from',
+        'sat_time_to'                   => self::POST_TYPE_NAME . '_sat_time_to',
+        'sun_time_from'                 => self::POST_TYPE_NAME . '_sun_time_from',
+        'sun_time_to'                   => self::POST_TYPE_NAME . '_sun_time_to',
+        'excluded_dates'                => self::POST_TYPE_NAME . '_excluded_dates',
+        'max_meetings_per_day'          => self::POST_TYPE_NAME . '_max_meetings_per_day',
+        'book_in_advance_days'          => self::POST_TYPE_NAME . '_book_in_advance_days',
+        'minimum_notice'                => self::POST_TYPE_NAME . '_minimum_notice',
+        'booking_request_type'          => self::POST_TYPE_NAME . '_booking_request_type',
+        'booking_request'               => self::POST_TYPE_NAME . '_booking_request',
+        'meet_same_supplier_times'      => self::POST_TYPE_NAME . '_meet_same_supplier_times',
+        'booking_method'                => self::POST_TYPE_NAME . '_booking_method',
+        'booking_method_user'           => self::POST_TYPE_NAME . '_booking_method_user',
+        'selected_products'             => self::POST_TYPE_NAME . '_selected_products',
+        'selected_brands'               => self::POST_TYPE_NAME . '_selected_brands',
+        'meeting_repetition_time'       => self::POST_TYPE_NAME . '_meeting_repetition_time',
+        'meeting_repetition'            => self::POST_TYPE_NAME . '_meeting_repetition',
+
+        //new
+        'instant_booking'               => self::POST_TYPE_NAME . '_instant_booking',
+
 	];
 
 
@@ -145,6 +178,249 @@ class DepartmentPost implements TemplatesInterface{
 					'field_type'  => 'select_advanced',
 					'placeholder' => 'Select a company',
 				),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Users Visibility',
+                    'id'                => self::META_FIELDS_SLUG['department_users_visibility'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'department_users_visibile'             => 'Visibile Users',
+                        'department_users_invisibile'           => 'Invisible Users',
+                        'department_users_department'           => 'Let the users define',
+                    ),
+                ),
+                array(
+                    'name'              => 'Instant Booking',
+                    'id'                => self::META_FIELDS_SLUG['instant_booking'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'accept_specific'               => 'Accept for specific',
+                        'decline'                       => 'Do not accept',
+                        'user'                          => 'Let the user define',
+                    ),
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Booking Method',
+                    'id'                => self::META_FIELDS_SLUG['booking_method'],
+                    'type'              => 'checkbox_list',
+                    'options'           => array(
+                        'physical_location'     => 'Physical Location',
+                        'phone_call'            => 'Phone Call',
+                        'online'                => 'Remote Online',
+                    ),
+                    'inline'            => false,
+                    'select_all_none'   => true,
+                ),
+
+                array(
+                    'name'              => 'Let the users define Booking Method',
+                    'id'                => self::META_FIELDS_SLUG['booking_method_user'],
+                    'type' => 'checkbox',
+                    'std'  => 0, // 0 or 1
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+                array(
+                    'name'       => 'Products',
+                    'id'         => self::META_FIELDS_SLUG['selected_products'],
+                    'type'       => 'text',
+                ),
+                array(
+                    'name'       => 'Brands',
+                    'id'         => self::META_FIELDS_SLUG['selected_brands'],
+                    'type'       => 'text',
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Booking request type',
+                    'id'                => self::META_FIELDS_SLUG['booking_request_type'],
+                    'desc'              => 'The way the booking requests are made. Email or instant booking',
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'email'             => 'Ask via Email first',
+                        'instant'           => 'Instant Booking',
+                    ),
+                ),
+                array(
+                    'name'              => 'Booking request',
+                    'id'                => self::META_FIELDS_SLUG['booking_request'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'booking_request_specific_suppliers'    => 'Accept for specific suppliers',
+                        'booking_request_user'                  => 'Let the user define',
+                    ),
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Minimum Notice Period',
+                    'id'                => self::META_FIELDS_SLUG['minimum_notice'],
+                    'desc'              => 'The way the booking requests are made. Email or instant booking',
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'minimum_notice_in_advance'             => 'Book an appointment at least xxx(example 24hours) in advance',
+                        'minimum_notice_no_limit'               => 'No time limit',
+                        'minimum_notice_user'                   => 'Let the user define',
+                    ),
+                ),
+                array(
+                    'name'              => 'Book in advance days',
+                    'id'                => self::META_FIELDS_SLUG['book_in_advance_days'],
+                    'desc'              => 'The minimum days notice to book the current user for.',
+                    'type'              => 'number',
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Meeting Repetition',
+                    'id'                => self::META_FIELDS_SLUG['meeting_repetition'],
+                    'type'              => 'radio',
+                    'options'           => array(
+                        'meeting_repetition_limit'          => 'Do not let the same supplier to visit our company',
+                        'meeting_repetition_no_limit'       => 'No time limit',
+                        'meeting_repetition_users'          => 'Let the users define',
+                    ),
+                    'inline'            => false,
+                    'select_all_none'   => true,
+                ),
+
+                array(
+                    'name'              => 'Meeting Repetition Time Limit',
+                    'id'                => self::META_FIELDS_SLUG['meeting_repetition_time'],
+                    'type'              => 'number',
+                ),
+
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Max meetings per day',
+                    'id'                => self::META_FIELDS_SLUG['max_meetings_per_day'],
+                    'desc'              => 'The maximum meetings the current user can be booked for.',
+                    'type'              => 'number',
+                ),
+
+                array(
+                    'name'              => 'How many times to meet same supplier',
+                    'id'                => self::META_FIELDS_SLUG['meet_same_supplier_times'],
+                    'desc'              => 'The maximum number of times the user can meet a supplier',
+                    'type'              => 'number',
+                ),
+
+
+                array(
+                    'id'   => self::META_FIELDS_SLUG['weekdays_available'],
+                    'name' => esc_html__( 'Week days Available', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['mon_time_from'],
+                    'name' => esc_html__( 'Monday time from', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['mon_time_to'],
+                    'name' => esc_html__( 'Monday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['tue_time_from'],
+                    'name' => esc_html__( 'Tuesday time from', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['tue_time_to'],
+                    'name' => esc_html__( 'Tuesday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['wed_time_from'],
+                    'name' => esc_html__( 'Wednesday time from', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['wed_time_to'],
+                    'name' => esc_html__( 'Wednesday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['thu_time_from'],
+                    'name' => esc_html__( 'Thursday time from', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['thu_time_to'],
+                    'name' => esc_html__( 'Thursday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['fri_time_from'],
+                    'name' => esc_html__( 'Friday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['fri_time_to'],
+                    'name' => esc_html__( 'Friday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sat_time_from'],
+                    'name' => esc_html__( 'Saturday time from', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sat_time_to'],
+                    'name' => esc_html__( 'Saturday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sun_time_from'],
+                    'name' => esc_html__( 'Sunday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sun_time_to'],
+                    'name' => esc_html__( 'Sunday time to', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['excluded_dates'],
+                    'name' => esc_html__( 'Excluded Dates', ShippingAppointments::PLUGIN_NAME ),
+                    'type' => 'text',
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
 			),
 		);
 

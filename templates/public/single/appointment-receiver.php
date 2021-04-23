@@ -6,8 +6,12 @@ global $post;
 $appointment = new \ShippingAppointments\Service\Entities\Appointment($post->ID);
 
 
-function hideDiv ($valueid,$value) {
-    return ($valueid == $value) ? 'hide' : "" ;
+//function hideDiv ($valueid,$value) {
+//    return ($valueid == $value) ? 'hide' : "" ;
+//}
+
+function displayFields ($method,$method_selected) {
+    return (strpos($method, $method_selected) !== false) ? 'appointment_method display-block' : "appointment_method hide" ;
 }
 
 
@@ -21,7 +25,11 @@ function hideDiv ($valueid,$value) {
 
 
 ?>
-    <section class="appointment-receiver full-width padding-top-30 padding-bottom-30">
+
+<!--    <section class="dashboard-template-opener full-width padding-top-30 padding-bottom-30">-->
+<!--        asd-->
+<!--    </section>-->
+    <section id="appointment-receiver-template" class="appointment-receiver full-width padding-top-30 padding-bottom-30">
         <div class="container relative z-index-1">
 
             <div class="col l12 m12 s12">
@@ -87,36 +95,34 @@ function hideDiv ($valueid,$value) {
                         </div>
                     </div>
 
-                    <div class="col x12 l12 m12 s12 margin-bottom-20">
+                    <div class="col x12 l12 m12 s12 margin-bottom-20 method_selected_location <?php echo displayFields ('physical_location',$appointment->appointment_method_selected);?>">
                         <div class="label col l4 m4 s12">Location</div>
                         <div class="label_input col l8 m8 s12"><input name="location" type="text" value="<? echo $appointment->displayInputValue ($appointment->location);?>"></div>
                     </div>
 
-                    <div class="col x12 l12 m12 s12 margin-bottom-20">
+                    <div class="col x12 l12 m12 s12 margin-bottom-20 method_selected_event_location <?php echo displayFields ('physical_location',$appointment->appointment_method_selected);?>">
+                        <div class="label col l4 m4 s12">Event Location</div>
+                        <div class="label_input col l8 m8 s12"><input name="event_location" type="text" value="<? echo $appointment->displayInputValue ($appointment->event_location);?>"></div>
+                    </div>
+
+                    <div class="col x12 l12 m12 s12 margin-bottom-20 method_selected_telephone <?php echo displayFields ('phone_call',$appointment->appointment_method_selected);?>">
+                        <div class="label col l4 m4 s12">Telephone</div>
+                        <div class="label_input col l8 m8 s12"><input name="telephone" type="text" value="<? echo $appointment->displayInputValue ($appointment->telephone);?>"></div>
+                    </div>
+
+                    <div class="col x12 l12 m12 s12 margin-bottom-20 method_selected_zoom_link <?php echo displayFields ('online',$appointment->appointment_method_selected);?>">
                         <div class="label col l4 m4 s12">Zoom Link</div>
                         <div class="label_input col l8 m8 s12"><input name="zoom_link" type="text" value="<? echo $appointment->displayInputValue ($appointment->zoom_link);?>"></div>
                     </div>
 
-                    <div class="col x12 l12 m12 s12 margin-bottom-20">
+                    <div class="col x12 l12 m12 s12 margin-bottom-20 method_selected_webex_link <?php echo displayFields ('online',$appointment->appointment_method_selected);?>">
                         <div class="label col l4 m4 s12">Webex Link</div>
                         <div class="label_input col l8 m8 s12"><input name="webex_link" type="text" value="<? echo $appointment->displayInputValue ($appointment->webex_link);?>"></div>
                     </div>
 
-                    <div class="col x12 l12 m12 s12 margin-bottom-20">
-                        <div class="label col l4 m4 s12">Meeting Type</div>
-                        <div class="label_input col l8 m8 s12">
-
-                            <div class="col no-padding-left">
-                                <input type="radio" class="checkboxradio" id="meeting_type_one_on_one" name="meeting_type" value="one_on_one" <?php echo $appointment->displayRadioValue ('one_on_one',$appointment->meeting_type);?>>
-                                <label for="meeting_type_one_on_one">One on one</label><br>
-                            </div>
-
-                            <div class="col no-padding-left">
-                                <input type="radio" class="checkboxradio" id="meeting_type_group" name="meeting_type" value="group" <?php echo $appointment->displayRadioValue ('group',$appointment->meeting_type);?>>
-                                <label for="meeting_type_group">Group</label><br>
-                            </div>
-
-                        </div>
+                    <div class="col x12 l12 m12 s12 margin-bottom-20 method_selected_teams_link <?php echo displayFields ('online',$appointment->appointment_method_selected);?>">
+                        <div class="label col l4 m4 s12">Microsoft Teams Link</div>
+                        <div class="label_input col l8 m8 s12"><input name="teams_link" type="text" value="<? echo $appointment->displayInputValue ($appointment->teams_link);?>"></div>
                     </div>
 
                     <div class="col x12 l12 m12 s12 margin-bottom-20">

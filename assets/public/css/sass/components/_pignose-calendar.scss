@@ -69,3 +69,31 @@
   }
 
 }
+
+
+.exludeDaysBox {
+
+  width: 160px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-radius: 0;
+  background-color: $color-palette-1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .selectedDateDelete {
+    float: right;
+    margin-left: 15px;
+    font-weight: bold;
+    background-color: #659cf2;
+    cursor: pointer;
+    width: 20px;
+    height: 21px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+  }
+
+}

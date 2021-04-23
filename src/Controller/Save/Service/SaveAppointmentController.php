@@ -24,8 +24,6 @@ class SaveAppointmentController extends ServiceSaveController {
 
         if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
             $value = explode( ',', $value );
-
-
         }
 
         if (is_array($value)) {

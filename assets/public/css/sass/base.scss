@@ -35,8 +35,16 @@
 @import "components/timepicker";
 @import "components/buttons";
 @import "components/checkboxes";
+@import "components/typography";
+@import "components/products";
+@import "components/brands";
+@import "components/notice-in-page";
+@import "components/setting-field-wrapper";
+
 @import "project/fonts";
 @import "project/utility";
+
+@import "templates/user-availability";
 
 
 @media screen and (max-width: 600px) {

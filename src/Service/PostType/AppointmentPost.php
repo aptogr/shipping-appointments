@@ -40,9 +40,11 @@ class AppointmentPost implements TemplatesInterface{
 		'appointment_method'            => self::POST_TYPE_NAME . '_appointment_method',
 		'appointment_method_selected'   => self::POST_TYPE_NAME . '_appointment_method_selected',
 		'location'                      => self::POST_TYPE_NAME . '_location',
+		'event_location'                      => self::POST_TYPE_NAME . '_event_location',
+		'telephone'                     => self::POST_TYPE_NAME . '_telephone',
 		'zoom_link'                     => self::POST_TYPE_NAME . '_zoom_link',
 		'webex_link'                    => self::POST_TYPE_NAME . '_webex_link',
-		'meeting_type'                  => self::POST_TYPE_NAME . '_meeting_type',
+		'teams_link'                    => self::POST_TYPE_NAME . '_teams_link',
 		'requester'                     => self::POST_TYPE_NAME . '_requester',
 		'invite_questions'              => self::POST_TYPE_NAME . '_invite_questions',
 		'guests'                        => self::POST_TYPE_NAME . '_guests',
@@ -213,70 +215,69 @@ class AppointmentPost implements TemplatesInterface{
                     'id'         => self::META_FIELDS_SLUG['meeting_time_duration'],
                     'type' => 'text',
                 ),
-
-
                 array(
                     'id'              => self::META_FIELDS_SLUG['appointment_method'],
                     'name'            => esc_html__( 'Available Appointment Methods', ShippingAppointments::PLUGIN_NAME ),
                     'type'            => 'checkbox_list',
                     'options'         => array(
-                        'in_person'       => 'In Person',
-                        'phone_call'      => 'Phone Call',
-                        'conference'      => 'Conference',
-                        'online'          => 'Online',
-                        'premises'        => 'Premises',
+                        'physical_location'     => 'Physical Location',
+                        'phone_call'            => 'Phone Call',
+                        'remote_online'         => 'Remote Online',
                     ),
                     'inline' => true,
                 ),
 
                 array(
-                    'name'       => esc_html__( 'Selected Appointment Method', ShippingAppointments::PLUGIN_NAME ),
-                    'id'         => self::META_FIELDS_SLUG['appointment_method_selected'],
-                    'type'      => 'radio',
-                    'options'   => array(
-                        'in_person'       => 'In Person',
-                        'phone_call'      => 'Phone Call',
-                        'conference'      => 'Conference',
-                        'online'          => 'Online',
-                        'premises'        => 'Premises',
+                    'name'          => esc_html__( 'Selected Appointment Method', ShippingAppointments::PLUGIN_NAME ),
+                    'id'            => self::META_FIELDS_SLUG['appointment_method_selected'],
+                    'type'          => 'radio',
+                    'options'       => array(
+                        'physical_location'     => 'Physical Location',
+                        'phone_call'            => 'Phone Call',
+                        'remote_online'         => 'Remote Online',
                     ),
                     'inline'    => true,
                 ),
 
                 array(
-                    'id'   => self::META_FIELDS_SLUG['location'],
-                    'name' => esc_html__( 'Location', ShippingAppointments::PLUGIN_NAME ),
-                    'type' => 'text',
+                    'id'    => self::META_FIELDS_SLUG['location'],
+                    'name'  => esc_html__( 'Location', ShippingAppointments::PLUGIN_NAME ),
+                    'type'  => 'text',
                 ),
 
                 array(
-                    'id'   => self::META_FIELDS_SLUG['zoom_link'],
-                    'name' => esc_html__( 'Zoom Link', ShippingAppointments::PLUGIN_NAME ),
-                    'type' => 'text',
+                    'id'    => self::META_FIELDS_SLUG['event_location'],
+                    'name'  => esc_html__( 'Event Location', ShippingAppointments::PLUGIN_NAME ),
+                    'type'  => 'text',
                 ),
 
                 array(
-                    'id'   => self::META_FIELDS_SLUG['webex_link'],
-                    'name' => esc_html__( 'Webex Link', ShippingAppointments::PLUGIN_NAME ),
-                    'type' => 'text',
+                    'name'  => esc_html__( 'Telephone', ShippingAppointments::PLUGIN_NAME ),
+                    'id'    => self::META_FIELDS_SLUG['telephone'],
+                    'type'  => 'tel',
                 ),
 
                 array(
-                    'id'        => self::META_FIELDS_SLUG['meeting_type'],
-                    'name'      => esc_html__( 'Meeting Type', ShippingAppointments::PLUGIN_NAME ),
-                    'type'      => 'radio',
-                    'options'   => array(
-                        'one_on_one' => 'One on one',
-                        'group'      => 'Group',
-                    ),
-                    // Show choices in the same line?
-                    'inline'    => true,
+                    'id'    => self::META_FIELDS_SLUG['zoom_link'],
+                    'name'  => esc_html__( 'Zoom Link', ShippingAppointments::PLUGIN_NAME ),
+                    'type'  => 'text',
+                ),
+
+                array(
+                    'id'    => self::META_FIELDS_SLUG['webex_link'],
+                    'name'  => esc_html__( 'Webex Link', ShippingAppointments::PLUGIN_NAME ),
+                    'type'  => 'text',
+                ),
+
+                array(
+                    'id'    => self::META_FIELDS_SLUG['teams_link'],
+                    'name'  => esc_html__( 'Microsoft Team Link', ShippingAppointments::PLUGIN_NAME ),
+                    'type'  => 'text',
                 ),
 
                 array(
                     'id'            => self::META_FIELDS_SLUG['requester'],
                     'name'          => esc_html__( 'Requester ID', ShippingAppointments::PLUGIN_NAME ),
-//                    'type'          => 'text',
                     'type'          => 'user',
                     'field_type'    => 'select_advanced',
                     'placeholder'   => 'Select Participants',
@@ -288,7 +289,7 @@ class AppointmentPost implements TemplatesInterface{
                     'id'            => self::META_FIELDS_SLUG['invite_questions'],
                     'name'          => esc_html__( 'Invite Questions', ShippingAppointments::PLUGIN_NAME ),
                     'type'          => 'wysiwyg',
-                    'raw'           => false,
+                    'raw'           => true,
                     'options'       => array(
                         'textarea_rows' => 4,
                         'teeny'         => true,

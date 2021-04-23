@@ -57,7 +57,7 @@
 
 ?>
 
-        <div class="row availability no-margin-bottom">
+        <div id="user-availability-template" class="row availability no-margin-bottom">
 
             <form action="" method="post">
 

@@ -31,6 +31,9 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 	public $meet_same_supplier_times;
 	public $cancellation_policy;
 	public $booking_method;
+    public $selected_products;
+    public $selected_brands;
+    public $visible;
 
 
 	/**
@@ -159,6 +162,23 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 	}
 
+    public function getBookingMethods($booking_methods){
+
+        $booking_methodTotal = count($booking_methods);
+        $booking_methodCount = 1;
+
+        foreach ($booking_methods as $booking_method) {
+
+            echo ucfirst(str_replace("_"," ",$booking_method));
+
+            if ($booking_methodCount < $booking_methodTotal) {
+                echo ", ";
+            }
+
+            $booking_methodCount++;
+        }
+
+    }
 
 	public function getTimezoneDisplayName(){
 
@@ -218,12 +238,6 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
         return (!stristr($weekDays, $day)? '-' : $time);
 
-//        if (!stristr($weekDays, $day)) {
-//            $return = '-';
-//        } else {
-//            $return = $time;
-//        }
-//        return $return;
     }
 
 }

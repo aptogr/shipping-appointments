@@ -151,6 +151,7 @@ Trait Hooks {
 		$this->loader->addFilter( $pageTemplates->getPageTemplatesFilter(), $pageTemplates, 'addNewTemplate' );
 		$this->loader->addFilter( 'wp_insert_post_data', $pageTemplates, 'registerTemplates' );
 		$this->loader->addFilter( 'template_include', $pageTemplates, 'includeTemplates' );
+        $this->loader->addAction( 'init', $pageTemplates, 'registerEndpoints' );
 
 
 		/**

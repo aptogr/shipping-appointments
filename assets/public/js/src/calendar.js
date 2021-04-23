@@ -9,6 +9,47 @@
         console.log('calendar.js loaded')
 
 
+        function departmentBook(day) {
+
+            // console.log(day);
+
+            var timeRanges = '00:00,' + $("#"+day+"TimeRange").val() + ',23:59' ;
+            // console.log(timeRanges);
+            var timeRangesArray = timeRanges.split(',');
+
+            // console.log(timeRangesArray.length);
+
+            var i;
+            var timeRangesArray2D = [];
+
+            for (i = 0; i < timeRangesArray.length;) {
+
+                var from = moment(timeRangesArray[i], 'HH:mm').add( 1, 'minutes').format('HH:mm');
+                var to = timeRangesArray[i+1];
+
+                // console.log('from to',from, to);
+
+                timeRangesArray2D.push( [ from,to ] )
+                i = i + 2;
+            }
+            // console.log(timeRangesArray2D);
+
+            $('#departmentBookTimeFrom').timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'show2400': true,
+                'disableTimeRanges': timeRangesArray2D
+            });
+
+            $('#departmentBookTimeTo').timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'show2400': true,
+                'disableTimeRanges': timeRangesArray2D
+            });
+
+
+        }
         function availabilityCalendar(date) {
 
             if (excludedDatesSelected.indexOf(date) === -1) {
@@ -68,7 +109,7 @@
                 },
                 success: function (response) {
 
-                    console.log(response);
+                    // console.log(response);
 
                     $('#bookingMethods').empty();
                     $('#selectedShippingDates').empty()
@@ -183,7 +224,6 @@
         if ($('.calendar').length > 0) {
             // console.log('calendar detected');
 
-
             if ($('.calendar').attr('data-bookinadvance')) {
                 var bookinadvance = $('.calendar').data('bookinadvance');
                 yesterdayDate = new Date(new Date().getTime() + ( (24 * 60 * 60 * 1000) * ( bookinadvance - 1 ) ) ).toJSON().slice(0,10)
@@ -206,7 +246,6 @@
                 var scheduledatesHTML = $('.calendar').data('scheduledates');
                 var scheduledatesHTML = scheduledatesHTML.split(",");
             }
-
 
             var disabledWeekdaysHTML = $('.calendar').attr('data-disabledweekdays')
 
@@ -231,7 +270,6 @@
             });
 
             // console.log(schedules);
-
 
             $('.calendar').pignoseCalendar({
                 week: 1,
@@ -279,7 +317,6 @@
 
                     if (!that.hasClass('pignose-calendar-unit-disabled')) {
 
-
                         if (that.closest('.calendar').hasClass( "shippingUser" )) {
 
                             var da_post_author = $('#da_post_author').val();
@@ -293,6 +330,13 @@
 
                         }
 
+                        if (that.closest('.calendar').hasClass( "departmentBook" )) {
+
+                            // console.log(context.storage);
+                            var day = moment(date).format('ddd').toLowerCase();
+                            departmentBook(day);
+
+                        }
 
                     } else {
                         console.log( date + ' has passed..' )
@@ -306,66 +350,48 @@
 
         if ($('body.page-template-availability').length > 0) {
 
-            var excludedDatesSelectedInput = $('#excluded_dates').val();
-
-            if (excludedDatesSelectedInput.length > 0) {
-                excludedDatesSelected = excludedDatesSelectedInput.split(",");
-            }
-
-            // console.log(excludedDatesSelectedInput);
-
             $('input.timepicker').timepicker({
                 'timeFormat': 'H:i',
                 'show2400': true,
                 'step': 15,
             });
 
-            $("#excludedDatesDiv").on("click", ".selectedDateDelete", function () {
-
-                var that = $(this);
-
-                var date = that.parent().data('selecteddate');
-
-                // console.log(date);
-
-                excludedDatesSelectedTemp = [];
-
-                excludedDatesSelectedTemp = excludedDatesSelected.filter(function (x) {
-                    return x !== date;
-                });
-
-                excludedDatesSelected = excludedDatesSelectedTemp;
-                $('#excluded_dates').val(excludedDatesSelected);
-                that.parent().remove();
 
 
-            });
-
-
-            $(".dayBox").on("click", function () {
-                var that = $(this);
-
-
-                if (that.find('.weekDay').prop("checked")) {
-
-                    that.parent().removeClass('active');
-                    that.find('.weekDay').attr('checked', false)
-                    that.parent().find('.timeFromTo').hide(500);
-                    // that.parent().find('.timeFromTo').removeClass('display-block')
-
-                } else {
-
-                    that.parent().addClass('active');
-                    that.find('.weekDay').attr('checked', true);
-                    // that.parent().find('.timeFromTo').addClass('display-block')
-                    that.parent().find('.timeFromTo').show(500);
-
-                }
-
-            })
 
         }
 
+        if ($('#excluded_dates').length) {
+
+            var excludedDatesSelectedInput = $('#excluded_dates').val();
+
+            if (excludedDatesSelectedInput.length > 0) {
+                excludedDatesSelected = excludedDatesSelectedInput.split(",");
+            }
+            // console.log('excludedDatesSelected',excludedDatesSelected);
+            // console.log('excludedDatesSelectedInput',excludedDatesSelectedInput);
+        }
+
+        $("#excludedDatesDiv").on("click", ".selectedDateDelete", function () {
+
+            var that = $(this);
+
+            var date = that.parent().data('selecteddate');
+
+            // console.log(date);
+
+            excludedDatesSelectedTemp = [];
+
+            excludedDatesSelectedTemp = excludedDatesSelected.filter(function (x) {
+                return x !== date;
+            });
+
+            excludedDatesSelected = excludedDatesSelectedTemp;
+            $('#excluded_dates').val(excludedDatesSelected);
+            that.parent().remove();
+            // console.log(excludedDatesSelected);
+
+        });
 
     });
 

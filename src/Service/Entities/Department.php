@@ -14,6 +14,43 @@ class Department {
 	use PostEntity;
 
 	public $users;
+	public $department_users_visibility;
+    public $weekdays_available;
+    public $excluded_dates;
+    public $mon_time_from;
+    public $mon_time_to;
+    public $tue_time_from;
+    public $tue_time_to;
+    public $wed_time_from;
+    public $wed_time_to;
+    public $thu_time_from;
+    public $thu_time_to;
+    public $fri_time_from;
+    public $fri_time_to;
+    public $sat_time_from;
+    public $sat_time_to;
+    public $sun_time_from;
+    public $sun_time_to;
+    public $max_meetings_per_day;
+    public $minimum_notice;
+    public $book_in_advance_days;
+    public $booking_request_type;
+    public $booking_request;
+    public $meet_same_supplier_times;
+    public $booking_method;
+    public $booking_method_user;
+    public $selected_products;
+    public $selected_brands;
+    public $meeting_repetition;
+    public $meeting_repetition_time;
+    public $company;
+
+    public $instant_booking;
+
+	/**
+	 * @var $companyObject ShippingCompany
+	 */
+    public $companyObject;
 
 	/**
 	 * @var $departmentType DepartmentTypeEntity
@@ -30,6 +67,9 @@ class Department {
 
 		$this->setDepartmentType();
 		$this->setDepartmentUsers();
+
+		$this->companyObject = new ShippingCompany( $this->company );
+
 	}
 
 

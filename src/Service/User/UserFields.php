@@ -452,21 +452,25 @@ class UserFields {
 		'booking_request_type'              => 'user_booking_request_type',
 		'meet_same_supplier_times'          => 'user_meet_same_supplier_times',
 		'booking_method'                    => 'user_booking_method',
+        'selected_products'                 => 'user_selected_products',
+        'selected_brands'                   => 'user_selected_brands',
+        'visible'                           => 'user_visible',
 	];
 
 	public function registerUserFields( $meta_boxes ) {
-
 
 		$meta_boxes[] = array(
 			'title' => 'Location /Time',
 			'type'  => 'user',
 			'fields' => array(
+
 				array(
 					'name' => 'Location',
 					'id'                => self::META_FIELDS_SLUG['location'],
 					'type' => 'select_advanced',
 					'options' => CountryTaxonomy::COUNTRIES_ARRAY,
 				),
+
 				array(
 					'name'              => 'Time Zone',
 					'id'                => self::META_FIELDS_SLUG['timezone'],
@@ -474,9 +478,9 @@ class UserFields {
 					'type'              => 'select_advanced',
 					'options'           => self::TIME_ZONES
 				),
+
 			),
 		);
-
 
 		$meta_boxes[] = array(
 			'title' => 'Company Info',
@@ -546,7 +550,7 @@ class UserFields {
 				array(
 					'name'              => 'Book in advance days',
 					'id'                => self::META_FIELDS_SLUG['book_in_advance_days'],
-					'desc'              => 'The minimum days notice to book the current user for.',
+					'desc'              => 'The minimum days notice to book the current user for - 0 is no limit.',
 					'type'              => 'number',
 				),
 				array(
@@ -562,7 +566,7 @@ class UserFields {
 				array(
 					'name'              => 'How many times to meet same supplier',
 					'id'                => self::META_FIELDS_SLUG['meet_same_supplier_times'],
-					'desc'              => 'The maximum number of times the user can meet a supplier',
+					'desc'              => 'The maximum number of times the user can meet a supplier - 0 is no limit',
 					'type'              => 'number',
 				),
                 array(
@@ -570,20 +574,40 @@ class UserFields {
                     'id'                => self::META_FIELDS_SLUG['booking_method'],
                     'type'              => 'checkbox_list',
                     'options'           => array(
-                        'in_person'         => 'In Person',
-                        'phone_call'        => 'Phone Call',
-                        'conference'        => 'Conference',
-                        'online'            => 'Online',
+                        'physical_location'     => 'Physical Location',
+                        'phone_call'            => 'Phone Call',
+                        'online'         => 'Remote Online',
                     ),
                     'inline'            => true,
                     'select_all_none'   => true,
                 ),
-			),
+                array(
+                    'name'       => 'Products',
+                    'id'         => self::META_FIELDS_SLUG['selected_products'],
+                    'type'       => 'text',
+                ),
+                array(
+                    'name'       => 'Brands',
+                    'id'         => self::META_FIELDS_SLUG['selected_brands'],
+                    'type'       => 'text',
+                ),
+
+                array(
+                    'name'       => 'Visible',
+                    'id'         => self::META_FIELDS_SLUG['visible'],
+                    'type'    => 'radio',
+                    'options' => array(
+                        '1' => 'Yes',
+                        '0' => 'No',
+                    ),
+                    'inline' => true,
+                ),
+
+            ),
 		);
 
-		return $meta_boxes;
+		return $meta_boxes; 
 
 	}
-
 
 }

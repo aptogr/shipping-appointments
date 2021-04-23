@@ -1,0 +1,24 @@
+.setting-field-wrapper {
+  background-color: #fff;
+  box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+  padding: 20px 15px;
+  margin-bottom: 30px;
+  border: 0;
+
+  h2 {
+    font-size: 20px!important;
+    margin: 0!important;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 15px;
+  }
+
+  &.disabled {
+
+    .profenda-field {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+  }
+
+}

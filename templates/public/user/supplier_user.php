@@ -5,13 +5,13 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 
 $logedInUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
 
-$allDays = array('mon','tue','wed','thu','fri','sat','sun');
+//$allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
 
 
 //echo "<pre>";
-////print_r($platformUser);
-//print_r($logedInUser);
+//print_r($platformUser);
+////print_r($logedInUser);
 //echo "</pre>";
 
 ?>
@@ -225,7 +225,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                             </div>
 
                             <div class="info--value">
-                                Phone Call, Online
+                                <?php $platformUser->getBookingMethods($platformUser->booking_method); ?>
                             </div>
 
                         </div>

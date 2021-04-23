@@ -7,27 +7,15 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
 //print_r($platformUser);
 //echo "</pre>";
 
-//echo $platformUser->booking_request_type;
-
 function displayInputValue ($value) {
-//    if (!empty($value)) {
-//        echo $value;
-//    }
-
     echo (!empty($value)) ? $value : "" ;
 }
 
 function displayRadioValue ($id,$value) {
-//    if ($id == $value) {
-//        echo 'checked';
-//    }
     echo ($id == $value) ? 'checked' : "" ;
 }
 
 function displayCheckboxValue ($id,$value) {
-//    if ($id == $value) {
-//        echo 'checked';
-//    }
     echo (in_array($id,$value)) ? 'checked' : "" ;
 }
 
@@ -45,6 +33,93 @@ function displayCheckboxValue ($id,$value) {
                         <h1>Booking Settings</h1>
 
                         <p>Set up your booking settings.</p>
+
+                    </section>
+
+                    <section class="main-section full-width">
+
+
+                        <div class="full-width">
+                            <h2>Products</h2>
+                            <p>Select your products.</p>
+                        </div>
+
+                        <div id="getProducts" class="full-width relative">
+
+                            <input id="getProductsInput" type="text" placeholder="Type to search..">
+
+                            <div class="row flex">
+                                <div id="getProductsResults" class="relative col l6 m6"></div>
+
+                                <div class="col l6 m6">
+                                    <div id="selectedProducts" class="relative flex">
+                                        <?php
+
+
+                                        if ((!empty($platformUser->selected_products))) {
+
+                                            $selected_products = explode(",", $platformUser->selected_products);
+
+                                            foreach ($selected_products as $selected_product_id) {
+                                                $product = get_term_by('ID', $selected_product_id, 'profenda_product_type');
+                                                ?>
+                                                <div class="product-item product-item-<?php echo $selected_product_id;?>" data-id="<?php echo $selected_product_id;?>"><?php echo $product->name;?></div>
+                                                <?php
+
+                                            }
+                                        }
+
+                                        ?>
+                                    </div>
+                                    <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php displayInputValue($platformUser->selected_products); ?>">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </section>
+
+                    <section class="main-section full-width">
+
+
+                        <div class="full-width">
+                            <h2>Brands</h2>
+                            <p>Select your Brands.</p>
+                        </div>
+
+                        <div id="getBrands" class="full-width relative">
+
+                            <input id="getBrandsInput" type="text" placeholder="Type to search..">
+
+                            <div class="row flex">
+                                <div id="getBrandsResults" class="relative col l6 m6"></div>
+
+                                <div class="col l6 m6">
+                                    <div id="selectedBrands" class="relative flex">
+                                        <?php
+
+                                        if ((!empty($platformUser->selected_brands))) {
+
+                                            $selected_Brands = explode(",", $platformUser->selected_brands);
+
+                                            foreach ($selected_Brands as $selected_brand_id) {
+                                                $brand = get_term_by('ID', $selected_brand_id, 'profenda_product_brand');
+                                                ?>
+                                                <div class="brand-item brand-item-<?php echo $selected_brand_id;?>" data-id="<?php echo $selected_brand_id;?>"><?php echo $brand->name;?></div>
+                                                <?php
+
+                                            }
+                                        }
+
+                                        ?>
+                                    </div>
+                                    <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php displayInputValue($platformUser->selected_brands); ?>">
+                                </div>
+                            </div>
+
+                        </div>
+
 
                     </section>
 
@@ -141,8 +216,8 @@ function displayCheckboxValue ($id,$value) {
 
                             <div class="col no-padding-left">
 
-                                <input type="checkbox" id="booking_method_in_person" class="checkboxradio"  name="booking_method[]" value="in_person" <?php displayCheckboxValue ('in_person',$platformUser->booking_method);?>>
-                                <label for="booking_method_in_person">In Person</label><br>
+                                <input type="checkbox" id="booking_method_physical_location" class="checkboxradio"  name="booking_method[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$platformUser->booking_method);?>>
+                                <label for="booking_method_physical_location">Physical Location</label><br>
 
                             </div>
 
@@ -155,22 +230,8 @@ function displayCheckboxValue ($id,$value) {
 
                             <div class="col no-padding-left">
 
-                                <input type="checkbox" id="booking_method_conference" class="checkboxradio"  name="booking_method[]" value="conference" <?php displayCheckboxValue ('conference',$platformUser->booking_method);?>>
-                                <label for="booking_method_conference">Conference</label><br>
-
-                            </div>
-
-                            <div class="col no-padding-left">
-
                                 <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
                                 <label for="booking_method_online">Online</label><br>
-
-                            </div>
-
-                            <div class="col no-padding-left">
-
-                                <input type="checkbox" id="booking_method_premises" class="checkboxradio"  name="booking_method[]" value="premises" <?php displayCheckboxValue ('premises',$platformUser->booking_method);?>>
-                                <label for="booking_method_premises">Premises</label><br>
 
                             </div>
 

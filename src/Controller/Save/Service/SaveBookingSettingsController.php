@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Controller\Save\Service;
 
+use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\User\UserFields;
 
 class SaveBookingSettingsController extends ServiceSaveController {
@@ -15,24 +16,38 @@ class SaveBookingSettingsController extends ServiceSaveController {
 
     public function saveField( $metaKey, $value ) {
 
-        if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
+        if ( $metaKey == 'user_selected_products' or $metaKey == 'user_selected_brands' ) {
 
-            $value = explode( ',', $value );
-
-        }
-
-        if (is_array($value)) {
-
-            delete_user_meta( $this->platformUser->ID, $metaKey );
-
-            foreach ( $value as $val ){
-                add_user_meta( $this->platformUser->ID, $metaKey, $val );
-            }
-
+            update_user_meta( $this->platformUser->ID, $metaKey, $value );
 
         } else {
-            update_user_meta( $this->platformUser->ID, $metaKey, $value );
+
+            if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
+
+                $value = explode( ',', $value );
+
+            }
+
+            if (is_array($value)) {
+
+                delete_user_meta( $this->platformUser->ID, $metaKey );
+
+                foreach ( $value as $val ){
+
+                    add_user_meta( $this->platformUser->ID, $metaKey, $val );
+
+                }
+
+            } else {
+
+                update_user_meta( $this->platformUser->ID, $metaKey, $value );
+
+            }
+
         }
+
+
+
 
     }
 

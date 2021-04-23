@@ -78,3 +78,36 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     display: none;
   }
 }
+
+
+//TimePicker
+.timepicker {
+  background-color: $hospital-white;
+  width: 60px;
+  text-align: center;
+  border: none;
+  color: $color-palette-1;
+  font-weight: bold;
+  float: right;
+  padding: 0px;
+  cursor: pointer;
+
+}
+
+.ui-timepicker-container {
+  font-size: 14px!important;
+}
+
+.timeFrom, .timeTo {
+  background-color: $color-palette-6;
+  padding: 10px 14px;
+  //margin-right: 15px;
+}
+
+.timeFrom {
+  border-top: 1px solid $color-palette-1;
+}
+
+.fa-clock-o {
+  margin-right: 10px;
+}

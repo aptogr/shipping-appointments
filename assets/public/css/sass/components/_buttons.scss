@@ -1,3 +1,22 @@
+.save-button {
+  padding: 25px 30px;
+  font-weight: bold;
+  background-color: $color-palette-1;
+  border: 1px solid $color-palette-1;
+  color: $hospital-white;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover,
+  &:focus,
+  &:active
+  {
+    background-color: $hospital-white;
+    color: $color-palette-1;
+  }
+
+}
+
 .cancel-button {
   padding: 25px 30px;
   font-weight: bold;
@@ -9,7 +28,10 @@
   -o-transition: 0.3s;
   transition: 0.3s;
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active
+  {
     background-color: #fff;
     color: #fe3030;
   }
@@ -28,7 +50,10 @@
   -o-transition: 0.3s;
   transition: 0.3s;
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active
+  {
     background-color: #fff;
     color: #6ac600;
   }

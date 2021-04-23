@@ -17,6 +17,73 @@ class AjaxController implements AjaxInterface {
 
     }
 
+    public function getProducts(){
+
+        $resultArray = array();
+        $arrayList = array();
+        $htmlList = array();
+
+        array_push($htmlList, '<ul>');
+
+
+        $allProducts = get_terms([
+            'taxonomy' => 'profenda_product_type',
+            'hide_empty' => false,
+        ]);
+
+        $q = $_POST['q'];
+
+        foreach( $allProducts as $key => $product ){
+            if (strpos($product->name, $q) !== false) {
+                array_push($arrayList, $product);
+                array_push($htmlList, '<li data-id="'.$product->term_id.'">'.$product->name.'</li>');
+            }
+        }
+        array_push($htmlList, '</ul>');
+
+        $htmlList = implode("", $htmlList);
+
+        $resultArray['arrayList'] = $arrayList;
+        $resultArray['htmlList'] = $htmlList;
+
+        wp_send_json( $resultArray );
+        wp_die();
+
+    }
+
+    public function getBrands(){
+
+        $resultArray = array();
+        $arrayList = array();
+        $htmlList = array();
+
+        array_push($htmlList, '<ul>');
+
+
+        $allProducts = get_terms([
+            'taxonomy' => 'profenda_product_brand',
+            'hide_empty' => false,
+        ]);
+
+        $q = $_POST['q'];
+
+        foreach( $allProducts as $key => $product ){
+            if (strpos($product->name, $q) !== false) {
+                array_push($arrayList, $product);
+                array_push($htmlList, '<li data-id="'.$product->term_id.'">'.$product->name.'</li>');
+            }
+        }
+        array_push($htmlList, '</ul>');
+
+        $htmlList = implode("", $htmlList);
+
+        $resultArray['arrayList'] = $arrayList;
+        $resultArray['htmlList'] = $htmlList;
+
+        wp_send_json( $resultArray );
+        wp_die();
+
+    }
 
     public function getTime(){
 

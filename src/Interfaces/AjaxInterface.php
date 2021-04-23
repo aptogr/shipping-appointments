@@ -13,6 +13,14 @@ Interface AjaxInterface {
             'callback' => 'getTime',
             'nopriv'   => false,
         ),
+        'getProducts' => array(
+            'callback' => 'getProducts',
+            'nopriv'   => false,
+        ),
+        'getBrands' => array(
+            'callback' => 'getBrands',
+            'nopriv'   => false,
+        ),
     );
 
 }

@@ -19,13 +19,15 @@ class Appointment {
     public $appointment_method;
     public $appointment_method_selected;
     public $location;
+    public $telephone;
     public $zoom_link;
     public $webex_link;
+    public $teams_link;
     public $meeting_type;
+    public $requester;
     public $invite_questions;
     public $guests;
     public $meeting_time_duration;
-    public $requester;
     public $receiver;
 
     /**

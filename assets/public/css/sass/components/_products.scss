@@ -1,0 +1,42 @@
+#getProducts {
+
+  .product-item {
+    color: #fff;
+    background-color: #0569be;
+    margin: 0px 2px 3px;
+    padding: 0px 10px;
+    border-radius: 3px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #b50000;
+    }
+
+  }
+
+  #getProductsResults {
+    overflow-y: scroll;
+    max-height: 200px;
+
+    li {
+      display: block;
+      width: 300px;
+      border: 1px solid #e6f1ff;
+      margin: 2px 0px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e6f1ff;
+      }
+
+    }
+
+  }
+
+
+
+
+}

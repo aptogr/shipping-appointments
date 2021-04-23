@@ -4,7 +4,7 @@
 
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_queried_object_id() );
 
-$allDays = array('mon','tue','wed','thu','fri','sat','sun');
+//$allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
 //echo "<pre>";
 ////print_r($platformUser->availability->postMeta);
@@ -222,7 +222,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                             </div>
 
                             <div class="info--value">
-                                Phone Call, Online
+                                <?php $platformUser->getBookingMethods($platformUser->booking_method); ?>
                             </div>
 
                         </div>
@@ -298,13 +298,13 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
                 </tr>
                 <tr>
                     <td>From</td>
-                    <?php foreach ($allDays as $day) { ?>
+                    <?php foreach ($platformUser::ALL_DAYS as $day) { ?>
                         <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_from'}); ?></td>
                     <?php } ?>
                 </tr>
                 <tr>
                     <td>To</td>
-                    <?php foreach ($allDays as $day) { ?>
+                    <?php foreach ($platformUser::ALL_DAYS as $day) { ?>
                         <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_to'}); ?></td>
                     <?php } ?>
                 </tr>
@@ -314,6 +314,7 @@ $allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
     </div>
     <div class="modal-overlay"></div>
+
 <?php
 
 //get_footer();

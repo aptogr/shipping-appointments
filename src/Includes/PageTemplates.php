@@ -24,6 +24,10 @@ class PageTemplates implements PagesTemplatesInterface{
 	 */
 	protected $pageTemplatesFilter;
 
+    /**
+     * Supported endpoints for pages
+     */
+    protected $endpoints;
 
 
 	/**
@@ -31,15 +35,31 @@ class PageTemplates implements PagesTemplatesInterface{
 	 *
 	 * @param $pluginDirPath
 	 */
+
+
 	public function __construct( $pluginDirPath ) {
 
 		$this->templates_path           = $pluginDirPath . self::TEMPLATES_FOLDER;
 		$this->templates                = self::PAGE_TEMPLATES;
 		$this->pageTemplatesFilter      = ( version_compare( floatval( get_bloginfo( 'version' ) ), '4.7', '<' ) ? 'page_attributes_dropdown_pages_args' : 'theme_page_templates' );
+        $this->endpoints                = self::SUPPORTED_ENDPOINTS;
 
 	}
 
 
+    public function registerEndpoints(){
+
+        if( is_array( $this->endpoints ) && !empty( $this->endpoints ) ){
+
+            foreach ( $this->endpoints as $endpoint ){
+
+                add_rewrite_endpoint( $endpoint, EP_PAGES );
+
+            }
+
+        }
+
+    }
 
 	/**
 	 * Returns the filter hook name that will be used

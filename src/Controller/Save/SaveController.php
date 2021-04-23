@@ -7,8 +7,10 @@ use ShippingAppointments\Controller\Save\Service\SaveAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAvailabilityController;
 use ShippingAppointments\Controller\Save\Service\SaveBookingSettingsController;
 use ShippingAppointments\Controller\Save\Service\ApproveAppointmentController;
+use ShippingAppointments\Controller\Save\Service\SaveDepartmentSettingsController;
 use ShippingAppointments\Controller\Save\Service\UpdateAppointmentController;
 use ShippingAppointments\Controller\Save\Service\CancelAppointmentController;
+use ShippingAppointments\Controller\Save\Service\SaveCompanySettingsController;
 
 class SaveController {
 
@@ -23,6 +25,7 @@ class SaveController {
 			switch( $_POST['refresh_action'] ){
 
 				case 'save_availability':
+
 
 					$saveAvailabilityController = new SaveAvailabilityController();
 					$action                     = $saveAvailabilityController->save( $_POST );
@@ -71,6 +74,26 @@ class SaveController {
                     $cancelAppointmentController  = new CancelAppointmentController();
                     $action                         = $cancelAppointmentController->save( $_POST );
                     $redirectUrl                    = 'dashboard';
+
+                    break;
+
+                case 'save_dep_settings':
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
+
+                    $saveDepartmentSettingsController  = new SaveDepartmentSettingsController();
+                    $action                         = $saveDepartmentSettingsController->save( $_POST );
+                    $redirectUrl                    = 'dashboard/manage/edit-departments/department/'.$_POST['departmentId'];
+
+                    break;
+
+                case 'save_company_settings':
+
+                    $saveCompanySettingsController  = new SaveCompanySettingsController();
+                    $action                         = $saveCompanySettingsController->save( $_POST );
+//                    $redirectUrl                    = 'https://profenda.com/dashboard/manage/edit-company/company/93/';
+                    $redirectUrl                    = 'dashboard/manage/edit-company/company/'.$_POST['companyId'];
 
                     break;
 

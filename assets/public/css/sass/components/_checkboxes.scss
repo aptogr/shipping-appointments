@@ -4,10 +4,14 @@
 
   .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
   html .ui-button.ui-state-disabled:active {
-    border: 0;
+    border: 2px solid #02569c !important;
     background: #e6f1ff;
     color: #02569c;
     font-weight: 700;
+    padding: 15px 10px;
+    border-radius: 0 !important;
+    margin-right: 10px;
+    box-shadow: none;
   }
 
   .ui-button {
@@ -22,4 +26,190 @@
 
   }
 
+}
+
+.ui-checkboxradio-checked {
+  color:$hospital-white !important;
+
+  &:hover {
+    font-weight: bold !important;
+  }
+
+}
+
+
+.ui-state-active {
+  background-color: $color-palette-1!important;
+  border-color: $color-palette-1 !important;
+  box-shadow: 0 0 3px $color-palette-1;
+}
+
+.ui-checkboxradio-label {
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: $color-palette-1!important;
+    border-color: $color-palette-1 !important;
+  }
+
+  .ui-icon {
+    width: 16px!important;
+    height: 16px!important;
+  }
+
+  .ui-checkboxradio-icon-space {
+    margin-right: 2px;
+  }
+
+  .ui-icon-background {
+    box-shadow: none;
+    border: none;
+    background-color: #b8c6d9;
+  }
+
+}
+
+
+// jQuery UI Spinner/Number
+
+.ui-spinner {
+
+  border: none!important;
+  background-color: $color-palette-6!important;
+
+  .ui-spinner-input {
+    color: $color-palette-1!important;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px !important;
+  }
+
+  a {
+
+    background-color:$color-palette-6!important;
+    transition: 0.3s;
+
+    &:hover {
+      background-color:$color-palette-1!important;
+    }
+
+  }
+
+  .ui-icon {
+
+    background-image: url("images/ui-icons_ffffff_256x240.png") !important;
+
+    &:hover {
+      background-image: url("images/ui-icons_ffffff_256x240.png") !important;
+    }
+
+  }
+
+}
+
+
+//week availability
+.timeFromTo {
+  display: none;
+  font-size: 15px;
+
+  span {
+    color:$color-palette-1;
+  }
+}
+
+.daDay {
+  min-width: 155px;
+  margin-right: 7px;
+
+  span {
+    font-weight: 700;
+    font-size: 1rem;
+
+  }
+
+}
+
+.dayBox {
+  background-color: $color-palette-6;
+  padding: 10px 30px 10px 50px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  border:1px solid $color-palette-6;
+  transition: 0.3s;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    border: none;
+  }
+
+}
+
+.dayBox:hover {
+  border-color:$color-palette-1;
+}
+
+.active .dayBox:hover {
+  border-bottom: 1px solid $color-palette-6;
+}
+
+.checkmark {
+  position: absolute;
+  top: 9px;
+  left: 15px;
+  height: 25px;
+  width: 25px;
+  background-color: $hospital-white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.checkmark::before {
+  left: 10px;
+  top: 7px;
+  width: 5px;
+  height: 10px;
+  border: black;
+  border-top-width: medium;
+  border-right-width: medium;
+  border-bottom-width: medium;
+  border-left-width: medium;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.dayBox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.dayBox input:checked ~ .checkmark {
+  background-color: $color-palette-1;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.dayBox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.dayBox .checkmark:after {
+  left: 10px;
+  top: 7px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

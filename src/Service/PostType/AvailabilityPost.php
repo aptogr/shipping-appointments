@@ -177,8 +177,18 @@ class AvailabilityPost implements TemplatesInterface{
 					'type' => 'text',
 				),
 				array(
-					'id'   => self::META_FIELDS_SLUG['thu_time_to'],
+					'id'   => self::META_FIELDS_SLUG['wed_time_to'],
 					'name' => esc_html__( 'Wednesday time to', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+                array(
+					'id'   => self::META_FIELDS_SLUG['thu_time_from'],
+					'name' => esc_html__( 'Thursday time from', ShippingAppointments::PLUGIN_NAME ),
+					'type' => 'text',
+				),
+				array(
+					'id'   => self::META_FIELDS_SLUG['thu_time_to'],
+					'name' => esc_html__( 'Thursday time to', ShippingAppointments::PLUGIN_NAME ),
 					'type' => 'text',
 				),
 				array(

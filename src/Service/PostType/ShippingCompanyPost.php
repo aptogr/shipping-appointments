@@ -39,7 +39,25 @@ class ShippingCompanyPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'google'  => self::POST_TYPE_NAME . '_google',
+		'company_users_visibility'      => self::POST_TYPE_NAME . '_company_users_visibility',
+		'booking_method'                => self::POST_TYPE_NAME . '_booking_method',
+		'booking_method_department'     => self::POST_TYPE_NAME . '_booking_method_department',
+		'booking_request'               => self::POST_TYPE_NAME . '_booking_request',
+		'booking_request_type'          => self::POST_TYPE_NAME . '_booking_request_type',
+		'minimum_notice'                => self::POST_TYPE_NAME . '_minimum_notice',
+		'book_in_advance_days'          => self::POST_TYPE_NAME . '_book_in_advance_days',
+
+        'products_specific_suppliers'   => self::POST_TYPE_NAME . '_products_specific_suppliers',
+        'brands_specific_suppliers'     => self::POST_TYPE_NAME . '_brands_specific_suppliers',
+
+        'meeting_repetition'            => self::POST_TYPE_NAME . '_meeting_repetition',
+        'meeting_repetition_time'       => self::POST_TYPE_NAME . '_meeting_repetition_time',
+
+
+        //New
+        'meeting_type'                  => self::POST_TYPE_NAME . '_meeting_types',
+        'meeting_types_available'       => self::POST_TYPE_NAME . '_meeting_types_available',
+        'instant_booking'               => self::POST_TYPE_NAME . '_instant_booking',
 	];
 
 
@@ -149,11 +167,121 @@ class ShippingCompanyPost implements TemplatesInterface{
 			'priority'   => 'default',
 			'autosave'   => 'false',
 			'fields'     => array(
-				array(
-					'id'   => self::META_FIELDS_SLUG['google'],
-					'name' => esc_html__( 'Google Podcast', ShippingAppointments::PLUGIN_NAME ),
-					'type' => 'text',
-				),
+                array(
+                    'name'              => 'Users Visibility',
+                    'id'                => self::META_FIELDS_SLUG['company_users_visibility'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'company_users_visibile'             => 'Visibile Users',
+                        'company_users_invisibile'           => 'Invisible Users',
+                        'company_users_department'           => 'Let the department define',
+                    ),
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+                array(
+                    'name'              => 'Meeting Type Settings',
+                    'id'                => self::META_FIELDS_SLUG['meeting_type'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'company'             => 'Defined by company',
+                        'department'          => 'Let the department define',
+                    ),
+                ),
+                array(
+                    'name'              => 'Meeting Types Available',
+                    'id'                => self::META_FIELDS_SLUG['meeting_types_available'],
+                    'type'              => 'checkbox_list',
+                    'options'           => array(
+                        'physical_location'     => 'Physical Location',
+                        'phone_call'            => 'Phone Call',
+                        'online'                => 'Remote Online',
+                    ),
+                    'inline'            => false,
+                    'select_all_none'   => true,
+                ),
+                array(
+                    'type' => 'divider',
+                ),
+                array(
+                    'name'              => 'Instant Booking',
+                    'id'                => self::META_FIELDS_SLUG['instant_booking'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'accept_specific'               => 'Accept for specific',
+                        'decline'                       => 'Do not accept',
+                        'department'                    => 'Let the department define',
+                    ),
+                ),
+                array(
+                    'name'          => 'Specific Products',
+                    'id'            => self::META_FIELDS_SLUG['products_specific_suppliers'],
+                    'type'          => 'taxonomy',
+                    'multiple'      => true,
+                    'field_type'    => 'select_advanced',
+                    'taxonomy'      => 'profenda_product_type',
+                    'placeholder'   => 'Select Products',
+                ),
+                array(
+                    'name'          => 'Specific Brands',
+                    'id'            => self::META_FIELDS_SLUG['brands_specific_suppliers'],
+                    'type'          => 'taxonomy',
+                    'multiple'      => true,
+                    'field_type'    => 'select_advanced',
+                    'taxonomy'      => 'profenda_product_brand',
+                    'placeholder'   => 'Select Brands',
+                ),
+                array(
+                    'type' => 'divider',
+                ),
+                array(
+                    'name'              => 'Minimum Notice Period',
+                    'id'                => self::META_FIELDS_SLUG['minimum_notice'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'minimum_notice_in_advance'             => 'Book an appointment at least xxx(example 24hours) in advance',
+                        'minimum_notice_no_limit'               => 'No time limit',
+                        'minimum_notice_department'             => 'Let the department define',
+                    ),
+                ),
+
+                array(
+                    'name'              => 'Book in advance days',
+                    'id'                => self::META_FIELDS_SLUG['book_in_advance_days'],
+                    'type'              => 'number',
+                ),
+
+                array(
+                    'type' => 'divider',
+                ),
+
+
+                array(
+                    'name'              => 'Meeting Repetition',
+                    'id'                => self::META_FIELDS_SLUG['meeting_repetition'],
+                    'type'              => 'radio',
+                    'options'           => array(
+                        'meeting_repetition_limit'          => 'Do not let the same supplier to visit our company',
+                        'meeting_repetition_no_limit'       => 'No time limit',
+                        'meeting_repetition_department'     => 'Let the department define',
+                    ),
+                    'inline'            => false,
+                    'select_all_none'   => true,
+                ),
+
+                array(
+                    'name'              => 'Meeting Repetition Time Limit',
+                    'id'                => self::META_FIELDS_SLUG['meeting_repetition_time'],
+                    'type'              => 'number',
+                ),
+
 			),
 		);
 
