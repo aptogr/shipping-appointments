@@ -12,6 +12,13 @@ use ShippingAppointments\Includes\Widgets;
 use ShippingAppointments\Includes\Settings;
 use ShippingAppointments\Includes\AdminMenuPages;
 use ShippingAppointments\Includes\CronJobs;
+use ShippingAppointments\Service\Auth\Authentication;
+use ShippingAppointments\Service\Auth\AuthPermalinks;
+use ShippingAppointments\Service\Auth\AutSettings;
+use ShippingAppointments\Service\Auth\Login;
+use ShippingAppointments\Service\Auth\LoginModal;
+use ShippingAppointments\Service\Auth\Password;
+use ShippingAppointments\Service\Dashboard\Access\DashboardAccessibility;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\PostType\AvailabilityPost;
 use ShippingAppointments\Service\PostType\DepartmentPost;
@@ -318,6 +325,96 @@ Trait Hooks {
 		$this->loader->addAction( 'rwmb_meta_boxes', $userFields, 'registerUserFields', 44, 1 );
 
 
+		/**
+		 * AuthPermalinks
+		 *
+		 * Functions Hooked:
+		 * @see AuthPermalinks::registerUrl()
+		 * @see AuthPermalinks::loginUrl()
+		 */
+		$authPermalinks = new AuthPermalinks();
+		$this->loader->addFilter( 'register_url', $authPermalinks, 'registerUrl', 20, 2 );
+		$this->loader->addFilter( 'login_url', $authPermalinks, 'loginUrl', 20, 2 );
+
+
+
+		/**
+		 * AuthPermalinks
+		 *
+		 * Functions Hooked:
+		 * @see Authentication::registerNewUser()
+		 * @see Authentication::authenticateLogin()
+		 * @see Authentication::failedLogin()
+		 * @see Authentication::showNewUserModalMessage()
+		 */
+		$homiAuthentication = new Authentication();
+		$this->loader->addAction( 'wp_loaded', $homiAuthentication, 'registerNewUser' );
+		$this->loader->addFilter( 'authenticate', $homiAuthentication, 'authenticateLogin', 31, 3 );
+		$this->loader->addAction( 'wp_login_failed', $homiAuthentication, 'failedLogin', 31, 3 );
+//        $this->loader->addAction( 'wp_footer', $homiAuthentication, 'showNewUserModalMessage' );
+
+
+		/**
+		 * Authentication Settings
+		 *
+		 * Functions Hooked:
+		 * @see AutSettings::restrictWPAdminAccess()
+		 * @see AuthPermalinks::disableAdminBar()
+		 * @see AuthPermalinks::extendLoginSessionTime()
+		 */
+		$authSettings= new AutSettings();
+		$this->loader->addAction( 'admin_init', $authSettings, 'restrictWPAdminAccess', 1);
+		$this->loader->addAction( 'after_setup_theme', $authSettings, 'disableAdminBar');
+		$this->loader->addFilter( 'auth_cookie_expiration', $authSettings, 'extendLoginSessionTime');
+		add_filter( 'admin_email_check_interval', '__return_zero' );
+
+
+
+
+		/**
+		 * Login
+		 *
+		 * Functions Hooked:
+		 * @see Login::redirectAfterFacebookLogin()
+		 * @see Login::redirectAfterGoogleLogin()
+		 * @see Login::redirectAfterEmailLogin()
+		 * @see Login::redirectAfterLogout()
+		 * @see Login::afterEmailLoginServices()
+		 * @see Login::afterEmailRegisterServices()
+		 * @see Login::afterSocialLoginServices()
+		 * @see Login::afterSocialRegisterServices()
+		 */
+		$homiLogin = new Login();
+		$this->loader->addFilter( 'login_redirect', $homiLogin, 'redirectAfterEmailLogin', 20, 3 );
+		$this->loader->addFilter( 'wp_logout', $homiLogin, 'redirectAfterLogout', 20 );
+		$this->loader->addAction( 'wp_login', $homiLogin, 'afterEmailLoginServices', 10, 2 );
+		$this->loader->addAction( 'register_new_user', $homiLogin, 'afterEmailRegisterServices', 99, 1 );
+		$this->loader->addAction( 'profenda_user_registered', $homiLogin, 'afterEmailRegisterServices', 99, 1 );
+		remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
+		remove_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10 );
+
+//		$loginModal = new LoginModal();
+//		$this->loader->addAction( 'wp_footer', $loginModal, 'displayLoginModal' );
+
+
+		/**
+		 * Password Services
+		 *
+		 * Functions Hooked:
+		 * @see Password::set_content_type()
+		 * @see Password::customLostPasswordPage()
+		 * @see Password::resetPasswordEmailSubject()
+		 * @see Password::resetPasswordEmailMessage()
+		 * @see Password::customResetPasswordPage()
+		 */
+		$password = new Password();
+		$this->loader->addFilter( 'wp_mail_content_type', $password, 'set_content_type', 10 , 1 );
+		$this->loader->addAction( 'login_form_lostpassword', $password, 'customLostPasswordPage' );
+		$this->loader->addFilter( 'retrieve_password_title', $password, 'resetPasswordEmailSubject', 10, 3 );
+		$this->loader->addFilter( 'retrieve_password_message', $password, 'resetPasswordEmailMessage', 10, 4 );
+		$this->loader->addAction( 'login_form_rp', $password, 'customResetPasswordPage' );
+		$this->loader->addAction( 'login_form_resetpass', $password, 'customResetPasswordPage' );
+
 
 		/**
 		 * User Fields
@@ -330,6 +427,15 @@ Trait Hooks {
 		$this->loader->addAction( 'init', $userTemplates, 'changeAuthorBaseUrl');
 		$this->loader->addFilter( 'author_template', $userTemplates, 'customUserTemplate', 10, 1 );
 
+
+		/**
+		 * Dashboard Accessibility
+		 *
+		 * Functions Hooked:
+		 * @see DashboardAccessibility::checkAccess()
+		 */
+		$dashboardAccess = new DashboardAccessibility();
+		$this->loader->addAction( 'template_redirect', $dashboardAccess, 'checkAccess', 99 );
 
 		/**
 		 * User Fields

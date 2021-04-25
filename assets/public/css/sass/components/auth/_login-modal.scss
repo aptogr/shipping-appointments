@@ -1,0 +1,47 @@
+.login-modal {
+  background-color: #fff;
+  width: 90%;
+  max-width: 500px;
+  left: 50% !important;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  top: 50% !important;
+  padding: 25px 30px;
+  z-index: 9999;
+
+  .input-field {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+  }
+
+  .login-modal-content {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+}
+
+
+#registerModal  {
+  padding: 30px 30px 0;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .login-modal-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .consent-item {
+    margin: 0 !important;
+  }
+
+}

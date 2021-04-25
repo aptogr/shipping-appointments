@@ -18,7 +18,7 @@ class SaveDepartmentSettingsController extends ServiceSaveController {
 
     public function saveField( $metaKey, $value ) {
 
-        if ( $metaKey == DepartmentPost::META_FIELDS_SLUG['booking_method'] ) {
+        if ( $metaKey == DepartmentPost::META_FIELDS_SLUG['meeting_types_available'] ) {
 
             $value = explode(',',$value);
 

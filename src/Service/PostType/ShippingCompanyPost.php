@@ -36,7 +36,7 @@ class ShippingCompanyPost implements TemplatesInterface{
 
 	/**
 	 * Post Type Meta Fields slugs
-	 * @var array
+	 * @var array 
 	 */
 	const META_FIELDS_SLUG = [
 		'company_users_visibility'      => self::POST_TYPE_NAME . '_company_users_visibility',

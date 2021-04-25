@@ -14,9 +14,25 @@ class Department {
 	use PostEntity;
 
 	public $users;
-	public $department_users_visibility;
+
+	public $company;
+
+	/**
+	 * @var $companyObject ShippingCompany
+	 */
+	public $companyObject;
+
+	/**
+	 * @var $departmentType DepartmentTypeEntity
+	 */
+	public $departmentType;
+
+	//Setting 1
+	public $users_visibility;
+
+	//Setting 2
+    public $availability_type;
     public $weekdays_available;
-    public $excluded_dates;
     public $mon_time_from;
     public $mon_time_to;
     public $tue_time_from;
@@ -31,31 +47,33 @@ class Department {
     public $sat_time_to;
     public $sun_time_from;
     public $sun_time_to;
-    public $max_meetings_per_day;
-    public $minimum_notice;
-    public $book_in_advance_days;
-    public $booking_request_type;
-    public $booking_request;
-    public $meet_same_supplier_times;
-    public $booking_method;
-    public $booking_method_user;
-    public $selected_products;
-    public $selected_brands;
-    public $meeting_repetition;
-    public $meeting_repetition_time;
-    public $company;
+	public $excluded_dates;
 
-    public $instant_booking;
+	//Setting 3
+	public $meeting_types;
+	public $meeting_types_available;
 
-	/**
-	 * @var $companyObject ShippingCompany
-	 */
-    public $companyObject;
+	//Setting 4
+	public $selected_products;
+	public $selected_brands;
 
-	/**
-	 * @var $departmentType DepartmentTypeEntity
-	 */
-	public $departmentType;
+	//Setting 5
+	public $instant_booking;
+	public $instant_booking_products;
+	public $instant_booking_brands;
+	public $instant_booking_suppliers;
+
+	//Setting 6
+	public $minimum_notice;
+	public $minimum_notice_hours;
+
+	//Setting 7
+	public $meeting_repetition;
+	public $meeting_repetition_time;
+
+	//Setting 8
+	public $simultaneous_meetings;
+
 
 	public function __construct( $id ) {
 

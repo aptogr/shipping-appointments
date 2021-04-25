@@ -79,9 +79,7 @@ if (isset($department->excluded_dates)) {
 
                     <section class="main-section full-width">
 
-                        <h1>Department Settings</h1>
-                        <h2><?php echo $department->post->post_title; ?></h2>
-                        <p>Set up your department booking settings.</p>
+                        <h2><?php echo $department->departmentType->term->name; ?> - Settings</h2>
 
                     </section>
 
@@ -117,13 +115,13 @@ if (isset($department->excluded_dates)) {
 
                         <div id="department_users_visibility_section" class="full-width relative profenda-field">
 
-                            <input type="radio" id="department_users_visibile" class="checkboxradio" name="department_users_visibility" value="department_users_visibile" <?php displayRadioValue('department_users_visibile',$department->department_users_visibility);?>>
+                            <input type="radio" id="department_users_visibile" class="checkboxradio" name="users_visibility" value="department_users_visibile" <?php displayRadioValue('department_users_visibile',$department->users_visibility);?>>
                             <label for="department_users_visibile">Visibile Users</label>
 
-                            <input type="radio" id="department_users_invisibile" class="checkboxradio" name="department_users_visibility" value="department_users_invisibile" <?php displayRadioValue('department_users_invisibile',$department->department_users_visibility);?>>
+                            <input type="radio" id="department_users_invisibile" class="checkboxradio" name="users_visibility" value="department_users_invisibile" <?php displayRadioValue('department_users_invisibile',$department->users_visibility);?>>
                             <label for="department_users_invisibile">Invisible Users</label>
 
-                            <input type="radio" id="department_users_department" class="checkboxradio" name="department_users_visibility" value="department_users_department" <?php displayRadioValue('department_users_department',$department->department_users_visibility);?>>
+                            <input type="radio" id="department_users_department" class="checkboxradio" name="users_visibility" value="department_users_department" <?php displayRadioValue('department_users_department',$department->users_visibility);?>>
                             <label for="department_users_department">Let the users define</label>
 
                         </div>
@@ -133,8 +131,8 @@ if (isset($department->excluded_dates)) {
                     <section class="main-section full-width setting-field-wrapper">
 
                         <div class="full-width">
-                            <h2>Availability</h2>
-                            <p>Suppliers will be able to book an appointment only on the days of the week you will set.</p>
+                            <h2>Department Availability - Extra Hours</h2>
+                            <p>Define the additional days and times you will accept bookings as a department.</p>
                         </div>
 
                         <div class="full-width flex margin-top-20 margin-bottom-20">
@@ -341,8 +339,7 @@ if (isset($department->excluded_dates)) {
                             ></div>
                             <div id="excludedDatesDiv" class="col l6 m6">
                                 <?php
-                                //                            $department
-                                excludedDatesDisplay($excluded_dates);
+                                    excludedDatesDisplay($department->excluded_dates);
                                 ?>
                             </div>
                             <input type="hidden" name="excluded_dates" id="excluded_dates" value="<?php
@@ -381,39 +378,36 @@ if (isset($department->excluded_dates)) {
 
                         <h2>Meeting Type</h2>
 
-                        <p>Define the types of meetings you can accept as a department.</p>
+                        <p>Define the meeting types that the department will accept for bookings or let each employee of the department define.</p>
 
-                        <div class="full-width flex profenda-field">
+                        <div id="meeting_type" class="full-width relative profenda-field">
 
-                            <div class="col no-padding-left">
+                            <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_type" value="department" <?php displayRadioValue('department',$department->meeting_types);?>>
+                            <label for="meeting_type_company">Defined by Department</label>
 
-                                <input type="checkbox" id="booking_method_physical_location" class="checkboxradio"  name="booking_method[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$department->booking_method);?>>
-                                <label for="booking_method_physical_location">Physical Location</label><br>
+                            <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_type" value="user" <?php displayRadioValue('user',$department->meeting_types);?>>
+                            <label for="meeting_type_company_department">Let the employees define</label>
 
-                            </div>
-
-                            <div class="col no-padding-left">
-
-                                <input type="checkbox" id="booking_method_phone_call" class="checkboxradio"  name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$department->booking_method);?>>
-                                <label for="booking_method_phone_call">Phone Call</label><br>
-
-                            </div>
-
-                            <div class="col no-padding-left">
-
-                                <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$department->booking_method);?>>
-                                <label for="booking_method_online">Online</label><br>
-
-                            </div>
 
                         </div>
+
+                        <div id="meeting_types_available" class="full-width flex margin-top-30 profenda-field <?php echo ( $department->meeting_types !== 'department' ? 'hide' : ''); ?>">
+
+                            <input type="checkbox" id="booking_method_physical_location" class="checkboxradio" name="meeting_types_available[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$department->meeting_types_available);?>>
+                            <label for="booking_method_physical_location">One to one</label><br>
+
+                            <input type="checkbox" id="booking_method_phone_call" class="checkboxradio" name="meeting_types_available[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$department->meeting_types_available);?>>
+                            <label for="booking_method_phone_call">Phone Call</label><br>
+
+                            <input type="checkbox" id="booking_method_online" class="checkboxradio" name="meeting_types_available[]" value="online" <?php displayCheckboxValue ('online',$department->meeting_types_available);?>>
+                            <label for="booking_method_online">Web</label><br>
+                        </div>
+
 
                     </section>
 
 
-
                     <section class="main-section full-width setting-field-wrapper">
-
 
                         <div class="full-width">
                             <h2>Products & Services</h2>
@@ -547,13 +541,36 @@ if (isset($department->excluded_dates)) {
 
                     </section>
 
-                    <section class="main-section full-width setting-field-wrapper">
+	                <?php if( $department->companyObject->minimum_notice !== 'minimum_notice_department' ): ?>
+
+                        <div class="notice-in-page flex flex-center margin-bottom-30">
+
+                            <div class="content flex flex-center">
+
+                                <div class="icon">
+
+                                    <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                </div>
+
+                                <div class="notice-message">
+                                    <strong>Notice: The company administrator does not allow you to set the minimum notice period.</strong>
+                                    <br>You cannot change this setting unless the company administrator allows you to do it.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+	                <?php endif; ?>
+
+                    <section class="main-section full-width setting-field-wrapper  <?php echo ( $department->companyObject->minimum_notice !== 'minimum_notice_department' ? 'disabled' : ''); ?>">
 
                         <h2>Minimum Notice Period</h2>
 
                         <p>The minimum days notice to book the current user for.</p>
 
-                        <div id="minimum_notice_section" class="full-width relative">
+                        <div id="minimum_notice_section" class="full-width relative profenda-field">
 
                             <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$department->minimum_notice);?>>
                             <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
@@ -566,13 +583,37 @@ if (isset($department->excluded_dates)) {
 
                         </div>
 
-                        <div class="full-width relative margin-top-20 radioCheckerOutput">
+                        <div id="minimum_notice_hours_field" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
 
-                            <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0" value="<?php displayInputValue($department->book_in_advance_days);?>">
+                            <input name="minimum_notice_hours" id="minimum_notice_hours" class="spinner0" value="<?php displayInputValue($department->minimum_notice_hours);?>">
 
                         </div>
 
                     </section>
+
+
+	                <?php if( $department->companyObject->meeting_repetition !== 'meeting_repetition_department' ): ?>
+
+                        <div class="notice-in-page flex flex-center margin-bottom-30">
+
+                            <div class="content flex flex-center">
+
+                                <div class="icon">
+
+                                    <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                </div>
+
+                                <div class="notice-message">
+                                    <strong>Notice: The company administrator does not allow you to set the meeting repetition.</strong>
+                                    <br>You cannot change this setting unless the company administrator allows you to do it.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+	                <?php endif; ?>
 
                     <section class="main-section full-width setting-field-wrapper  <?php echo ( $department->companyObject->meeting_repetition !== 'meeting_repetition_department' ? 'disabled' : ''); ?>">
 
@@ -594,7 +635,7 @@ if (isset($department->excluded_dates)) {
 
                         </div>
 
-                        <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 radioCheckerOutput">
+                        <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
 
                             <input name="meeting_repetition_time" id="meeting_repetition_time" class="spinner0" value="<?php displayInputValue($department->meeting_repetition_time);?>">
 
@@ -609,7 +650,7 @@ if (isset($department->excluded_dates)) {
 
                         <p>Define the number of simultaneous bookings you can accept for the same datetime.</p>
 
-                        <input name="max_meetings_per_day" id="max_meetings_per_day" class="spinner0" value="<?php displayInputValue($department->max_meetings_per_day);?>">
+                        <input name="simultaneous_meetings" id="simultaneous_meetings" class="spinner0" value="<?php displayInputValue($department->simultaneous_meetings);?>">
 
                     </section>
 

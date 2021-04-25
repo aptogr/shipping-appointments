@@ -4,3 +4,76 @@
 //    such as links, buttons, inputs etc
 //
 //==========================================================================/
+.profenda-btn {
+  background-color: #fff;
+  color: #02569c;
+  border-radius: 0;
+  box-shadow: none;
+  border: 2px solid #02569c;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  outline:none!important;
+  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    margin: 0 5px;
+    fill: #02569c;
+  }
+
+  svg, svg path, svg polygon {
+    transition: 0.2s ease-in-out;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #02569c!important;
+    color: #fff!important;
+
+    svg, svg path, svg polygon {
+      fill:#fff!important;
+    }
+
+  }
+
+  &.filled {
+    background-color: #02569c;
+    color: #fff;
+
+    svg, svg path, svg polygon {
+      fill:#fff;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #fff!important;
+      color: #02569c!important;
+
+      svg, svg path, svg polygon {
+        fill:#02569c!important;
+      }
+
+    }
+
+  }
+
+  &.disabled {
+    color: #b0bdd0!important;
+    border-color: #b0bdd0!important;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  &.non-clickable {
+    pointer-events: none;
+  }
+
+}

@@ -4,6 +4,8 @@ namespace ShippingAppointments\Controller\Front;
 
 use ShippingAppointments\Controller\Ajax\AjaxController;
 use ShippingAppointments\Interfaces\PublicInterface;
+use ShippingAppointments\Service\Auth\AuthGlobalFunctions;
+use ShippingAppointments\Service\Dashboard\Dashboard;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Traits\Core\Plugin;
 
@@ -100,61 +102,15 @@ class PublicController implements PublicInterface {
 	public function pluginNameBodyClass( $classes ){
 
 		$classes[]  = $this->getPluginName();
-		$classes[] = ( $this->isDashboardPage() ? 'platform-dashboard-page' : 'front-page ');
 
-		$post = get_queried_object();
+		$dashboard = new Dashboard();
+		$classes[] = ( $dashboard->isDashboardPage() ? 'platform-dashboard-page' : 'front-page ');
 
-		if( $post->post_type === AppointmentPost::POST_TYPE_NAME ){
+		$authFunctions = new AuthGlobalFunctions();
+		$classes[] = ( $authFunctions->isAuthPage() ? 'homi-auth-page' : '' );
 
-
-            $appointment = new \ShippingAppointments\Service\Entities\Appointment($post->ID);
-
-            if( is_user_logged_in() ){
-
-
-                $currentUser = get_current_user_id();
-
-                if ($appointment->requester == $currentUser) {
-                    $classes[] = 'appointment-requester';
-                } elseif ($appointment->receiver == $currentUser) {
-                    $classes[] = 'appointment-receiver';
-                }
-
-            }
-
-        }
 
 		return $classes;
-
-	}
-
-
-	private function isDashboardPage(){
-
-        if( is_page() ){
-
-            global $post;
-
-            if ($post->post_parent)	{
-                $ancestors=get_post_ancestors($post->ID);
-                $root=count($ancestors)-1;
-                $parent = $ancestors[$root];
-            }
-            else {
-                $parent = $post->ID;
-            }
-
-            $slug = get_post_field( 'post_name', $parent );
-
-            return $slug === 'dashboard';
-
-        }
-        else if( is_author() || is_singular(array('shipping_company', 'supplier_company', 'user_appointments') )  ){
-            return true;
-        }
-        else {
-            return false;
-        }
 
 	}
 

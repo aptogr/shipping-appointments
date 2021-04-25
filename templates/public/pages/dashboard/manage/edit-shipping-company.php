@@ -72,7 +72,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>Define the meeting types that the company will accept for bookings or let each department define.</p>
 
-                        <div id="company_users_visibility_section" class="full-width relative">
+                        <div id="meeting_type" class="full-width relative">
 
                             <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_type" value="company" <?php displayRadioValue('company',$companyObj->meeting_type);?>>
                             <label for="meeting_type_company">Defined by Company</label>
@@ -83,7 +83,7 @@ function displayCheckboxValue ($id,$value) {
 
                         </div>
 
-                        <div class="full-width flex margin-top-30">
+                        <div id="meeting_types_available" class="full-width flex margin-top-30 <?php echo ( $companyObj->meeting_type !== 'company' ? 'hide' : ''); ?>">
 
                             <input type="checkbox" id="booking_method_physical_location" class="checkboxradio" name="meeting_types_available[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$companyObj->meeting_types_available);?>>
                             <label for="booking_method_physical_location">One to one</label><br>
@@ -155,7 +155,7 @@ function displayCheckboxValue ($id,$value) {
 
                         </div>
 
-                        <div class="full-width relative margin-top-20">
+                        <div id="book_in_advance_field" class="full-width relative margin-top-20 <?php echo ( $companyObj->minimum_notice !== 'minimum_notice_in_advance' ? 'hide' : ''); ?>">
 
                             <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0" value="<?php echo $companyObj->book_in_advance_days; ?>">
 
@@ -183,7 +183,9 @@ function displayCheckboxValue ($id,$value) {
 
                         </div>
 
-                        <div id="meeting_repetition_time_section" class="full-width relative margin-top-20">
+
+
+                        <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 <?php echo ( $companyObj->meeting_repetition !== 'meeting_repetition_limit' ? 'hide' : ''); ?>">
 
                             <input name="meeting_repetition_time" id="meeting_repetition_time" class="spinner0" value="<?php echo $companyObj->meeting_repetition_time; ?>">
 

@@ -13,6 +13,7 @@
   }
 
   &.disabled {
+    cursor: not-allowed;
 
     .profenda-field {
       opacity: 0.5;

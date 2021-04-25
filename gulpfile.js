@@ -66,6 +66,8 @@ var scripts = [
             config.srcDirJS + '/appointments.js',
             config.srcDirJS + '/products.js',
             config.srcDirJS + '/brands.js',
+            config.srcDirJS + '/settingsController/shippingCompanySettings.js',
+            config.srcDirJS + '/settingsController/departmentSettings.js',
         ],
         name : 'public.min',
         dest : config.destDirJS + ''

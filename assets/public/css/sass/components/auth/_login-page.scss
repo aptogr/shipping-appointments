@@ -1,0 +1,28 @@
+.page-template-page-login, .page-template-page-homi-register {
+
+  #main-wrap {
+    background-color: transparent!important;
+  }
+
+  header, footer {
+    display: none!important;
+  }
+
+  .card {
+    background-color: #fff;
+  }
+
+  .login-card.card .btn-primary{
+    width: 100%;
+    margin-top: 10px;
+    display: block;
+    line-height: 45px;
+  }
+
+}
+
+#login-btn {
+  color: #fff;
+  border-radius: 0;
+  width: 100%;
+}

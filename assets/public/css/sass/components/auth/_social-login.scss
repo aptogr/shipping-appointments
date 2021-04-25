@@ -1,0 +1,32 @@
+.social-login-buttons {
+  border-top: 1px solid #e1ecfd;
+  margin-top: 25px;
+  padding-top: 10px;
+}
+
+.social-login-btn {
+  background-color: #e1ecfd;
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 15px;
+  color: #000;
+  font-weight: 700;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 23px;
+    height: auto;
+    margin-right: 15px;
+  }
+
+  &.homi-btn {
+    background-color: #fff;
+  }
+
+}
+

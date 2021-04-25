@@ -33,6 +33,17 @@ Interface PagesTemplatesInterface {
 		'dashboard/find/supplier-companies.php'                         => 'Profenda Find Suppliers',
 		'dashboard/manage/edit-shipping-company-department.php'         => 'Profenda / Manage / Edit Department',
 		'dashboard/manage/edit-shipping-company.php'                    => 'Profenda / Manage / Edit Shipping Company',
+
+
+		//=============================================================================================
+		// Authentication Pages
+		//=============================================================================================
+
+		'auth/register.php'                               => 'Profenda Auth / Register',
+		'auth/login.php'                                  => 'Profenda Auth / Login',
+		'auth/password-lost.php'                          => 'Profenda Auth / Password Lost',
+		'auth/password-reset.php'                         => 'Profenda Auth / Password Reset',
+
 	);
 
 
