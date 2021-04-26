@@ -4,9 +4,6 @@ get_header();
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
 
 
-echo "<pre>";
-print_r($platformUser->minimum_notice);
-echo "</pre>";
 
 function displayInputValue ($value) {
     echo (!empty($value)) ? $value : "" ;
@@ -23,262 +20,266 @@ function displayCheckboxValue ($id,$value) {
 ?>
     <div class="row booking-settings no-margin-bottom full-width">
 
-        <div class="col m9 l9 no-padding">
+       <div class="container">
 
-            <form action="" method="post">
+           <div class="col s12">
 
-                <div class="col l12 m12">
+               <form action="" method="post">
 
-                    <section class="main-section full-width setting-field-wrapper">
+                   <div class="col l12 m12">
 
-                        <h1>Booking Settings</h1>
+                       <section class="main-section full-width">
 
-                        <p>Set up your booking settings.</p>
+                           <h1>Booking Settings</h1>
 
-                    </section>
+                           <p>Set up your booking settings.</p>
 
-                    <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->users_visibility !== 'department_users_department' ? 'disabled' : ''); ?>">
+                       </section>
 
-                        <div class="full-width">
-                            <h2>Visibility</h2>
-<!--                            <p>Select if the department's employees will be visible to the suppliers.</p>-->
-                        </div>
+                       <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->users_visibility !== 'department_users_department' ? 'disabled' : ''); ?>">
 
-                        <div id="department_users_visibility_section" class="full-width relative profenda-field">
+                           <div class="full-width">
+                               <h2>Visibility</h2>
+                               <!--                            <p>Select if the department's employees will be visible to the suppliers.</p>-->
+                           </div>
 
-                            <input type="radio" id="visibile_yes" class="checkboxradio" name="visible" value="user_visibile" <?php displayRadioValue('user_visibile',$platformUser->visible);?>>
-                            <label for="visibile_yes">Yes</label>
+                           <div id="department_users_visibility_section" class="full-width relative profenda-field">
 
-                            <input type="radio" id="visibile_no" class="checkboxradio" name="visible" value="user_not_visibile" <?php displayRadioValue('user_not_visibile',$platformUser->visible);?>>
-                            <label for="visibile_no">No</label>
+                               <input type="radio" id="visibile_yes" class="checkboxradio" name="visible" value="user_visibile" <?php displayRadioValue('user_visibile',$platformUser->visible);?>>
+                               <label for="visibile_yes">Yes</label>
 
-                        </div>
+                               <input type="radio" id="visibile_no" class="checkboxradio" name="visible" value="user_not_visibile" <?php displayRadioValue('user_not_visibile',$platformUser->visible);?>>
+                               <label for="visibile_no">No</label>
 
-                    </section>
+                           </div>
 
-                    <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->meeting_types !== 'user' ? 'disabled' : ''); ?>">
+                       </section>
 
-                        <h2>Booking Methods</h2>
+                       <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->meeting_types !== 'user' ? 'disabled' : ''); ?>">
 
-                        <p>Select your booking methods.</p>
+                           <h2>Booking Methods</h2>
 
-                        <div class="full-width flex profenda-field">
+                           <p>Select your booking methods.</p>
 
-                            <div class="col no-padding-left">
+                           <div class="full-width flex profenda-field">
 
-                                <input type="checkbox" id="booking_method_physical_location" class="checkboxradio"  name="booking_method[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$platformUser->booking_method);?>>
-                                <label for="booking_method_physical_location">Physical Location</label><br>
+                               <div class="col no-padding-left">
 
-                            </div>
+                                   <input type="checkbox" id="booking_method_physical_location" class="checkboxradio"  name="booking_method[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$platformUser->booking_method);?>>
+                                   <label for="booking_method_physical_location">Physical Location</label><br>
 
-                            <div class="col no-padding-left">
+                               </div>
 
-                                <input type="checkbox" id="booking_method_phone_call" class="checkboxradio"  name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
-                                <label for="booking_method_phone_call">Phone Call</label><br>
+                               <div class="col no-padding-left">
 
-                            </div>
+                                   <input type="checkbox" id="booking_method_phone_call" class="checkboxradio"  name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
+                                   <label for="booking_method_phone_call">Phone Call</label><br>
 
-                            <div class="col no-padding-left">
+                               </div>
 
-                                <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
-                                <label for="booking_method_online">Online</label><br>
+                               <div class="col no-padding-left">
 
-                            </div>
+                                   <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
+                                   <label for="booking_method_online">Online</label><br>
 
-                        </div>
+                               </div>
 
-                    </section>
+                           </div>
 
-                    <section class="main-section full-width setting-field-wrapper">
+                       </section>
 
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <div class="full-width">
-                            <h2>Products</h2>
-                            <p>Select your products.</p>
-                        </div>
 
-                        <div id="getProducts" class="full-width relative">
+                           <div class="full-width">
+                               <h2>Products</h2>
+                               <p>Select your products.</p>
+                           </div>
 
-                            <input id="getProductsInput" type="text" placeholder="Type to search..">
+                           <div id="getProducts" class="full-width relative">
 
-                            <div class="row flex">
-                                <div id="getProductsResults" class="relative col l6 m6"></div>
+                               <input id="getProductsInput" type="text" placeholder="Type to search..">
 
-                                <div class="col l6 m6">
-                                    <div id="selectedProducts" class="relative flex">
-                                        <?php
+                               <div class="row flex">
+                                   <div id="getProductsResults" class="relative col l6 m6"></div>
 
+                                   <div class="col l6 m6">
+                                       <div id="selectedProducts" class="relative flex">
+									       <?php
 
-                                        if ((!empty($platformUser->selected_products))) {
 
-                                            $selected_products = explode(",", $platformUser->selected_products);
+									       if ((!empty($platformUser->selected_products))) {
 
-                                            foreach ($selected_products as $selected_product_id) {
-                                                $product = get_term_by('ID', $selected_product_id, 'profenda_product_type');
-                                                ?>
-                                                <div class="product-item product-item-<?php echo $selected_product_id;?>" data-id="<?php echo $selected_product_id;?>"><?php echo $product->name;?></div>
-                                                <?php
+										       $selected_products = explode(",", $platformUser->selected_products);
 
-                                            }
-                                        }
+										       foreach ($selected_products as $selected_product_id) {
+											       $product = get_term_by('ID', $selected_product_id, 'profenda_product_type');
+											       ?>
+                                                   <div class="product-item product-item-<?php echo $selected_product_id;?>" data-id="<?php echo $selected_product_id;?>"><?php echo $product->name;?></div>
+											       <?php
 
-                                        ?>
-                                    </div>
-                                    <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php displayInputValue($platformUser->selected_products); ?>">
-                                </div>
-                            </div>
+										       }
+									       }
 
-                        </div>
+									       ?>
+                                       </div>
+                                       <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php displayInputValue($platformUser->selected_products); ?>">
+                                   </div>
+                               </div>
 
+                           </div>
 
-                    </section>
 
-                    <section class="main-section full-width setting-field-wrapper">
+                       </section>
 
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <div class="full-width">
-                            <h2>Brands</h2>
-                            <p>Select your Brands.</p>
-                        </div>
 
-                        <div id="getBrands" class="full-width relative">
+                           <div class="full-width">
+                               <h2>Brands</h2>
+                               <p>Select your Brands.</p>
+                           </div>
 
-                            <input id="getBrandsInput" type="text" placeholder="Type to search..">
+                           <div id="getBrands" class="full-width relative">
 
-                            <div class="row flex">
-                                <div id="getBrandsResults" class="relative col l6 m6"></div>
+                               <input id="getBrandsInput" type="text" placeholder="Type to search..">
 
-                                <div class="col l6 m6">
-                                    <div id="selectedBrands" class="relative flex">
-                                        <?php
+                               <div class="row flex">
+                                   <div id="getBrandsResults" class="relative col l6 m6"></div>
 
-                                        if ((!empty($platformUser->selected_brands))) {
+                                   <div class="col l6 m6">
+                                       <div id="selectedBrands" class="relative flex">
+									       <?php
 
-                                            $selected_Brands = explode(",", $platformUser->selected_brands);
+									       if ((!empty($platformUser->selected_brands))) {
 
-                                            foreach ($selected_Brands as $selected_brand_id) {
-                                                $brand = get_term_by('ID', $selected_brand_id, 'profenda_product_brand');
-                                                ?>
-                                                <div class="brand-item brand-item-<?php echo $selected_brand_id;?>" data-id="<?php echo $selected_brand_id;?>"><?php echo $brand->name;?></div>
-                                                <?php
+										       $selected_Brands = explode(",", $platformUser->selected_brands);
 
-                                            }
-                                        }
+										       foreach ($selected_Brands as $selected_brand_id) {
+											       $brand = get_term_by('ID', $selected_brand_id, 'profenda_product_brand');
+											       ?>
+                                                   <div class="brand-item brand-item-<?php echo $selected_brand_id;?>" data-id="<?php echo $selected_brand_id;?>"><?php echo $brand->name;?></div>
+											       <?php
 
-                                        ?>
-                                    </div>
-                                    <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php displayInputValue($platformUser->selected_brands); ?>">
-                                </div>
-                            </div>
+										       }
+									       }
 
-                        </div>
+									       ?>
+                                       </div>
+                                       <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php displayInputValue($platformUser->selected_brands); ?>">
+                                   </div>
+                               </div>
 
+                           </div>
 
-                    </section>
 
-                    <section class="main-section full-width setting-field-wrapper">
+                       </section>
 
-                        <h2>Book in advance days</h2>
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <p>The minimum days notice to book the current user for.</p>
+                           <h2>Book in advance days</h2>
 
-                        <div id="minimum_notice_section" class="full-width relative profenda-field">
+                           <p>The minimum days notice to book the current user for.</p>
 
-                            <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$platformUser->minimum_notice);?>>
-                            <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
+                           <div id="minimum_notice_section" class="full-width relative profenda-field">
 
-                            <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$platformUser->minimum_notice);?>>
-                            <label for="minimum_notice_no_limit">No time limit</label>
+                               <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$platformUser->minimum_notice);?>>
+                               <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
 
+                               <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$platformUser->minimum_notice);?>>
+                               <label for="minimum_notice_no_limit">No time limit</label>
 
-                        </div>
 
-                        <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
+                           </div>
 
-                    </section>
+                           <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
 
-                    <section class="main-section full-width setting-field-wrapper">
+                       </section>
 
-                        <h2>Meeting Time Duration</h2>
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <p>Timeframe of the meeting in minutes (ex.30)</p>
+                           <h2>Meeting Time Duration</h2>
 
-                        <input name="meeting_duration" id="meeting_duration" class="spinner15" value="<?php displayInputValue($platformUser->meeting_duration);?>">
+                           <p>Timeframe of the meeting in minutes (ex.30)</p>
 
-                    </section>
+                           <input name="meeting_duration" id="meeting_duration" class="spinner15" value="<?php displayInputValue($platformUser->meeting_duration);?>">
 
+                       </section>
 
-                    <section class="main-section full-width setting-field-wrapper">
 
-                        <h2>Meeting Time Buffer</h2>
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <p>Buffer duration (in minutes) before and after meetings</p>
+                           <h2>Meeting Time Buffer</h2>
 
-                        <input name="meeting_buffer" id="meeting_buffer" class="spinner15" value="<?php displayInputValue($platformUser->meeting_buffer);?>">
+                           <p>Buffer duration (in minutes) before and after meetings</p>
 
-                    </section>
+                           <input name="meeting_buffer" id="meeting_buffer" class="spinner15" value="<?php displayInputValue($platformUser->meeting_buffer);?>">
 
+                       </section>
 
-                    <section class="main-section full-width setting-field-wrapper">
 
-                        <h2>Max meetings per day</h2>
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <p>The maximum meetings the current user can be booked for.</p>
+                           <h2>Max meetings per day</h2>
 
-                        <input name="max_meetings_per_day" id="max_meetings_per_day" class="spinner0" value="<?php displayInputValue($platformUser->max_meetings_per_day);?>">
+                           <p>The maximum meetings the current user can be booked for.</p>
 
-                    </section>
+                           <input name="max_meetings_per_day" id="max_meetings_per_day" class="spinner0" value="<?php displayInputValue($platformUser->max_meetings_per_day);?>">
 
+                       </section>
 
 
-                    <section class="main-section full-width setting-field-wrapper">
 
-                        <h2>Booking request type</h2>
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <p>The way the booking requests are made. Email or instant booking</p>
+                           <h2>Booking request type</h2>
 
-                        <div class="full-width flex">
+                           <p>The way the booking requests are made. Email or instant booking</p>
 
-                            <div class="col no-padding-left">
+                           <div class="full-width flex">
 
-                                <input type="radio" id="booking_request_type_email" class="checkboxradio"  name="booking_request_type" value="email" <?php displayRadioValue('email',$platformUser->booking_request_type);?>>
-                                <label for="booking_request_type_email">Ask via Email first</label><br>
+                               <div class="col no-padding-left">
 
-                            </div>
+                                   <input type="radio" id="booking_request_type_email" class="checkboxradio"  name="booking_request_type" value="email" <?php displayRadioValue('email',$platformUser->booking_request_type);?>>
+                                   <label for="booking_request_type_email">Ask via Email first</label><br>
 
-                            <div class="col no-padding-left">
+                               </div>
 
-                                <input type="radio" id="booking_request_type_instant" class="checkboxradio"  name="booking_request_type" value="instant" <?php displayRadioValue('instant',$platformUser->booking_request_type);?>>
-                                <label for="booking_request_type_instant">Instant Booking</label><br>
+                               <div class="col no-padding-left">
 
-                            </div>
+                                   <input type="radio" id="booking_request_type_instant" class="checkboxradio"  name="booking_request_type" value="instant" <?php displayRadioValue('instant',$platformUser->booking_request_type);?>>
+                                   <label for="booking_request_type_instant">Instant Booking</label><br>
 
-                        </div>
+                               </div>
 
-                    </section>
+                           </div>
 
+                       </section>
 
-                    <section class="main-section full-width setting-field-wrapper">
 
-                        <h2>How many times to meet same supplier</h2>
+                       <section class="main-section full-width setting-field-wrapper">
 
-                        <p>The maximum number of times the user can meet a supplier</p>
+                           <h2>How many times to meet same supplier</h2>
 
-                        <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
+                           <p>The maximum number of times the user can meet a supplier</p>
 
-                    </section>
+                           <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
 
+                       </section>
 
-                </div>
-                <div class="col l12 m12">
-                    <section class="main-section full-width setting-field-wrapper">
-                        <button type="submit" class="saveBooking save-button" name="refresh_action" value="save_booking_settings">SAVE MY AVAILABILITY</button>
-                    </section>
-                </div>
 
-            </form>
+                   </div>
+                   <div class="col l12 m12">
+                       <section class="main-section full-width setting-field-wrapper">
+                           <button type="submit" class="saveBooking save-button" name="refresh_action" value="save_booking_settings">SAVE</button>
+                       </section>
+                   </div>
 
-        </div>
+               </form>
+
+           </div>
+
+       </div>
 
     </div>
 
