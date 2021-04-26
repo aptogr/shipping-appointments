@@ -542,7 +542,7 @@ if (isset($department->excluded_dates)) {
 
                         </div>
 
-                        <div id="instant_booking_products_brands" class="hide">
+                        <div id="instant_booking_products_brands" class="<?php echo ( $department->instant_booking !== 'accept_specific' ? 'hide' : ''); ?>">
 
                             <div id="getSpecificProducts" class="full-width relative">
                                 <p>Select Specific Products</p>
@@ -585,7 +585,22 @@ if (isset($department->excluded_dates)) {
 
                                     <div class="col l6 m6">
                                         <div id="selectedSpecificBrands" class="relative flex">
+                                            <?php
 
+                                            if ((!empty($department->instant_booking_brands))) {
+
+                                                $instant_booking_brands = explode(",", $department->instant_booking_brands);
+
+                                                foreach ($instant_booking_brands as $instant_selected_brand_id) {
+                                                    $instant_brand = get_term_by('ID', $instant_selected_brand_id, 'profenda_product_brand');
+                                                    ?>
+                                                    <div class="brand-item brand-item-<?php echo $instant_selected_brand_id;?>" data-id="<?php echo $instant_selected_brand_id;?>"><?php echo $instant_brand->name;?></div>
+                                                    <?php
+
+                                                }
+                                            }
+
+                                            ?>
                                         </div>
                                         <input type="hidden" name="instant_booking_brands" id="selectedSpecificBrandsInput" value="<?php echo $department->instant_booking_brands; ?>">
                                     </div>

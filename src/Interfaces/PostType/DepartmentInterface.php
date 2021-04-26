@@ -186,7 +186,7 @@ Interface DepartmentInterface {
 		'minimum_notice_hours' => array(
 			'name'              => 'Minimum notice hours',
 			'id'                => self::META_FIELDS_SLUG['minimum_notice_hours'],
-			'desc'              => 'The minimum hours notice to book the department or an amployee.',
+			'desc'              => 'The minimum hours notice to book the department or an employee.',
 			'type'              => 'number',
 		),
 		'meeting_repetition'            =>array(

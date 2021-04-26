@@ -104,7 +104,7 @@ function displayCheckboxValue ($id,$value) {
 
                         <p>Define if the company will accept instant bookings. Instant bookings do not require the acceptance of the employee or the department administrator.</p>
 
-                        <div class="full-width flex profenda-field">
+                        <div id="instant_booking" class="full-width flex profenda-field">
 
                             <div class="col no-padding-left">
 
@@ -130,8 +130,78 @@ function displayCheckboxValue ($id,$value) {
 
                             </div>
 
+                        </div>
+
+                        <div id="instant_booking_products_brands" class="<?php echo ( $companyObj->instant_booking !== 'accept_specific' ? 'hide' : ''); ?>">
+
+                            <div id="getSpecificProducts" class="full-width relative">
+                                <p>Select Specific Products</p>
+                                <input id="getSpecificProductsInput" type="text" placeholder="Type to search..">
+
+                                <div class="row flex">
+                                    <div id="getSpecificProductsResults" class="relative col l6 m6"></div>
+
+                                    <div class="col l6 m6">
+                                        <div id="selectedSpecificProducts" class="relative flex">
+                                            <?php
+
+                                            if ((!empty($companyObj->products_specific_suppliers))) {
+
+                                                $instant_booking_products = explode(",", $companyObj->products_specific_suppliers);
+
+                                                foreach ($instant_booking_products as $instant_selected_product_id) {
+                                                    $instant_product = get_term_by('ID', $instant_selected_product_id, 'profenda_product_type');
+                                                    ?>
+                                                    <div class="product-item product-item-<?php echo $instant_selected_product_id;?>" data-id="<?php echo $instant_selected_product_id;?>"><?php echo $instant_product->name;?></div>
+                                                    <?php
+
+                                                }
+                                            }
+
+                                            ?>
+                                        </div>
+                                        <input type="hidden" name="products_specific_suppliers" id="selectedSpecificProductsInput" value="<?php echo $companyObj->products_specific_suppliers; ?>">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="getSpecificBrands" class="full-width relative">
+                                <p>Select Specific Brands</p>
+                                <input id="getSpecificBrandsInput" type="text" placeholder="Type to search..">
+
+                                <div class="row flex">
+                                    <div id="getSpecificBrandsResults" class="relative col l6 m6"></div>
+
+                                    <div class="col l6 m6">
+                                        <div id="selectedSpecificBrands" class="relative flex">
+                                            <?php
+
+                                            if ((!empty($companyObj->brands_specific_suppliers))) {
+
+                                                $instant_booking_brands = explode(",", $companyObj->brands_specific_suppliers);
+
+                                                foreach ($instant_booking_brands as $instant_selected_brand_id) {
+                                                    $instant_brand = get_term_by('ID', $instant_selected_brand_id, 'profenda_product_brand');
+                                                    ?>
+                                                    <div class="brand-item brand-item-<?php echo $instant_selected_brand_id;?>" data-id="<?php echo $instant_selected_brand_id;?>"><?php echo $instant_brand->name;?></div>
+                                                    <?php
+
+                                                }
+                                            }
+
+                                            ?>
+                                        </div>
+                                        <input type="hidden" name="brands_specific_suppliers" id="selectedSpecificBrandsInput" value="<?php echo $companyObj->brands_specific_suppliers; ?>">
+                                    </div>
+                                </div>
+
+                            </div>
+
 
                         </div>
+
+
 
 
                     </section>
