@@ -4,20 +4,13 @@
 namespace ShippingAppointments\Service\PostType;
 
 use ShippingAppointments\Includes\ShippingAppointments as ShippingAppointments;
+use ShippingAppointments\Interfaces\PostType\AppointmentInterface;
 use ShippingAppointments\Interfaces\TemplatesInterface;
 use ShippingAppointments\Traits\Core\Plugin;
 
-class AppointmentPost implements TemplatesInterface{
+class AppointmentPost implements TemplatesInterface, AppointmentInterface {
 
 	use Plugin;
-
-
-	/**
-	 * Post Type Slug
-	 * @var string
-	 */
-	const POST_TYPE_NAME = 'user_appointments';
-
 
 
 	/**
@@ -25,31 +18,6 @@ class AppointmentPost implements TemplatesInterface{
 	 * @var string
 	 */
 	const POST_TYPE_ICON = '<svg fill="#9ea3a8" id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m91 15c0-8.284-6.716-15-15-15s-15 6.716-15 15v17h30z"/><path d="m181 15c0-8.284-6.716-15-15-15s-15 6.716-15 15v17h30z"/><path d="m271 15c0-8.284-6.716-15-15-15s-15 6.716-15 15v17h30z"/><path d="m361 15c0-8.284-6.716-15-15-15s-15 6.716-15 15v17h30z"/><path d="m451 15c0-8.284-6.716-15-15-15s-15 6.716-15 15v17h30z"/><path d="m361 381h30v30h-30z"/><path d="m241 381h30v30h-30z"/><path d="m121 262h30v30h-30z"/><path d="m497 32h-46v45c0 8.284-6.716 15-15 15s-15-6.716-15-15v-45h-60v45c0 8.284-6.716 15-15 15s-15-6.716-15-15v-45h-60v45c0 8.284-6.716 15-15 15s-15-6.716-15-15v-45h-60v45c0 8.284-6.716 15-15 15s-15-6.716-15-15v-45h-60v45c0 8.284-6.716 15-15 15s-15-6.716-15-15v-45h-46c-8.284 0-15 6.716-15 15v95h512v-95c0-8.284-6.716-15-15-15z"/><path d="m241 262h30v30h-30z"/><path d="m361 262h30v30h-30z"/><path d="m0 497c0 8.284 6.716 15 15 15h482c8.284 0 15-6.716 15-15v-325h-512zm331-250c0-8.284 6.716-15 15-15h60c8.284 0 15 6.716 15 15v60c0 8.284-6.716 15-15 15h-60c-8.284 0-15-6.716-15-15zm0 119c0-8.284 6.716-15 15-15h60c8.284 0 15 6.716 15 15v60c0 8.284-6.716 15-15 15h-60c-8.284 0-15-6.716-15-15zm-120-119c0-8.284 6.716-15 15-15h60c8.284 0 15 6.716 15 15v60c0 8.284-6.716 15-15 15h-60c-8.284 0-15-6.716-15-15zm0 119c0-8.284 6.716-15 15-15h60c8.284 0 15 6.716 15 15v60c0 8.284-6.716 15-15 15h-60c-8.284 0-15-6.716-15-15zm-120-119c0-8.284 6.716-15 15-15h60c8.284 0 15 6.716 15 15v60c0 8.284-6.716 15-15 15h-60c-8.284 0-15-6.716-15-15zm3.401 153.088c5.253-6.405 14.704-7.342 21.11-2.087l8.352 6.849 30.498-37.513c5.226-6.426 14.673-7.402 21.101-2.176s7.402 14.673 2.176 21.102l-40 49.2c-5.228 6.431-14.712 7.416-21.15 2.136l-20-16.4c-6.405-5.254-7.34-14.705-2.087-21.111z"/></g></svg>';
-
-
-
-	/**
-	 * Post Type Meta Fields slugs
-	 * @var array
-	 */
-	const META_FIELDS_SLUG = [
-		'status'                        => self::POST_TYPE_NAME . '_status',
-		'date'                          => self::POST_TYPE_NAME . '_date',
-		'from_time'                     => self::POST_TYPE_NAME . '_from_time',
-		'to_time'                       => self::POST_TYPE_NAME . '_to_time',
-		'appointment_method'            => self::POST_TYPE_NAME . '_appointment_method',
-		'appointment_method_selected'   => self::POST_TYPE_NAME . '_appointment_method_selected',
-		'location'                      => self::POST_TYPE_NAME . '_location',
-		'event_location'                      => self::POST_TYPE_NAME . '_event_location',
-		'telephone'                     => self::POST_TYPE_NAME . '_telephone',
-		'zoom_link'                     => self::POST_TYPE_NAME . '_zoom_link',
-		'webex_link'                    => self::POST_TYPE_NAME . '_webex_link',
-		'teams_link'                    => self::POST_TYPE_NAME . '_teams_link',
-		'requester'                     => self::POST_TYPE_NAME . '_requester',
-		'invite_questions'              => self::POST_TYPE_NAME . '_invite_questions',
-		'guests'                        => self::POST_TYPE_NAME . '_guests',
-		'meeting_time_duration'         => self::POST_TYPE_NAME . '_meeting_time_duration',
-	];
 
 
 
@@ -114,7 +82,7 @@ class AppointmentPost implements TemplatesInterface{
 			'show_in_rest'          => true,
 			'rest_base'             => '',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'rewrite'               => array( 'slug' => 'dashboard/appointments', 'with_front' => false ),
+			'rewrite'               => array( 'slug' => 'dashboard/appointments/meeting', 'with_front' => false ),
 			'menu_icon'             => 'data:image/svg+xml;base64,' . base64_encode( self::POST_TYPE_ICON ),
 			'has_archive'           => false,
 			'show_in_menu'          => true,
@@ -124,7 +92,7 @@ class AppointmentPost implements TemplatesInterface{
 			'map_meta_cap'          => true,
 			'hierarchical'          => false,
 			'query_var'             => true,
-			'supports'              => array( 'title', 'thumbnail', 'editor', 'excerpt', 'author'),
+			'supports'              => array( 'title',  'author'),
 		);
 
 		register_post_type( self::POST_TYPE_NAME, $args );
@@ -152,161 +120,32 @@ class AppointmentPost implements TemplatesInterface{
 
 		$meta_boxes[] = array(
 			'id'         => self::POST_TYPE_NAME . '_information',
-			'title'      => esc_html__( 'Information', ShippingAppointments::PLUGIN_NAME ),
+			'title'      => esc_html__( 'Primary Information', ShippingAppointments::PLUGIN_NAME ),
 			'post_types' => array( self::POST_TYPE_NAME ),
 			'context'    => 'normal',
 			'priority'   => 'default',
 			'autosave'   => 'false',
-			'fields'     => array(
+			'fields'     => self::PRIMARY_FIELDS,
+		);
 
-                array(
-                    'id'              => self::META_FIELDS_SLUG['status'],
-                    'name'            => esc_html__( 'Status', ShippingAppointments::PLUGIN_NAME ),
-                    'type'            => 'select',
-                    'options'         => array(
-                        'confirmed'         => 'Confirmed',
-                        'pending_approval'  => 'Pending Approval',
-                        'cancelled'         => 'Cancelled',
-                    ),
-                    'multiple'        => false,
-                    'placeholder'     => 'Select Status',
-                ),
+		$meta_boxes[] = array(
+			'id'         => self::POST_TYPE_NAME . '_participating',
+			'title'      => esc_html__( 'Participants Overview', ShippingAppointments::PLUGIN_NAME ),
+			'post_types' => array( self::POST_TYPE_NAME ),
+			'context'    => 'normal',
+			'priority'   => 'default',
+			'autosave'   => 'false',
+			'fields'     => self::PARTICIPANTS_FIELDS,
+		);
 
-                array(
-                    'name'       => esc_html__( 'Date', ShippingAppointments::PLUGIN_NAME ),
-                    'id'         => self::META_FIELDS_SLUG['date'],
-                    'type'       => 'date',
-
-                    'js_options' => array(
-                        'dateFormat'      => 'yy-mm-dd',
-                        'showButtonPanel' => false,
-                    ),
-                    'inline'     => false,
-                    'timestamp'  => false,
-                ),
-
-                array(
-                    'name'       => esc_html__( 'From Time', ShippingAppointments::PLUGIN_NAME ),
-                    'id'         => self::META_FIELDS_SLUG['from_time'],
-                    'type'       => 'time',
-                    'js_options' => array(
-                        'stepMinute'      => 15,
-                        'controlType'     => 'select',
-                        'showButtonPanel' => false,
-                        'oneLine'         => true,
-                    ),
-                    'inline'     => false,
-                ),
-
-                array(
-                    'name'       => esc_html__( 'To Time', ShippingAppointments::PLUGIN_NAME ),
-                    'id'         => self::META_FIELDS_SLUG['to_time'],
-                    'type'       => 'time',
-                    'js_options' => array(
-                        'stepMinute'      => 15,
-                        'controlType'     => 'select',
-                        'showButtonPanel' => false,
-                        'oneLine'         => true,
-                    ),
-                    'inline'     => false,
-                ),
-                array(
-                    'name'       => esc_html__( 'Meeting Time Duration', ShippingAppointments::PLUGIN_NAME ),
-                    'id'         => self::META_FIELDS_SLUG['meeting_time_duration'],
-                    'type' => 'text',
-                ),
-                array(
-                    'id'              => self::META_FIELDS_SLUG['appointment_method'],
-                    'name'            => esc_html__( 'Available Appointment Methods', ShippingAppointments::PLUGIN_NAME ),
-                    'type'            => 'checkbox_list',
-                    'options'         => array(
-                        'physical_location'     => 'Physical Location',
-                        'phone_call'            => 'Phone Call',
-                        'remote_online'         => 'Remote Online',
-                    ),
-                    'inline' => true,
-                ),
-
-                array(
-                    'name'          => esc_html__( 'Selected Appointment Method', ShippingAppointments::PLUGIN_NAME ),
-                    'id'            => self::META_FIELDS_SLUG['appointment_method_selected'],
-                    'type'          => 'radio',
-                    'options'       => array(
-                        'physical_location'     => 'Physical Location',
-                        'phone_call'            => 'Phone Call',
-                        'remote_online'         => 'Remote Online',
-                    ),
-                    'inline'    => true,
-                ),
-
-                array(
-                    'id'    => self::META_FIELDS_SLUG['location'],
-                    'name'  => esc_html__( 'Location', ShippingAppointments::PLUGIN_NAME ),
-                    'type'  => 'text',
-                ),
-
-                array(
-                    'id'    => self::META_FIELDS_SLUG['event_location'],
-                    'name'  => esc_html__( 'Event Location', ShippingAppointments::PLUGIN_NAME ),
-                    'type'  => 'text',
-                ),
-
-                array(
-                    'name'  => esc_html__( 'Telephone', ShippingAppointments::PLUGIN_NAME ),
-                    'id'    => self::META_FIELDS_SLUG['telephone'],
-                    'type'  => 'tel',
-                ),
-
-                array(
-                    'id'    => self::META_FIELDS_SLUG['zoom_link'],
-                    'name'  => esc_html__( 'Zoom Link', ShippingAppointments::PLUGIN_NAME ),
-                    'type'  => 'text',
-                ),
-
-                array(
-                    'id'    => self::META_FIELDS_SLUG['webex_link'],
-                    'name'  => esc_html__( 'Webex Link', ShippingAppointments::PLUGIN_NAME ),
-                    'type'  => 'text',
-                ),
-
-                array(
-                    'id'    => self::META_FIELDS_SLUG['teams_link'],
-                    'name'  => esc_html__( 'Microsoft Team Link', ShippingAppointments::PLUGIN_NAME ),
-                    'type'  => 'text',
-                ),
-
-                array(
-                    'id'            => self::META_FIELDS_SLUG['requester'],
-                    'name'          => esc_html__( 'Requester ID', ShippingAppointments::PLUGIN_NAME ),
-                    'type'          => 'user',
-                    'field_type'    => 'select_advanced',
-                    'placeholder'   => 'Select Participants',
-                    'multiple'      => true,
-                    'query_args'    => array(),
-                ),
-
-                array(
-                    'id'            => self::META_FIELDS_SLUG['invite_questions'],
-                    'name'          => esc_html__( 'Invite Questions', ShippingAppointments::PLUGIN_NAME ),
-                    'type'          => 'wysiwyg',
-                    'raw'           => true,
-                    'options'       => array(
-                        'textarea_rows' => 4,
-                        'teeny'         => true,
-                    ),
-                ),
-
-                array(
-                    'id'            => self::META_FIELDS_SLUG['guests'],
-                    'name'          => esc_html__( 'Guests', ShippingAppointments::PLUGIN_NAME ),
-                    'type'          => 'user',
-                    'field_type'    => 'select_advanced',
-                    'placeholder'   => 'Select Guests',
-                    'multiple'      => true,
-                    'query_args'    => array(),
-                ),
-
-            ),
+		$meta_boxes[] = array(
+			'id'         => self::POST_TYPE_NAME . '_participants',
+			'title'      => esc_html__( 'Meeting Information', ShippingAppointments::PLUGIN_NAME ),
+			'post_types' => array( self::POST_TYPE_NAME ),
+			'context'    => 'normal',
+			'priority'   => 'default',
+			'autosave'   => 'false',
+			'fields'     => self::MEETING_FIELDS,
 		);
 
 		return $meta_boxes;
@@ -319,35 +158,16 @@ class AppointmentPost implements TemplatesInterface{
 	 * This function filters the default single template for the posts
 	 * It's responsible for loading a custom template for the single custom type post
 	 *
-	 * The function is hooked on the 'single_template' hook @see \ShippingAppointments\Traits\Hooks
-	 *
-	 * @param $single_template string - Path to the template.
+	 * The function is hooked on the 'single_template' hook @param $single_template string - Path to the template.
 	 * @return string
+		  *@see \ShippingAppointments\Traits\Hooks
+	 *
 	 */
-	public function customPostTypeTemplateSingle( $single_template ) {
+	public function customPostTypeTemplateSingle( string $single_template ): string {
 
 		global $post;
 
-//        echo "<pre>";
-//        print_r($post);
-//        echo "</pre>";
-
-        $current_user = get_current_user_id();
-
-
-        $appointment = new \ShippingAppointments\Service\Entities\Appointment($post->ID);
-//        echo "<pre>";
-//        print_r($appointment);
-//        echo "</pre>";
-
-
-        if ($appointment->requester == $current_user) {
-            $template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment-requestor.php";
-        } elseif ($appointment->receiver == $current_user) {
-            $template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment-receiver.php";
-        } else {
-            $template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment.php";
-        }
+		$template   = $this->getPluginDirPath() . self::SINGLE_TEMPLATES_FOLDER . "appointment.php";
 
 		return (  $post->post_type === self::POST_TYPE_NAME && file_exists( $template ) ? $template : $single_template );
 

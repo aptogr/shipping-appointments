@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Service\Entities;
 
+use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Traits\Core\PostEntity;
 use ShippingAppointments\Traits\InputFunctions;
@@ -13,33 +14,58 @@ class Appointment {
     use InputFunctions;
 
 	public $status;
+	public $requested_by;
 	public $date;
-    public $from_time;
-    public $to_time;
+    public $time;
+    public $duration;
+    public $buffer;
+
+    public $available_methods;
     public $appointment_method;
-    public $appointment_method_selected;
+    public $one_to_one_location;
     public $location;
-    public $telephone;
+    public $phone;
     public $zoom_link;
     public $webex_link;
     public $teams_link;
-    public $meeting_type;
-    public $requester;
-    public $invite_questions;
+
+    public $reason;
+    public $questions;
+
+    public $company;
+    public $department;
+    public $employee;
+    public $supplier_company;
+    public $supplier_employee;
     public $guests;
-    public $meeting_time_duration;
-    public $receiver;
 
-    /**
-     * @var $requester_user WP_User
-     */
-    public $requester_user;
 
-    /**
-     * @var $receiver_user WP_User
-     */
-    public $receiver_user;
+	/**
+	 * @var $companyObject ShippingCompany
+	 */
+    public $companyObject;
 
+	/**
+	 * @var $departmentObject Department
+	 */
+    public $departmentObject;
+
+	/**
+	 * @var $employeeUser PlatformUser
+	 */
+    public $employeeUser;
+
+	/**
+	 * @var $supplierCompanyObject SupplierCompany
+	 */
+    public $supplierCompanyObject;
+
+	/**
+	 * @var $supplierEmployeeUser PlatformUser
+	 */
+    public $supplierEmployeeUser;
+
+    public $guestsUsers;
 
 	public function __construct( $id ) {
 
@@ -48,16 +74,85 @@ class Appointment {
 		$this->metaSlugs  = AppointmentPost::META_FIELDS_SLUG;
 		$this->postMeta   = get_post_meta( $this->ID );
 		$this->setProperties();
-		$this->setUserObjects();
+		$this->setEntities();
 
 	}
 
 
-	private function setUserObjects(){
+	private function setEntities(){
 
-        $this->receiver         = $this->post->post_author;
-        $this->receiver_user    = get_user_by('ID',$this->receiver);
-        $this->requester_user   = get_user_by('ID',$this->requester);
+       $this->companyObject         = new ShippingCompany( intval( $this->company ) );
+       $this->departmentObject      = new Department( intval( $this->department ) );
+       $this->employeeUser          = new PlatformUser( intval( $this->employee ) );
+       $this->supplierCompanyObject = new SupplierCompany( intval( $this->supplier_company ) );
+       $this->supplierEmployeeUser  = new PlatformUser( intval( $this->supplier_employee ) );
+       $this->guestsUsers           = array();
+
+       if( !empty( $this->guests ) ){
+
+       	    foreach ( $this->guests as $guest ){
+
+	            $this->guestsUsers[] = new PlatformUser( intval( $guest ) );
+
+            }
+
+       }
+
+    }
+
+	public function getFieldToString( $field ){
+
+		if( property_exists( $this, $field ) ){
+
+			return (isset( AppointmentPost::ALL_FIELDS[$field]['options'][$this->{$field}] ) ? AppointmentPost::ALL_FIELDS[$field]['options'][$this->{$field}] : $this->{$field} );
+
+
+		}
+		else {
+			return '-';
+		}
+
+
+	}
+
+	public function getDisplayDate(){
+
+		return date('d/m/Y', strtotime( $this->date ) );
+
+	}
+
+	/**
+	 * @param $user PlatformUser
+	 *
+	 * @return bool
+	 */
+	public function canAccess( PlatformUser $user ): bool {
+
+		if( $user->isWebsiteAdmin() ){
+			return true;
+		}
+
+		if( $user->isShippingCompanyAdmin() && $user->shippingCompany->ID === $this->companyObject->ID ){
+			return true;
+		}
+
+		if( $user->isDepartmentAdmin() && $user->department->ID === $this->departmentObject->ID ){
+			return true;
+		}
+
+		if( $user->isShippingCompanyEmployee() && $user->ID === $this->employeeUser->ID ){
+			return true;
+		}
+
+		if( $user->isSupplierCompanyAdmin() && $user->supplierCompany->ID === $this->supplierCompanyObject->ID ){
+			return true;
+		}
+
+		if( $user->isSupplierCompanyEmployee() && $user->ID === $this->supplierEmployeeUser->ID ){
+			return true;
+		}
+
+		return false;
 
     }
 

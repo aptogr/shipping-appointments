@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Service\Dashboard;
 
+use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
 use WP_Post;
 
@@ -11,6 +12,8 @@ class Dashboard {
 
         if( is_post_type_archive( ShippingCompanyPost::POST_TYPE_NAME )
             || is_singular( ShippingCompanyPost::POST_TYPE_NAME )
+            || is_post_type_archive( AppointmentPost::POST_TYPE_NAME )
+            || is_singular( AppointmentPost::POST_TYPE_NAME )
         ){
 
             return true;

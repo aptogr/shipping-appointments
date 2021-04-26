@@ -3,8 +3,10 @@
 
 namespace ShippingAppointments\Service\Entities;
 
+use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
+use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Traits\Core\PostEntity;
 use WP_Query;
 
@@ -82,6 +84,40 @@ class ShippingCompany {
 
 		// Restore original Post Data
 		wp_reset_postdata();
+
+	}
+
+
+	public function getEmployees(){
+
+		$employees = array();
+
+		$args = array(
+			'meta_query'=>
+				array(
+					array(
+						'relation' => 'AND',
+						array(
+							'key' => UserFields::META_FIELDS_SLUG['shipping_company_id'],
+							'value' => $this->ID,
+							'compare' => "=",
+							'type' => 'numeric'
+						)
+					)
+				)
+		);
+
+		$users = get_users( $args );
+
+		foreach( $users as $user ){
+
+			$platformUser = new PlatformUser( $user->ID );
+
+			$employees[] = $platformUser;
+
+		}
+
+		return $employees;
 
 	}
 

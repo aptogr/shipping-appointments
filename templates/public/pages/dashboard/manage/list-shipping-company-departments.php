@@ -24,42 +24,44 @@ $departments = get_posts( $depListArgs );
 
 <div class="row list-shipping-company-departments full-width">
 
-    <div class="full-width margin-bottom-50">
-        <h2><?php echo $shippingCompany->post->post_title; ?></h2>
-    </div>
+    <div class="container">
 
-    <?php
-
-    foreach ( $departments as $key => $department ) {
-        $departmentObj = new \ShippingAppointments\Service\Entities\Department($department->ID);
-//        echo "<pre>";
-//        var_dump($departmentObj->postMeta);
-//        echo "</pre>";
-        ?>
-        <div class="department-item flex flex-center full-width">
-
-            <div class="icon relative z-index-1">
-                <?php echo $departmentObj->departmentType->svg; ?>
-            </div>
-
-            <div class="department-info relative z-index-1 flex flex-center">
-
-                <h3 class="no-margin-bottom">
-                    <?php echo $departmentObj->departmentType->term->name; ?>
-                </h3>
-                <a href="/dashboard/manage/edit-departments/department/<?php echo $department->ID; ?>/" class="book-department">
-                    Edit Department
-                </a>
-
-            </div>
-
+        <div class="full-width margin-bottom-50">
+            <h2><?php echo $shippingCompany->post->post_title; ?></h2>
         </div>
 
+	    <?php
 
-        <?php
+	    foreach ( $departments as $key => $department ) {
+		    $departmentObj = new \ShippingAppointments\Service\Entities\Department($department->ID);
+		    ?>
+            <div class="department-item flex flex-center full-width">
 
-    }
-    ?>
+                <div class="icon relative z-index-1">
+				    <?php echo $departmentObj->departmentType->svg; ?>
+                </div>
+
+                <div class="department-info relative z-index-1 flex flex-center">
+
+                    <h3 class="no-margin-bottom">
+					    <?php echo $departmentObj->departmentType->term->name; ?>
+                    </h3>
+                    <a href="/dashboard/manage/edit-departments/department/<?php echo $department->ID; ?>/" class="book-department">
+                        Edit Department
+                    </a>
+
+                </div>
+
+            </div>
+
+
+		    <?php
+
+	    }
+	    ?>
+
+    </div>
+
 </div>
 
 <?php

@@ -94,7 +94,7 @@ class Department {
 	private function setDepartmentType(){
 
 		$departmentType         = get_the_terms( $this->ID, DepartmentType::TAXONOMY_SLUG );
-		$this->departmentType   = new DepartmentTypeEntity( is_array( $departmentType ) ? $departmentType[0]->term_id : $departmentType->term_id );
+		$this->departmentType   = new DepartmentTypeEntity( is_array( $departmentType ) ? $departmentType[0]->term_id : false );
 
 	}
 

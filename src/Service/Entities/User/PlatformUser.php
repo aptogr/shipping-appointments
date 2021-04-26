@@ -77,7 +77,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 		$this->setProperties();
 		$this->setPropertiesObjects();
-		$this->setAppointments();
+//		$this->setAppointments();
 
 
 	}
@@ -117,6 +117,43 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 		$this->shippingCompany      = ( !empty( $this->shipping_company_id ) ? new ShippingCompany( $this->shipping_company_id ) : false );
 		$this->department           = ( !empty( $this->shipping_company_department_id ) ? new Department( $this->shipping_company_department_id ) : false );
 		$this->supplierCompany      = ( !empty( $this->supplier_company_id ) ? new SupplierCompany( $this->supplier_company_id )  : false );
+
+	}
+
+
+	public function isWebsiteAdmin(): bool {
+
+		return in_array( 'administrator', $this->roles, true );
+
+	}
+
+	public function isShippingCompanyAdmin(): bool {
+
+		return in_array( 'shipping_company_admin', $this->roles, true );
+
+	}
+
+	public function isDepartmentAdmin(): bool {
+
+		return in_array( 'shipping_company_department_admin', $this->roles, true );
+
+	}
+
+	public function isShippingCompanyEmployee(): bool {
+
+		return in_array( 'shipping_company_employee', $this->roles, true );
+
+	}
+
+	public function isSupplierCompanyAdmin(): bool {
+
+		return in_array( 'supplier_company_admin', $this->roles, true );
+
+	}
+
+	public function isSupplierCompanyEmployee(): bool {
+
+		return in_array( 'supplier_company_employee', $this->roles, true );
 
 	}
 
