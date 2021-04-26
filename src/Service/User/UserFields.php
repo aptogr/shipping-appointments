@@ -447,6 +447,7 @@ class UserFields {
 		'availability_id'                   => 'user_availability',
 		'meeting_duration'                  => 'user_meeting_duration',
 		'meeting_buffer'                    => 'user_meeting_buffer',
+		'minimum_notice'                    => 'user_minimum_notice',
 		'max_meetings_per_day'              => 'user_max_meetings_per_day',
 		'book_in_advance_days'              => 'user_book_in_advance_days',
 		'booking_request_type'              => 'user_booking_request_type',
@@ -547,6 +548,17 @@ class UserFields {
 					'desc'              => 'The maximum meetings the current user can be booked for.',
 					'type'              => 'number',
 				),
+                array(
+                    'name'              => 'Minimum Notice Period',
+                    'id'                => self::META_FIELDS_SLUG['minimum_notice'],
+                    'desc'              => 'The way the booking requests are made. Email or instant booking',
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'minimum_notice_in_advance'             => 'Book an appointment at least xxx(example 24hours) in advance',
+                        'minimum_notice_no_limit'               => 'No time limit',
+                    ),
+                ),
 				array(
 					'name'              => 'Book in advance days',
 					'id'                => self::META_FIELDS_SLUG['book_in_advance_days'],
@@ -576,7 +588,7 @@ class UserFields {
                     'options'           => array(
                         'physical_location'     => 'Physical Location',
                         'phone_call'            => 'Phone Call',
-                        'online'         => 'Remote Online',
+                        'online'                => 'Remote Online',
                     ),
                     'inline'            => true,
                     'select_all_none'   => true,
@@ -597,8 +609,8 @@ class UserFields {
                     'id'         => self::META_FIELDS_SLUG['visible'],
                     'type'    => 'radio',
                     'options' => array(
-                        '1' => 'Yes',
-                        '0' => 'No',
+                        'user_visibile' => 'Yes',
+                        'user_not_visibile' => 'No',
                     ),
                     'inline' => true,
                 ),

@@ -30,7 +30,7 @@
             });
 
             $('#meeting_repetition_section input').on('change', function(){
-                alert('ok');
+
                 if( $('#meeting_repetition_section input:checked').val() === 'meeting_repetition_limit' ){
 
                     $('#meeting_repetition_time_section').removeClass('hide');
@@ -38,6 +38,20 @@
                 }
                 else {
                     $('#meeting_repetition_time_section').addClass('hide');
+                }
+
+            });
+
+
+            $('#instant_booking input').on('change', function(){
+
+                if( $('#instant_booking input:checked').val() === 'accept_specific' ){
+
+                    $('#instant_booking_products_brands').removeClass('hide');
+
+                }
+                else {
+                    $('#instant_booking_products_brands').addClass('hide');
                 }
 
             });

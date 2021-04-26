@@ -26,6 +26,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 	public $meeting_duration;
 	public $meeting_buffer;
 	public $max_meetings_per_day;
+    public $minimum_notice;
 	public $book_in_advance_days;
 	public $booking_request_type;
 	public $meet_same_supplier_times;

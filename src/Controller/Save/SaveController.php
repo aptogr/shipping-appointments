@@ -35,9 +35,13 @@ class SaveController {
 
 				case 'save_booking_settings':
 
+                    echo '<pre>';
+                    var_dump($_POST);
+                    echo '</pre>';
+
 					$saveBookingSettingsController  = new SaveBookingSettingsController();
 					$action                         = $saveBookingSettingsController->save( $_POST );
-                    $redirectUrl                    = 'dashboard/booking/settings';
+//                    $redirectUrl                    = 'dashboard/booking/settings';
 
 					break;
 
@@ -78,13 +82,13 @@ class SaveController {
                     break;
 
                 case 'save_dep_settings':
-                    echo '<pre>';
-                    var_dump($_POST);
-                    echo '</pre>';
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
 
                     $saveDepartmentSettingsController  = new SaveDepartmentSettingsController();
                     $action                         = $saveDepartmentSettingsController->save( $_POST );
-//                    $redirectUrl                    = 'dashboard/manage/edit-departments/department/'.$_POST['departmentId'];
+                    $redirectUrl                    = 'dashboard/manage/edit-departments/department/'.$_POST['departmentId'];
 
                     break;
 
@@ -92,7 +96,6 @@ class SaveController {
 
                     $saveCompanySettingsController  = new SaveCompanySettingsController();
                     $action                         = $saveCompanySettingsController->save( $_POST );
-//                    $redirectUrl                    = 'https://profenda.com/dashboard/manage/edit-company/company/93/';
                     $redirectUrl                    = 'dashboard/manage/edit-company/company/'.$_POST['companyId'];
 
                     break;
