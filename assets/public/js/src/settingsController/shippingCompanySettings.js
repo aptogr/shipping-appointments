@@ -30,10 +30,11 @@
             });
 
             $('#meeting_repetition_section input').on('change', function(){
-
+                alert('ok');
                 if( $('#meeting_repetition_section input:checked').val() === 'meeting_repetition_limit' ){
 
                     $('#meeting_repetition_time_section').removeClass('hide');
+
                 }
                 else {
                     $('#meeting_repetition_time_section').addClass('hide');

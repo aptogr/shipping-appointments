@@ -67,7 +67,7 @@
 
         }
 
-        radioDisplay('#minimum_notice_section','minimum_notice');
+        // radioDisplay('#minimum_notice_section','minimum_notice');
 
     });
 

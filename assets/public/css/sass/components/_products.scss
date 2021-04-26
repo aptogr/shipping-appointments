@@ -1,4 +1,4 @@
-#getProducts {
+#getProducts, #getSpecificProducts {
 
   .product-item {
     color: #fff;
@@ -15,7 +15,7 @@
 
   }
 
-  #getProductsResults {
+  #getProductsResults, #getSpecificProductsResults {
     overflow-y: scroll;
     max-height: 200px;
 

@@ -1,4 +1,4 @@
-#getBrands {
+#getBrands, #getSpecificBrands {
 
   .brand-item {
     color: #fff;
@@ -15,7 +15,7 @@
 
   }
 
-  #getBrandsResults {
+  #getBrandsResults, #getSpecificBrandsResults {
     overflow-y: scroll;
     max-height: 200px;
 

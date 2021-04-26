@@ -59,9 +59,13 @@ if (isset($department->excluded_dates)) {
     $excluded_dates = explode(",", $department->excluded_dates);
 }
 
+//if (isset($department->instant_booking_products)) {
+//    $instant_booking_products = explode(",", $department->instant_booking_products);
+//}
 
-//echo '<pre>';
-//print_r($department->users);
+
+//echo 'instant_booking_products<br><pre>';
+//print_r($department);
 //echo '</pre>';
 
 ?>
@@ -509,7 +513,7 @@ if (isset($department->excluded_dates)) {
 
                         <p>Instant booking settings</p>
 
-                        <div class="full-width flex profenda-field">
+                        <div id="instant_booking" class="full-width flex profenda-field">
 
                             <div class="col no-padding-left">
 
@@ -532,6 +536,60 @@ if (isset($department->excluded_dates)) {
                                 <input type="radio" id="instant_booking_user" class="checkboxradio"  name="instant_booking" value="user"
                                     <?php echo ( $department->instant_booking === 'user' ? 'checked' : '');?>>
                                 <label for="instant_booking_user">Let the user define</label><br>
+
+                            </div>
+
+
+                        </div>
+
+                        <div id="instant_booking_products_brands" class="hide">
+
+                            <div id="getSpecificProducts" class="full-width relative">
+                                <p>Select Specific Products</p>
+                                <input id="getSpecificProductsInput" type="text" placeholder="Type to search..">
+
+                                <div class="row flex">
+                                    <div id="getSpecificProductsResults" class="relative col l6 m6"></div>
+
+                                    <div class="col l6 m6">
+                                        <div id="selectedSpecificProducts" class="relative flex">
+                                            <?php
+
+                                            if ((!empty($department->instant_booking_products))) {
+
+                                                $instant_booking_products = explode(",", $department->instant_booking_products);
+
+                                                foreach ($instant_booking_products as $instant_selected_product_id) {
+                                                    $instant_product = get_term_by('ID', $instant_selected_product_id, 'profenda_product_type');
+                                                    ?>
+                                                    <div class="product-item product-item-<?php echo $instant_selected_product_id;?>" data-id="<?php echo $instant_selected_product_id;?>"><?php echo $instant_product->name;?></div>
+                                                    <?php
+
+                                                }
+                                            }
+
+                                            ?>
+                                        </div>
+                                        <input type="hidden" name="instant_booking_products" id="selectedSpecificProductsInput" value="<?php echo $department->instant_booking_products; ?>">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="getSpecificBrands" class="full-width relative">
+                                <p>Select Specific Brands</p>
+                                <input id="getSpecificBrandsInput" type="text" placeholder="Type to search..">
+
+                                <div class="row flex">
+                                    <div id="getSpecificBrandsResults" class="relative col l6 m6"></div>
+
+                                    <div class="col l6 m6">
+                                        <div id="selectedSpecificBrands" class="relative flex">
+
+                                        </div>
+                                        <input type="hidden" name="instant_booking_brands" id="selectedSpecificBrandsInput" value="<?php echo $department->instant_booking_brands; ?>">
+                                    </div>
+                                </div>
 
                             </div>
 

@@ -31,6 +31,17 @@ class SaveDepartmentSettingsController extends ServiceSaveController {
                 }
 
         }
+//        elseif ($metaKey == DepartmentPost::META_FIELDS_SLUG['instant_booking_products']) {
+//            $value = explode(',',$value);
+//
+//            delete_post_meta( $this->departmentId, $metaKey );
+//
+//            foreach ( $value as $val ){
+//
+//                add_post_meta( $this->departmentId, $metaKey, $val );
+//
+//            }
+//        }
 
         else {
             update_post_meta( $this->departmentId, $metaKey, $value );
@@ -49,6 +60,10 @@ class SaveDepartmentSettingsController extends ServiceSaveController {
         if (empty($formData['selected_products'])) {
             delete_post_meta( $this->departmentId, DepartmentPost::META_FIELDS_SLUG['selected_products'] );
         }
+
+//        if (empty($formData['instant_booking_products'])) {
+//            delete_post_meta( $this->departmentId, DepartmentPost::META_FIELDS_SLUG['instant_booking_products'] );
+//        }
 
         if (empty($formData['excluded_dates'])) {
             delete_post_meta( $this->departmentId, DepartmentPost::META_FIELDS_SLUG['excluded_dates'] );

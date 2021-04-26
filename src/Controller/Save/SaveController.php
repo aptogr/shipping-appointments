@@ -78,13 +78,13 @@ class SaveController {
                     break;
 
                 case 'save_dep_settings':
-//                    echo '<pre>';
-//                    var_dump($_POST);
-//                    echo '</pre>';
+                    echo '<pre>';
+                    var_dump($_POST);
+                    echo '</pre>';
 
                     $saveDepartmentSettingsController  = new SaveDepartmentSettingsController();
                     $action                         = $saveDepartmentSettingsController->save( $_POST );
-                    $redirectUrl                    = 'dashboard/manage/edit-departments/department/'.$_POST['departmentId'];
+//                    $redirectUrl                    = 'dashboard/manage/edit-departments/department/'.$_POST['departmentId'];
 
                     break;
 

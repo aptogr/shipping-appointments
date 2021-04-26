@@ -41,6 +41,19 @@
 
             });
 
+
+            $('#instant_booking input').on('change', function(){
+
+                if( $('#instant_booking input:checked').val() === 'accept_specific' ){
+
+                    $('#instant_booking_products_brands').removeClass('hide');
+                }
+                else {
+                    $('#instant_booking_products_brands').addClass('hide');
+                }
+
+            });
+
         }
 
 
