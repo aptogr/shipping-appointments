@@ -55,16 +55,20 @@ $pastAppointments       = $dashboardAppointments->getEmployeePastAppointments();
 
                             <div class="swiper-slide">
 
-								<?php var_dump($pendingAppointments); ?>
+                                <?php $dashboardAppointments->displayAppointments( $pendingAppointments ); ?>
 
                             </div>
 
                             <div class="swiper-slide">
-								<?php var_dump($scheduledAppointments); ?>
+
+								<?php $dashboardAppointments->displayAppointments( $scheduledAppointments ); ?>
+
                             </div>
 
                             <div class="swiper-slide">
-								<?php var_dump($pastAppointments); ?>
+
+								<?php $dashboardAppointments->displayAppointments( $pastAppointments ); ?>
+
                             </div>
 
                         </div>

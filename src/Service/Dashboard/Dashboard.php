@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Service\Dashboard;
 
+use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
 use WP_Post;
@@ -50,5 +51,8 @@ class Dashboard {
         }
 
     }
+
+
+
 
 }

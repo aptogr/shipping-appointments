@@ -19,6 +19,8 @@ use ShippingAppointments\Service\Auth\Login;
 use ShippingAppointments\Service\Auth\LoginModal;
 use ShippingAppointments\Service\Auth\Password;
 use ShippingAppointments\Service\Dashboard\Access\DashboardAccessibility;
+use ShippingAppointments\Service\Dashboard\Access\DashboardRedirects;
+use ShippingAppointments\Service\Dashboard\Dashboard;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\PostType\AvailabilityPost;
 use ShippingAppointments\Service\PostType\DepartmentPost;
@@ -436,6 +438,18 @@ Trait Hooks {
 		 */
 		$dashboardAccess = new DashboardAccessibility();
 		$this->loader->addAction( 'template_redirect', $dashboardAccess, 'checkAccess', 99 );
+
+
+		/**
+		 * Dashboard Pages Redirects
+		 *
+		 * Functions Hooked:
+		 * @see DashboardRedirects::managementPagesRedirects()
+		 */
+		$dashboardRedirects = new DashboardRedirects();
+		$this->loader->addAction( 'template_redirect', $dashboardRedirects, 'managementPagesRedirects', 90 );
+
+
 
 		/**
 		 * User Fields

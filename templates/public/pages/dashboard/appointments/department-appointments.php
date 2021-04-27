@@ -8,9 +8,9 @@ get_header();
 $platformUser           = new PlatformUser( get_current_user_id() );
 $dashboardAppointments  = new DashboardAppointments( $platformUser );
 
-$pendingAppointments    = $dashboardAppointments->getShippingCompanyPendingAppointments();
-$scheduledAppointments  = $dashboardAppointments->getShippingCompanyConfirmedAppointments();
-$pastAppointments       = $dashboardAppointments->getShippingCompanyPastAppointments();
+$pendingAppointments    = $dashboardAppointments->getDepartmentPendingAppointments();
+$scheduledAppointments  = $dashboardAppointments->getDepartmentConfirmedAppointments();
+$pastAppointments       = $dashboardAppointments->getDepartmentPastAppointments();
 ?>
 
     <div class="appointments-page full-width">
@@ -19,7 +19,7 @@ $pastAppointments       = $dashboardAppointments->getShippingCompanyPastAppointm
 
             <div class="row company-settings no-margin-bottom full-width">
 
-                <h1>Company Appointments</h1>
+                <h1>Department Appointments</h1>
 
                 <div id="main-navigation" class="margin-top-50">
 
