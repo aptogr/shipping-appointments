@@ -457,7 +457,10 @@ class UserFields {
         'selected_brands'                   => 'user_selected_brands',
         'visible'                           => 'user_visible',
         'availability_period'               => 'user_availability_period',
-        'availability_period_saved_date'    => 'availability_period_saved_date',
+        'availability_period_saved_date'    => 'user_availability_period_saved_date',
+        'instant_booking'                   => 'user_instant_booking',
+        'instant_booking_products'          => 'user_instant_booking_products',
+        'instant_booking_brands'            => 'user_instant_booking_brands',
 	];
 
 	public function registerUserFields( $meta_boxes ) {
@@ -577,6 +580,26 @@ class UserFields {
 						'instant'           => 'Instant Booking',
 					),
 				),
+                array(
+                    'name'              => 'Instant Booking',
+                    'id'                => self::META_FIELDS_SLUG['instant_booking'],
+                    'type'              => 'radio',
+                    'inline'            => false,
+                    'options'           => array(
+                        'accept_specific'               => 'Accept for specific',
+                        'decline'                       => 'Do not accept',
+                    ),
+                ),
+                array(
+                    'name'       => 'Instant Booking: Specific Products',
+                    'id'         => self::META_FIELDS_SLUG['instant_booking_products'],
+                    'type'       => 'text',
+                ),
+                array(
+                    'name'       => 'Instant Booking: Specific Brands',
+                    'id'         => self::META_FIELDS_SLUG['instant_booking_brands'],
+                    'type'       => 'text',
+                ),
 				array(
 					'name'              => 'How many times to meet same supplier',
 					'id'                => self::META_FIELDS_SLUG['meet_same_supplier_times'],

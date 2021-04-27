@@ -3,9 +3,9 @@ get_header();
 
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
 
-echo "<pre>";
-print_r($platformUser);
-echo "</pre>";
+//echo "<pre>";
+//print_r($platformUser);
+//echo "</pre>";
 
 function displayInputValue ($value) {
     echo (!empty($value)) ? $value : "" ;
@@ -38,6 +38,29 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
+                       <?php if(  $platformUser->department->users_visibility !== 'department_users_department' ): ?>
+
+                           <div class="notice-in-page flex flex-center margin-bottom-30">
+
+                               <div class="content flex flex-center">
+
+                                   <div class="icon">
+
+                                       <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                   </div>
+
+                                   <div class="notice-message">
+                                       <strong>Notice: The company administrator has set the Employees visibility.</strong>
+                                       <br>You cannot change this setting unless the company administrator allows you to do it.
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       <?php endif; ?>
+
                        <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->users_visibility !== 'department_users_department' ? 'disabled' : ''); ?>">
 
                            <div class="full-width">
@@ -57,11 +80,34 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
+                       <?php if( $platformUser->department->meeting_types !== 'user' ): ?>
+
+                           <div class="notice-in-page flex flex-center margin-bottom-30">
+
+                               <div class="content flex flex-center">
+
+                                   <div class="icon">
+
+                                       <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                   </div>
+
+                                   <div class="notice-message">
+                                       <strong>Notice: The company administrator does not allow you to set the meeting types.</strong>
+                                       <br>You cannot change this setting unless the company administrator allows you to do it.
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       <?php endif; ?>
+
                        <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->meeting_types !== 'user' ? 'disabled' : ''); ?>">
 
-                           <h2>Booking Methods</h2>
+                           <h2>Meeting Type</h2>
 
-                           <p>Select your booking methods.</p>
+                           <p>Select your meeting type.</p>
 
                            <div class="full-width flex profenda-field">
 
@@ -174,10 +220,34 @@ function displayCheckboxValue ($id,$value) {
 
                            </div>
 
-
                        </section>
 
-                       <section class="main-section full-width setting-field-wrapper">
+
+                       <?php if( $platformUser->department->minimum_notice !== 'minimum_notice_user' ): ?>
+
+                           <div class="notice-in-page flex flex-center margin-bottom-30">
+
+                               <div class="content flex flex-center">
+
+                                   <div class="icon">
+
+                                       <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                   </div>
+
+                                   <div class="notice-message">
+                                       <strong>Notice: The company administrator does not allow you to set the minimum notice period.</strong>
+                                       <br>You cannot change this setting unless the company administrator allows you to do it.
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       <?php endif; ?>
+
+
+                       <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->minimum_notice !== 'minimum_notice_user' ? 'disabled' : ''); ?>">
 
                            <h2>Book in advance days</h2>
 
@@ -185,18 +255,15 @@ function displayCheckboxValue ($id,$value) {
 
                            <div id="minimum_notice_section" class="full-width relative profenda-field">
 
-
                                <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$platformUser->minimum_notice);?>>
                                <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
-
 
                                <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$platformUser->minimum_notice);?>>
                                <label for="minimum_notice_no_limit">No time limit</label>
 
-
                            </div>
 
-                           <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
+                           <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0 <?php echo ( $platformUser->minimum_notice === 'minimum_notice_no_limit' ? 'hide' : ''); ?>" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
 
                        </section>
 
@@ -232,7 +299,126 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
+                       <?php if( $platformUser->department->instant_booking !== 'user' ): ?>
 
+                           <div class="notice-in-page flex flex-center margin-bottom-30">
+
+                               <div class="content flex flex-center">
+
+                                   <div class="icon">
+
+                                       <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                   </div>
+
+                                   <div class="notice-message">
+                                       <strong>Notice: The company administrator does not allow you to set the instant booking.</strong>
+                                       <br>You cannot change this setting unless the company administrator allows you to do it.
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       <?php endif; ?>
+
+                       <section class="main-section full-width setting-field-wrapper  <?php echo ( $platformUser->department->instant_booking !== 'user' ? 'disabled' : ''); ?>">
+
+                           <h2>Instant Booking</h2>
+
+                           <p>Instant booking settings</p>
+
+                           <div id="instant_booking" class="full-width flex profenda-field">
+
+                               <div class="col no-padding-left">
+
+                                   <input type="radio" id="instant_booking_accept_specific" class="checkboxradio"  name="instant_booking" value="accept_specific"
+                                       <?php echo ( $platformUser->instant_booking === 'accept_specific' ? 'checked' : '');?>>
+                                   <label for="instant_booking_accept_specific">Accept for specific</label><br>
+
+                               </div>
+
+                               <div class="col no-padding-left">
+
+                                   <input type="radio" id="instant_booking_decline" class="checkboxradio"  name="instant_booking" value="decline"
+                                       <?php echo ( $platformUser->instant_booking === 'decline' ? 'checked' : '');?>>
+                                   <label for="instant_booking_decline">Do not accept</label><br>
+
+                               </div>
+
+                           </div>
+
+                           <div id="instant_booking_products_brands" class="<?php echo ( $platformUser->instant_booking !== 'accept_specific' ? 'hide' : ''); ?>">
+
+                               <div id="getSpecificProducts" class="full-width relative">
+                                   <p>Select Specific Products</p>
+                                   <input id="getSpecificProductsInput" type="text" placeholder="Type to search..">
+
+                                   <div class="row flex">
+                                       <div id="getSpecificProductsResults" class="relative col l6 m6"></div>
+
+                                       <div class="col l6 m6">
+                                           <div id="selectedSpecificProducts" class="relative flex">
+                                               <?php
+
+                                               if ((!empty($platformUser->instant_booking_products))) {
+
+                                                   $instant_booking_products = explode(",", $platformUser->instant_booking_products);
+
+                                                   foreach ($instant_booking_products as $instant_selected_product_id) {
+                                                       $instant_product = get_term_by('ID', $instant_selected_product_id, 'profenda_product_type');
+                                                       ?>
+                                                       <div class="product-item product-item-<?php echo $instant_selected_product_id;?>" data-id="<?php echo $instant_selected_product_id;?>"><?php echo $instant_product->name;?></div>
+                                                       <?php
+
+                                                   }
+                                               }
+
+                                               ?>
+                                           </div>
+                                           <input type="hidden" name="instant_booking_products" id="selectedSpecificProductsInput" value="<?php echo $platformUser->instant_booking_products; ?>">
+                                       </div>
+                                   </div>
+
+                               </div>
+
+                               <div id="getSpecificBrands" class="full-width relative">
+                                   <p>Select Specific Brands</p>
+                                   <input id="getSpecificBrandsInput" type="text" placeholder="Type to search..">
+
+                                   <div class="row flex">
+                                       <div id="getSpecificBrandsResults" class="relative col l6 m6"></div>
+
+                                       <div class="col l6 m6">
+                                           <div id="selectedSpecificBrands" class="relative flex">
+                                               <?php
+
+                                               if ((!empty($platformUser->instant_booking_brands))) {
+
+                                                   $instant_booking_brands = explode(",", $platformUser->instant_booking_brands);
+
+                                                   foreach ($instant_booking_brands as $instant_selected_brand_id) {
+                                                       $instant_brand = get_term_by('ID', $instant_selected_brand_id, 'profenda_product_brand');
+                                                       ?>
+                                                       <div class="brand-item brand-item-<?php echo $instant_selected_brand_id;?>" data-id="<?php echo $instant_selected_brand_id;?>"><?php echo $instant_brand->name;?></div>
+                                                       <?php
+
+                                                   }
+                                               }
+
+                                               ?>
+                                           </div>
+                                           <input type="hidden" name="instant_booking_brands" id="selectedSpecificBrandsInput" value="<?php echo $platformUser->instant_booking_brands; ?>">
+                                       </div>
+                                   </div>
+
+                               </div>
+
+
+                           </div>
+
+
+                       </section>
 
                        <section class="main-section full-width setting-field-wrapper">
 

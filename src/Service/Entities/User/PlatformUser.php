@@ -37,7 +37,9 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
     public $visible;
     public $availability_period;
     public $availability_period_saved_date;
-
+    public $instant_booking;
+    public $instant_booking_products;
+    public $instant_booking_brands;
 
 	/**
 	 * @var $availability Availability
