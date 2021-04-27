@@ -54,20 +54,6 @@
 
         })
 
-        // $(".radioChecker").change(function(){
-        //     console.log('asd');
-        // });
-
-        function radioDisplay(id,name) {
-
-            $(id + ' input').on('change', function() {
-                console.log($('input[name='+ name +']:checked', id).val())
-            });
-
-
-        }
-
-        // radioDisplay('#minimum_notice_section','minimum_notice');
 
     });
 

@@ -456,6 +456,8 @@ class UserFields {
         'selected_products'                 => 'user_selected_products',
         'selected_brands'                   => 'user_selected_brands',
         'visible'                           => 'user_visible',
+        'availability_period'               => 'user_availability_period',
+        'availability_period_saved_date'    => 'availability_period_saved_date',
 	];
 
 	public function registerUserFields( $meta_boxes ) {
@@ -609,10 +611,25 @@ class UserFields {
                     'id'         => self::META_FIELDS_SLUG['visible'],
                     'type'    => 'radio',
                     'options' => array(
-                        'user_visibile' => 'Yes',
+                        'user_visibile'     => 'Yes',
                         'user_not_visibile' => 'No',
                     ),
                     'inline' => true,
+                ),
+                array(
+                    'name'       => 'Availability Period',
+                    'id'         => self::META_FIELDS_SLUG['availability_period'],
+                    'type'    => 'radio',
+                    'options' => array(
+                        'year'      => 'Year',
+                        'month'     => 'Month',
+                    ),
+                    'inline' => true,
+                ),
+                array(
+                    'name'       => 'Availability Period Saved Date',
+                    'id'         => self::META_FIELDS_SLUG['availability_period_saved_date'],
+                    'type'       => 'text',
                 ),
 
             ),

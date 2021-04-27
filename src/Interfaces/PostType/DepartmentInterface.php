@@ -18,55 +18,60 @@ Interface DepartmentInterface {
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'company'                       => self::POST_TYPE_NAME . '_company',
-		'type'                          => self::POST_TYPE_NAME . '_type',
+		'company'                           => self::POST_TYPE_NAME . '_company',
+		'type'                              => self::POST_TYPE_NAME . '_type',
 
 		//Setting 1
-		'users_visibility'              => self::POST_TYPE_NAME . '_users_visibility',
+		'users_visibility'                  => self::POST_TYPE_NAME . '_users_visibility',
 
 		//Setting 2
-		'availability_type'             => self::POST_TYPE_NAME . '_availability_type',
-		'weekdays_available'            => self::POST_TYPE_NAME . '_weekdays_available',
-		'mon_time_from'                 => self::POST_TYPE_NAME . '_mon_time_from',
-		'mon_time_to'                   => self::POST_TYPE_NAME . '_mon_time_to',
-		'tue_time_from'                 => self::POST_TYPE_NAME . '_tue_time_from',
-		'tue_time_to'                   => self::POST_TYPE_NAME . '_tue_time_to',
-		'wed_time_from'                 => self::POST_TYPE_NAME . '_wed_time_from',
-		'wed_time_to'                   => self::POST_TYPE_NAME . '_wed_time_to',
-		'thu_time_from'                 => self::POST_TYPE_NAME . '_thu_time_from',
-		'thu_time_to'                   => self::POST_TYPE_NAME . '_thu_time_to',
-		'fri_time_from'                 => self::POST_TYPE_NAME . '_fri_time_from',
-		'fri_time_to'                   => self::POST_TYPE_NAME . '_fri_time_to',
-		'sat_time_from'                 => self::POST_TYPE_NAME . '_sat_time_from',
-		'sat_time_to'                   => self::POST_TYPE_NAME . '_sat_time_to',
-		'sun_time_from'                 => self::POST_TYPE_NAME . '_sun_time_from',
-		'sun_time_to'                   => self::POST_TYPE_NAME . '_sun_time_to',
-		'excluded_dates'                => self::POST_TYPE_NAME . '_excluded_dates',
+		'availability_type'                 => self::POST_TYPE_NAME . '_availability_type',
+		'weekdays_available'                => self::POST_TYPE_NAME . '_weekdays_available',
+		'mon_time_from'                     => self::POST_TYPE_NAME . '_mon_time_from',
+		'mon_time_to'                       => self::POST_TYPE_NAME . '_mon_time_to',
+		'tue_time_from'                     => self::POST_TYPE_NAME . '_tue_time_from',
+		'tue_time_to'                       => self::POST_TYPE_NAME . '_tue_time_to',
+		'wed_time_from'                     => self::POST_TYPE_NAME . '_wed_time_from',
+		'wed_time_to'                       => self::POST_TYPE_NAME . '_wed_time_to',
+		'thu_time_from'                     => self::POST_TYPE_NAME . '_thu_time_from',
+		'thu_time_to'                       => self::POST_TYPE_NAME . '_thu_time_to',
+		'fri_time_from'                     => self::POST_TYPE_NAME . '_fri_time_from',
+		'fri_time_to'                       => self::POST_TYPE_NAME . '_fri_time_to',
+		'sat_time_from'                     => self::POST_TYPE_NAME . '_sat_time_from',
+		'sat_time_to'                       => self::POST_TYPE_NAME . '_sat_time_to',
+		'sun_time_from'                     => self::POST_TYPE_NAME . '_sun_time_from',
+		'sun_time_to'                       => self::POST_TYPE_NAME . '_sun_time_to',
+		'excluded_dates'                    => self::POST_TYPE_NAME . '_excluded_dates',
 
 		//Setting 3
-		'meeting_types'                 => self::POST_TYPE_NAME . '_meeting_types',
-		'meeting_types_available'       => self::POST_TYPE_NAME . '_meeting_types_available',
+		'meeting_types'                     => self::POST_TYPE_NAME . '_meeting_types',
+		'meeting_types_available'           => self::POST_TYPE_NAME . '_meeting_types_available',
 
 		//Setting 4
-		'selected_products'             => self::POST_TYPE_NAME . '_selected_products',
-		'selected_brands'               => self::POST_TYPE_NAME . '_selected_brands',
+		'selected_products'                 => self::POST_TYPE_NAME . '_selected_products',
+		'selected_brands'                   => self::POST_TYPE_NAME . '_selected_brands',
 
 		//Setting 5
-		'instant_booking'               => self::POST_TYPE_NAME . '_instant_booking',
-		'instant_booking_products'      => self::POST_TYPE_NAME . '_instant_booking_products',
-		'instant_booking_brands'        => self::POST_TYPE_NAME . '_instant_booking_brands',
-		'instant_booking_suppliers'     => self::POST_TYPE_NAME . '_instant_booking_brandsDDDDDD',
+		'instant_booking'                   => self::POST_TYPE_NAME . '_instant_booking',
+		'instant_booking_products'          => self::POST_TYPE_NAME . '_instant_booking_products',
+		'instant_booking_brands'            => self::POST_TYPE_NAME . '_instant_booking_brands',
+		'instant_booking_suppliers'         => self::POST_TYPE_NAME . '_instant_booking_brandsDDDDDD',
 
 		//Setting 6
-		'minimum_notice'                => self::POST_TYPE_NAME . '_minimum_notice',
-		'minimum_notice_hours'          => self::POST_TYPE_NAME . '_minimum_notice_hours',
+		'minimum_notice'                    => self::POST_TYPE_NAME . '_minimum_notice',
+		'minimum_notice_hours'              => self::POST_TYPE_NAME . '_minimum_notice_hours',
 
 		//Setting 7
-		'meeting_repetition'            => self::POST_TYPE_NAME . '_meeting_repetition',
-		'meeting_repetition_time'       => self::POST_TYPE_NAME . '_meeting_repetition_time',
+		'meeting_repetition'                => self::POST_TYPE_NAME . '_meeting_repetition',
+		'meeting_repetition_time'           => self::POST_TYPE_NAME . '_meeting_repetition_time',
 
 		//Setting 8
-		'simultaneous_meetings'         => self::POST_TYPE_NAME . '_simultaneous_meetings',
+		'simultaneous_meetings'             => self::POST_TYPE_NAME . '_simultaneous_meetings',
+
+
+		'availability_period'               => self::POST_TYPE_NAME . '_availability_period',
+		'availability_period_saved_date'    => self::POST_TYPE_NAME . '_availability_period_saved_date',
+
 	];
 
 
@@ -303,7 +308,23 @@ Interface DepartmentInterface {
 			'name' => 'Excluded Dates',
 			'type' => 'text',
 		),
+        'availability_period' => array(
+            'name'       => 'Availability Period',
+            'id'         => self::META_FIELDS_SLUG['availability_period'],
+            'type'    => 'radio',
+            'options' => array(
+                'year'      => 'Year',
+                'month'     => 'Month',
+            ),
+            'inline' => true,
+		),
+		'availability_period_saved_date' => array(
+            'name'       => 'Availability Period Saved Date',
+            'id'         => self::META_FIELDS_SLUG['availability_period_saved_date'],
+            'type'       => 'text',
+		),
 	);
+
 
 
 	const SETTINGS_FIELDS = array(
@@ -339,6 +360,9 @@ Interface DepartmentInterface {
 		self::ALL_FIELDS['meeting_repetition'],
 		self::ALL_FIELDS['meeting_repetition_time'],
 		self::ALL_FIELDS['simultaneous_meetings'],
+		self::ALL_FIELDS['availability_period'],
+		self::ALL_FIELDS['availability_period_saved_date'],
+
 	);
 
 }

@@ -75,6 +75,10 @@ class Department {
 	public $simultaneous_meetings;
 
 
+	public $availability_period;
+	public $availability_period_saved_date;
+
+
 	public function __construct( $id ) {
 
 		$this->ID         = $id;

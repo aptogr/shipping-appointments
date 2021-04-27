@@ -80,6 +80,7 @@ if (isset($department->excluded_dates)) {
                 <form action="" method="post">
 
                     <input type="hidden" name="departmentId" value="<?php echo $department->ID; ?>" >
+                    <input type="hidden" name="availability_period_saved_date" value="<?php echo date("m/d/y");  ?>" >
 
                     <section class="main-section full-width">
 
@@ -321,6 +322,25 @@ if (isset($department->excluded_dates)) {
                                 </div>
 
                             </div>
+
+                        </div>
+
+                    </section>
+
+                    <section class="main-section full-width setting-field-wrapper">
+
+                        <div class="full-width">
+                            <h2>Availability Period</h2>
+                            <p>Select your availability period, per year or per month.</p>
+                        </div>
+
+                        <div id="meeting_repetition_section" class="full-width relative profenda-field">
+
+                            <input type="radio" id="availability_period_year" class="checkboxradio radioChecker" name="availability_period" value="year"  <?php displayRadioValue('year',$department->availability_period);?>>
+                            <label for="availability_period_year">Per Year</label>
+
+                            <input type="radio" id="availability_period_month" class="checkboxradio" name="availability_period" value="month"  <?php displayRadioValue('month',$department->availability_period);?>>
+                            <label for="availability_period_month">Per Month</label>
 
                         </div>
 
@@ -726,7 +746,6 @@ if (isset($department->excluded_dates)) {
                         <input name="simultaneous_meetings" id="simultaneous_meetings" class="spinner0" value="<?php displayInputValue($department->simultaneous_meetings);?>">
 
                     </section>
-
 
 
 

@@ -3,7 +3,9 @@ get_header();
 
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
 
-
+echo "<pre>";
+print_r($platformUser);
+echo "</pre>";
 
 function displayInputValue ($value) {
     echo (!empty($value)) ? $value : "" ;
@@ -18,7 +20,7 @@ function displayCheckboxValue ($id,$value) {
 }
 
 ?>
-    <div class="row booking-settings no-margin-bottom full-width">
+    <div class="row booking-settings user-settings no-margin-bottom full-width">
 
        <div class="container">
 
@@ -183,8 +185,10 @@ function displayCheckboxValue ($id,$value) {
 
                            <div id="minimum_notice_section" class="full-width relative profenda-field">
 
+
                                <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$platformUser->minimum_notice);?>>
                                <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
+
 
                                <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$platformUser->minimum_notice);?>>
                                <label for="minimum_notice_no_limit">No time limit</label>

@@ -35,6 +35,8 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
     public $selected_products;
     public $selected_brands;
     public $visible;
+    public $availability_period;
+    public $availability_period_saved_date;
 
 
 	/**
