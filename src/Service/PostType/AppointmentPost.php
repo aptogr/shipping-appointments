@@ -173,5 +173,21 @@ class AppointmentPost implements TemplatesInterface, AppointmentInterface {
 
 	}
 
+	/**
+	 * This function filters the default archive template for the posts
+	 * It's responsible for loading a custom template for the archive custom type post
+	 *
+	 * The function is hooked on the 'archive_template' hook @see \ShippingAppointments\Traits\Hooks
+	 *
+	 * @param $archive_template string - Path to the template.
+	 * @return string
+	 */
+	public function customPostTypeTemplateArchive( $archive_template ) {
+
+		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "appointments-employee.php";
+		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
+
+	}
+
 }
 

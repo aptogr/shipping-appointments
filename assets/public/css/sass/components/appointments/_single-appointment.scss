@@ -1,0 +1,104 @@
+.single-appointment-block{
+  background-color: #fff;
+  box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+
+  .single-appointment-block--header {
+    padding:20px;
+    border-bottom:1px solid #b2c1d7;
+
+    h3 {
+      font-weight: 700;
+      margin: 0;
+      color: #000;
+      font-size: 22px;
+    }
+
+  }
+
+  .single-appointment-block--content {
+    padding: 20px;
+    border-bottom: 1px solid #b2c1d7;
+
+    .appointment-item-info {
+      margin-right: 15px;
+      flex-grow: 1;
+
+      .appointment-item--appointment span {
+        color: #67758a;
+      }
+
+      .icon {
+        width:22px;
+        height:22px;
+        margin-right:5px;
+
+        svg, svg path {
+          fill:#02569c;
+        }
+
+      }
+
+    }
+
+  }
+
+  .appointment-item--footer {
+    border-top: 1px solid #b2c1d7;
+    padding: 20px;
+
+    .profenda-btn {
+      margin-right:15px;
+    }
+
+  }
+
+}
+
+.participant-item {
+  flex-grow: 1;
+  margin-left:20px;
+}
+
+.appointment-company-block, .meeting-method-block {
+  display: flex;
+  align-items: center;
+
+  .participant-content {
+    width: calc(100% - 60px);
+    padding-left: 10px;
+  }
+
+  > img, .icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: block;
+    margin: 10px auto;
+
+  }
+
+  .icon {
+    background-color: #02569c;
+    svg, svg path {
+      fill: #fff;
+      padding: 15px;
+    }
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 15px;
+    color: #000;
+    margin: 0 0 3px;
+  }
+
+  .appointment-department {
+    color: #67758a;
+  }
+
+  .participant-user {
+    font-weight: 700;
+    color: #02569c;
+  }
+
+}

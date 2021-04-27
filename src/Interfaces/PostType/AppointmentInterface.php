@@ -181,9 +181,9 @@ Interface AppointmentInterface {
 			'id'            => self::META_FIELDS_SLUG['appointment_method'],
 			'type'          => 'radio',
 			'options'       => array(
-				'physical_location'     => 'Physical Location',
-				'phone_call'            => 'Phone Call',
-				'remote_online'         => 'Remote Online',
+				'physical_location'     => 'One to One',
+				'phone_call'            => 'Phone',
+				'remote_online'         => 'Web',
 			),
 			'inline'    => true,
 		),

@@ -312,7 +312,7 @@ Trait Hooks {
 		$this->loader->addAction( 'init', $appointmentPost, 'registerPostType' );
 		$this->loader->addAction( 'rwmb_meta_boxes', $appointmentPost, 'addMetaBoxes', 33, 1 );
 		$this->loader->addFilter( 'single_template', $appointmentPost,'customPostTypeTemplateSingle', 10, 1 );
-
+		$this->loader->addFilter( 'archive_template', $appointmentPost,'customPostTypeTemplateArchive' );
 
 
 		/**
