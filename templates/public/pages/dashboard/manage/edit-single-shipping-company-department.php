@@ -406,10 +406,10 @@ if (isset($department->excluded_dates)) {
 
                         <div id="meeting_type" class="full-width relative profenda-field">
 
-                            <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_type" value="department" <?php displayRadioValue('department',$department->meeting_types);?>>
+                            <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_types" value="department" <?php displayRadioValue('department',$department->meeting_types);?>>
                             <label for="meeting_type_company">Defined by Department</label>
 
-                            <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_type" value="user" <?php displayRadioValue('user',$department->meeting_types);?>>
+                            <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_types" value="user" <?php displayRadioValue('user',$department->meeting_types);?>>
                             <label for="meeting_type_company_department">Let the employees define</label>
 
 

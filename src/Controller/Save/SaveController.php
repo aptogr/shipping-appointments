@@ -35,9 +35,9 @@ class SaveController {
 
 				case 'save_booking_settings':
 
-                    echo '<pre>';
-                    var_dump($_POST);
-                    echo '</pre>';
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
 
 					$saveBookingSettingsController  = new SaveBookingSettingsController();
 					$action                         = $saveBookingSettingsController->save( $_POST );
