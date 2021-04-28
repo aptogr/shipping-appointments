@@ -1,11 +1,16 @@
 <?php
 
+use ShippingAppointments\Service\Dashboard\Company\DashboardCompany;
+use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\Entities\DepartmentType;
 
 get_header();
-$logedInUserObj = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
+$logedInUserObj = new PlatformUser( get_current_user_id() );
 $companyId = get_query_var('company');
-$companyObj = new \ShippingAppointments\Service\Entities\ShippingCompany($companyId);
+$companyObj = new ShippingCompany($companyId);
+
+$dashboardCompany = new DashboardCompany();
 
 //echo "<pre>";
 //print_r($companyObj);
@@ -293,6 +298,102 @@ function displayCheckboxValue ($id,$value) {
                                         <p>
                                             The company administrators will be able to add/delete the company's departments here
                                         </p>
+
+                                        <?php $departments = $dashboardCompany->getDepartmentsList($companyObj); ?>
+
+                                        <table class="margin-top-50">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    Department
+                                                </th>
+                                                <th>
+                                                    Employees
+                                                </th>
+                                                <th>
+                                                    Enabled
+                                                </th>
+                                                <th>
+                                                    Active
+                                                </th>
+                                                <th>
+                                                    Availability
+                                                </th>
+                                                <th>
+                                                    Edit
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+		                                    <?php foreach( $departments as $departmentType ): /** @var $departmentType DepartmentType */ ?>
+
+                                                <?php $companyDepartment = $companyObj->getDepartmentByType( $departmentType ); ?>
+
+                                                <?php if( $companyDepartment !== false ): ?>
+                                                <tr class="department-active">
+                                                    <td>
+                                                        <div class="department-table-name flex flex-center">
+		                                                    <?php echo $departmentType->svg; ?>
+		                                                    <?php echo $departmentType->term->name; ?>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo count( $companyDepartment->users ); ?>
+                                                    </td>
+                                                    <td>
+                                                        <div class="toggle-switch margin-left-auto toggle-trigger">
+                                                            <input type="checkbox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" checked />
+                                                            <label for="<?php echo $departmentType->ID; ?>"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        Active
+                                                    </td>
+                                                    <td>
+                                                        <?php echo ( empty( $companyDepartment->weekdays_available ) ? 'Availability not set' : $companyDepartment->weekdays_available ); ?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?php echo site_url('dashboard/manage/edit-departments/department/' . $companyDepartment->ID ); ?>">
+                                                            Edit Department
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+
+                                                <?php else: ?>
+
+                                                    <tr class="department-inactive">
+                                                        <td>
+                                                            <div class="department-table-name flex flex-center">
+	                                                            <?php echo $departmentType->svg; ?>
+	                                                            <?php echo $departmentType->term->name; ?>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+						                                    0
+                                                        </td>
+                                                        <td>
+                                                            <div class="toggle-switch margin-left-auto toggle-trigger">
+                                                                <input type="checkbox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" />
+                                                                <label for="<?php echo $departmentType->ID; ?>"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            Inactive
+                                                        </td>
+                                                        <td>
+                                                           -
+                                                        </td>
+                                                        <td>
+                                                           -
+                                                        </td>
+                                                    </tr>
+
+                                                <?php endif; ?>
+
+		                                    <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
 
                                     </div>
 
