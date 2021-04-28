@@ -163,7 +163,81 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 	}
 
-	public function canEdit($fieldname) {
+
+	/**
+	 * @return bool
+	 */
+	public function canEditVisibility() {
+
+		if( $this->shippingCompany->company_users_visibility !== 'company_users_department'){
+			return false;
+		}
+		elseif( $this->department->users_visibility !== 'department_users_department' ){
+			return false;
+		}
+		else {
+			return true;
+		}
+
+    }
+
+	public function canEditAvailability() {
+
+    }
+
+	public function canEditMeetingType() {
+
+		if( $this->shippingCompany->meeting_type !== 'department'){
+			return false;
+		}
+		elseif( $this->department->meeting_types !== 'user' ){
+			return false;
+		}
+		else {
+			return true;
+		}
+
+    }
+
+	public function canEditInstantBooking() {
+
+		if( $this->shippingCompany->instant_booking !== 'department'){
+			return false;
+		}
+		elseif( $this->department->instant_booking !== 'user' ){
+			return false;
+		}
+		else {
+			return true;
+		}
+
+    }
+
+	public function canEditMinimumNotice() {
+
+		if( $this->shippingCompany->minimum_notice !== 'minimum_notice_department'){
+			return false;
+		}
+		elseif( $this->department->minimum_notice !== 'minimum_notice_user' ){
+			return false;
+		}
+		else {
+			return true;
+		}
+
+    }
+
+	public function canEditMeetingRepetition() {
+
+		if( $this->shippingCompany->meeting_repetition !== 'meeting_repetition_department'){
+			return false;
+		}
+		elseif( $this->department->meeting_repetition !== 'meeting_repetition_users' ){
+			return false;
+		}
+		else {
+			return true;
+		}
 
     }
 
