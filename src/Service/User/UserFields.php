@@ -662,7 +662,7 @@ class UserFields {
                     'inline' => true,
                 ),
                 array(
-                    'name'       => 'Availability Period Saved Date',
+                    'name'       => 'Availability Period Saved Date - mm/dd/yy',
                     'id'         => self::META_FIELDS_SLUG['availability_period_saved_date'],
                     'type'       => 'text',
                 ),

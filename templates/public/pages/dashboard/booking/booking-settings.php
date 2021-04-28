@@ -28,6 +28,8 @@ function displayCheckboxValue ($id,$value) {
 
                <form action="" method="post">
 
+                   <input type="hidden" name="availability_period_saved_date" value="<?php echo date("m/d/y");  ?>" >
+
                    <div class="col l12 m12">
 
                        <section class="main-section full-width">
@@ -490,6 +492,25 @@ function displayCheckboxValue ($id,$value) {
                            <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
 
                                <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0 <?php echo ( $platformUser->meeting_repetition === 'meeting_repetition_no_limit' ? 'hide' : ''); ?>" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
+
+                           </div>
+
+                       </section>
+
+                       <section class="main-section full-width setting-field-wrapper">
+
+                           <div class="full-width">
+                               <h2>Availability Period</h2>
+                               <p>Select your availability period, per year or per month.</p>
+                           </div>
+
+                           <div id="meeting_repetition_section" class="full-width relative profenda-field">
+
+                               <input type="radio" id="availability_period_year" class="checkboxradio radioChecker" name="availability_period" value="year"  <?php displayRadioValue('year',$platformUser->availability_period);?>>
+                               <label for="availability_period_year">Per Year</label>
+
+                               <input type="radio" id="availability_period_month" class="checkboxradio" name="availability_period" value="month"  <?php displayRadioValue('month',$platformUser->availability_period);?>>
+                               <label for="availability_period_month">Per Month</label>
 
                            </div>
 
