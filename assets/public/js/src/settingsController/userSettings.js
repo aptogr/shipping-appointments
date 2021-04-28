@@ -5,10 +5,6 @@
 
         if( $('.user-settings').length > 0 ){
 
-            // $( ".checkboxradio" ).checkboxradio();
-            // $( ".spinner15" ).spinner({min: 0,step: 15});
-            // $( ".spinner0" ).spinner({min: 0});
-            // $( ".spinner1" ).spinner({min: 1});
 
             $('#minimum_notice_section input').on('change', function(){
 
