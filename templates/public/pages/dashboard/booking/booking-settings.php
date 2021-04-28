@@ -38,7 +38,7 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
-                       <?php if(  $platformUser->department->users_visibility !== 'department_users_department' ): ?>
+                       <?php if(  !$platformUser->canEditVisibility() ): ?>
 
                            <div class="notice-in-page flex flex-center margin-bottom-30">
 
@@ -61,7 +61,7 @@ function displayCheckboxValue ($id,$value) {
 
                        <?php endif; ?>
 
-                       <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->users_visibility !== 'department_users_department' ? 'disabled' : ''); ?>">
+                       <section class="main-section full-width setting-field-wrapper <?php echo ( !$platformUser->canEditVisibility() ? 'disabled' : ''); ?>">
 
                            <div class="full-width">
                                <h2>Visibility</h2>
@@ -80,7 +80,7 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
-                       <?php if( $platformUser->department->meeting_types !== 'user' ): ?>
+                       <?php if( !$platformUser->canEditMeetingType() ): ?>
 
                            <div class="notice-in-page flex flex-center margin-bottom-30">
 
@@ -103,7 +103,7 @@ function displayCheckboxValue ($id,$value) {
 
                        <?php endif; ?>
 
-                       <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->meeting_types !== 'user' ? 'disabled' : ''); ?>">
+                       <section class="main-section full-width setting-field-wrapper <?php echo ( !$platformUser->canEditMeetingType()  ? 'disabled' : ''); ?>">
 
                            <h2>Meeting Type</h2>
 
@@ -223,7 +223,7 @@ function displayCheckboxValue ($id,$value) {
                        </section>
 
 
-                       <?php if( $platformUser->department->minimum_notice !== 'minimum_notice_user' ): ?>
+                       <?php if( !$platformUser->canEditMinimumNotice() ): ?>
 
                            <div class="notice-in-page flex flex-center margin-bottom-30">
 
@@ -247,7 +247,7 @@ function displayCheckboxValue ($id,$value) {
                        <?php endif; ?>
 
 
-                       <section class="main-section full-width setting-field-wrapper <?php echo ( $platformUser->department->minimum_notice !== 'minimum_notice_user' ? 'disabled' : ''); ?>">
+                       <section class="main-section full-width setting-field-wrapper <?php echo ( !$platformUser->canEditMinimumNotice() ? 'disabled' : ''); ?>">
 
                            <h2>Book in advance days</h2>
 
@@ -299,7 +299,7 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
-                       <?php if( $platformUser->department->instant_booking !== 'user' ): ?>
+                       <?php if( !$platformUser->canEditInstantBooking() ): ?>
 
                            <div class="notice-in-page flex flex-center margin-bottom-30">
 
@@ -322,7 +322,7 @@ function displayCheckboxValue ($id,$value) {
 
                        <?php endif; ?>
 
-                       <section class="main-section full-width setting-field-wrapper  <?php echo ( $platformUser->department->instant_booking !== 'user' ? 'disabled' : ''); ?>">
+                       <section class="main-section full-width setting-field-wrapper  <?php echo ( !$platformUser->canEditInstantBooking() ? 'disabled' : ''); ?>">
 
                            <h2>Instant Booking</h2>
 
@@ -446,7 +446,7 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
-                       <?php if( $platformUser->department->meeting_repetition !== 'meeting_repetition_users' ): ?>
+                       <?php if( !$platformUser->canEditMeetingRepetition() ): ?>
 
                            <div class="notice-in-page flex flex-center margin-bottom-30">
 
@@ -469,7 +469,7 @@ function displayCheckboxValue ($id,$value) {
 
                        <?php endif; ?>
 
-                       <section class="main-section full-width setting-field-wrapper  <?php echo ( $platformUser->department->meeting_repetition !== 'meeting_repetition_users' ? 'disabled' : ''); ?>">
+                       <section class="main-section full-width setting-field-wrapper  <?php echo ( !$platformUser->canEditMeetingRepetition() ? 'disabled' : ''); ?>">
 
                            <div class="full-width">
                                <h2>Meeting Repetition</h2>
