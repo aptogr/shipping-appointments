@@ -124,9 +124,10 @@ class ShippingCompany {
 
     /**
      * @param $type DepartmentType
-     * @return bool
+     *
+     * @return Department | bool
      */
-    public function hasDepartmentType( DepartmentType $type ){
+    public function getDepartmentByType( DepartmentType $type ){
 
         foreach( $this->departments as $departmentID ){
 
@@ -134,7 +135,7 @@ class ShippingCompany {
 
             if( $department->departmentType->ID === $type->ID ){
 
-                return true;
+                return $department;
 
             }
 
