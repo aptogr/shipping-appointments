@@ -121,4 +121,28 @@ class ShippingCompany {
 
 	}
 
+
+    /**
+     * @param $type DepartmentType
+     * @return bool
+     */
+    public function hasDepartmentType( DepartmentType $type ){
+
+        foreach( $this->departments as $departmentID ){
+
+            $department = new Department( $departmentID );
+
+            if( $department->departmentType->ID === $type->ID ){
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+
 }
