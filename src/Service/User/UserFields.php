@@ -451,6 +451,7 @@ class UserFields {
 		'max_meetings_per_day'              => 'user_max_meetings_per_day',
 		'book_in_advance_days'              => 'user_book_in_advance_days',
 		'booking_request_type'              => 'user_booking_request_type',
+		'meeting_repetition'                => 'user_meeting_repetition',
 		'meet_same_supplier_times'          => 'user_meet_same_supplier_times',
 		'booking_method'                    => 'user_booking_method',
         'selected_products'                 => 'user_selected_products',
@@ -599,6 +600,17 @@ class UserFields {
                     'name'       => 'Instant Booking: Specific Brands',
                     'id'         => self::META_FIELDS_SLUG['instant_booking_brands'],
                     'type'       => 'text',
+                ),
+                array(
+                    'name'              => 'Meeting Repetition',
+                    'id'                => self::META_FIELDS_SLUG['meeting_repetition'],
+                    'type'              => 'radio',
+                    'options'           => array(
+                        'meeting_repetition_limit'          => 'Do not let the same supplier to visit our company',
+                        'meeting_repetition_no_limit'       => 'No time limit',
+                    ),
+                    'inline'            => false,
+                    'select_all_none'   => true,
                 ),
 				array(
 					'name'              => 'How many times to meet same supplier',

@@ -29,6 +29,18 @@
 
             });
 
+            $('#meeting_repetition_section input').on('change', function(){
+
+                if( $('#meeting_repetition_section input:checked').val() === 'meeting_repetition_limit' ){
+
+                    $('#meet_same_supplier_times').removeClass('hide');
+                }
+                else {
+                    $('#meet_same_supplier_times').addClass('hide');
+                }
+
+            });
+
         }
 
     });

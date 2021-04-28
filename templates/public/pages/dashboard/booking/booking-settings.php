@@ -446,16 +446,55 @@ function displayCheckboxValue ($id,$value) {
 
                        </section>
 
+                       <?php if( $platformUser->department->meeting_repetition !== 'meeting_repetition_users' ): ?>
 
-                       <section class="main-section full-width setting-field-wrapper">
+                           <div class="notice-in-page flex flex-center margin-bottom-30">
 
-                           <h2>How many times to meet same supplier</h2>
+                               <div class="content flex flex-center">
 
-                           <p>The maximum number of times the user can meet a supplier</p>
+                                   <div class="icon">
 
-                           <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
+                                       <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                   </div>
+
+                                   <div class="notice-message">
+                                       <strong>Notice: The company administrator does not allow you to set the meeting repetition.</strong>
+                                       <br>You cannot change this setting unless the company administrator allows you to do it.
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       <?php endif; ?>
+
+                       <section class="main-section full-width setting-field-wrapper  <?php echo ( $platformUser->department->meeting_repetition !== 'meeting_repetition_users' ? 'disabled' : ''); ?>">
+
+                           <div class="full-width">
+                               <h2>Meeting Repetition</h2>
+                               <p>Repetition settings.</p>
+                           </div>
+
+                           <div id="meeting_repetition_section" class="full-width relative profenda-field">
+
+                               <input type="radio" id="meeting_repetition_limit" class="checkboxradio radioChecker" name="meeting_repetition" value="meeting_repetition_limit"  <?php displayRadioValue('meeting_repetition_limit',$platformUser->meeting_repetition);?>>
+                               <label for="meeting_repetition_limit">Do not let the same supplier to visit our company</label>
+
+                               <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit"  <?php displayRadioValue('meeting_repetition_no_limit',$platformUser->meeting_repetition);?>>
+                               <label for="meeting_repetition_no_limit">No time limit</label>
+
+
+                           </div>
+
+                           <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
+
+                               <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0 <?php echo ( $platformUser->meeting_repetition === 'meeting_repetition_no_limit' ? 'hide' : ''); ?>" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
+
+                           </div>
 
                        </section>
+
 
 
                    </div>

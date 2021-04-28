@@ -29,6 +29,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
     public $minimum_notice;
 	public $book_in_advance_days;
 	public $booking_request_type;
+	public $meeting_repetition;
 	public $meet_same_supplier_times;
 	public $cancellation_policy;
 	public $booking_method;
@@ -162,6 +163,9 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 	}
 
+	public function canEdit($fieldname) {
+
+    }
 
 	public function setAppointments(){
 
