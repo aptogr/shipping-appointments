@@ -313,6 +313,65 @@ function displayCheckboxValue ($id,$value) {
                                             We can include invitations for the employees too at this section.
                                         </p>
 
+
+                                        <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                            <div class="profenda-filter-item flex flex-center">
+
+                                                <label for="searchEmployee" class="filter-label">
+                                                    Search Employee:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <input id="searchEmployee" name="employee_name" placeholder="Type a name or email">
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="profenda-filter-item flex flex-center margin-left-auto">
+
+                                                <label for="departmentFilter" class="filter-label">
+                                                    Department:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <select id="departmentFilter">
+                                                        <option value="all">All</option>
+                                                        <option value="shipping_company_admin">Technical</option>
+                                                        <option value="shipping_company_department_admin">Financial</option>
+                                                        <option value="shipping_company_employee">Marine</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="profenda-filter-item flex flex-center no-margin-right">
+
+                                                <label for="userRoleFilter" class="filter-label">
+                                                    User Role:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <select id="userRoleFilter">
+                                                        <option value="all">All</option>
+                                                        <option value="shipping_company_admin">Company Admin</option>
+                                                        <option value="shipping_company_department_admin">Department Admin</option>
+                                                        <option value="shipping_company_employee">Employee</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
                                         <table>
                                             <thead>
                                             <tr>
