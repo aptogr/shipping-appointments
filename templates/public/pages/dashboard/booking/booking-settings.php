@@ -1,11 +1,10 @@
 <?php
+
+use ShippingAppointments\Service\Entities\User\PlatformUser;
+
 get_header();
 
-$platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
-
-//echo "<pre>";
-//print_r($platformUser);
-//echo "</pre>";
+$platformUser = new PlatformUser( get_current_user_id() );
 
 function displayInputValue ($value) {
     echo (!empty($value)) ? $value : "" ;
@@ -74,7 +73,22 @@ function displayDay($day, $availability_weekdays,$type) {
 }
 
 ?>
-    <div class="row booking-settings user-settings no-margin-bottom full-width">
+
+    <div class="dashboard-panel-page-header full-width flex flex-center">
+
+        <div class="container">
+
+            <div class="col s12 flex flex-center">
+
+                <h1>Platform Settings</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row booking-settings user-settings no-margin-bottom full-width padding-top-50">
 
        <div class="container">
 
@@ -86,13 +100,6 @@ function displayDay($day, $availability_weekdays,$type) {
 
                    <div class="col l12 m12">
 
-                       <section class="main-section full-width">
-
-                           <h1>Booking Settings</h1>
-
-                           <p>Set up your booking settings.</p>
-
-                       </section>
 
                        <?php if(  !$platformUser->canEditVisibility() ): ?>
 
