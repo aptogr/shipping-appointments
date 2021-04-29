@@ -333,9 +333,9 @@ class DashboardAppointments {
                     <div class="appointment-list-item single-appointment-block margin-bottom-30">
 
                         <div class="single-appointment-block--header">
-                            <h3>
+                            <h3 class="flex flex-center full-width">
                                 #<?php echo $appointment->ID; ?>
-                                <div class="right">
+                                <div class="margin-left-auto status <?php echo $appointment->status; ?>">
 				                    <?php echo $appointment->getFieldToString('status'); ?>
                                 </div>
                             </h3>

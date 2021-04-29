@@ -16,9 +16,9 @@ $appointment = new Appointment( get_queried_object_id() );
 				<div class="single-appointment-block margin-top-50">
 
 					<div class="single-appointment-block--header">
-						<h3>
+						<h3 class="flex flex-center full-width">
 							Appointment - <?php echo $appointment->ID; ?>
-                            <div class="right">
+                            <div class="margin-left-auto status <?php echo $appointment->status; ?>">
 	                            <?php echo $appointment->getFieldToString('status'); ?>
                             </div>
 						</h3>

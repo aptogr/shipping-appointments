@@ -16,8 +16,27 @@
   }
 
   &.confirmed {
-    background-color: #388E3C !important;
-    color: #fff !important;
+    background-color: #388E3C;
+    color: #fff;
+  }
+
+}
+
+
+.status {
+  font-size: 15px;
+  background-color: #eee;
+  padding: 5px 10px;
+  display: inline-block;
+
+  &.pending_approval {
+    background-color: #FF9800;
+    color: #fff;
+  }
+
+  &.confirmed {
+    background-color: #388E3C;
+    color: #fff;
   }
 
 }
