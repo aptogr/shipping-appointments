@@ -318,9 +318,11 @@ function displayDay($day, $availability_weekdays,$type) {
                                <label for="minimum_notice_no_limit">No time limit</label>
 
                            </div>
+
                            <div id="book_in_advance_days_section" class="full-width relative profenda-field margin-top-20">
                                 <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0 <?php echo ( $platformUser->minimum_notice === 'minimum_notice_no_limit' ? 'hide' : ''); ?>" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
                            </div>
+
                        </section>
 
                        <section class="main-section full-width setting-field-wrapper">
