@@ -1,3 +1,23 @@
-.test {
+.count-appointments {
+  background-color: #1259af;
+  color: #fff;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  margin-left: 5px;
+  border-radius: 50%;
   text-align: center;
+  line-height: 25px;
+  font-size: 13px;
+
+  &.pending{
+    background-color: #FF9800;
+    color: #fff;
+  }
+
+  &.confirmed {
+    background-color: #388E3C !important;
+    color: #fff !important;
+  }
+
 }
