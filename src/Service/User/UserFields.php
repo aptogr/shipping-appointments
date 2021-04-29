@@ -462,6 +462,24 @@ class UserFields {
         'instant_booking'                   => 'user_instant_booking',
         'instant_booking_products'          => 'user_instant_booking_products',
         'instant_booking_brands'            => 'user_instant_booking_brands',
+        // Avail
+        'weekdays_available'                => 'user_weekdays_available',
+        'mon_time_from'                     => 'user_mon_time_from',
+        'mon_time_to'                       => 'user_mon_time_to',
+        'tue_time_from'                     => 'user_tue_time_from',
+        'tue_time_to'                       => 'user_tue_time_to',
+        'wed_time_from'                     => 'user_wed_time_from',
+        'wed_time_to'                       => 'user_wed_time_to',
+        'thu_time_from'                     => 'user_thu_time_from',
+        'thu_time_to'                       => 'user_thu_time_to',
+        'fri_time_from'                     => 'user_fri_time_from',
+        'fri_time_to'                       => 'user_fri_time_to',
+        'sat_time_from'                     => 'user_sat_time_from',
+        'sat_time_to'                       => 'user_sat_time_to',
+        'sun_time_from'                     => 'user_sun_time_from',
+        'sun_time_to'                       => 'user_sun_time_to',
+        'excluded_dates'                    => 'user_excluded_dates',
+
 	];
 
 	public function registerUserFields( $meta_boxes ) {
@@ -651,6 +669,15 @@ class UserFields {
                     ),
                     'inline' => true,
                 ),
+
+
+            ),
+		);
+
+        $meta_boxes[] = array(
+            'title' => 'Availability Settings',
+            'type'  => 'user', // Specifically for user
+            'fields'     => array(
                 array(
                     'name'       => 'Availability Period',
                     'id'         => self::META_FIELDS_SLUG['availability_period'],
@@ -666,9 +693,88 @@ class UserFields {
                     'id'         => self::META_FIELDS_SLUG['availability_period_saved_date'],
                     'type'       => 'text',
                 ),
-
+                array(
+                    'id'   => self::META_FIELDS_SLUG['weekdays_available'],
+                    'name' => esc_html__( 'Week days Available' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['mon_time_from'],
+                    'name' => esc_html__( 'Monday time from' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['mon_time_to'],
+                    'name' => esc_html__( 'Monday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['tue_time_from'],
+                    'name' => esc_html__( 'Tuesday time from' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['tue_time_to'],
+                    'name' => esc_html__( 'Tuesday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['wed_time_from'],
+                    'name' => esc_html__( 'Wednesday time from' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['wed_time_to'],
+                    'name' => esc_html__( 'Wednesday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['thu_time_from'],
+                    'name' => esc_html__( 'Thursday time from' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['thu_time_to'],
+                    'name' => esc_html__( 'Thursday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['fri_time_from'],
+                    'name' => esc_html__( 'Friday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['fri_time_to'],
+                    'name' => esc_html__( 'Friday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sat_time_from'],
+                    'name' => esc_html__( 'Saturday time from' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sat_time_to'],
+                    'name' => esc_html__( 'Saturday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sun_time_from'],
+                    'name' => esc_html__( 'Sunday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['sun_time_to'],
+                    'name' => esc_html__( 'Sunday time to' ),
+                    'type' => 'text',
+                ),
+                array(
+                    'id'   => self::META_FIELDS_SLUG['excluded_dates'],
+                    'name' => esc_html__( 'Excluded Dates' ),
+                    'type' => 'text',
+                ),
             ),
-		);
+        );
 
 		return $meta_boxes; 
 

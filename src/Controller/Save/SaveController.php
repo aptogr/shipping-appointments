@@ -41,7 +41,7 @@ class SaveController {
 
 					$saveBookingSettingsController  = new SaveBookingSettingsController();
 					$action                         = $saveBookingSettingsController->save( $_POST );
-//                    $redirectUrl                    = 'dashboard/booking/settings';
+                    $redirectUrl                    = 'dashboard/booking/settings';
 
 					break;
 

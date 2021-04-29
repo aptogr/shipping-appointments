@@ -16,15 +16,24 @@ class SaveBookingSettingsController extends ServiceSaveController {
 
     public function saveField( $metaKey, $value ) {
 
-        if ( $metaKey == 'user_selected_products' or $metaKey == 'user_selected_brands' ) {
+
+
+        if ( $metaKey == 'user_selected_products' or $metaKey == 'user_selected_brands' or $metaKey == 'user_excluded_dates' ) {
 
             update_user_meta( $this->platformUser->ID, $metaKey, $value );
 
-        } else {
+        }
+        elseif ($metaKey == 'user_weekdays_available') {
+
+            update_user_meta( $this->platformUser->ID, $metaKey, $value );
+
+        }
+        else {
 
             if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
 
                 $value = explode( ',', $value );
+                update_user_meta( $this->platformUser->ID, $metaKey, $value );
 
             }
 
@@ -45,8 +54,6 @@ class SaveBookingSettingsController extends ServiceSaveController {
             }
 
         }
-
-
 
 
     }
