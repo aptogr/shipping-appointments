@@ -42,6 +42,27 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
     public $instant_booking_products;
     public $instant_booking_brands;
 
+    // Avail
+    public $weekdays_available;
+    public $excluded_dates;
+    public $mon_time_from;
+    public $mon_time_to;
+    public $tue_time_from;
+    public $tue_time_to;
+    public $wed_time_from;
+    public $wed_time_to;
+    public $thu_time_from;
+    public $thu_time_to;
+    public $fri_time_from;
+    public $fri_time_to;
+    public $sat_time_from;
+    public $sat_time_to;
+    public $sun_time_from;
+    public $sun_time_to;
+    public $weekdays_available_toArray;
+    public $excluded_dates_toArray;
+
+
 	/**
 	 * @var $availability Availability
 	 */

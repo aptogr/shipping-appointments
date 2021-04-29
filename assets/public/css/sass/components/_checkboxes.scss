@@ -2,8 +2,10 @@
 
 .platform-dashboard-page {
 
-  .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
-  html .ui-button.ui-state-disabled:active {
+  //ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+  //  html .ui-button.ui-state-disabled:active
+
+  .ui-checkboxradio-label {
     border: 2px solid #02569c !important;
     background: #e6f1ff;
     color: #02569c;
@@ -27,6 +29,8 @@
   }
 
 }
+
+
 
 .ui-checkboxradio-checked {
   color:$hospital-white !important;
@@ -71,6 +75,12 @@
 
 // jQuery UI Spinner/Number
 
+.ui-spinner-up, .ui-spinner-down {
+  padding:0px!important;
+  border: 0px!important;
+  margin: 0px!important;
+}
+
 .ui-spinner {
 
   border: none!important;
@@ -94,15 +104,22 @@
 
   }
 
+
+
   .ui-icon {
 
-    background-image: url("images/ui-icons_ffffff_256x240.png") !important;
+    background-image: url("images/ui-icons_777777_256x240.png") !important;
+    //background-image: url("images/ui-icons_444444_256x240.png") !important;
 
     &:hover {
       background-image: url("images/ui-icons_ffffff_256x240.png") !important;
     }
 
   }
+
+  //.ui-icon-triangle-1-s, .ui-icon-triangle-1-n {
+  //  background-image: url("images/ui-icons_444444_256x240.png")!important;
+  //}
 
 }
 
@@ -214,3 +231,4 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
