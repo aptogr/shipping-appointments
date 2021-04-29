@@ -4,26 +4,26 @@
 namespace ShippingAppointments\Service\Dashboard\Appointments;
 
 
-use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\Entities\SupplierCompany;
 
-class DashboardAppointments extends DashboardAppointmentsRepository {
+class DashboardAppointmentsSupplierCompany extends DashboardAppointmentsRepository {
 
 	/**
 	 * DashboardPosts constructor.
-	 * @param $platformUser PlatformUser
+	 * @param $supplierCompany SupplierCompany
 	 */
-	public function __construct( PlatformUser $platformUser ){
+	public function __construct( SupplierCompany $supplierCompany ){
 
-	    parent::__construct();
-		$this->employeeUser     = $platformUser;
+		parent::__construct();
+		$this->supplierCompany = $supplierCompany;
 
 	}
 
-	public function getEmployeePendingAppointments(){
+	public function getSupplierCompanyPendingAppointments(){
 
 		$metaQuery = array(
 			'relation' => 'AND',
-			$this->userConditionArgs(),
+			$this->supplierCompanyConditionArgs(),
 			$this->statusConditionsArgs( array('pending_approval') ),
 			$this->dateConditionArgs('>='),
 		);
@@ -32,11 +32,11 @@ class DashboardAppointments extends DashboardAppointmentsRepository {
 
 	}
 
-	public function getEmployeeConfirmedAppointments(){
+	public function getSupplierCompanyConfirmedAppointments(){
 
 		$metaQuery = array(
 			'relation' => 'AND',
-			$this->userConditionArgs(),
+			$this->supplierCompanyConditionArgs(),
 			$this->statusConditionsArgs( array('confirmed') ),
 			$this->dateConditionArgs('>='),
 		);
@@ -46,11 +46,11 @@ class DashboardAppointments extends DashboardAppointmentsRepository {
 	}
 
 
-	public function getEmployeePastAppointments(){
+	public function getSupplierCompanyPastAppointments(){
 
 		$metaQuery = array(
 			'relation' => 'AND',
-			$this->userConditionArgs(),
+			$this->supplierCompanyConditionArgs(),
 			$this->dateConditionArgs('<'),
 		);
 

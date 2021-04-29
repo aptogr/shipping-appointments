@@ -7,6 +7,25 @@ get_header();
 $appointment = new Appointment( get_queried_object_id() );
 ?>
 
+    <div class="dashboard-panel-page-header full-width flex flex-center">
+
+        <div class="container">
+
+            <div class="col s12 flex flex-center">
+
+                <a href="<?php echo site_url('dashboard/appointments'); ?>" class="flex flex-center profenda-btn left"> <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 384" xml:space="preserve"><g><g><polygon points="384,170.667 81.707,170.667 158.187,94.187 128,64 0,192 128,320 158.187,289.813 81.707,213.333 384,213.333 "></polygon></g></g></svg>
+
+                    <span class="hide-on-med-and-down"> All Appointments </span>
+
+                </a>
+
+                <h1>Appointment - <?php echo $appointment->ID; ?></h1>
+            </div>
+
+        </div>
+
+    </div>
+
 	<div class="container">
 
 		<div class="row company-settings no-margin-bottom full-width">

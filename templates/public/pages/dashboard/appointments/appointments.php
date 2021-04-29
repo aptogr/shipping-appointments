@@ -1,24 +1,114 @@
 <?php
 
 use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointments;
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsDepartment;
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsShippingCompany;
+use ShippingAppointments\Service\Entities\Department;
+use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\PostType\AppointmentPost;
 
 get_header();
 
-$platformUser           = new PlatformUser( get_current_user_id() );
-$dashboardAppointments  = new DashboardAppointments( $platformUser );
+$platformUser = new PlatformUser( get_current_user_id() );
 
-$pendingAppointments    = $dashboardAppointments->getEmployeePendingAppointments();
-$scheduledAppointments  = $dashboardAppointments->getEmployeeConfirmedAppointments();
-$pastAppointments       = $dashboardAppointments->getEmployeePastAppointments();
+if( !empty( get_query_var('company') ) ){
+
+    $shippingCompany        = new ShippingCompany( get_query_var('company') );
+	$dashboardAppointments  = new DashboardAppointmentsShippingCompany( $shippingCompany );
+	$pendingAppointments    = $dashboardAppointments->getShippingCompanyPendingAppointments();
+	$scheduledAppointments  = $dashboardAppointments->getShippingCompanyConfirmedAppointments();
+	$pastAppointments       = $dashboardAppointments->getShippingCompanyPastAppointments();
+
+}
+else if( !empty( get_query_var('department') ) ){
+
+    $department             = new Department( get_query_var('department') );
+	$dashboardAppointments  = new DashboardAppointmentsDepartment( $department );
+	$pendingAppointments    = $dashboardAppointments->getDepartmentPendingAppointments();
+	$scheduledAppointments  = $dashboardAppointments->getDepartmentConfirmedAppointments();
+	$pastAppointments       = $dashboardAppointments->getDepartmentPastAppointments();
+
+}
+else {
+
+	$dashboardAppointments  = new DashboardAppointments( $platformUser );
+	$pendingAppointments    = $dashboardAppointments->getEmployeePendingAppointments();
+	$scheduledAppointments  = $dashboardAppointments->getEmployeeConfirmedAppointments();
+	$pastAppointments       = $dashboardAppointments->getEmployeePastAppointments();
+}
+
+
+
 ?>
-    <div class="appointments-page full-width">
+
+    <div class="dashboard-panel-page-header full-width flex flex-center">
+
+        <div class="container">
+
+	        <?php if( !empty( get_query_var('company') ) ): ?>
+
+                <h1>Company Appointments</h1>
+
+            <?php elseif( !empty( get_query_var('department') ) ): ?>
+
+                <h1>
+                    <?php echo $department->departmentType->term->name; ?> Appointments
+                </h1>
+
+            <?php else: ?>
+
+                <h1>My Appointments</h1>
+
+	        <?php endif; ?>
+
+
+        </div>
+
+    </div>
+
+    <div class="appointments-page full-width padding-top-50 padding-bottom-50">
 
         <div class="container">
 
             <div class="row company-settings no-margin-bottom full-width">
 
-                <div id="main-navigation" class="margin-top-50">
+                <?php if( !empty( get_query_var('company') ) ): ?>
+
+                    <div class="flex full-width department-appointments-items margin-bottom-50">
+
+                        <?php foreach ( $shippingCompany->departments as $departmentID ): $departmentEntity = new Department( $departmentID ); ?>
+
+                           <div class="department-appointments-item flex flex-center flex-grow">
+
+                               <div class="icon">
+
+                                   <?php echo $departmentEntity->departmentType->svg; ?>
+
+                               </div>
+
+                               <div class="content">
+
+                                   <h3>
+	                                   <?php echo $departmentEntity->departmentType->term->name; ?>
+                                   </h3>
+
+
+                                   <a href="<?php echo site_url( 'dashboard/appointments/department/' . $departmentEntity->ID ); ?>" class="profenda-btn">
+                                       View Department's Appointments
+                                   </a>
+
+                               </div>
+
+                           </div>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <div id="main-navigation" class="">
 
                     <ul class="links-container">
 
