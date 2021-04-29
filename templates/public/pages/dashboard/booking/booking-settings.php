@@ -1,76 +1,23 @@
 <?php
 
+use ShippingAppointments\Service\Dashboard\Settings\DashboardSettingsUser;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
 
 get_header();
 
 $platformUser = new PlatformUser( get_current_user_id() );
+$dashboardSettingsUser = new DashboardSettingsUser();
 
-function displayInputValue ($value) {
-    echo (!empty($value)) ? $value : "" ;
-}
-
-function displayRadioValue ($id,$value) {
-    echo ($id == $value) ? 'checked' : "" ;
-}
-
-function displayCheckboxValue ($id,$value) {
-    echo (in_array($id,$value)) ? 'checked' : "" ;
-}
-
-//if (isset($platformUser->availability->postMeta['user_availability_excluded_dates'][0])) {
-//    $excluded_dates = explode(",", $platformUser->availability->postMeta['user_availability_excluded_dates'][0]);
+//if (isset($platformUser->excluded_dates)) {
+//    $excluded_dates = explode(",", $platformUser->excluded_dates);
 //}
 //
-//if (isset($platformUser->availability->postMeta['user_availability_weekdays_available'][0])) {
-//    $availability_weekdays = explode(",", $platformUser->availability->postMeta['user_availability_weekdays_available'][0]);
+//if (isset($platformUser->weekdays_available)) {
+//    $availability_weekdays = explode(",", $platformUser->weekdays_available);
 //}
 
-if (isset($platformUser->excluded_dates)) {
-    $excluded_dates = explode(",", $platformUser->excluded_dates);
-}
-
-if (isset($platformUser->weekdays_available)) {
-    $availability_weekdays = explode(",", $platformUser->weekdays_available);
-}
-
-function excludedDatesDisplay($excluded_dates) {
-    if (!empty($excluded_dates[0])) {
-        foreach ($excluded_dates as $value) {
-            echo "<div class='exludeDaysBox' data-selecteddate='".$value."'>".$value." <div class='selectedDateDelete' data-selecteddate='".$value."' >x</div></div>";
-        }
-    }
-}
-
-
-function checkIfNull($time, $type) {
-    if (empty($time)) {
-        if ($type == 'from') {
-            echo '6:00';
-        } else {
-            echo '23:00';
-        }
-    } else {
-        echo $time;
-    }
-}
-
-function displayDay($day, $availability_weekdays,$type) {
-
-    if (!empty($availability_weekdays)) {
-        if (in_array($day,$availability_weekdays)) {
-            if ($type == 'div') {
-                echo "display:block;";
-            } elseif ($type == 'input') {
-                echo "checked";
-            } elseif ($type == 'act') {
-                echo "active";
-            }
-
-        }
-    }
-
-}
+$availability_weekdays = $platformUser->getWeekdaysToArray();
+$excluded_dates = $platformUser->getExcludedDatesToArray();
 
 ?>
 
@@ -133,10 +80,10 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <div id="department_users_visibility_section" class="full-width relative profenda-field">
 
-                               <input type="radio" id="visibile_yes" class="checkboxradio" name="visible" value="user_visibile" <?php displayRadioValue('user_visibile',$platformUser->visible);?>>
+                               <input type="radio" id="visibile_yes" class="checkboxradio" name="visible" value="user_visibile" <?php $dashboardSettingsUser->displayRadioValue('user_visibile',$platformUser->visible);?>>
                                <label for="visibile_yes">Yes</label>
 
-                               <input type="radio" id="visibile_no" class="checkboxradio" name="visible" value="user_not_visibile" <?php displayRadioValue('user_not_visibile',$platformUser->visible);?>>
+                               <input type="radio" id="visibile_no" class="checkboxradio" name="visible" value="user_not_visibile" <?php $dashboardSettingsUser->displayRadioValue('user_not_visibile',$platformUser->visible);?>>
                                <label for="visibile_no">No</label>
 
                            </div>
@@ -176,21 +123,21 @@ function displayDay($day, $availability_weekdays,$type) {
 
                                <div class="col no-padding-left">
 
-                                   <input type="checkbox" id="booking_method_physical_location" class="checkboxradio"  name="booking_method[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$platformUser->booking_method);?>>
+                                   <input type="checkbox" id="booking_method_physical_location" class="checkboxradio"  name="booking_method[]" value="physical_location" <?php $dashboardSettingsUser->displayCheckboxValue ('physical_location',$platformUser->booking_method);?>>
                                    <label for="booking_method_physical_location">Physical Location</label><br>
 
                                </div>
 
                                <div class="col no-padding-left">
 
-                                   <input type="checkbox" id="booking_method_phone_call" class="checkboxradio"  name="booking_method[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
+                                   <input type="checkbox" id="booking_method_phone_call" class="checkboxradio"  name="booking_method[]" value="phone_call" <?php $dashboardSettingsUser->displayCheckboxValue ('phone_call',$platformUser->booking_method);?>>
                                    <label for="booking_method_phone_call">Phone Call</label><br>
 
                                </div>
 
                                <div class="col no-padding-left">
 
-                                   <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php displayCheckboxValue ('online',$platformUser->booking_method);?>>
+                                   <input type="checkbox" id="booking_method_online" class="checkboxradio"  name="booking_method[]" value="online" <?php $dashboardSettingsUser->displayCheckboxValue ('online',$platformUser->booking_method);?>>
                                    <label for="booking_method_online">Online</label><br>
 
                                </div>
@@ -234,7 +181,7 @@ function displayDay($day, $availability_weekdays,$type) {
 
 									       ?>
                                        </div>
-                                       <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php displayInputValue($platformUser->selected_products); ?>">
+                                       <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->selected_products); ?>">
                                    </div>
                                </div>
 
@@ -277,7 +224,7 @@ function displayDay($day, $availability_weekdays,$type) {
 
 									       ?>
                                        </div>
-                                       <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php displayInputValue($platformUser->selected_brands); ?>">
+                                       <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->selected_brands); ?>">
                                    </div>
                                </div>
 
@@ -318,16 +265,16 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <div id="minimum_notice_section" class="full-width relative profenda-field">
 
-                               <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$platformUser->minimum_notice);?>>
+                               <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php $dashboardSettingsUser->displayRadioValue('minimum_notice_in_advance',$platformUser->minimum_notice);?>>
                                <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
 
-                               <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$platformUser->minimum_notice);?>>
+                               <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php $dashboardSettingsUser->displayRadioValue('minimum_notice_no_limit',$platformUser->minimum_notice);?>>
                                <label for="minimum_notice_no_limit">No time limit</label>
 
                            </div>
 
                            <div id="book_in_advance_days_section" class="full-width relative profenda-field margin-top-20">
-                                <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0 <?php echo ( $platformUser->minimum_notice === 'minimum_notice_no_limit' ? 'hide' : ''); ?>" value="<?php displayInputValue($platformUser->book_in_advance_days);?>">
+                                <input name="book_in_advance_days" id="book_in_advance_days" class="spinner0 <?php echo ( $platformUser->minimum_notice === 'minimum_notice_no_limit' ? 'hide' : ''); ?>" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->book_in_advance_days);?>">
                            </div>
 
                        </section>
@@ -338,7 +285,7 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <p>Timeframe of the meeting in minutes (ex.30)</p>
 
-                           <input name="meeting_duration" id="meeting_duration" class="spinner15" value="<?php displayInputValue($platformUser->meeting_duration);?>">
+                           <input name="meeting_duration" id="meeting_duration" class="spinner15" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->meeting_duration);?>">
 
                        </section>
 
@@ -349,7 +296,7 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <p>Buffer duration (in minutes) before and after meetings</p>
 
-                           <input name="meeting_buffer" id="meeting_buffer" class="spinner15" value="<?php displayInputValue($platformUser->meeting_buffer);?>">
+                           <input name="meeting_buffer" id="meeting_buffer" class="spinner15" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->meeting_buffer);?>">
 
                        </section>
 
@@ -360,7 +307,7 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <p>The maximum meetings the current user can be booked for.</p>
 
-                           <input name="max_meetings_per_day" id="max_meetings_per_day" class="spinner0" value="<?php displayInputValue($platformUser->max_meetings_per_day);?>">
+                           <input name="max_meetings_per_day" id="max_meetings_per_day" class="spinner0" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->max_meetings_per_day);?>">
 
                        </section>
 
@@ -495,14 +442,14 @@ function displayDay($day, $availability_weekdays,$type) {
 
                                <div class="col no-padding-left">
 
-                                   <input type="radio" id="booking_request_type_email" class="checkboxradio"  name="booking_request_type" value="email" <?php displayRadioValue('email',$platformUser->booking_request_type);?>>
+                                   <input type="radio" id="booking_request_type_email" class="checkboxradio"  name="booking_request_type" value="email" <?php $dashboardSettingsUser->displayRadioValue('email',$platformUser->booking_request_type);?>>
                                    <label for="booking_request_type_email">Ask via Email first</label><br>
 
                                </div>
 
                                <div class="col no-padding-left">
 
-                                   <input type="radio" id="booking_request_type_instant" class="checkboxradio"  name="booking_request_type" value="instant" <?php displayRadioValue('instant',$platformUser->booking_request_type);?>>
+                                   <input type="radio" id="booking_request_type_instant" class="checkboxradio"  name="booking_request_type" value="instant" <?php $dashboardSettingsUser->displayRadioValue('instant',$platformUser->booking_request_type);?>>
                                    <label for="booking_request_type_instant">Instant Booking</label><br>
 
                                </div>
@@ -543,10 +490,10 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <div id="meeting_repetition_section" class="full-width relative profenda-field">
 
-                               <input type="radio" id="meeting_repetition_limit" class="checkboxradio radioChecker" name="meeting_repetition" value="meeting_repetition_limit"  <?php displayRadioValue('meeting_repetition_limit',$platformUser->meeting_repetition);?>>
+                               <input type="radio" id="meeting_repetition_limit" class="checkboxradio radioChecker" name="meeting_repetition" value="meeting_repetition_limit"  <?php $dashboardSettingsUser->displayRadioValue('meeting_repetition_limit',$platformUser->meeting_repetition);?>>
                                <label for="meeting_repetition_limit">Do not let the same supplier to visit our company</label>
 
-                               <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit"  <?php displayRadioValue('meeting_repetition_no_limit',$platformUser->meeting_repetition);?>>
+                               <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit"  <?php $dashboardSettingsUser->displayRadioValue('meeting_repetition_no_limit',$platformUser->meeting_repetition);?>>
                                <label for="meeting_repetition_no_limit">No time limit</label>
 
 
@@ -554,7 +501,7 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
 
-                               <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0 <?php echo ( $platformUser->meeting_repetition === 'meeting_repetition_no_limit' ? 'hide' : ''); ?>" value="<?php displayInputValue($platformUser->meet_same_supplier_times);?>">
+                               <input name="meet_same_supplier_times" id="meet_same_supplier_times" class="spinner0 <?php echo ( $platformUser->meeting_repetition === 'meeting_repetition_no_limit' ? 'hide' : ''); ?>" value="<?php $dashboardSettingsUser->displayInputValue($platformUser->meet_same_supplier_times);?>">
 
                            </div>
 
@@ -569,10 +516,10 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <div id="meeting_repetition_section" class="full-width relative profenda-field">
 
-                               <input type="radio" id="availability_period_year" class="checkboxradio radioChecker" name="availability_period" value="year"  <?php displayRadioValue('year',$platformUser->availability_period);?>>
+                               <input type="radio" id="availability_period_year" class="checkboxradio radioChecker" name="availability_period" value="year"  <?php $dashboardSettingsUser->displayRadioValue('year',$platformUser->availability_period);?>>
                                <label for="availability_period_year">Per Year</label>
 
-                               <input type="radio" id="availability_period_month" class="checkboxradio" name="availability_period" value="month"  <?php displayRadioValue('month',$platformUser->availability_period);?>>
+                               <input type="radio" id="availability_period_month" class="checkboxradio" name="availability_period" value="month"  <?php $dashboardSettingsUser->displayRadioValue('month',$platformUser->availability_period);?>>
                                <label for="availability_period_month">Per Month</label>
 
                            </div>
@@ -588,24 +535,24 @@ function displayDay($day, $availability_weekdays,$type) {
 
                            <div class="full-width flex margin-top-20 margin-bottom-20">
 
-                               <div class="daDay <?php displayDay('mon',$availability_weekdays,'act'); ?>">
+                               <div class="daDay <?php $dashboardSettingsUser->displayDay('mon',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDayMonday" class="weekDay" data-timediv="mon_time" name="weekdays_available[]" value="mon" <?php displayDay('mon',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDayMonday" class="weekDay" data-timediv="mon_time" name="weekdays_available[]" value="mon" <?php $dashboardSettingsUser->displayDay('mon',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDayMonday">Monday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('mon',$availability_weekdays,'div'); ?>" id="mon_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('mon',$availability_weekdays,'div'); ?>" id="mon_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="mon_time_from" name="mon_time_from" value="<?php checkIfNull($platformUser->mon_time_from,'from');?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="mon_time_from" name="mon_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->mon_time_from,'from');?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="mon_time_to" name="mon_time_to" value="<?php checkIfNull($platformUser->mon_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="mon_time_to" name="mon_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->mon_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -614,24 +561,24 @@ function displayDay($day, $availability_weekdays,$type) {
                                </div>
 
 
-                               <div class="daDay  <?php displayDay('tue',$availability_weekdays,'act'); ?>">
+                               <div class="daDay  <?php $dashboardSettingsUser->displayDay('tue',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDayTuesday" class="weekDay" data-timediv="tue_time" name="weekdays_available[]" value="tue" <?php displayDay('tue',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDayTuesday" class="weekDay" data-timediv="tue_time" name="weekdays_available[]" value="tue" <?php $dashboardSettingsUser->displayDay('tue',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDayTuesday">Tuesday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('tue',$availability_weekdays,'div'); ?>" id="tue_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('tue',$availability_weekdays,'div'); ?>" id="tue_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="tue_time_from" name="tue_time_from" value="<?php checkIfNull($platformUser->tue_time_from,'from'); ?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="tue_time_from" name="tue_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->tue_time_from,'from'); ?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="tue_time_to" name="tue_time_to" value="<?php checkIfNull($platformUser->tue_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="tue_time_to" name="tue_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->tue_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -640,24 +587,24 @@ function displayDay($day, $availability_weekdays,$type) {
 
                                </div>
 
-                               <div class="daDay  <?php displayDay('wed',$availability_weekdays,'act'); ?>">
+                               <div class="daDay  <?php $dashboardSettingsUser->displayDay('wed',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDayWednesday" class="weekDay" data-timediv="wed_time" name="weekdays_available[]" value="wed" <?php displayDay('wed',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDayWednesday" class="weekDay" data-timediv="wed_time" name="weekdays_available[]" value="wed" <?php $dashboardSettingsUser->displayDay('wed',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDayWednesday">Wednesday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('wed',$availability_weekdays,'div'); ?>" id="wed_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('wed',$availability_weekdays,'div'); ?>" id="wed_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="wed_time_from" name="wed_time_from" value="<?php checkIfNull($platformUser->wed_time_from,'from'); ?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="wed_time_from" name="wed_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->wed_time_from,'from'); ?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="wed_time_to" name="wed_time_to" value="<?php checkIfNull($platformUser->wed_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="wed_time_to" name="wed_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->wed_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -665,24 +612,24 @@ function displayDay($day, $availability_weekdays,$type) {
                                    </div>
                                </div>
 
-                               <div class="daDay  <?php displayDay('thu',$availability_weekdays,'act'); ?>">
+                               <div class="daDay  <?php $dashboardSettingsUser->displayDay('thu',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDayThursday" class="weekDay" data-timediv="thu_time" name="weekdays_available[]" value="thu" <?php displayDay('thu',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDayThursday" class="weekDay" data-timediv="thu_time" name="weekdays_available[]" value="thu" <?php $dashboardSettingsUser->displayDay('thu',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDayThursday">Thursday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('thu',$availability_weekdays,'div'); ?>" id="thu_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('thu',$availability_weekdays,'div'); ?>" id="thu_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="thu_time_from" name="thu_time_from" value="<?php checkIfNull($platformUser->thu_time_from,'from'); ?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="thu_time_from" name="thu_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->thu_time_from,'from'); ?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="thu_time_to" name="thu_time_to" value="<?php checkIfNull($platformUser->thu_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="thu_time_to" name="thu_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->thu_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -691,24 +638,24 @@ function displayDay($day, $availability_weekdays,$type) {
 
                                </div>
 
-                               <div class="daDay  <?php displayDay('fri',$availability_weekdays,'act'); ?>">
+                               <div class="daDay  <?php $dashboardSettingsUser->displayDay('fri',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri" <?php displayDay('fri',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri" <?php $dashboardSettingsUser->displayDay('fri',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDayFriday">Friday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('fri',$availability_weekdays,'div'); ?>" id="fri_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('fri',$availability_weekdays,'div'); ?>" id="fri_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="fri_time_from" name="fri_time_from" value="<?php checkIfNull($platformUser->fri_time_from,'from'); ?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="fri_time_from" name="fri_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->fri_time_from,'from'); ?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="fri_time_to" name="fri_time_to" value="<?php checkIfNull($platformUser->fri_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="fri_time_to" name="fri_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->fri_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -717,24 +664,24 @@ function displayDay($day, $availability_weekdays,$type) {
 
                                </div>
 
-                               <div class="daDay  <?php displayDay('sat',$availability_weekdays,'act'); ?>">
+                               <div class="daDay  <?php $dashboardSettingsUser->displayDay('sat',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat" <?php displayDay('sat',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat" <?php $dashboardSettingsUser->displayDay('sat',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDaySaturday">Saturday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('sat',$availability_weekdays,'div'); ?>" id="sat_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('sat',$availability_weekdays,'div'); ?>" id="sat_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sat_time_from" name="sat_time_from" value="<?php checkIfNull($platformUser->sat_time_from,'from'); ?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sat_time_from" name="sat_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->sat_time_from,'from'); ?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sat_time_to" name="sat_time_to" value="<?php checkIfNull($platformUser->sat_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sat_time_to" name="sat_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->sat_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -743,24 +690,24 @@ function displayDay($day, $availability_weekdays,$type) {
 
                                </div>
 
-                               <div class="daDay  <?php displayDay('sun',$availability_weekdays,'act'); ?>">
+                               <div class="daDay  <?php $dashboardSettingsUser->displayDay('sun',$availability_weekdays,'act'); ?>">
 
                                    <div class="dayBox">
-                                       <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun" <?php displayDay('sun',$availability_weekdays,'input'); ?>>
+                                       <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun" <?php $dashboardSettingsUser->displayDay('sun',$availability_weekdays,'input'); ?>>
                                        <span class="checkmark"></span>
                                        <span for="weekDaySunday">Sunday</span>
                                    </div>
 
-                                   <div class="timeFromTo" style="<?php displayDay('sun',$availability_weekdays,'div'); ?>" id="sun_time">
+                                   <div class="timeFromTo" style="<?php $dashboardSettingsUser->displayDay('sun',$availability_weekdays,'div'); ?>" id="sun_time">
 
                                        <div class="full-width flex flex-dir-col">
 
                                            <div class="timeFrom">
-                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sun_time_from" name="sun_time_from" value="<?php checkIfNull($platformUser->sun_time_from,'from'); ?>">
+                                               <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sun_time_from" name="sun_time_from" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->sun_time_from,'from'); ?>">
                                            </div>
 
                                            <div class="timeTo">
-                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sun_time_to" name="sun_time_to" value="<?php checkIfNull($platformUser->sun_time_to,'to'); ?>">
+                                               <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sun_time_to" name="sun_time_to" value="<?php $dashboardSettingsUser->checkIfNull($platformUser->sun_time_to,'to'); ?>">
                                            </div>
 
                                        </div>
@@ -789,7 +736,7 @@ function displayDay($day, $availability_weekdays,$type) {
                                        data-scheduledates="null/2001-01-01"
                                ></div>
                                <div id="excludedDatesDiv" class="col l6 m6">
-                                   <?php excludedDatesDisplay($excluded_dates);?>
+                                   <?php $dashboardSettingsUser->excludedDatesDisplay($excluded_dates);?>
                                </div>
                                <input type="hidden" name="excluded_dates" id="excluded_dates" value="<?php
                                if (isset($platformUser->excluded_dates)) {

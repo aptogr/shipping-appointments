@@ -147,6 +147,28 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 	}
 
+	public function getWeekdaysToArray(){
+
+        if (isset($this->weekdays_available)) {
+            return explode(",", $this->weekdays_available);
+        }
+        else {
+            return array();
+        }
+
+    }
+
+	public function getExcludedDatesToArray(){
+
+        if (isset($this->excluded_dates)) {
+
+            return explode(",", $this->excluded_dates);
+        }
+        else {
+            return array();
+        }
+
+    }
 
 	public function isWebsiteAdmin(): bool {
 

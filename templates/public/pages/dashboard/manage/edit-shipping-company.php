@@ -4,35 +4,16 @@ use ShippingAppointments\Service\Dashboard\Company\DashboardCompany;
 use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\Entities\DepartmentType;
+use ShippingAppointments\Service\Dashboard\Settings\DashboardSettingsCompany;
 
 get_header();
 $logedInUserObj = new PlatformUser( get_current_user_id() );
 $companyId = get_query_var('company');
 $companyObj = new ShippingCompany($companyId);
+$dashboardSettingsCompany = new DashboardSettingsCompany();
 
 $dashboardCompany = new DashboardCompany();
 
-//echo "<pre>";
-//print_r($companyObj);
-//echo "</pre>";
-
-function displayRadioValue ($id,$value) {
-	echo ($id == $value) ? 'checked' : "" ;
-}
-
-function displayCheckboxValue ($id,$value) {
-	if (is_array($value)) {
-		if (in_array($id,$value)) {
-			echo 'checked';
-		} else {
-			echo '';
-		}
-	} else {
-		if ($id == $value) {
-			echo 'checked';
-		}
-	}
-}
 
 ?>
 
@@ -120,13 +101,13 @@ function displayCheckboxValue ($id,$value) {
 
                                                 <div id="company_users_visibility_section" class="full-width relative">
 
-                                                    <input type="radio" id="company_users_visibile" class="checkboxradio" name="company_users_visibility" value="company_users_visibile" <?php displayRadioValue('company_users_visibile',$companyObj->company_users_visibility);?>>
+                                                    <input type="radio" id="company_users_visibile" class="checkboxradio" name="company_users_visibility" value="company_users_visibile" <?php $dashboardSettingsCompany->displayRadioValue('company_users_visibile',$companyObj->company_users_visibility);?>>
                                                     <label for="company_users_visibile">Visibile Users</label>
 
-                                                    <input type="radio" id="company_users_invisibile" class="checkboxradio" name="company_users_visibility" value="company_users_invisibile" <?php displayRadioValue('company_users_invisibile',$companyObj->company_users_visibility);?>>
+                                                    <input type="radio" id="company_users_invisibile" class="checkboxradio" name="company_users_visibility" value="company_users_invisibile" <?php $dashboardSettingsCompany->displayRadioValue('company_users_invisibile',$companyObj->company_users_visibility);?>>
                                                     <label for="company_users_invisibile">Invisible Users</label>
 
-                                                    <input type="radio" id="company_users_department" class="checkboxradio" name="company_users_visibility" value="company_users_department" <?php displayRadioValue('company_users_department',$companyObj->company_users_visibility);?>>
+                                                    <input type="radio" id="company_users_department" class="checkboxradio" name="company_users_visibility" value="company_users_department" <?php $dashboardSettingsCompany->displayRadioValue('company_users_department',$companyObj->company_users_visibility);?>>
                                                     <label for="company_users_department">Let the department define</label>
                                                 </div>
 
@@ -140,10 +121,10 @@ function displayCheckboxValue ($id,$value) {
 
                                                 <div id="meeting_type" class="full-width relative">
 
-                                                    <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_type" value="company" <?php displayRadioValue('company',$companyObj->meeting_type);?>>
+                                                    <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_type" value="company" <?php $dashboardSettingsCompany->displayRadioValue('company',$companyObj->meeting_type);?>>
                                                     <label for="meeting_type_company">Defined by Company</label>
 
-                                                    <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_type" value="department" <?php displayRadioValue('department',$companyObj->meeting_type);?>>
+                                                    <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_type" value="department" <?php $dashboardSettingsCompany->displayRadioValue('department',$companyObj->meeting_type);?>>
                                                     <label for="meeting_type_company_department">Let the departments define</label>
 
 
@@ -151,13 +132,13 @@ function displayCheckboxValue ($id,$value) {
 
                                                 <div id="meeting_types_available" class="full-width flex margin-top-30 <?php echo ( $companyObj->meeting_type !== 'company' ? 'hide' : ''); ?>">
 
-                                                    <input type="checkbox" id="booking_method_physical_location" class="checkboxradio" name="meeting_types_available[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$companyObj->meeting_types_available);?>>
+                                                    <input type="checkbox" id="booking_method_physical_location" class="checkboxradio" name="meeting_types_available[]" value="physical_location" <?php $dashboardSettingsCompany->displayCheckboxValue ('physical_location',$companyObj->meeting_types_available);?>>
                                                     <label for="booking_method_physical_location">One to one</label><br>
 
-                                                    <input type="checkbox" id="booking_method_phone_call" class="checkboxradio" name="meeting_types_available[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$companyObj->meeting_types_available);?>>
+                                                    <input type="checkbox" id="booking_method_phone_call" class="checkboxradio" name="meeting_types_available[]" value="phone_call" <?php $dashboardSettingsCompany->displayCheckboxValue ('phone_call',$companyObj->meeting_types_available);?>>
                                                     <label for="booking_method_phone_call">Phone Call</label><br>
 
-                                                    <input type="checkbox" id="booking_method_online" class="checkboxradio" name="meeting_types_available[]" value="online" <?php displayCheckboxValue ('online',$companyObj->meeting_types_available);?>>
+                                                    <input type="checkbox" id="booking_method_online" class="checkboxradio" name="meeting_types_available[]" value="online" <?php $dashboardSettingsCompany->displayCheckboxValue ('online',$companyObj->meeting_types_available);?>>
                                                     <label for="booking_method_online">Web</label><br>
                                                 </div>
 
@@ -210,13 +191,13 @@ function displayCheckboxValue ($id,$value) {
 
                                                 <div id="minimum_notice_section" class="full-width relative">
 
-                                                    <input type="radio" id="minimum_notice_in_advance" class="checkboxradio" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$companyObj->minimum_notice);?>>
+                                                    <input type="radio" id="minimum_notice_in_advance" class="checkboxradio" name="minimum_notice" value="minimum_notice_in_advance" <?php $dashboardSettingsCompany->displayRadioValue('minimum_notice_in_advance',$companyObj->minimum_notice);?>>
                                                     <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
 
-                                                    <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$companyObj->minimum_notice);?>>
+                                                    <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php $dashboardSettingsCompany->displayRadioValue('minimum_notice_no_limit',$companyObj->minimum_notice);?>>
                                                     <label for="minimum_notice_no_limit">No time limit</label>
 
-                                                    <input type="radio" id="minimum_notice_department" class="checkboxradio" name="minimum_notice" value="minimum_notice_department"  <?php displayRadioValue('minimum_notice_department',$companyObj->minimum_notice);?>>
+                                                    <input type="radio" id="minimum_notice_department" class="checkboxradio" name="minimum_notice" value="minimum_notice_department"  <?php $dashboardSettingsCompany->displayRadioValue('minimum_notice_department',$companyObj->minimum_notice);?>>
                                                     <label for="minimum_notice_department">Let the department define</label>
 
                                                 </div>
@@ -238,13 +219,13 @@ function displayCheckboxValue ($id,$value) {
 
                                                 <div id="meeting_repetition_section" class="full-width relative">
 
-                                                    <input type="radio" id="meeting_repetition_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_limit" <?php displayRadioValue('meeting_repetition_limit',$companyObj->meeting_repetition);?>>
+                                                    <input type="radio" id="meeting_repetition_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_limit" <?php $dashboardSettingsCompany->displayRadioValue('meeting_repetition_limit',$companyObj->meeting_repetition);?>>
                                                     <label for="meeting_repetition_limit">Do not let the same supplier to visit our company xxx times</label>
 
-                                                    <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit" <?php displayRadioValue('meeting_repetition_no_limit',$companyObj->meeting_repetition);?>>
+                                                    <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit" <?php $dashboardSettingsCompany->displayRadioValue('meeting_repetition_no_limit',$companyObj->meeting_repetition);?>>
                                                     <label for="meeting_repetition_no_limit">No time limit</label>
 
-                                                    <input type="radio" id="meeting_repetition_department" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_department" <?php displayRadioValue('meeting_repetition_department',$companyObj->meeting_repetition);?>>
+                                                    <input type="radio" id="meeting_repetition_department" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_department" <?php $dashboardSettingsCompany->displayRadioValue('meeting_repetition_department',$companyObj->meeting_repetition);?>>
                                                     <label for="meeting_repetition_department">Let the department define</label>
 
                                                 </div>

@@ -2,58 +2,11 @@
 
 use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\Dashboard\Settings\DashboardSettingsDepartment;
 
 $department = new Department( intval( get_query_var('department') ) );
+$dashboardSettingsDepartment = new DashboardSettingsDepartment();
 
-
-function displayInputValue ($value) {
-    echo (!empty($value)) ? $value : "" ;
-}
-
-function displayRadioValue ($id,$value) {
-    echo ($id == $value) ? 'checked' : "" ;
-}
-
-function displayCheckboxValue ($id,$value) {
-    if (is_array($value)) {
-        if (in_array($id,$value)) {
-            echo 'checked';
-        } else {
-            echo '';
-        }
-    } else {
-        if ($id == $value) {
-            echo 'checked';
-        }
-    }
-}
-
-function displayDay($day, $availability_weekdays,$type) {
-
-    if (!empty($availability_weekdays)) {
-        if (in_array($day,$availability_weekdays)) {
-            if ($type == 'div') {
-                echo "display:block;";
-            } elseif ($type == 'input') {
-                echo "checked";
-            } elseif ($type == 'act') {
-                echo "active";
-            }
-
-        }
-    }
-
-}
-
-function excludedDatesDisplay($excluded_dates) {
-
-    if (!empty($excluded_dates[0])) {
-        $excluded_dates = explode(",", $excluded_dates);
-        foreach ($excluded_dates as $value) {
-            echo "<div class='exludeDaysBox' data-selecteddate='".$value."'>".$value." <div class='selectedDateDelete' data-selecteddate='".$value."' >x</div></div>";
-        }
-    }
-}
 
 if (isset($department->weekdays_available)) {
     $availability_weekdays = explode(",", $department->weekdays_available);
@@ -62,7 +15,6 @@ if (isset($department->weekdays_available)) {
 if (isset($department->excluded_dates)) {
     $excluded_dates = explode(",", $department->excluded_dates);
 }
-
 
 ?>
 
@@ -154,13 +106,13 @@ if (isset($department->excluded_dates)) {
 
                                         <div id="department_users_visibility_section" class="full-width relative profenda-field">
 
-                                            <input type="radio" id="department_users_visibile" class="checkboxradio" name="users_visibility" value="department_users_visibile" <?php displayRadioValue('department_users_visibile',$department->users_visibility);?>>
+                                            <input type="radio" id="department_users_visibile" class="checkboxradio" name="users_visibility" value="department_users_visibile" <?php $dashboardSettingsDepartment->displayRadioValue('department_users_visibile',$department->users_visibility);?>>
                                             <label for="department_users_visibile">Visibile Users</label>
 
-                                            <input type="radio" id="department_users_invisibile" class="checkboxradio" name="users_visibility" value="department_users_invisibile" <?php displayRadioValue('department_users_invisibile',$department->users_visibility);?>>
+                                            <input type="radio" id="department_users_invisibile" class="checkboxradio" name="users_visibility" value="department_users_invisibile" <?php $dashboardSettingsDepartment->displayRadioValue('department_users_invisibile',$department->users_visibility);?>>
                                             <label for="department_users_invisibile">Invisible Users</label>
 
-                                            <input type="radio" id="department_users_department" class="checkboxradio" name="users_visibility" value="department_users_department" <?php displayRadioValue('department_users_department',$department->users_visibility);?>>
+                                            <input type="radio" id="department_users_department" class="checkboxradio" name="users_visibility" value="department_users_department" <?php $dashboardSettingsDepartment->displayRadioValue('department_users_department',$department->users_visibility);?>>
                                             <label for="department_users_department">Let the users define</label>
 
                                         </div>
@@ -176,24 +128,24 @@ if (isset($department->excluded_dates)) {
 
                                         <div class="full-width flex margin-top-20 margin-bottom-20">
 
-                                            <div class="daDay <?php displayDay('mon',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay <?php $dashboardSettingsDepartment->displayDay('mon',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDayMonday" class="weekDay" data-timediv="mon_time" name="weekdays_available[]" value="mon" <?php displayDay('mon',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDayMonday" class="weekDay" data-timediv="mon_time" name="weekdays_available[]" value="mon" <?php $dashboardSettingsDepartment->displayDay('mon',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDayMonday">Monday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('mon',$availability_weekdays,'div'); ?>" id="mon_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('mon',$availability_weekdays,'div'); ?>" id="mon_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="mon_time_from" name="mon_time_from" value="<?php displayInputValue($department->mon_time_from,'from');?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="mon_time_from" name="mon_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->mon_time_from,'from');?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="mon_time_to" name="mon_time_to" value="<?php displayInputValue($department->mon_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="mon_time_to" name="mon_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->mon_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -202,24 +154,24 @@ if (isset($department->excluded_dates)) {
                                             </div>
 
 
-                                            <div class="daDay  <?php displayDay('tue',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay  <?php $dashboardSettingsDepartment->displayDay('tue',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDayTuesday" class="weekDay" data-timediv="tue_time" name="weekdays_available[]" value="tue" <?php displayDay('tue',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDayTuesday" class="weekDay" data-timediv="tue_time" name="weekdays_available[]" value="tue" <?php $dashboardSettingsDepartment->displayDay('tue',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDayTuesday">Tuesday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('tue',$availability_weekdays,'div'); ?>" id="tue_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('tue',$availability_weekdays,'div'); ?>" id="tue_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="tue_time_from" name="tue_time_from" value="<?php displayInputValue($department->tue_time_from,'from'); ?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="tue_time_from" name="tue_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->tue_time_from,'from'); ?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="tue_time_to" name="tue_time_to" value="<?php displayInputValue($department->tue_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="tue_time_to" name="tue_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->tue_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -228,24 +180,24 @@ if (isset($department->excluded_dates)) {
 
                                             </div>
 
-                                            <div class="daDay  <?php displayDay('wed',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay  <?php $dashboardSettingsDepartment->displayDay('wed',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDayWednesday" class="weekDay" data-timediv="wed_time" name="weekdays_available[]" value="wed" <?php displayDay('wed',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDayWednesday" class="weekDay" data-timediv="wed_time" name="weekdays_available[]" value="wed" <?php $dashboardSettingsDepartment->displayDay('wed',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDayWednesday">Wednesday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('wed',$availability_weekdays,'div'); ?>" id="wed_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('wed',$availability_weekdays,'div'); ?>" id="wed_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="wed_time_from" name="wed_time_from" value="<?php displayInputValue($department->wed_time_from,'from'); ?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="wed_time_from" name="wed_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->wed_time_from,'from'); ?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="wed_time_to" name="wed_time_to" value="<?php displayInputValue($department->wed_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="wed_time_to" name="wed_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->wed_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -253,24 +205,24 @@ if (isset($department->excluded_dates)) {
                                                 </div>
                                             </div>
 
-                                            <div class="daDay  <?php displayDay('thu',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay  <?php $dashboardSettingsDepartment->displayDay('thu',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDayThursday" class="weekDay" data-timediv="thu_time" name="weekdays_available[]" value="thu" <?php displayDay('thu',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDayThursday" class="weekDay" data-timediv="thu_time" name="weekdays_available[]" value="thu" <?php $dashboardSettingsDepartment->displayDay('thu',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDayThursday">Thursday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('thu',$availability_weekdays,'div'); ?>" id="thu_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('thu',$availability_weekdays,'div'); ?>" id="thu_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="thu_time_from" name="thu_time_from" value="<?php displayInputValue($department->thu_time_from,'from'); ?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="thu_time_from" name="thu_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->thu_time_from,'from'); ?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="thu_time_to" name="thu_time_to" value="<?php displayInputValue($department->thu_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="thu_time_to" name="thu_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->thu_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -279,24 +231,24 @@ if (isset($department->excluded_dates)) {
 
                                             </div>
 
-                                            <div class="daDay  <?php displayDay('fri',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay  <?php $dashboardSettingsDepartment->displayDay('fri',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri" <?php displayDay('fri',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDayFriday" class="weekDay" data-timediv="fri_time" name="weekdays_available[]" value="fri" <?php $dashboardSettingsDepartment->displayDay('fri',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDayFriday">Friday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('fri',$availability_weekdays,'div'); ?>" id="fri_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('fri',$availability_weekdays,'div'); ?>" id="fri_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="fri_time_from" name="fri_time_from" value="<?php displayInputValue($department->fri_time_from,'from'); ?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="fri_time_from" name="fri_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->fri_time_from,'from'); ?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="fri_time_to" name="fri_time_to" value="<?php displayInputValue($department->fri_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="fri_time_to" name="fri_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->fri_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -305,24 +257,24 @@ if (isset($department->excluded_dates)) {
 
                                             </div>
 
-                                            <div class="daDay  <?php displayDay('sat',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay  <?php $dashboardSettingsDepartment->displayDay('sat',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat" <?php displayDay('sat',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDaySaturday" class="weekDay" data-timediv="sat_time" name="weekdays_available[]" value="sat" <?php $dashboardSettingsDepartment->displayDay('sat',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDaySaturday">Saturday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('sat',$availability_weekdays,'div'); ?>" id="sat_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('sat',$availability_weekdays,'div'); ?>" id="sat_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sat_time_from" name="sat_time_from" value="<?php displayInputValue($department->sat_time_from,'from'); ?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sat_time_from" name="sat_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->sat_time_from,'from'); ?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sat_time_to" name="sat_time_to" value="<?php displayInputValue($department->sat_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sat_time_to" name="sat_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->sat_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -331,24 +283,24 @@ if (isset($department->excluded_dates)) {
 
                                             </div>
 
-                                            <div class="daDay  <?php displayDay('sun',$availability_weekdays,'act'); ?>">
+                                            <div class="daDay  <?php $dashboardSettingsDepartment->displayDay('sun',$availability_weekdays,'act'); ?>">
 
                                                 <div class="dayBox">
-                                                    <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun" <?php displayDay('sun',$availability_weekdays,'input'); ?>>
+                                                    <input type="checkbox" id="weekDaySunday" class="weekDay" data-timediv="sun_time" name="weekdays_available[]" value="sun" <?php $dashboardSettingsDepartment->displayDay('sun',$availability_weekdays,'input'); ?>>
                                                     <span class="checkmark"></span>
                                                     <span for="weekDaySunday">Sunday</span>
                                                 </div>
 
-                                                <div class="timeFromTo" style="<?php displayDay('sun',$availability_weekdays,'div'); ?>" id="sun_time">
+                                                <div class="timeFromTo" style="<?php $dashboardSettingsDepartment->displayDay('sun',$availability_weekdays,'div'); ?>" id="sun_time">
 
                                                     <div class="full-width flex flex-dir-col">
 
                                                         <div class="timeFrom">
-                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sun_time_from" name="sun_time_from" value="<?php displayInputValue($department->sun_time_from,'from'); ?>">
+                                                            <i class="fa fa-clock-o"></i>From: <input type="text" class="timeSelect timepicker" id="sun_time_from" name="sun_time_from" value="<?php $dashboardSettingsDepartment->displayInputValue($department->sun_time_from,'from'); ?>">
                                                         </div>
 
                                                         <div class="timeTo">
-                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sun_time_to" name="sun_time_to" value="<?php displayInputValue($department->sun_time_to,'to'); ?>">
+                                                            <i class="fa fa-clock-o"></i>To: <input type="text" class="timeSelect timepicker" id="sun_time_to" name="sun_time_to" value="<?php $dashboardSettingsDepartment->displayInputValue($department->sun_time_to,'to'); ?>">
                                                         </div>
 
                                                     </div>
@@ -370,10 +322,10 @@ if (isset($department->excluded_dates)) {
 
                                         <div id="meeting_repetition_section" class="full-width relative profenda-field">
 
-                                            <input type="radio" id="availability_period_year" class="checkboxradio radioChecker" name="availability_period" value="year"  <?php displayRadioValue('year',$department->availability_period);?>>
+                                            <input type="radio" id="availability_period_year" class="checkboxradio radioChecker" name="availability_period" value="year"  <?php $dashboardSettingsDepartment->displayRadioValue('year',$department->availability_period);?>>
                                             <label for="availability_period_year">Per Year</label>
 
-                                            <input type="radio" id="availability_period_month" class="checkboxradio" name="availability_period" value="month"  <?php displayRadioValue('month',$department->availability_period);?>>
+                                            <input type="radio" id="availability_period_month" class="checkboxradio" name="availability_period" value="month"  <?php $dashboardSettingsDepartment->displayRadioValue('month',$department->availability_period);?>>
                                             <label for="availability_period_month">Per Month</label>
 
                                         </div>
@@ -397,7 +349,7 @@ if (isset($department->excluded_dates)) {
                                             ></div>
                                             <div id="excludedDatesDiv" class="col l6 m6">
                                                 <?php
-                                                excludedDatesDisplay($department->excluded_dates);
+                                                $dashboardSettingsDepartment->excludedDatesDisplay($department->excluded_dates);
                                                 ?>
                                             </div>
                                             <input type="hidden" name="excluded_dates" id="excluded_dates" value="<?php
@@ -440,10 +392,10 @@ if (isset($department->excluded_dates)) {
 
                                         <div id="meeting_type" class="full-width relative profenda-field">
 
-                                            <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_types" value="department" <?php displayRadioValue('department',$department->meeting_types);?>>
+                                            <input type="radio" id="meeting_type_company" class="checkboxradio" name="meeting_types" value="department" <?php $dashboardSettingsDepartment->displayRadioValue('department',$department->meeting_types);?>>
                                             <label for="meeting_type_company">Defined by Department</label>
 
-                                            <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_types" value="user" <?php displayRadioValue('user',$department->meeting_types);?>>
+                                            <input type="radio" id="meeting_type_company_department" class="checkboxradio" name="meeting_types" value="user" <?php $dashboardSettingsDepartment->displayRadioValue('user',$department->meeting_types);?>>
                                             <label for="meeting_type_company_department">Let the employees define</label>
 
 
@@ -451,13 +403,13 @@ if (isset($department->excluded_dates)) {
 
                                         <div id="meeting_types_available" class="full-width flex margin-top-30 profenda-field <?php echo ( $department->meeting_types !== 'department' ? 'hide' : ''); ?>">
 
-                                            <input type="checkbox" id="booking_method_physical_location" class="checkboxradio" name="meeting_types_available[]" value="physical_location" <?php displayCheckboxValue ('physical_location',$department->meeting_types_available);?>>
+                                            <input type="checkbox" id="booking_method_physical_location" class="checkboxradio" name="meeting_types_available[]" value="physical_location" <?php $dashboardSettingsDepartment->displayCheckboxValue ('physical_location',$department->meeting_types_available);?>>
                                             <label for="booking_method_physical_location">One to one</label><br>
 
-                                            <input type="checkbox" id="booking_method_phone_call" class="checkboxradio" name="meeting_types_available[]" value="phone_call" <?php displayCheckboxValue ('phone_call',$department->meeting_types_available);?>>
+                                            <input type="checkbox" id="booking_method_phone_call" class="checkboxradio" name="meeting_types_available[]" value="phone_call" <?php $dashboardSettingsDepartment->displayCheckboxValue ('phone_call',$department->meeting_types_available);?>>
                                             <label for="booking_method_phone_call">Phone Call</label><br>
 
-                                            <input type="checkbox" id="booking_method_online" class="checkboxradio" name="meeting_types_available[]" value="online" <?php displayCheckboxValue ('online',$department->meeting_types_available);?>>
+                                            <input type="checkbox" id="booking_method_online" class="checkboxradio" name="meeting_types_available[]" value="online" <?php $dashboardSettingsDepartment->displayCheckboxValue ('online',$department->meeting_types_available);?>>
                                             <label for="booking_method_online">Web</label><br>
                                         </div>
 
@@ -498,7 +450,7 @@ if (isset($department->excluded_dates)) {
 
                                                         ?>
                                                     </div>
-                                                    <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php displayInputValue($department->selected_products); ?>">
+                                                    <input type="hidden" name="selected_products" id="selectedProductsInput" value="<?php $dashboardSettingsDepartment->displayInputValue($department->selected_products); ?>">
                                                 </div>
                                             </div>
 
@@ -530,7 +482,7 @@ if (isset($department->excluded_dates)) {
 
                                                         ?>
                                                     </div>
-                                                    <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php displayInputValue($department->selected_brands); ?>">
+                                                    <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php $dashboardSettingsDepartment->displayInputValue($department->selected_brands); ?>">
                                                 </div>
                                             </div>
 
@@ -699,20 +651,20 @@ if (isset($department->excluded_dates)) {
 
                                         <div id="minimum_notice_section" class="full-width relative profenda-field">
 
-                                            <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php displayRadioValue('minimum_notice_in_advance',$department->minimum_notice);?>>
+                                            <input type="radio" id="minimum_notice_in_advance" class="checkboxradio radioChecker" name="minimum_notice" value="minimum_notice_in_advance" <?php $dashboardSettingsDepartment->displayRadioValue('minimum_notice_in_advance',$department->minimum_notice);?>>
                                             <label for="minimum_notice_in_advance">Book an appointment at least xxx days in advance</label>
 
-                                            <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php displayRadioValue('minimum_notice_no_limit',$department->minimum_notice);?>>
+                                            <input type="radio" id="minimum_notice_no_limit" class="checkboxradio" name="minimum_notice" value="minimum_notice_no_limit" <?php $dashboardSettingsDepartment->displayRadioValue('minimum_notice_no_limit',$department->minimum_notice);?>>
                                             <label for="minimum_notice_no_limit">No time limit</label>
 
-                                            <input type="radio" id="minimum_notice_user" class="checkboxradio" name="minimum_notice" value="minimum_notice_user" <?php displayRadioValue('minimum_notice_user',$department->minimum_notice);?>>
+                                            <input type="radio" id="minimum_notice_user" class="checkboxradio" name="minimum_notice" value="minimum_notice_user" <?php $dashboardSettingsDepartment->displayRadioValue('minimum_notice_user',$department->minimum_notice);?>>
                                             <label for="minimum_notice_user">Let the users define</label>
 
                                         </div>
 
                                         <div id="minimum_notice_hours_field" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
 
-                                            <input name="minimum_notice_hours" id="minimum_notice_hours" class="spinner0" value="<?php displayInputValue($department->minimum_notice_hours);?>">
+                                            <input name="minimum_notice_hours" id="minimum_notice_hours" class="spinner0" value="<?php $dashboardSettingsDepartment->displayInputValue($department->minimum_notice_hours);?>">
 
                                         </div>
 
@@ -751,20 +703,20 @@ if (isset($department->excluded_dates)) {
 
                                         <div id="meeting_repetition_section" class="full-width relative profenda-field">
 
-                                            <input type="radio" id="meeting_repetition_limit" class="checkboxradio radioChecker" name="meeting_repetition" value="meeting_repetition_limit"  <?php displayRadioValue('meeting_repetition_limit',$department->meeting_repetition);?>>
+                                            <input type="radio" id="meeting_repetition_limit" class="checkboxradio radioChecker" name="meeting_repetition" value="meeting_repetition_limit"  <?php $dashboardSettingsDepartment->displayRadioValue('meeting_repetition_limit',$department->meeting_repetition);?>>
                                             <label for="meeting_repetition_limit">Do not let the same supplier to visit our company</label>
 
-                                            <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit"  <?php displayRadioValue('meeting_repetition_no_limit',$department->meeting_repetition);?>>
+                                            <input type="radio" id="meeting_repetition_no_limit" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_no_limit"  <?php $dashboardSettingsDepartment->displayRadioValue('meeting_repetition_no_limit',$department->meeting_repetition);?>>
                                             <label for="meeting_repetition_no_limit">No time limit</label>
 
-                                            <input type="radio" id="meeting_repetition_users" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_users"  <?php displayRadioValue('meeting_repetition_users',$department->meeting_repetition);?>>
+                                            <input type="radio" id="meeting_repetition_users" class="checkboxradio" name="meeting_repetition" value="meeting_repetition_users"  <?php $dashboardSettingsDepartment->displayRadioValue('meeting_repetition_users',$department->meeting_repetition);?>>
                                             <label for="meeting_repetition_users">Let the users define</label>
 
                                         </div>
 
                                         <div id="meeting_repetition_time_section" class="full-width relative margin-top-20 profenda-field radioCheckerOutput">
 
-                                            <input name="meeting_repetition_time" id="meeting_repetition_time" class="spinner0" value="<?php displayInputValue($department->meeting_repetition_time);?>">
+                                            <input name="meeting_repetition_time" id="meeting_repetition_time" class="spinner0" value="<?php $dashboardSettingsDepartment->displayInputValue($department->meeting_repetition_time);?>">
 
                                         </div>
 
@@ -777,7 +729,7 @@ if (isset($department->excluded_dates)) {
 
                                         <p>Define the number of simultaneous bookings you can accept for the same datetime.</p>
 
-                                        <input name="simultaneous_meetings" id="simultaneous_meetings" class="spinner0" value="<?php displayInputValue($department->simultaneous_meetings);?>">
+                                        <input name="simultaneous_meetings" id="simultaneous_meetings" class="spinner0" value="<?php $dashboardSettingsDepartment->displayInputValue($department->simultaneous_meetings);?>">
 
                                     </section>
 
