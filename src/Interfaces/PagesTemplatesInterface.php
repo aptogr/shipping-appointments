@@ -40,6 +40,12 @@ Interface PagesTemplatesInterface {
 		//=============================================================================================
 
 		'auth/register.php'                               => 'Profenda Auth / Register',
+		'auth/register/register-shipping.php'             => 'Profenda Auth / Register / Shipping',
+		'auth/register/register-shipping-company.php'     => 'Profenda Auth / Register / Shipping / Company',
+		'auth/register/register-shipping-employee.php'    => 'Profenda Auth / Register / Shipping / Employee',
+		'auth/register/register-supplier.php'             => 'Profenda Auth / Register / Supplier',
+		'auth/register/register-supplier-company.php'     => 'Profenda Auth / Register / Supplier / Company',
+		'auth/register/register-supplier-employee.php'    => 'Profenda Auth / Register / Supplier / Employee',
 		'auth/login.php'                                  => 'Profenda Auth / Login',
 		'auth/password-lost.php'                          => 'Profenda Auth / Password Lost',
 		'auth/password-reset.php'                         => 'Profenda Auth / Password Reset',

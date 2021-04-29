@@ -25,6 +25,7 @@ use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\PostType\AvailabilityPost;
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
+use ShippingAppointments\Service\PostType\ShippingInvitationPost;
 use ShippingAppointments\Service\PostType\SupplierCompanyPost;
 use ShippingAppointments\Service\Taxonomy\BrandTaxonomy;
 use ShippingAppointments\Service\Taxonomy\CountryTaxonomy;
@@ -318,6 +319,18 @@ Trait Hooks {
 
 
 		/**
+		 * Appointment Post Type hooks
+		 *
+		 * Functions Hooked:
+		 * @see AppointmentPost::registerPostType()
+		 * @see AppointmentPost::addMetaBoxes()
+		 */
+		$shippingInvitationPost = new ShippingInvitationPost( $this->getPluginName(), $this->getPluginDirPath() );
+		$this->loader->addAction( 'init', $shippingInvitationPost, 'registerPostType' );
+		$this->loader->addAction( 'rwmb_meta_boxes', $shippingInvitationPost, 'addMetaBoxes', 33, 1 );
+
+
+		/**
 		 * User Fields
 		 *
 		 * Functions Hooked:
@@ -447,7 +460,7 @@ Trait Hooks {
 		 * @see DashboardRedirects::managementPagesRedirects()
 		 */
 		$dashboardRedirects = new DashboardRedirects();
-		$this->loader->addAction( 'template_redirect', $dashboardRedirects, 'managementPagesRedirects', 90 );
+		$this->loader->addAction( 'template_redirect', $dashboardRedirects, 'dashboardPageRedirect', 90 );
 
 
 

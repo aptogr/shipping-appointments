@@ -5,7 +5,7 @@ get_header();
 ?>
 
 
-    <section id="homiLogin" class="row homi-auth-section no-margin-bottom padding-top-80 padding-bottom-50">
+    <section id="homiLogin" class="row homi-auth-section no-margin-bottom padding-top-80 padding-bottom-80">
 
         <div class="container">
 
@@ -34,28 +34,46 @@ get_header();
                                 </h1>
 
                                 <p class="account-page-description">
-                                    You can book viewings online and communicate directly with landlords.
+                                    Profenda helps shipping companies connect directly with suppliers.
                                 </p>
 
-                                <div class="col s12 center">
-                                    <a href="#registerModal" id="login-btn"  class="profenda-btn filled trigger-modal" >
-                                        <svg style="padding: 3px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M467,61H45C20.218,61,0,81.196,0,106v300c0,24.72,20.128,45,45,45h422c24.72,0,45-20.128,45-45V106C512,81.28,491.872,61,467,61z M460.786,91L256.954,294.833L51.359,91H460.786z M30,399.788V112.069l144.479,143.24L30,399.788z M51.213,421l144.57-144.57l50.657,50.222c5.864,5.814,15.327,5.795,21.167-0.046L317,277.213L460.787,421H51.213z M482,399.787L338.213,256L482,112.212V399.787z"></path></g></g></svg>
-                                        <?php echo __('Register with your Email', 'Profenda'); ?>
+
+                                <h2 class="register-type-heading">
+                                    I am working for a
+                                </h2>
+
+                                <div class="flex register-types">
+
+                                    <a href="<?php echo site_url('register/shipping'); ?>" class="register-type-box">
+
+                                        <div class="icon">
+
+                                            <svg height="512" viewBox="0 0 60 60" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Page-1" fill="none" fill-rule="evenodd"><g id="023---Cruise-Ship-Front" fill="rgb(0,0,0)" fill-rule="nonzero"><path id="Shape" d="m6.11 57.375-4.843-1.339c-.34440403-.0953899-.71353641.0002035-.96834852.2507712-.25481211.2505677-.35659194.6180424-.26700001.964.08959194.3459576.35694449.6178389.70134853.7132288l4.844 1.336c3.33544883.936961 6.8645512.936961 10.2 0 2.9860113-.8378157 6.1449887-.8378157 9.131 0 3.3355128.9364968 6.8644872.9364968 10.2 0 2.9856477-.8379892 6.1443523-.8379892 9.13 0 3.3354346.9370643 6.8645654.9370643 10.2 0l4.83-1.337c.344404-.0953899.6117566-.3672712.7013485-.7132288s-.0121879-.7134323-.267-.964-.6239445-.3461611-.9683485-.2507712l-4.834 1.338c-2.9865254.8390149-6.1464746.8390149-9.133 0-1.0056971-.2757275-2.0320407-.4696927-3.069-.58l11.8-17.985c.5250909-.7946146.6394639-1.7921029.3078586-2.684947-.3316052-.8928442-1.0693743-1.5738442-1.9858586-1.833053l-2.82-.821v-13.469c0-1.6568542-1.3431458-3-3-3h-1v-9c0-1.65685425-1.3431458-3-3-3h-7v-3c0-1.1045695-.8954305-2-2-2h-6c-1.1045695 0-2 .8954305-2 2v3h-7c-1.6568542 0-3 1.34314575-3 3v9h-1c-1.6568542 0-3 1.3431458-3 3v13.469l-2.824.819c-.91759611.2586931-1.65658388.9398616-1.98901401 1.833391-.33243013.8935295-.21836376 1.8920696.30701401 2.687609l11.806 17.985c-1.0361421.1118993-2.0617208.3061808-3.067.581-2.9833796.8371946-6.13962043.8371946-9.123 0zm28.46 0c-1.1658739.3226586-2.3624607.5217545-3.57.594v-3.969c0-.5522847-.4477153-1-1-1s-1 .4477153-1 1v3.968c-1.2050576-.0748061-2.3989333-.2759081-3.562-.6-1.5706863-.4364011-3.1909782-.6689757-4.821-.692l-2.95-4.495 11.333-3.791v1.61c0 .5522847.4477153 1 1 1s1-.4477153 1-1v-1.61l11.333 3.8-2.95 4.495c-1.6271305.0246108-3.2444917.2564785-4.813.69zm-3.57-13.975 13.951 4.8-1.483 2.259-12.468-4.179zm-2 2.88-12.468 4.177-1.483-2.257 13.951-4.8zm22.938-9.462c.1116228.2965016.0744413.6285325-.1.893l-5.751 8.761-15.087-5.186v-10.955l20.276 5.881c.3052203.0838952.5515244.3093639.662.606zm-24.938-34.818h6v3h-6zm-10 6c0-.55228475.4477153-1 1-1h24c.5522847 0 1 .44771525 1 1v9h-26zm-4 12c0-.5522847.4477153-1 1-1h32c.5522847 0 1 .4477153 1 1v12.889l-16.722-4.849c-.1815442-.053-.3744558-.053-.556 0l-16.722 4.849zm-4.937 16.818c.11088599-.2982606.35889769-.5246737.666-.608l20.271-5.879v10.955l-15.083 5.186-5.75-8.76c-.17674584-.2638145-.21546585-.5966576-.104-.894z"/><path id="Shape" d="m34 27c1.6568542 0 3-1.3431458 3-3s-1.3431458-3-3-3-3 1.3431458-3 3 1.3431458 3 3 3zm0-4c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1-1-.4477153-1-1 .4477153-1 1-1z"/><path id="Shape" d="m26 21c-1.6568542 0-3 1.3431458-3 3s1.3431458 3 3 3 3-1.3431458 3-3-1.3431458-3-3-3zm0 4c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1 1 .4477153 1 1-.4477153 1-1 1z"/><path id="Shape" d="m18 21c-1.6568542 0-3 1.3431458-3 3s1.3431458 3 3 3 3-1.3431458 3-3-1.3431458-3-3-3zm0 4c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1 1 .4477153 1 1-.4477153 1-1 1z"/><path id="Shape" d="m38 9c-1.6568542 0-3 1.3431458-3 3s1.3431458 3 3 3 3-1.3431458 3-3-1.3431458-3-3-3zm0 4c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1 1 .4477153 1 1-.4477153 1-1 1z"/><path id="Shape" d="m30 9c-1.6568542 0-3 1.3431458-3 3s1.3431458 3 3 3 3-1.3431458 3-3-1.3431458-3-3-3zm0 4c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1 1 .4477153 1 1-.4477153 1-1 1z"/><path id="Shape" d="m22 9c-1.2133867 0-2.3072956.73092653-2.7716386 1.8519497-.464343 1.1210232-.2076757 2.4113767.6503183 3.2693706.8579939.857994 2.1483474 1.1146613 3.2693706.6503183s1.8519497-1.5582519 1.8519497-2.7716386c0-1.6568542-1.3431458-3-3-3zm0 4c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1 1 .4477153 1 1-.4477153 1-1 1z"/><path id="Shape" d="m42 27c1.6568542 0 3-1.3431458 3-3s-1.3431458-3-3-3-3 1.3431458-3 3 1.3431458 3 3 3zm0-4c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1-1-.4477153-1-1 .4477153-1 1-1z"/></g></g></svg>
+
+                                        </div>
+
+                                        <h3>
+                                            Shipping Company
+                                        </h3>
+
                                     </a>
+
+                                    <a href="<?php echo site_url('register/supplier'); ?>" class="register-type-box">
+
+                                        <div class="icon">
+
+                                            <svg id="Layer_5" enable-background="new 0 0 64 64" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m33 63h30v-24h-30zm12-22h6v2h-6zm-10 0h8v4h10v-4h8v20h-26z"/><path d="m57 57h2v2h-2z"/><path d="m53 57h2v2h-2z"/><path d="m49 57h2v2h-2z"/><path d="m61 21h-2v-20h-26v20h-2v-20h-26v20h-2c-1.103 0-2 .897-2 2v2c0 1.103.897 2 2 2h5.263c-.166.641-.263 1.308-.263 2 0 2.78 1.427 5.231 3.585 6.665-6.123 1.89-10.585 7.6-10.585 14.335 0 2.045 1.237 3.802 3 4.576v8.424h27v-13c0-6.735-4.462-12.445-10.585-14.335 2.158-1.434 3.585-3.885 3.585-6.665 0-.692-.097-1.359-.263-2h37.263c1.103 0 2-.897 2-2v-2c0-1.103-.897-2-2-2zm-18-18h6v2h-6zm-8 0h6v4h10v-4h6v18h-6v-4h-10v4h-6zm14 18h-6v-2h6zm-34-18h6v2h-6zm-8 0h6v4h10v-4h6v18h-6v-4h-10v4h-6zm8 18v-2h6v2zm-12 4v-2h7.726c-.65.572-1.206 1.247-1.644 2zm3 30h4v6h-4zm9.5-7h-3.5v-5h7v5h5v13h-12v-6h3.5c1.93 0 3.5-1.57 3.5-3.5s-1.57-3.5-3.5-3.5zm5.5-3.586 1.586 1.586h-1.586zm8 5.586v11h-3v-14.414l-5.586-5.586h-10.414v7h-3v2h8.5c.827 0 1.5.673 1.5 1.5s-.673 1.5-1.5 1.5h-9.5c-1.654 0-3-1.346-3-3 0-7.168 5.832-13 13-13s13 5.832 13 13zm-13-15c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6zm45-10h-38.082c-.437-.753-.994-1.428-1.644-2h39.726z"/><path d="m49 53h10v2h-10z"/></svg>
+
+                                        </div>
+
+                                        <h3>
+                                            Supplier Company
+                                        </h3>
+
+                                    </a>
+
                                 </div>
 
-
-                                <div class="col s12 login-extra-links">
-
-                                    <p>
-
-                                        You already have an account?
-                                        <a class="link-en_US" href="<?php echo wp_login_url(); ?>">
-                                            Login Now
-                                        </a>
-                                    </p>
-
-                                </div>
 
                             </div>
 
@@ -72,126 +90,6 @@ get_header();
         <div class="clearfix"></div>
 
     </section>
-
-    <div id="registerModal" class="login-modal fixed top-0 left-0 full-width hide">
-
-        <div class="login-modal-content">
-
-            <div class="col s12 center">
-                <h2 class="font-weight-700 no-margin-top margin-bottom-20">
-                    Fill in you account information
-                </h2>
-            </div>
-
-            <form action="<?php echo site_url('/register'); ?>"  method="POST" enctype="multipart/form-data" class="full-width">
-
-                <input type="hidden" name="new_user" id="new_user">
-
-                <?php
-
-                    if( isset( $_GET['redirect_to'] ) ){
-
-                        $urlParts = parse_url( $_SERVER['REQUEST_URI'] , PHP_URL_QUERY);
-
-                        if( strpos( $urlParts, 'redirect_to=') !== false ){
-
-                            $redirectLink = str_replace('redirect_to=', '', $urlParts );
-
-                            ?>
-                            <input type="hidden" name="redirect_to" value="<?php echo $redirectLink; ?>">
-                            <?php
-
-                        }
-
-                    }
-
-                ?>
-
-                <div class="input-field col s12 margin-bottom-30">
-
-                    <label for="user_email">Email Address: </label>
-                    <input type="text" id="user_email" name="user_email" class="validate check_email" value="" size="40" required>
-
-                    <label class="hide">
-
-                        <input type="checkbox" id="email_available" name="email_available" />
-                        <span>Email available</span>
-
-                    </label>
-
-                    <div class="email-message invalid hide">
-                        There's already an account with the email address you entered. Click <a href="<?php echo site_url('login'); ?>">here</a> to login with your email.
-                    </div>
-
-                </div>
-
-                <div class="input-field col l6 s12 margin-bottom-30">
-
-                    <label for="first_name">First Name: </label>
-                    <input type="text" id="first_name" name="first_name" class="validate" value="" size="40" required>
-
-                </div>
-
-                <div class="input-field col l6 s12 margin-bottom-30">
-
-                    <label for="last_name">Last Name: </label>
-                    <input type="text" id="last_name" name="last_name" class="validate" value="" size="40" required>
-
-                </div>
-
-                <div class="input-field col l6 s12 margin-bottom-30">
-
-                    <label for="user_pass">Password: </label>
-                    <input type="password" id="user_pass" name="user_pass" class="validate" value="" size="40" required>
-
-                </div>
-
-                <div class="input-field col l6 s12">
-
-                    <label for="repeat_password">Repeat Password: </label>
-                    <input type="password" id="repeat_password" name="repeat_password" class="validate" value="" size="40" required>
-
-                </div>
-
-                <div class="input-field col s12 consent-item margin-top-30">
-
-                    <label>
-                        <input type="checkbox" class="filled-in" required />
-                        <span>
-                            I have read and agree with your
-                            <a target="_blank" href="<?php echo site_url('terms'); ?>">Terms and Conditions</a>
-                        </span>
-                    </label>
-
-                </div>
-
-                <div class="input-field col s12 consent-item">
-
-                    <label>
-                        <input type="checkbox" class="filled-in" required />
-                        <span>
-                            I have read and agree with the <a href="<?php echo site_url('privacy-policy'); ?>" target="_blank">Privacy Policy</a>
-                        </span>
-                    </label>
-
-                </div>
-
-                <div class="col s12 center margin-top-30 margin-bottom-30">
-
-                    <button id="" class="homi-btn filled full-width" type="submit">
-                        <?php echo __('Create Account', 'Profenda'); ?>
-                    </button>
-
-                </div>
-
-                <div class="clearfix"></div>
-
-            </form>
-
-        </div>
-
-
-    </div>
 
 <?php
 get_footer();

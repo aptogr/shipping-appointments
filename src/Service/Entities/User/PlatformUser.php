@@ -70,7 +70,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 
 	/**
-	 * @var $availability ShippingCompany
+	 * @var $shippingCompany ShippingCompany
 	 */
 	public $shippingCompany;
 
