@@ -33,6 +33,8 @@ Interface PagesTemplatesInterface {
 		'dashboard/find/supplier-companies.php'                         => 'Profenda Find Suppliers',
 		'dashboard/manage/edit-shipping-company-department.php'         => 'Profenda / Manage / Edit Department',
 		'dashboard/manage/edit-shipping-company.php'                    => 'Profenda / Manage / Edit Shipping Company',
+		'dashboard/book/appointment.php'                                => 'Profenda / Book / Appointment',
+		'dashboard/book/success.php'                                    => 'Profenda / Book / Success',
 
 
 		//=============================================================================================

@@ -15,6 +15,7 @@ class Dashboard {
             || is_singular( ShippingCompanyPost::POST_TYPE_NAME )
             || is_post_type_archive( AppointmentPost::POST_TYPE_NAME )
             || is_singular( AppointmentPost::POST_TYPE_NAME )
+            || is_author()
         ){
 
             return true;

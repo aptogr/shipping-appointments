@@ -4,6 +4,8 @@
 namespace ShippingAppointments\Service\Auth;
 
 
+use WP_Post;
+
 class AuthGlobalFunctions {
 
     const AUTH_PAGES = [
@@ -21,7 +23,8 @@ class AuthGlobalFunctions {
 
         global $post;
 
-        if( in_array( $post->post_name, self::AUTH_PAGES ) || in_array( $post->ID, self::AUTH_PAGES_IDS ) ){
+
+        if( isset( $post->post_name ) && ( in_array( $post->post_name, self::AUTH_PAGES ) || in_array( $post->ID, self::AUTH_PAGES_IDS ) ) ){
 	        return true;
         }
         else {
