@@ -20,6 +20,7 @@ $args = array(
 
 
 $users = get_users( $args );
+//echo count($users);
 
 //echo "<pre>";
 //var_dump($users);
@@ -43,38 +44,52 @@ foreach ( $allDays as $day ) {
 
         $userObj = new \ShippingAppointments\Service\Entities\User\PlatformUser( $user->ID );
 
+//        echo "<pre>";
+//        print_r($userObj);
+//        echo "</pre><br><br><br><br><br>";
 
-        echo "<pre>";
-        print_r($userObj->availability);
-        echo "</pre>";
+        $weekdays_available_toArray = explode(",", $userObj->weekdays_available);
 
-        if (!is_null($userObj->availability->weekdays_available_toArray)) {
-            if( in_array( $day, $userObj->availability->weekdays_available_toArray ) ){
+        if (!is_null($weekdays_available_toArray)) {
+//            echo '1111111111111111111111111111';
+            if( in_array( $day, $weekdays_available_toArray ) ){
+//                echo '2222222222222222222222222222';
                 $available = true;
-
-                if ((!is_null($userObj->availability->{$day."_time_from"})) && (!is_null($userObj->availability->{$day."_time_to"}))) {
+                if ((!is_null($userObj->{$day."_time_from"})) && (!is_null($userObj->{$day."_time_to"}))) {
 
                     $allAvailability[$day]['times'][$user->ID] = array(
-                        $day. '_time_from' => $userObj->availability->{$day."_time_from"},
-                        $day. '_time_to' => $userObj->availability->{$day."_time_to"},
+                        $day. '_time_from' => $userObj->{$day."_time_from"},
+                        $day. '_time_to' => $userObj->{$day."_time_to"},
                     );
 
                 }
 
             }
         }
-
-
-
+//        if (!is_null($userObj->availability->weekdays_available_toArray)) {
+//            if( in_array( $day, $userObj->availability->weekdays_available_toArray ) ){
+//                $available = true;
+//
+//                if ((!is_null($userObj->availability->{$day."_time_from"})) && (!is_null($userObj->availability->{$day."_time_to"}))) {
+//
+//                    $allAvailability[$day]['times'][$user->ID] = array(
+//                        $day. '_time_from' => $userObj->availability->{$day."_time_from"},
+//                        $day. '_time_to' => $userObj->availability->{$day."_time_to"},
+//                    );
+//
+//                }
+//
+//            }
+//        }
 
 //        array_push($allAvailability[$day]['employees'],$userObj);
 
 
     }
 
-
+//
 //        echo "<pre>";
-//        print_r($department);
+//        print_r($allAvailability);
 //        echo "</pre>";
 
     $weekdays_availableArray = $pieces = explode(",", $department->weekdays_available);
@@ -97,7 +112,7 @@ foreach ( $allDays as $day ) {
 }
 
 //echo "<pre>";
-//var_dump($allAvailability['sun']['times']);
+//var_dump($allAvailability);
 //echo "</pre>";
 
 
@@ -133,30 +148,37 @@ function calculateAllPossibleTimeRanges( $availableTimes, $day ){
     asort($timeAvailability);
     $timeAvailability = array_values( array_unique( $timeAvailability ) );
 
-//    echo "<pre>";
-//    var_dump($timeAvailability);
-//    echo "</pre>";
 
     $startRangeTime = $timeAvailability[0];
 
     for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
 
-        $start_date = new DateTime( $timeAvailability[$x] );
-        $since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
+        if( isset( $timeAvailability[$x] ) ){
 
-        if( $since_start->i !== 15 ){
+            $start_date = new DateTime( $timeAvailability[$x] );
+            $since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
 
-            $finalRanges[] = array(
-                'from' => $startRangeTime,
-                'to' => $timeAvailability[$x-1]
-            );
+            $totalMinDiff = $since_start->h * 60 + $since_start->i;
 
-            $startRangeTime = $timeAvailability[$x];
+            if( $totalMinDiff !== 15 ){
 
+                $finalRanges[] = array(
+                    'from' => $startRangeTime,
+                    'to' => $timeAvailability[$x-1]
+                );
+
+                $startRangeTime = $timeAvailability[$x];
+
+            }
 
         }
 
     }
+
+    $finalRanges[] = array(
+        'from' => $startRangeTime,
+        'to' => $timeAvailability[count($timeAvailability)-1]
+    );
 
     return $finalRanges;
 
@@ -187,9 +209,7 @@ function calculateAllPossibleTimeRanges( $availableTimes, $day ){
                 $i = 0;
                 foreach ($allAvailability as $key => $day) {
 
-//                        echo "<pre>";
-//                        var_dump($day['times']['department']);
-//                        echo "</pre>";
+
 
                     ?>
 
@@ -203,6 +223,11 @@ function calculateAllPossibleTimeRanges( $availableTimes, $day ){
 
 
                             <?php
+
+//                            echo "<pre>";
+//                            var_dump($day['times']);
+//                            echo "</pre>";
+
                             $timesRanges = calculateAllPossibleTimeRanges($day['times'],$key);
 
 //                            echo "<pre>";
@@ -210,12 +235,12 @@ function calculateAllPossibleTimeRanges( $availableTimes, $day ){
 //                            echo "</pre>";
 
 
-                            $testor = '';
+                            $timesRangesResult = '';
 
                             foreach ($timesRanges as $timesRangeSingle) {
 
-                                $testor .= implode(",", $timesRangeSingle);
-                                $testor .= ',';
+                                $timesRangesResult .= implode(",", $timesRangeSingle);
+                                $timesRangesResult .= ',';
 
                                 echo "<div>";
                                 foreach ($timesRangeSingle as $timesRangeSingleOneKey => $timesRangeSingleOne) {
@@ -227,10 +252,10 @@ function calculateAllPossibleTimeRanges( $availableTimes, $day ){
                                 echo "</div>";
                             }
 
-                            $testor = substr($testor, 0, -1);
+                            $timesRangesResult = substr($timesRangesResult, 0, -1);
 
                             ?>
-                            <input id="<?php echo $key."TimeRange"; ?>" type="hidden" value="<?php echo $testor;?>">
+                            <input id="<?php echo $key."TimeRange"; ?>" type="hidden" value="<?php echo $timesRangesResult;?>">
                         </td>
 
                         <td>
@@ -240,23 +265,33 @@ function calculateAllPossibleTimeRanges( $availableTimes, $day ){
                                 </div>
                                 <div class="employeeTimes">
 
-                                    <?php echo $day['times']['department']{$key . "_time_from"}." - ".$day['times']['department']{$key . "_time_to"};?>
+                                    <?php //echo $day['times']['department']{$key . "_time_from"}." - ".$day['times']['department']{$key . "_time_to"};?>
+                                    <?php echo $day['times']['department'][$key . "_time_from"]." - ".$day['times']['department'][$key . "_time_to"];?>
                                 </div>
                             </div>
                             <?php
 
+
                                 foreach ($day['times'] as $emplId => $dayTimes) {
+
                                     if ($emplId != 'department') {
 
+
                                         $employee = new \ShippingAppointments\Service\Entities\User\PlatformUser( $emplId );
+
+//                                        echo "<pre>";
+//                                        print_r(get_user_by( 'ID', $emplId )->data->display_name);
+//                                        print_r($employee);
+//                                        echo "</pre>";
 
                                         ?>
                                             <div class="employeeNameTimes flex flex-just-space-b" style="border-bottom: 1px solid #f0f0f0;">
                                                 <div class="employeeName">
-                                                    <?php echo $employee->availability->author->first_name. ' ' . $employee->availability->author->last_name[0];?>.
+<!--                                                    --><?php //echo $employee->availability->author->first_name. ' ' . $employee->availability->author->last_name[0];?><!--.-->
+                                                    <?php echo get_user_by( 'ID', $emplId )->data->display_name;?>.
                                                 </div>
                                                 <div class="employeeTimes">
-                                                    <?php echo $dayTimes{$key . "_time_from"}." - ".$dayTimes{$key . "_time_to"};?>
+                                                    <?php echo $dayTimes[$key . "_time_from"]." - ".$dayTimes[$key . "_time_to"];?>
                                                 </div>
                                             </div>
 
