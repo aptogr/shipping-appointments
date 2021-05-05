@@ -5,6 +5,7 @@ use ShippingAppointments\Service\Entities\Appointment;
 get_header();
 
 $appointment = new Appointment( get_queried_object_id() );
+
 ?>
 
     <div class="dashboard-panel-page-header full-width flex flex-center">

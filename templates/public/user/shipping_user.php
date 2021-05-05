@@ -4,7 +4,6 @@
 
 $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_queried_object_id() );
 
-//$allDays = array('mon','tue','wed','thu','fri','sat','sun');
 
 //echo "<pre>";
 ////print_r($platformUser->availability->postMeta);
@@ -248,8 +247,8 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                             <div class="col m6 l5 s12">
                                 <div
                                         class="calendar shippingUser"
-                                        data-disabledates="<?php echo $platformUser->availability->excluded_dates;?>"
-                                        data-disabledweekdays="<?php $platformUser->weekdaysDisalable($platformUser->availability->weekdays_available);?>"
+                                        data-disabledates="<?php echo $platformUser->excluded_dates;?>"
+                                        data-disabledweekdays="<?php $platformUser->weekdaysDisalable($platformUser->weekdays_available);?>"
                                         data-bookinadvance="<?php echo $platformUser->book_in_advance_days;?>"
                                         data-scheduledates="null/2001-01-01"
                                 ></div>
@@ -299,13 +298,13 @@ $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( ge
                 <tr>
                     <td>From</td>
                     <?php foreach ($platformUser::ALL_DAYS as $day) { ?>
-                        <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_from'}); ?></td>
+                        <td><?php echo $platformUser->dayActive($platformUser->weekdays_available,$day,$platformUser->{$day.'_time_from'}); ?></td>
                     <?php } ?>
                 </tr>
                 <tr>
                     <td>To</td>
                     <?php foreach ($platformUser::ALL_DAYS as $day) { ?>
-                        <td><?php echo $platformUser->dayActive($platformUser->availability->weekdays_available,$day,$platformUser->availability->{$day.'_time_to'}); ?></td>
+                        <td><?php echo $platformUser->dayActive($platformUser->weekdays_available,$day,$platformUser->{$day.'_time_to'}); ?></td>
                     <?php } ?>
                 </tr>
             </table>

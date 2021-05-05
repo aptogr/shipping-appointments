@@ -740,7 +740,7 @@ class UserFields {
                 ),
                 array(
                     'id'   => self::META_FIELDS_SLUG['fri_time_from'],
-                    'name' => esc_html__( 'Friday time to' ),
+                    'name' => esc_html__( 'Friday time from' ),
                     'type' => 'text',
                 ),
                 array(
@@ -760,7 +760,7 @@ class UserFields {
                 ),
                 array(
                     'id'   => self::META_FIELDS_SLUG['sun_time_from'],
-                    'name' => esc_html__( 'Sunday time to' ),
+                    'name' => esc_html__( 'Sunday time from' ),
                     'type' => 'text',
                 ),
                 array(
