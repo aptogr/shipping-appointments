@@ -21,6 +21,9 @@ $args = array(
 
 $users = get_users( $args );
 
+//echo "<pre>";
+//var_dump($users);
+//echo "</pre>";
 
 $allDays = array('mon','tue','wed','thu','fri','sat','sun');
 $allDaysFull = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
@@ -41,9 +44,9 @@ foreach ( $allDays as $day ) {
         $userObj = new \ShippingAppointments\Service\Entities\User\PlatformUser( $user->ID );
 
 
-//        echo "<pre>";
-//        print_r($userObj);
-//        echo "</pre>";
+        echo "<pre>";
+        print_r($userObj->availability);
+        echo "</pre>";
 
         if (!is_null($userObj->availability->weekdays_available_toArray)) {
             if( in_array( $day, $userObj->availability->weekdays_available_toArray ) ){
