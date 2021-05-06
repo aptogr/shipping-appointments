@@ -4,6 +4,7 @@ namespace ShippingAppointments\Controller\Ajax;
 
 use ShippingAppointments\Interfaces\AjaxInterface;
 use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
+use ShippingAppointments\Service\Entities\User\PlatformUser;
 
 class AjaxController implements AjaxInterface {
 
@@ -188,11 +189,27 @@ class AjaxController implements AjaxInterface {
 	    );
 
 	    $dashboardBooking = new DashboardBooking( $params['company'], $params );
-	    $result['html'] = $dashboardBooking->getEmployeesField();
+	    $result['employeeStep'] = $dashboardBooking->getEmployeesField();
+	    $result['dateStep'] = $dashboardBooking->getDateField();
+	    $result['timeStep'] = $dashboardBooking->getTimeField();
+	    $result['meetingTypeStep'] = $dashboardBooking->getMeetingTypeField();
 
 	    wp_send_json( $result );
 	    wp_die();
 
+
+    }
+
+    public function bookGetEmployeeAvailability(){
+
+    	$platformUser =  new PlatformUser( intval( $_POST['user_id'] ) );
+
+    	$result = array(
+    		'html'  => $platformUser->getAvailabilityTable()
+	    );
+
+	    wp_send_json( $result );
+	    wp_die();
 
     }
 

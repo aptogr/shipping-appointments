@@ -207,6 +207,37 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 	}
 
 
+	public function isVisible(): bool {
+
+		if( $this->isWebsiteAdmin() || $this->isShippingCompanyAdmin() || $this->isDepartmentAdmin() ||  $this->isShippingCompanyEmployee() ){
+
+			if( $this->shippingCompany->isAllUsersVisible() ){
+				return true;
+			}
+			else if( $this->shippingCompany->isAllUsersInvisible() ){
+				return false;
+			}
+			else {
+
+				if( $this->department->isAllUsersVisible() ){
+					return true;
+				}
+				else if ( $this->department->isAllUsersInvisible() ){
+					return false;
+				}
+				else {
+					return $this->visible === 'user_visibile';
+				}
+
+			}
+
+		}
+		else {
+			return true;
+		}
+
+	}
+
 	/**
 	 * @return bool
 	 */
@@ -223,6 +254,8 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 		}
 
     }
+
+
 
 	public function canEditAvailability() {
 
@@ -402,5 +435,49 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
         return (!stristr($weekDays, $day)? '-' : $time);
 
     }
+
+	public function getFullName(): string {
+
+    	return $this->first_name . ' ' . $this->last_name;
+
+	}
+
+
+	public function getAvailabilityTable(){
+
+    	ob_start();
+
+    	?>
+
+		<table>
+			<tr>
+				<th></th>
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+				<th>Saturday</th>
+				<th>Sunday</th>
+			</tr>
+			<tr>
+				<td>From</td>
+				<?php foreach ( self::ALL_DAYS as $day) { ?>
+					<td><?php echo $this->dayActive($this->weekdays_available,$day,$this->{$day.'_time_from'}); ?></td>
+				<?php } ?>
+			</tr>
+			<tr>
+				<td>To</td>
+				<?php foreach (self::ALL_DAYS as $day) { ?>
+					<td><?php echo $this->dayActive($this->weekdays_available,$day,$this->{$day.'_time_to'}); ?></td>
+				<?php } ?>
+			</tr>
+		</table>
+
+		<?php
+
+    	return ob_get_clean();
+
+	}
 
 }

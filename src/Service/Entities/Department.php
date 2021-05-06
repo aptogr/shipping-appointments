@@ -113,4 +113,16 @@ class Department {
 
 	}
 
+	public function isAllUsersVisible(): bool {
+
+		return $this->users_visibility === 'department_users_visibile';
+
+	}
+
+	public function isAllUsersInvisible(): bool {
+
+		return $this->users_visibility === 'department_users_invisibile';
+
+	}
+
 }

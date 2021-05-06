@@ -146,4 +146,23 @@ class ShippingCompany {
     }
 
 
+    public function isAllUsersVisible(): bool {
+
+    	return $this->company_users_visibility === 'company_users_visibile';
+
+    }
+
+    public function isAllUsersInvisible(): bool {
+
+    	return $this->company_users_visibility === 'company_users_invisibile';
+
+    }
+
+    public function isUsersVisibilityDepartment(): bool {
+
+    	return $this->company_users_visibility === 'company_users_department';
+
+    }
+
+
 }

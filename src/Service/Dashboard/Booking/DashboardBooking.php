@@ -8,6 +8,7 @@ use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\DepartmentType as DepartmentTypeEntity;
 use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\Taxonomy\DepartmentType;
 
 class DashboardBooking {
@@ -23,6 +24,7 @@ class DashboardBooking {
 
 	public $company;
 	public $department;
+	public $selectedEmployeeUser;
 
 	public function __construct( $companyID, $settings ){
 
@@ -32,6 +34,7 @@ class DashboardBooking {
 		$this->department           = ( $this->selectedDepartment !== false  ? new Department( $this->selectedDepartment ) : false );
 		$this->selectedEmployeeType = ( isset( $settings['employee_type'] ) && !empty( $settings['employee_type'] ) ? $settings['employee_type'] : false );
 		$this->selectedEmployee     = ( isset( $settings['employee'] ) && !empty( $settings['employee'] ) ? $settings['employee'] : false );
+		$this->selectedEmployeeUser = ( $this->selectedEmployee !== false  ? new PlatformUser( intval($this->selectedEmployee) ) : false );
 		$this->selectedDate         = ( isset( $settings['date'] ) && !empty( $settings['date'] ) ? $settings['date'] : false );
 		$this->selectedTime         = ( isset( $settings['time'] ) && !empty( $settings['time'] ) ? $settings['time'] : false );
 		$this->selectedMeetingType  = ( isset( $settings['type'] ) && !empty( $settings['type'] ) ? $settings['type'] : false );
@@ -132,44 +135,68 @@ class DashboardBooking {
 
         <?php if( $this->department !== false ): ?>
 
-        <table class="select-employees-table margin-top-30 <?php echo( $this->selectedEmployeeType !== 'specific' ? 'hide': ''); ?>">
-            <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Preview Availability
-                </th>
-                <th>
-                    Select
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-			<?php foreach( $this->department->users as $user_id ): $employee = new PlatformUser( $user_id );  ?>
+            <?php if( $this->company->isAllUsersInvisible() === false && $this->department->isAllUsersInvisible() === false ): ?>
 
-                <tr class="<?php echo ( intval($this->selectedEmployee ) === $employee->ID ? 'selected' : '' ); ?>">
-                    <td class="employee-name">
-						<?php echo $employee->first_name . ' ' . $employee->last_name; ?>
-                    </td>
-                    <td>
-                        <a href="#" class="profenda-btn display-inline-block view-availability" data-id="<?php echo $employee->ID; ?>">
+                <table class="select-employees-table margin-top-30 <?php echo( $this->selectedEmployeeType !== 'specific' ? 'hide': ''); ?>">
+                    <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
                             Preview Availability
-                        </a>
+                        </th>
+                        <th>
+                            Select
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach( $this->department->users as $user_id ): $employee = new PlatformUser( $user_id );  ?>
 
-                    </td>
-                    <td>
-                        <a href="#" class="profenda-btn filled display-inline-block select-employee-btn" data-id="<?php echo $employee->ID; ?>">
-	                        <?php echo ( intval($this->selectedEmployee ) === $employee->ID ? 'Selected' : 'Select this Employee' ); ?>
-                        </a>
+                        <?php if( $employee->isVisible() ): ?>
 
-                    </td>
-                </tr>
+                            <tr class="<?php echo ( intval($this->selectedEmployee ) === $employee->ID ? 'selected' : '' ); ?>">
+                                <td class="employee-name">
+                                    <?php echo $employee->first_name . ' ' . $employee->last_name; ?>
+                                </td>
+                                <td>
+                                    <a href="#" class="profenda-btn display-inline-block view-availability" data-id="<?php echo $employee->ID; ?>">
+                                        Preview Availability
+                                    </a>
 
-			<?php endforeach; ?>
-            </tbody>
-        </table>
+                                </td>
+                                <td>
+                                    <a href="#" class="profenda-btn filled display-inline-block select-employee-btn" data-id="<?php echo $employee->ID; ?>">
+                                        <?php echo ( intval($this->selectedEmployee ) === $employee->ID ? 'Selected' : 'Select this Employee' ); ?>
+                                    </a>
+
+                                </td>
+                            </tr>
+
+                        <?php endif; ?>
+
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            <?php elseif ( $this->company->isAllUsersInvisible() ): ?>
+
+                <p>
+                    The company has invisible users
+                </p>
+
+			<?php elseif (  $this->department->isAllUsersInvisible() ): ?>
+
+                <p>
+                    The department has invisible users
+                </p>
+
+            <?php else: ?>
+
+
+
+			<?php endif; ?>
 
         <?php endif; ?>
 
@@ -181,9 +208,62 @@ class DashboardBooking {
 
 	public function getDateField(){
 
+		ob_start();
+
+		?>
+
+        <div class="col s12 input-field">
+
+            <label for="date">
+                Selected Appointment Date
+            </label>
+
+            <input id="date" type="date" name="date" value="<?php echo $this->selectedDate; ?>">
+
+        </div>
+
+        <strong>
+            <?php if( $this->selectedEmployeeType === 'specific'): ?>
+
+                Show calendar based on the availability of
+                <?php echo ( $this->selectedEmployeeUser !== false ? $this->selectedEmployeeUser->getFullName() : 'the employee that will be selected'); ?>
+
+            <?php else: ?>
+
+                Show calendar based on the overall availability of the <?php echo $this->department->departmentType->term->name; ?>.
+
+            <?php endif; ?>
+
+        </strong>
+
+        <?php
+
+        return ob_get_clean();
+
 	}
 
 	public function getTimeField(){
+
+		ob_start();
+
+		?>
+
+        <strong>
+		<?php if( $this->selectedEmployeeType === 'specific' && $this->selectedEmployeeUser !== false ): ?>
+
+            Show times based on the availability of <?php echo $this->selectedEmployeeUser->getFullName(); ?> and the selected date: <?php echo $this->selectedDate; ?>
+
+		<?php else: ?>
+
+            Show times based on the overall availability of the <?php echo $this->department->departmentType->term->name; ?> and the selected date: <?php echo $this->selectedDate; ?>
+
+		<?php endif; ?>
+        </strong>
+
+
+		<?php
+
+		return ob_get_clean();
 
 	}
 
@@ -191,27 +271,28 @@ class DashboardBooking {
 
 	    ob_start();
 
+	    $availableMeetingTypes = $this->getAvailableMeetingTypes();
 	    ?>
 
         <div class="flex full-width radio-with-icons">
 
-            <label for="one_to_one" class="radio-with-icon flex-grow flex flex-center">
+            <label for="one_to_one" class="radio-with-icon flex-grow flex flex-center <?php echo ( $this->selectedMeetingType === 'one_to_one' ? 'selected' : ''); ?> <?php echo ( !in_array('one_to_one', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
 
-                <input id="one_to_one" type="radio" value="one_to_one" name="type">
+                <input id="one_to_one" type="radio" value="one_to_one" name="type" <?php echo ( $this->selectedMeetingType === 'one_to_one' ? 'checked' : ''); ?>>
 
                 <span class="department-icon">
                     <svg  id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M406,241c-41.353,0-75,33.647-75,75c0,41.353,33.647,75,75,75c41.353,0,75-33.647,75-75C481,274.647,447.353,241,406,241z"></path></g></g><g><g><path d="M479.251,391c-18.939,18.499-44.753,30-73.251,30c-28.498,0-54.313-11.501-73.251-30C313.217,410.08,301,436.608,301,466v31c0,8.291,6.709,15,15,15h181c8.291,0,15-6.709,15-15v-31C512,436.608,498.783,410.08,479.251,391z"></path></g></g><g><g><path d="M106,0C64.647,0,31,34.647,31,76c0,41.353,33.647,75,75,75c41.353,0,75-33.647,75-75C181,34.647,147.353,0,106,0z"></path></g></g><g><g><path d="M179.251,151c-18.939,18.499-44.753,30-73.251,30c-28.498,0-54.313-11.501-73.251-30C13.217,170.08,0,196.608,0,226v30c0,8.291,6.709,15,15,15h181c8.291,0,15-6.709,15-15v-30C211,196.608,198.783,170.08,179.251,151z"></path></g></g><g><g><path d="M256,61c-15.621,0-30.95,2.278-45.919,5.903C210.348,69.95,211,72.885,211,76c0,7.551-0.883,14.886-2.404,21.989C223.874,93.415,239.81,91,256,91c75.688,0,139.473,51.292,158.833,120.894c11.459,0.974,22.513,3.347,32.635,7.72C430.359,129.441,351.074,61,256,61z"></path></g></g><g><g><path d="M256,421c-75.366,0-138.95-50.85-158.604-120H66.451C86.847,386.864,163.99,451,256,451c5.574,0,11.083-0.379,16.577-0.839c1.262-10.704,3.571-21.114,7.293-31.077C272.009,420.222,264.073,421,256,421z"></path></g></g></svg>
                 </span>
 
                 <span class="department-name">
-                    One to One
+                    One to One Meeting <?php echo ( !in_array('one_to_one', $availableMeetingTypes ) ? '<span>(Not Available)</span>' : '' ); ?>
                 </span>
 
             </label>
 
-            <label for="phone" class="radio-with-icon flex-grow flex flex-center">
+            <label for="phone" class="radio-with-icon flex-grow flex flex-center <?php echo ( $this->selectedMeetingType === 'phone' ? 'selected' : ''); ?> <?php echo ( !in_array('phone', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
 
-                <input id="phone" type="radio" value="phone" name="type">
+                <input id="phone" type="radio" value="phone" name="type" <?php echo ( $this->selectedMeetingType === 'phone' ? 'checked' : ''); ?>>
 
                 <span class="department-icon">
 
@@ -220,14 +301,14 @@ class DashboardBooking {
                 </span>
 
                 <span class="department-name">
-                    Phone
+                    Phone Meeting <?php echo ( !in_array('phone', $availableMeetingTypes ) ? '<span>(Not Available)</span>' : '' ); ?>
                 </span>
 
             </label>
 
-            <label for="web" class="radio-with-icon flex-grow flex flex-center no-margin-right">
+            <label for="web" class="radio-with-icon flex-grow flex flex-center no-margin-right <?php echo ( $this->selectedMeetingType === 'web' ? 'selected' : ''); ?> <?php echo ( !in_array('web', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
 
-                <input id="web" type="radio" value="web" name="type">
+                <input id="web" type="radio" value="web" name="type" <?php echo ( $this->selectedMeetingType === 'web' ? 'checked' : ''); ?>>
 
                 <span class="department-icon">
 
@@ -236,7 +317,7 @@ class DashboardBooking {
                 </span>
 
                 <span class="department-name">
-                    Web
+                    Web Meeting <?php echo ( !in_array('web', $availableMeetingTypes ) ? '<span>(Not Available)</span>' : '' ); ?>
                 </span>
 
             </label>
@@ -249,6 +330,118 @@ class DashboardBooking {
 	}
 
 	public function getMeetingReasonField(){
+
+		ob_start();
+
+		?>
+
+        <div class="col s12 margin-bottom-50  no-padding-left">
+
+            <h3>
+                Select the reason of the appointment
+            </h3>
+
+            <div class="flex full-width radio-with-icons">
+
+		        <?php foreach( AppointmentPost::ALL_FIELDS['reason']['options'] as $value => $label ): ?>
+
+                    <label for="<?php echo $value; ?>" class="radio-with-icon flex-grow flex flex-center">
+
+                        <input id="<?php echo $value; ?>" type="radio" value="<?php echo $value; ?>" name="reason">
+
+                        <span class="department-name center">
+                       <?php echo $label; ?>
+                    </span>
+
+                    </label>
+
+		        <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+        <div class="flex full-width margin-bottom-20">
+
+            <div class="col l6 s12 no-margin-left input-field textarea-field  no-padding-left">
+
+                <label for="questions">
+                    <h3>Add a free text message</h3>
+                </label>
+
+                <textarea id="questions" name="questions"></textarea>
+
+            </div>
+
+            <div class="col l6 s12">
+
+                <label for="file">
+                    <h3>Upload a file (Optional)</h3>
+                </label>
+
+                <div class="drop-zone">
+                    <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                    <input id="file" type="file" name="myFile" class="drop-zone__input">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+		<?php
+		return ob_get_clean();
+
+	}
+
+
+	private function mapMeetingTypes( $meetingTypes ): array {
+
+	    $mapped = array();
+
+		$mapping = array(
+			'physical_location'    => 'one_to_one',
+			'phone_call'           => 'phone',
+			'online'               => 'web',
+		);
+
+		foreach( $meetingTypes as $type ){
+
+		    if( isset( $mapping[ $type ] ) ){
+
+			    $mapped[] = $mapping[ $type ];
+
+		    }
+
+		}
+
+		return $mapped;
+
+	}
+
+	private function getAvailableMeetingTypes(): array {
+
+	    if( $this->company->meeting_type === 'company' ){
+
+	        return $this->mapMeetingTypes( $this->company->meeting_types_available );
+
+	    }
+	    else {
+
+	        if( $this->department->meeting_types === 'department' ){
+
+		        return $this->mapMeetingTypes(  $this->department->meeting_types_available );
+
+	        }
+	        else {
+
+	            $platformUser = new PlatformUser( intval( $this->selectedEmployee ) );
+		        return $this->mapMeetingTypes(  $platformUser->booking_method );
+
+	        }
+
+	    }
 
 	}
 

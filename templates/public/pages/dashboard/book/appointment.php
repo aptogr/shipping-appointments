@@ -39,7 +39,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
 			<div class="booking-steps margin-top-80 margin-bottom-50">
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-bottom-30">
+                <div class="booking-step-wrapper flex flex-center full-width padding-bottom-30 <?php echo( $dashboardBooking->department !== false ? 'completed' : ''); ?>">
 
                     <div class="step-counter">
                         1
@@ -110,7 +110,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="dateStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
 
                     <div class="step-counter">
                         3
@@ -132,7 +132,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                         <div class="booking-step-field">
 
-			                <?php //echo $dashboardBooking->getDepartmentsField(); ?>
+			                <?php echo $dashboardBooking->getDateField(); ?>
 
                         </div>
 
@@ -141,7 +141,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="timeStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
 
                     <div class="step-counter">
                         4
@@ -163,7 +163,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                         <div class="booking-step-field">
 
-			                <?php //echo $dashboardBooking->getDepartmentsField(); ?>
+			                <?php echo $dashboardBooking->getTimeField(); ?>
 
                         </div>
 
@@ -172,7 +172,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="meetingTypeStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
 
                     <div class="step-counter">
                         5
@@ -225,7 +225,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                         <div class="booking-step-field">
 
-			                <?php //echo $dashboardBooking->getDepartmentsField(); ?>
+			                <?php echo $dashboardBooking->getMeetingReasonField(); ?>
 
                         </div>
 
@@ -241,6 +241,18 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 		</form>
 
 	</div>
+
+    <div id="availabilityModal" class="profenda-modal">
+
+        <div class="profenda-modal-header">
+            Availability
+        </div>
+        <div class="profenda-modal-content">
+
+        </div>
+
+    </div>
+    <div class="modal-overlay"></div>
 
 </div>
 
