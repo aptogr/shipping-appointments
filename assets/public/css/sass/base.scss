@@ -40,6 +40,7 @@
 @import "components/brands";
 @import "components/notice-in-page";
 @import "components/setting-field-wrapper";
+@import "components/loader";
 
 @import "project/fonts";
 @import "project/utility";
@@ -51,6 +52,7 @@
 
 @import "components/appointments/single-appointment.scss";
 @import "components/appointments/appointments-global.scss";
+@import "components/appointments/book-appointment.scss";
 
 
 @media screen and (max-width: 600px) {

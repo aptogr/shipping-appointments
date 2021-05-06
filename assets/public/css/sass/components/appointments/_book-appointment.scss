@@ -1,0 +1,16 @@
+.loading-field {
+  position: fixed;
+  width: calc(100vw - 250px);
+  top: 0;
+  left: 250px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.8);
+  z-index: 2;
+}
+
+.book-company-name {
+  color:#02569c;
+}

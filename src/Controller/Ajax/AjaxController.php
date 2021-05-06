@@ -3,6 +3,7 @@
 namespace ShippingAppointments\Controller\Ajax;
 
 use ShippingAppointments\Interfaces\AjaxInterface;
+use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
 
 class AjaxController implements AjaxInterface {
 
@@ -177,5 +178,22 @@ class AjaxController implements AjaxInterface {
 
     }
 
+    public function bookGetEmployeesField(){
+
+	    $params = array();
+	    parse_str( $_POST['data'], $params );
+
+	    $result = array(
+	        'data'  => 	$params
+	    );
+
+	    $dashboardBooking = new DashboardBooking( $params['company'], $params );
+	    $result['html'] = $dashboardBooking->getEmployeesField();
+
+	    wp_send_json( $result );
+	    wp_die();
+
+
+    }
 
 }

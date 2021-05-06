@@ -21,6 +21,10 @@ Interface AjaxInterface {
             'callback' => 'getBrands',
             'nopriv'   => false,
         ),
+        'bookGetEmployeesField' => array(
+            'callback' => 'bookGetEmployeesField',
+            'nopriv'   => false,
+        ),
     );
 
 }

@@ -63,7 +63,7 @@ class DashboardBooking {
 		ob_start();
 		?>
 
-        <div class="flex full-width radio-with-icons">
+        <div id="departmentField" class="flex full-width radio-with-icons">
 
 	        <?php foreach( $activeDepartments as $department ): ?>
 
@@ -96,7 +96,7 @@ class DashboardBooking {
 		ob_start();
 		?>
 
-        <div class="flex full-width radio-with-icons">
+        <div id="employeeType" class="flex full-width radio-with-icons">
 
             <label for="anyone" class="radio-with-icon flex-grow flex flex-center  <?php echo ( $this->selectedEmployeeType === 'anyone' ? 'selected' : ''); ?>">
 
@@ -128,11 +128,11 @@ class DashboardBooking {
 
         </div>
 
-        <input type="hidden" name="employee" value="<?php echo ( $this->selectedEmployee !== false ? $this->selectedEmployee : '' ); ?>">
+        <input id="selectedEmployee" type="hidden" name="employee" value="<?php echo ( $this->selectedEmployee !== false ? $this->selectedEmployee : '' ); ?>">
 
         <?php if( $this->department !== false ): ?>
 
-        <table class="select-employees-table margin-top-30">
+        <table class="select-employees-table margin-top-30 <?php echo( $this->selectedEmployeeType !== 'specific' ? 'hide': ''); ?>">
             <thead>
             <tr>
                 <th>
