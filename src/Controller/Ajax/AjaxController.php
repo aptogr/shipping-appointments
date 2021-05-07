@@ -87,17 +87,16 @@ class AjaxController implements AjaxInterface {
 
     }
 
+    public function  getTimeByDate() {
+
+    }
+
     public function getTime(){
 
         $date = $_POST['date'];
         $da_post_author = $_POST['da_post_author'];
 
         $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( $da_post_author );
-//        $platformUser = new \ShippingAppointments\Service\Entities\User\PlatformUser( get_current_user_id() );
-
-//        $params = array();
-//        parse_str( $_POST['data'], $params );
-
 
         $day = strtolower(date('D', strtotime($date)));
         $fullDay = date('l', strtotime($date));

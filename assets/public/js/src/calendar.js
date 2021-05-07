@@ -6,9 +6,6 @@
 
     $(document).ready(function(){
 
-        console.log('calendar.js loaded')
-
-
         function departmentBook(day) {
 
             // console.log(day);
@@ -223,6 +220,7 @@
          */
         if ($('.calendar').length > 0) {
             // console.log('calendar detected');
+            console.log('calendar.js loaded')
 
             if ($('.calendar').attr('data-bookinadvance')) {
                 var bookinadvance = $('.calendar').data('bookinadvance');

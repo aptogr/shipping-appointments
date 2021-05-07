@@ -5,6 +5,87 @@
     $(document).ready(function(){
 
         var loading = $('.loading-field ');
+        var yesterdayDate = new Date(Date.now() - 864e5).toJSON().slice(0,10).toString();
+
+
+        function initCalendar(){
+
+            var calendar = $('.calendar');
+            // Calendar things
+            if (calendar.length > 0) {
+
+                if (calendar.attr('data-bookinadvance')) {
+                    var bookinadvance = calendar.data('bookinadvance');
+                    yesterdayDate = new Date(new Date().getTime() + ( (24 * 60 * 60 * 1000) * ( bookinadvance - 1 ) ) ).toJSON().slice(0,10)
+                }
+
+                if (calendar.attr('data-disabledates')) {
+                    var disabledatesHTML = calendar.data('disabledates').split(",");
+                }
+
+
+                if (calendar.attr('data-selecteddate')) {
+                    var selecteddateHTML = calendar.data('selecteddate');
+                }
+
+                var disabledWeekdaysHTML = calendar.attr('data-disabledweekdays')
+
+                if (!disabledWeekdaysHTML) {
+                    var disabledWeekdaysHTML = "-1";
+                }
+
+                var disabledWeekdaysHTML = disabledWeekdaysHTML.split(",").map(Number);
+
+                calendar.pignoseCalendar({
+                    week: 1,
+                    format: 'YYYY-MM-DD',
+                    date: moment(selecteddateHTML),
+                    disabledDates: disabledatesHTML,
+                    disabledWeekdays: disabledWeekdaysHTML,
+                    disabledRanges: [['2000-01-01', yesterdayDate]],
+
+                    click: function (event, context) {
+
+                        var that = $(this);
+                        var date = that[0].dataset.date; //Hmerominia sto click
+                        // console.log(date);
+                        // console.log('context',context);
+                        // console.log('that',$(this));
+
+                        if (!that.hasClass('pignose-calendar-unit-disabled')) {
+
+                            $('#date').val(date);
+                            $('#date').trigger('change');
+
+
+
+                        } else {
+                            console.log( date + ' has passed..' )
+                        }
+
+                    }
+
+                });
+            } // Calendar things END
+
+        }
+
+
+        function initTimePicker(){
+
+            var disabledTimes = $('#userDisableTime').text();
+            disabledTimes = JSON.parse( disabledTimes );
+            console.log( disabledTimes );
+
+            $('#bookTime').timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'show2400': true,
+                'disableTimeRanges': disabledTimes
+            });
+
+        }
+
 
         function updateSteps(){
 
@@ -22,12 +103,15 @@
                 },
                 success: function (response) {
 
-                    console.log(response);
+                    // console.log(response);
                     loading.addClass('hide');
                     $('#employeeStep').find('.booking-step-field').html(response.employeeStep);
                     $('#dateStep').find('.booking-step-field').html(response.dateStep);
                     $('#timeStep').find('.booking-step-field').html(response.timeStep);
                     $('#meetingTypeStep').find('.booking-step-field').html(response.meetingTypeStep);
+
+                    initCalendar();
+                    initTimePicker();
 
                 }
 
@@ -57,6 +141,7 @@
 
                     $('#selectedEmployee').val($(this).attr('data-id'));
                     $('#employeeStep').addClass('completed');
+
                     updateSteps();
 
                 }

@@ -225,14 +225,38 @@ class DashboardBooking {
         <strong>
             <?php if( $this->selectedEmployeeType === 'specific'): ?>
 
-                Show calendar based on the availability of
                 <?php echo ( $this->selectedEmployeeUser !== false ? $this->selectedEmployeeUser->getFullName() : 'the employee that will be selected'); ?>
 
+                <?php
+
+                $cal_excluded_dates = $this->selectedEmployeeUser->excluded_dates;
+                $cal_weekdaysDisalable = $this->selectedEmployeeUser->weekdaysDisalable($this->selectedEmployeeUser->weekdays_available);
+
+                ?>
+
+
             <?php else: ?>
+
+                <?php
+
+                $cal_excluded_dates = $this->department->excluded_dates;
+                $cal_weekdaysDisalable = $this->department->weekdaysDisalable($this->department->weekdays_available);
+
+                ?>
 
                 Show calendar based on the overall availability of the <?php echo $this->department->departmentType->term->name; ?>.
 
             <?php endif; ?>
+
+            <div
+                    class="calendar availability col l6 m6 margin-bottom-30 margin-top-30"
+                    data-disabledates="<?php echo $cal_excluded_dates; ?>"
+                    data-disabledweekdays="<?php echo $cal_weekdaysDisalable; ?>"
+                    data-scheduledates="null/2001-01-01"
+                    data-selecteddate="<?php echo $this->selectedDate; ?>"
+            ></div>
+
+            <?php echo $this->department->weekdaysDisalable($this->department->weekdays_available); ?>
 
         </strong>
 
@@ -248,16 +272,41 @@ class DashboardBooking {
 
 		?>
 
+
         <strong>
 		<?php if( $this->selectedEmployeeType === 'specific' && $this->selectedEmployeeUser !== false ): ?>
 
             Show times based on the availability of <?php echo $this->selectedEmployeeUser->getFullName(); ?> and the selected date: <?php echo $this->selectedDate; ?>
+            <?php
+                $selectedDay = strtolower(date('D', strtotime($this->selectedDate)));
+                $from = $selectedDay."_time_from";
+                $to = $selectedDay."_time_to";
+
+
+                $disableTime = array(
+                        array('00:00', $this->selectedEmployeeUser->{$from}),
+                        array($this->selectedEmployeeUser->{$to},'24:00'),
+                );
+            ?>
+
+            <div id="userDisableTime" class="hide">
+                <?php echo json_encode($disableTime); ?>
+            </div>
+
+            <input type="text" class="timeSelect timepicker" id="bookTime" name="" value="">
+            <?php
+//            echo "<pre>";
+//            print_r($this->selectedEmployeeUser);
+//            echo "</pre>";
+            ?>
+
 
 		<?php else: ?>
 
             Show times based on the overall availability of the <?php echo $this->department->departmentType->term->name; ?> and the selected date: <?php echo $this->selectedDate; ?>
 
 		<?php endif; ?>
+
         </strong>
 
 
