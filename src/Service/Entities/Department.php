@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Service\Entities;
 
+use DateTime;
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\Taxonomy\DepartmentType;
 use ShippingAppointments\Service\Entities\DepartmentType as DepartmentTypeEntity;
@@ -127,6 +128,12 @@ class Department {
 
     public function weekdaysDisalable($weekDays) {
 
+        echo $this->getWeekdaysDisable($weekDays);
+    }
+
+    public function getWeekdaysDisable($weekDays) {
+
+
         $weekDaysReturnArray = array();
 
         if (!stristr($weekDays, "mon")) {
@@ -151,8 +158,78 @@ class Department {
             array_push($weekDaysReturnArray, "0");
         }
 
-        $weekDaysReturn = implode(",", $weekDaysReturnArray);
-        echo $weekDaysReturn;
+        return implode(",", $weekDaysReturnArray);
+
     }
+
+
+    public function createTimeRange($start, $end, $interval = '30 mins') {
+        $startTime = strtotime($start);
+        $endTime = strtotime($end);
+        $returnTimeFormat = 'H:i';
+
+        $current = time();
+        $addTime = strtotime('+'.$interval, $current);
+        $diff = $addTime - $current;
+
+        $times = array();
+        while ($startTime < $endTime) {
+            $times[] = date($returnTimeFormat, $startTime);
+            $startTime += $diff;
+        }
+        $times[] = date($returnTimeFormat, $startTime);
+        return $times;
+    }
+
+    public function calculateAllPossibleTimeRanges( $availableTimes, $day ){
+
+        $finalRanges = array();
+        $timeAvailability = array();
+
+        foreach( $availableTimes as $timeRange ){
+
+            $times = $this->createTimeRange( $timeRange[$day . "_time_from"], $timeRange[$day . "_time_to"], '15 mins' );
+            $timeAvailability = array_merge( $timeAvailability, $times );
+        }
+
+        asort($timeAvailability);
+        $timeAvailability = array_values( array_unique( $timeAvailability ) );
+
+
+        $startRangeTime = $timeAvailability[0];
+
+        for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
+
+            if( isset( $timeAvailability[$x] ) ){
+
+                $start_date = new DateTime( $timeAvailability[$x] );
+                $since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
+
+                $totalMinDiff = $since_start->h * 60 + $since_start->i;
+
+                if( $totalMinDiff !== 15 ){
+
+                    $finalRanges[] = array(
+                        'from' => $startRangeTime,
+                        'to' => $timeAvailability[$x-1]
+                    );
+
+                    $startRangeTime = $timeAvailability[$x];
+
+                }
+
+            }
+
+        }
+
+        $finalRanges[] = array(
+            'from' => $startRangeTime,
+            'to' => $timeAvailability[count($timeAvailability)-1]
+        );
+
+        return $finalRanges;
+
+    }
+
 
 }

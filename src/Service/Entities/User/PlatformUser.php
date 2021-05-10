@@ -395,6 +395,12 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 	public function weekdaysDisalable($weekDays) {
 
+        echo $this->getWeekdaysDisable($weekDays);
+    }
+
+    public function getWeekdaysDisable($weekDays) {
+
+
         $weekDaysReturnArray = array();
 
         if (!stristr($weekDays, "mon")) {
@@ -419,8 +425,8 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
             array_push($weekDaysReturnArray, "0");
         }
 
-        $weekDaysReturn = implode(",", $weekDaysReturnArray);
-        echo $weekDaysReturn;
+        return implode(",", $weekDaysReturnArray);
+
     }
 
     /**

@@ -156,4 +156,13 @@ class Appointment {
 
     }
 
+    public function getAppointmentTimeRange(){
+
+	    $from = $this->time;
+        $to = date("h:i", strtotime($from) + ( $this->duration*60 ) + ( $this->buffer*60 ) );
+
+	    return array( $from, $to );
+
+    }
+
 }

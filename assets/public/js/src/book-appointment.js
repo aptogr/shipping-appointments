@@ -73,8 +73,17 @@
 
         function initTimePicker(){
 
-            var disabledTimes = $('#userDisableTime').text();
-            disabledTimes = JSON.parse( disabledTimes );
+            if ($('#anyone').is(':checked')) {
+                var disabledTimes = $('#depDisableTime').text();
+                console.log(disabledTimes);
+                disabledTimes = JSON.parse( disabledTimes );
+            } else {
+                var disabledTimes = $('#userDisableTime').text();
+                console.log(disabledTimes);
+                disabledTimes = JSON.parse( disabledTimes );
+            }
+
+
             console.log( disabledTimes );
 
             $('#bookTime').timepicker({
@@ -112,6 +121,7 @@
 
                     initCalendar();
                     initTimePicker();
+
 
                 }
 

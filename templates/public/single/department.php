@@ -44,16 +44,12 @@ foreach ( $allDays as $day ) {
 
         $userObj = new \ShippingAppointments\Service\Entities\User\PlatformUser( $user->ID );
 
-//        echo "<pre>";
-//        print_r($userObj);
-//        echo "</pre><br><br><br><br><br>";
-
         $weekdays_available_toArray = explode(",", $userObj->weekdays_available);
 
         if (!is_null($weekdays_available_toArray)) {
-//            echo '1111111111111111111111111111';
+
             if( in_array( $day, $weekdays_available_toArray ) ){
-//                echo '2222222222222222222222222222';
+
                 $available = true;
                 if ((!is_null($userObj->{$day."_time_from"})) && (!is_null($userObj->{$day."_time_to"}))) {
 
@@ -66,36 +62,13 @@ foreach ( $allDays as $day ) {
 
             }
         }
-//        if (!is_null($userObj->availability->weekdays_available_toArray)) {
-//            if( in_array( $day, $userObj->availability->weekdays_available_toArray ) ){
-//                $available = true;
-//
-//                if ((!is_null($userObj->availability->{$day."_time_from"})) && (!is_null($userObj->availability->{$day."_time_to"}))) {
-//
-//                    $allAvailability[$day]['times'][$user->ID] = array(
-//                        $day. '_time_from' => $userObj->availability->{$day."_time_from"},
-//                        $day. '_time_to' => $userObj->availability->{$day."_time_to"},
-//                    );
-//
-//                }
-//
-//            }
-//        }
-
-//        array_push($allAvailability[$day]['employees'],$userObj);
-
 
     }
-
-//
-//        echo "<pre>";
-//        print_r($allAvailability);
-//        echo "</pre>";
 
     $weekdays_availableArray = $pieces = explode(",", $department->weekdays_available);
 
     if( in_array( $day, $weekdays_availableArray ) ){
-        // echo "ok!<br>";
+
         if ((!is_null($department->{$day."_time_from"})) && (!is_null($department->{$day."_time_to"}))) {
             $allAvailability[$day]['times']['department'] = array(
                 $day . '_time_from' => $department->{$day . "_time_from"},
@@ -110,11 +83,6 @@ foreach ( $allDays as $day ) {
     $allAvailability[$day]['available'] = $available;
 
 }
-
-//echo "<pre>";
-//var_dump($allAvailability);
-//echo "</pre>";
-
 
 function createTimeRange($start, $end, $interval = '30 mins') {
     $startTime = strtotime($start);
