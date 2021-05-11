@@ -2,6 +2,13 @@
 
 use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
 use ShippingAppointments\Service\Entities\ShippingCompany;
+use ShippingAppointments\Service\Entities\User\PlatformUser;
+$daUser = new PlatformUser( get_current_user_id() );
+
+//echo "<pre>";
+////echo get_current_user_id();
+//print_r($daUser);
+//echo "</pre>";
 
 get_header();
 
@@ -35,7 +42,13 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
 		<form method="post" class="col s12">
 
+
+
             <input type="hidden" name="company" value="<?php echo $companyID; ?>">
+            <input type="hidden" name="appointmentUserId" value="<?php echo get_current_user_id(); ?>">
+
+            <?php $companyType = (!is_null($daUser->shipping_company_id) ? 'shipping_company' : 'supplier'); ?>
+            <input type="hidden" name="requested_by" value="<?php echo $companyType; ?>">
 
 			<div class="booking-steps margin-top-80 margin-bottom-50">
 
@@ -234,7 +247,29 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
+                <div class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
 
+                    <div class="step-counter">
+                        7
+                    </div>
+
+                    <div class="booking-step">
+
+                        <div class="booking-step-header">
+
+                            <h3>
+                                Book Appointment
+                            </h3>
+
+                        </div>
+
+                        <div class="booking-step-field">
+                            <button type="submit" class="saveBooking save-button" name="refresh_action" value="create_appointment">Book Appointment</button>
+                        </div>
+
+                    </div>
+
+                </div>
 
 			</div>
 

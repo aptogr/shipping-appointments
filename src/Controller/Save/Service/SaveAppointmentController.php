@@ -47,7 +47,6 @@ class SaveAppointmentController extends ServiceSaveController {
 //        var_dump($formData);
 
             $postData = array(
-//                'post_title'    => $this->platformUser->user_email . " Appointment",
                 'post_title'    => "Appointment " . $formData["date"],
                 'post_status'   => 'publish',
                 'post_type'     => AppointmentPost::POST_TYPE_NAME,
