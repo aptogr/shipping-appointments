@@ -85,6 +85,16 @@ class DashboardAppointmentsRepository {
 
 	}
 
+	protected function specificDateConditionArgs( $date ){
+
+		return array(
+			'key'     => $this->postMetaSlugs['date'],
+			'value'   => $date,
+			'compare' => '=',
+		);
+
+	}
+
 	protected function statusConditionsArgs( $statuses ){
 
 		if( count( $statuses ) > 1 ){

@@ -58,4 +58,17 @@ class DashboardAppointments extends DashboardAppointmentsRepository {
 
 	}
 
+	public function getEmployeeConfirmedAppointmentsByDate( $date ){
+
+		$metaQuery = array(
+			'relation' => 'AND',
+			$this->userConditionArgs(),
+			$this->statusConditionsArgs( array('confirmed') ),
+			$this->specificDateConditionArgs( $date ),
+		);
+
+		return $this->getPosts( $metaQuery );
+
+	}
+
 }

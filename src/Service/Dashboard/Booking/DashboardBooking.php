@@ -4,6 +4,8 @@
 namespace ShippingAppointments\Service\Dashboard\Booking;
 
 
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointments;
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsDepartment;
 use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\DepartmentType as DepartmentTypeEntity;
@@ -300,85 +302,26 @@ class DashboardBooking {
 
         <?php
 
-            $allDays = array('mon','tue','wed','thu','fri','sat','sun');
-            $allAvailability = array();
+            //Get the overall availability of the selected department
+			$allAvailability = $this->department->getAllDepartmentAvailability();
 
-
-            foreach ( $allDays as $day ) {
-
-
-                $allAvailability[$day] = array();
-                $allAvailability[$day]['times'] = array();
-
-                $available = false;
-                foreach ( $this->department->users as $user ) {
-
-                    $userObj = new \ShippingAppointments\Service\Entities\User\PlatformUser( $user->ID );
-
-                    $weekdays_available_toArray = explode(",", $userObj->weekdays_available);
-
-                    if (!is_null($weekdays_available_toArray)) {
-
-                        if( in_array( $day, $weekdays_available_toArray ) ){
-
-                            $available = true;
-                            if ((!is_null($userObj->{$day."_time_from"})) && (!is_null($userObj->{$day."_time_to"}))) {
-
-                                $allAvailability[$day]['times'][$user->ID] = array(
-                                    $day. '_time_from' => $userObj->{$day."_time_from"},
-                                    $day. '_time_to' => $userObj->{$day."_time_to"},
-                                );
-
-                            }
-
-                        }
-                    }
-
-                }
-
-                $weekdays_availableArray = explode(",", $this->department->weekdays_available);
-
-                if( in_array( $day, $weekdays_availableArray ) ){
-
-                    if ((!is_null($this->department->{$day."_time_from"})) && (!is_null($this->department->{$day."_time_to"}))) {
-                        $allAvailability[$day]['times']['department'] = array(
-                            $day . '_time_from' => $this->department->{$day . "_time_from"},
-                            $day . '_time_to' => $this->department->{$day . "_time_to"},
-                        );
-                    }
-                }
-
-                $allAvailability[$day]['available'] = $available;
-
-            }
-
+			//Get all the possible time ranges for the selected day
             $timesRanges = $this->department->calculateAllPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay);
 
-//            echo "<pre>";
-//            var_dump($timesRanges);
-//            echo "</pre>";
+            //Get the disabled time ranges of the department based on the availability
+			$depDisableTime = $this->department->getDisabledTimeRangesArray( $timesRanges );
 
-            $tempTimesRanges = array();
-
-            foreach ($timesRanges as $timeRange) {
-                $tempTimesRanges[] = $timeRange['from'];
-                $tempTimesRanges[] = $timeRange['to'];
-            }
-
-            array_unshift($tempTimesRanges,"00:00" );
-            array_push($tempTimesRanges, "24:00");
-
-            $depDisableTime = array();
-            for ($x = 0; $x < count($tempTimesRanges); $x = $x +2) {
-                array_push($depDisableTime,array($tempTimesRanges[$x],$tempTimesRanges[$x+1]));
-            }
-
+            //Get the booked appointments for the selected date and add the time ranges to the disabled time ranges
             $appointments = $this->getBookedAppointments();
-            foreach( $appointments as $appointment ){ /** @var $appointment Appointment */
 
-                $depDisableTime[] = $appointment->getAppointmentTimeRange();
-//                print_r($appointment->getAppointmentTimeRange());
-//                echo "<br>";
+            if( is_array( $appointments ) && !empty( $appointments ) ){
+
+	            foreach( $appointments as $appointment ){ /** @var $appointment Appointment */
+
+		            $depDisableTime[] = $appointment->getAppointmentTimeRange();
+
+	            }
+
             }
 
             ?>
@@ -584,11 +527,31 @@ class DashboardBooking {
 	public function getBookedAppointments() {
 
 	    //query
-
         $appointments = array();
 
-        $appointments[] = new Appointment(467);
-        $appointments[] = new Appointment(468);
+		if( $this->selectedEmployeeType === 'specific' && $this->selectedEmployeeUser !== false ){
+
+		    $dashboardAppointments = new DashboardAppointments( $this->selectedEmployeeUser );
+			$bookedAppointments = $dashboardAppointments->getEmployeeConfirmedAppointmentsByDate( $this->selectedDate );
+
+
+		}
+		else {
+
+			$dashboardAppointments = new DashboardAppointmentsDepartment( new Department( $this->selectedDepartment ) );
+			$bookedAppointments = $dashboardAppointments->getDepartmentConfirmedAppointmentsByDate( $this->selectedDate );
+
+		}
+
+		if( is_array( $bookedAppointments ) && !empty( $bookedAppointments ) ){
+
+			foreach( $bookedAppointments as $appointment ){
+
+				$appointments[] = new Appointment( intval( $appointment ) );
+
+			}
+
+		}
 
         return $appointments;
 

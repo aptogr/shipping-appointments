@@ -60,4 +60,18 @@ class DashboardAppointmentsDepartment extends DashboardAppointmentsRepository {
 
 	}
 
+
+	public function getDepartmentConfirmedAppointmentsByDate( $date ){
+
+		$metaQuery = array(
+			'relation' => 'AND',
+			$this->departmentConditionArgs(),
+			$this->statusConditionsArgs( array('confirmed') ),
+			$this->specificDateConditionArgs( $date ),
+		);
+
+		return $this->getPosts( $metaQuery );
+
+	}
+
 }

@@ -3,6 +3,7 @@
 namespace ShippingAppointments\Service\Entities;
 
 use DateTime;
+use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\Taxonomy\DepartmentType;
 use ShippingAppointments\Service\Entities\DepartmentType as DepartmentTypeEntity;
@@ -99,7 +100,7 @@ class Department {
 	private function setDepartmentType(){
 
 		$departmentType         = get_the_terms( $this->ID, DepartmentType::TAXONOMY_SLUG );
-		$this->departmentType   = new DepartmentTypeEntity( is_array( $departmentType ) ? $departmentType[0]->term_id : false );
+		$this->pe   = new DepartmentTypeEntity( is_array( $departmentType ) ? $departmentType[0]->term_id : false );
 
 	}
 
@@ -180,6 +181,88 @@ class Department {
         $times[] = date($returnTimeFormat, $startTime);
         return $times;
     }
+
+
+    public function getAllDepartmentAvailability(){
+
+	    $allDays = array('mon','tue','wed','thu','fri','sat','sun');
+	    $allAvailability = array();
+
+	    foreach ( $allDays as $day ) {
+
+		    $allAvailability[$day] = array();
+		    $allAvailability[$day]['times'] = array();
+
+		    $available = false;
+		    foreach ( $this->users as $user ) {
+
+			    $userObj = new PlatformUser( $user->ID );
+
+			    $weekdays_available_toArray = explode(",", $userObj->weekdays_available);
+
+			    if (!is_null($weekdays_available_toArray)) {
+
+				    if( in_array( $day, $weekdays_available_toArray ) ){
+
+					    $available = true;
+					    if ((!is_null($userObj->{$day."_time_from"})) && (!is_null($userObj->{$day."_time_to"}))) {
+
+						    $allAvailability[$day]['times'][$user->ID] = array(
+							    $day. '_time_from' => $userObj->{$day."_time_from"},
+							    $day. '_time_to' => $userObj->{$day."_time_to"},
+						    );
+
+					    }
+
+				    }
+			    }
+
+		    }
+
+		    $weekdays_availableArray = explode(",", $this->weekdays_available);
+
+		    if( in_array( $day, $weekdays_availableArray ) ){
+
+			    if ((!is_null($this->{$day."_time_from"})) && (!is_null($this->{$day."_time_to"}))) {
+				    $allAvailability[$day]['times']['department'] = array(
+					    $day . '_time_from' => $this->{$day . "_time_from"},
+					    $day . '_time_to' => $this->{$day . "_time_to"},
+				    );
+			    }
+		    }
+
+		    $allAvailability[$day]['available'] = $available;
+
+	    }
+
+	    return $allAvailability;
+
+    }
+
+
+
+    public function getDisabledTimeRangesArray( $timesRanges ){
+
+	    $departmentDisabledTimeRanges = array();
+	    $tempTimesRanges = array();
+
+	    foreach ($timesRanges as $timeRange) {
+		    $tempTimesRanges[] = $timeRange['from'];
+		    $tempTimesRanges[] = $timeRange['to'];
+	    }
+
+	    array_unshift($tempTimesRanges,"00:00" );
+	    array_push($tempTimesRanges, "24:00");
+
+
+	    for ($x = 0; $x < count($tempTimesRanges); $x = $x +2) {
+		    array_push($departmentDisabledTimeRanges,array($tempTimesRanges[$x],$tempTimesRanges[$x+1]));
+	    }
+
+	    return $departmentDisabledTimeRanges;
+
+    }
+
 
     public function calculateAllPossibleTimeRanges( $availableTimes, $day ){
 
