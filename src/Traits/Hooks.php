@@ -316,6 +316,8 @@ Trait Hooks {
 		$this->loader->addAction( 'rwmb_meta_boxes', $appointmentPost, 'addMetaBoxes', 33, 1 );
 		$this->loader->addFilter( 'single_template', $appointmentPost,'customPostTypeTemplateSingle', 10, 1 );
 		$this->loader->addFilter( 'archive_template', $appointmentPost,'customPostTypeTemplateArchive' );
+		$this->loader->addFilter( 'manage_'.AppointmentPost::POST_TYPE_NAME.'_posts_columns', $appointmentPost, 'registerAdminColumns', 99, 1);
+		$this->loader->addAction( 'manage_'.AppointmentPost::POST_TYPE_NAME.'_posts_custom_column', $appointmentPost, 'adminColumnDisplay', 10, 2);
 
 
 		/**

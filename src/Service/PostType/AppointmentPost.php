@@ -6,6 +6,7 @@ namespace ShippingAppointments\Service\PostType;
 use ShippingAppointments\Includes\ShippingAppointments as ShippingAppointments;
 use ShippingAppointments\Interfaces\PostType\AppointmentInterface;
 use ShippingAppointments\Interfaces\TemplatesInterface;
+use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Traits\Core\Plugin;
 
 class AppointmentPost implements TemplatesInterface, AppointmentInterface {
@@ -186,6 +187,84 @@ class AppointmentPost implements TemplatesInterface, AppointmentInterface {
 
 		$template = $this->getPluginDirPath() . self::ARCHIVE_TEMPLATES_FOLDER . "appointments-employee.php";
 		return (  is_post_type_archive ( self::POST_TYPE_NAME ) && file_exists( $template ) ? $template : $archive_template );
+
+	}
+
+	/**
+	 * This function is responsible for registering
+	 * the columns that will be shown on WP Admin
+	 *
+	 * @param $defaults array
+	 * @return array
+	 */
+	public function registerAdminColumns($defaults ){
+
+		unset( $defaults['author'] );
+		unset( $defaults['date'] );
+		unset( $defaults['wpseo-score'] );
+		unset( $defaults['wpseo-score-readability'] );
+		unset( $defaults['wpseo-links'] );
+		unset( $defaults['wpseo-linked'] );
+
+		$defaults['status']                 = __('Status');
+		$defaults['company']                = __('Shipping Company');
+		$defaults['department']             = __('Department');
+		$defaults['appointment_date']       = __('Date');
+		$defaults['time']                   = __('Time');
+		$defaults['duration']               = __('Duration');
+		$defaults['buffer']                 = __('Buffer');
+		$defaults['date']                   = __('Request Date');
+
+		return $defaults;
+
+	}
+
+
+	/**
+	 * This function is responsible for displaying the value
+	 * of each admin column based on the columns registered on
+	 * @see ViewingPost::registerAdminColumns()
+	 *
+	 * @param $column_name string
+	 * @param $id int
+	 * @return void
+	 */
+	public function adminColumnDisplay( $column_name, $id ){
+
+		$appointment = new Appointment( $id );
+
+		switch( $column_name ) {
+
+			case 'status':
+
+				?>
+				<div class="request-status <?php echo $appointment->status; ?>">
+					<?php echo $appointment->getFieldToString('status'); ?>
+				</div>
+				<?php
+				break;
+
+			case 'department':
+
+				echo $appointment->departmentObject->departmentType->term->name;
+				break;
+
+			case 'company':
+
+				echo get_the_title( $appointment->companyObject->ID );
+				break;
+
+			case 'appointment_date':
+
+				echo date('d/m/Y', strtotime($appointment->date ) );
+				break;
+
+
+			default:
+
+				echo $appointment->getFieldToString( $column_name );
+
+		}
 
 	}
 

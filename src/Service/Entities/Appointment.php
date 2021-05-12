@@ -160,8 +160,9 @@ class Appointment {
 
     public function getAppointmentTimeRange(){
 
-	    $from = date("h:i", strtotime("-15 minutes", strtotime("2021-01-01 $this->time")));
-        $to = date("h:i", strtotime($from) + ( $this->duration*60 ) + ( $this->buffer*60 ) );
+	    $from   = $this->time;
+	    $from   = date("h:i", strtotime("-15 minutes", strtotime("2021-01-01 $this->time")));
+        $to     = date("h:i", strtotime($this->time) + ( $this->duration*60 ) + ( $this->buffer*60 ) );
 
 	    return array( $from, $to );
 
