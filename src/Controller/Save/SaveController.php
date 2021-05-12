@@ -47,6 +47,9 @@ class SaveController {
 
                 case 'create_appointment':
 
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
 
                     $saveAppointmentController  = new SaveAppointmentController();
                     $action                         = $saveAppointmentController->save( $_POST );

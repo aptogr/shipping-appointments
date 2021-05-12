@@ -50,6 +50,13 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
             <?php $companyType = (!is_null($daUser->shipping_company_id) ? 'shipping_company' : 'supplier'); ?>
             <input type="hidden" name="requested_by" value="<?php echo $companyType; ?>">
 
+            <input type="hidden" name="supplier_company" value="<?php echo $daUser->supplier_company_id; ?>">
+            <input type="hidden" name="supplier_employee" value="<?php echo get_current_user_id(); ?>">
+
+
+            <input type="hidden" name="duration" value="0">
+            <input type="hidden" name="buffer" value="0">
+
 			<div class="booking-steps margin-top-80 margin-bottom-50">
 
                 <div class="booking-step-wrapper flex flex-center full-width padding-bottom-30 <?php echo( $dashboardBooking->department !== false ? 'completed' : ''); ?>">
