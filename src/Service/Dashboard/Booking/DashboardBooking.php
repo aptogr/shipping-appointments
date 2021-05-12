@@ -259,8 +259,6 @@ class DashboardBooking {
                     data-selecteddate="<?php echo $this->selectedDate; ?>"
             ></div>
 
-            <?php echo $this->department->weekdaysDisalable($this->department->weekdays_available); ?>
-
         </strong>
 
         <?php
@@ -291,6 +289,21 @@ class DashboardBooking {
                         array('00:00', $this->selectedEmployeeUser->{$from}),
                         array($this->selectedEmployeeUser->{$to},'24:00'),
                 );
+
+                $userAppointments = $this->getBookedAppointments();
+
+                foreach ($userAppointments as $userAppointment) {
+//                    echo "<pre>";
+//                    var_dump($userAppointment);
+//                    echo "</pre>";
+
+                    $userAppointmentTimeFrom = $userAppointment->time;
+                    $userAppointmentDurationPlusBuffer = $userAppointment->duration + $userAppointment->buffer;
+                    $userAppointmentTimeTo = date("H:i", strtotime('+'.$userAppointmentDurationPlusBuffer.' minutes', strtotime($userAppointment->time)));
+                    $userAppointmentsTimeRange = array($userAppointmentTimeFrom, $userAppointmentTimeTo);
+                    array_push($disableTime,$userAppointmentsTimeRange);
+                }
+
             ?>
 
             <div id="userDisableTime" class="hide">
@@ -326,7 +339,7 @@ class DashboardBooking {
 
             ?>
 
-            <div id="depDisableTime" class="hide">
+            <div id="depDisableTime" class="">
                 <?php
                 echo json_encode($depDisableTime);
                 ?>
