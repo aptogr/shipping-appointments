@@ -283,11 +283,12 @@ class DashboardBooking {
 
                 $from = $selectedDay."_time_from";
                 $to = $selectedDay."_time_to";
+                $to = date("H:i", strtotime('-29 minutes', strtotime($this->selectedEmployeeUser->{$to})));
 
 
                 $disableTime = array(
                         array('00:00', $this->selectedEmployeeUser->{$from}),
-                        array($this->selectedEmployeeUser->{$to},'24:00'),
+                        array($to,'24:00'),
                 );
 
                 $userAppointments = $this->getBookedAppointments();
@@ -299,10 +300,15 @@ class DashboardBooking {
 //                    var_dump($userAppointment);
 //                    echo "</pre>";
 
-                    $userAppointmentTimeFrom = $userAppointment->time;
-                    $userAppointmentDurationPlusBuffer = $userAppointment->duration + $userAppointment->buffer;
-                    $userAppointmentTimeTo = date("H:i", strtotime('+'.$userAppointmentDurationPlusBuffer.' minutes', strtotime($userAppointment->time)));
-                    $userAppointmentsTimeRange = array($userAppointmentTimeFrom, $userAppointmentTimeTo);
+//                    $userAppointmentTimeFrom = $userAppointment->time;
+//                    $userAppointmentDurationPlusBuffer = $userAppointment->duration + $userAppointment->buffer;
+//                    $userAppointmentTimeTo = date("H:i", strtotime('+'.$userAppointmentDurationPlusBuffer.' minutes', strtotime($userAppointment->time)));
+//                    $userAppointmentsTimeRange = array($userAppointmentTimeFrom, $userAppointmentTimeTo);
+//                    array_push($disableTime,$userAppointmentsTimeRange);
+
+                    $from   = date("h:i", strtotime("-29 minutes", strtotime("2021-01-01 $userAppointment->time")));
+                    $to     = date("h:i", strtotime($userAppointment->time) + ( $userAppointment->duration*60 ) + ( $userAppointment->buffer*60 ) );
+                    $userAppointmentsTimeRange = array($from, $to);
                     array_push($disableTime,$userAppointmentsTimeRange);
 
                 }

@@ -54,8 +54,8 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
             <input type="hidden" name="supplier_employee" value="<?php echo get_current_user_id(); ?>">
 
 
-            <input type="hidden" name="duration" value="0">
-            <input type="hidden" name="buffer" value="0">
+            <input type="hidden" name="duration" value="20">
+            <input type="hidden" name="buffer" value="10">
 
 			<div class="booking-steps margin-top-80 margin-bottom-50">
 
