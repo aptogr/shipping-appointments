@@ -5,6 +5,7 @@ namespace ShippingAppointments\Service\Dashboard\Appointments;
 
 
 use ShippingAppointments\Service\Entities\Appointment;
+use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use WP_Query;
 
@@ -361,5 +362,81 @@ class DashboardAppointmentsRepository {
 		<?php
 
 	}
+
+	public function getAllAppointmentsJSON( $pendingAppointments,$scheduledAppointments,$pastAppointments ) {
+//	    var_dump($pendingAppointments);
+//	    var_dump($scheduledAppointments);
+//	    var_dump($pastAppointments);
+	    $allAppointments = array();
+	    if (is_array($pendingAppointments)) {
+            $allAppointments = array_merge($allAppointments,$pendingAppointments);
+        }
+        if (is_array($scheduledAppointments)) {
+            $allAppointments = array_merge($allAppointments,$scheduledAppointments);
+        }
+        if (is_array($pastAppointments)) {
+            $allAppointments = array_merge($allAppointments,$pastAppointments);
+        }
+//        echo "<pre>";
+//        print_r($allAppointments);
+//        echo "</pre>";
+
+        $allAppointmentsJSON = array();
+
+        foreach ($allAppointments as $key => $singleAppointmentID) {
+
+            $singleAppointmentOBJ   = new Appointment($singleAppointmentID);
+            $appointmentEmployeeOBJ = new \WP_User($singleAppointmentOBJ->employee);
+
+            if (!empty($appointmentEmployeeOBJ->display_name)) {
+                $appointmentEmployeeName = $appointmentEmployeeOBJ->display_name;
+            } else {
+                $appointmentEmployeeName = "By Assignment";
+            }
+
+            if ($singleAppointmentOBJ->status === "pending_approval" ) {
+                $appointmentStatusColor = '#FF9800';
+            } elseif ($singleAppointmentOBJ->status === "confirmed") {
+                $appointmentStatusColor = '#388E3C';
+            } elseif ($singleAppointmentOBJ->status === "cancelled") {
+                $appointmentStatusColor = '#FF0C00';
+            }
+
+            $singleAppointmentArray = array();
+
+            $singleAppointmentTimeFrom  = $singleAppointmentOBJ->date.'T'.$singleAppointmentOBJ->time.':00.000Z';
+            $singleAppointmentTimeTo      = $singleAppointmentOBJ->date.'T'.date("h:i", strtotime($singleAppointmentOBJ->time) + ( $singleAppointmentOBJ->duration*60 ) + ( $singleAppointmentOBJ->buffer*60 ) ).':00.000Z';
+
+            $singleAppointmentArray['start']    = $singleAppointmentTimeFrom;
+            $singleAppointmentArray['end']      = $singleAppointmentTimeTo;
+            $singleAppointmentArray['title']    = $appointmentEmployeeName;
+            $singleAppointmentArray['color']    = $appointmentStatusColor;
+            $singleAppointmentArray['id']       = $singleAppointmentOBJ->ID;
+
+            array_push($allAppointmentsJSON,$singleAppointmentArray);
+//            echo "<pre>";
+//            print_r($singleAppointmentOBJ);
+//            echo "</pre>";
+//            echo "<br><br><br>";
+        }
+
+//            echo "<pre>";
+//            print_r($allAppointmentsJSON);
+//            echo "</pre>";
+        ?>
+        <div id="jsontest" class="hide"><?php echo json_encode($allAppointmentsJSON); ?></div>
+
+        <div class="appointments_schedule">
+
+            <div style="height:100%">
+                <div id="appointments_schedule" style="height:100%"></div>
+            </div>
+
+
+        </div>
+
+        <?php
+
+    }
 
 }

@@ -169,15 +169,17 @@
 
 
                 }
+
                 else {
                     $('#employeeStep').addClass('completed');
                     $('.select-employees-table').addClass('hide');
                     $('.select-employees-table tr.selected').removeClass('selected');
                     $('#selectedEmployee').val('');
 
-                    updateSteps();
+
                 }
 
+                updateSteps();
             });
 
             $(document).on('change', '#date', function(){

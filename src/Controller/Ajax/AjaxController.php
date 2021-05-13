@@ -87,10 +87,6 @@ class AjaxController implements AjaxInterface {
 
     }
 
-    public function  getTimeByDate() {
-
-    }
-
     public function getTime(){
 
         $date = $_POST['date'];
@@ -209,6 +205,15 @@ class AjaxController implements AjaxInterface {
 
 	    wp_send_json( $result );
 	    wp_die();
+
+    }
+
+    public function  getAppointmentsSchedule() {
+        $id = $_POST['appointment_id'];
+        $result = $id;
+
+        wp_send_json( $result );
+        wp_die();
 
     }
 

@@ -39,7 +39,6 @@ else {
 }
 
 
-
 ?>
 
     <div class="dashboard-panel-page-header full-width flex flex-center">
@@ -62,6 +61,9 @@ else {
 
 	        <?php endif; ?>
 
+            <div class="profenda-btn">
+                Change View
+            </div>
 
         </div>
 
@@ -71,7 +73,10 @@ else {
 
         <div class="container">
 
-            <div class="row company-settings no-margin-bottom full-width">
+            <div id="appointmentsCalendarView" class="row company-settings no-margin-bottom full-width">
+                <?php $dashboardAppointments->getAllAppointmentsJSON($pendingAppointments,$scheduledAppointments,$pastAppointments);?>
+            </div>
+            <div id="appointmentsListView" class="row company-settings no-margin-bottom full-width hide">
 
                 <?php if( !empty( get_query_var('company') ) ): ?>
 
