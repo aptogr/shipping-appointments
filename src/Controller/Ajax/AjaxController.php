@@ -6,6 +6,7 @@ use ShippingAppointments\Interfaces\AjaxInterface;
 use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsRepository;
 use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
 use ShippingAppointments\Service\Entities\Appointment;
+use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
 
 class AjaxController implements AjaxInterface {
@@ -207,6 +208,24 @@ class AjaxController implements AjaxInterface {
 
 	    wp_send_json( $result );
 	    wp_die();
+
+    }
+
+    public function bookGetDepartmentAvailability(){
+
+        $department = new Department( $_POST['depid'] );
+
+        ob_start();
+        $department->displayAvailabilityTable([]);
+
+        $result = array(
+            'html'  => ob_get_clean()
+        );
+
+//        $result = $department->displayAvailabilityTable([]);
+
+        wp_send_json( $result );
+        wp_die();
 
     }
 

@@ -50,7 +50,9 @@
                         var date = that[0].dataset.date; //Hmerominia sto click
                         // console.log(date);
                         // console.log('context',context);
-                        // console.log('that',$(this));
+                        console.log('that',that[0]);
+                        console.log('event',event);
+                        console.log('context',context);
 
                         if (!that.hasClass('pignose-calendar-unit-disabled')) {
 
@@ -75,16 +77,16 @@
 
             if ($('#anyone').is(':checked')) {
                 var disabledTimes = $('#depDisableTime').text();
-                console.log(disabledTimes);
+                // console.log(disabledTimes);
                 disabledTimes = JSON.parse( disabledTimes );
             } else {
                 var disabledTimes = $('#userDisableTime').text();
-                console.log(disabledTimes);
+                // console.log(disabledTimes);
                 disabledTimes = JSON.parse( disabledTimes );
             }
 
 
-            console.log( disabledTimes );
+            // console.log( disabledTimes );
 
             $('#bookTime').timepicker({
                 'timeFormat': 'H:i',
@@ -166,7 +168,7 @@
 
                     $('.select-employees-table').removeClass('hide');
                     $('#employeeStep').removeClass('completed');
-
+                    $('#view-availability-dep').addClass('hide');
 
                 }
 
@@ -175,7 +177,7 @@
                     $('.select-employees-table').addClass('hide');
                     $('.select-employees-table tr.selected').removeClass('selected');
                     $('#selectedEmployee').val('');
-
+                    $('#view-availability-dep').removeClass('hide');
 
                 }
 
@@ -218,6 +220,35 @@
                     },
                     success: function (response) {
 
+                        $('#availabilityModal .profenda-modal-content').html( response.html );
+
+                    }
+
+                });//end ajax
+
+            });
+
+            $(document).on('click', '.view-availability-dep', function(e){
+
+                var depID = $(this).attr('data-depid');
+                console.log(depID);
+
+                jQuery.ajax({
+                    url: AjaxController.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: AjaxController.bookGetDepartmentAvailability,
+                        depid: depID
+                    },
+                    beforeSend: function() {
+
+                        $('#availabilityModal').addClass('active');
+                        $('.modal-overlay').addClass('active');
+                        $('.profenda-modal-header').text('Availability of Department' );
+
+                    },
+                    success: function (response) {
+                        // console.log(response);
                         $('#availabilityModal .profenda-modal-content').html( response.html );
 
                     }

@@ -149,6 +149,8 @@ class DashboardBooking {
 
         <?php if( $this->department !== false ): ?>
 
+            <div id="view-availability-dep" data-depid="<?php echo $this->department->ID;?>" class="profenda-btn display-inline-block view-availability-dep margin-top-30 <?php echo( $this->selectedEmployeeType !== 'specific' ? '': 'hide'); ?>">Preview Availability</div>
+
             <?php if( $this->company->isAllUsersInvisible() === false && $this->department->isAllUsersInvisible() === false ): ?>
 
                 <table class="select-employees-table margin-top-30 <?php echo( $this->selectedEmployeeType !== 'specific' ? 'hide': ''); ?>">
@@ -373,6 +375,10 @@ class DashboardBooking {
             }
 
             ?>
+
+            <div>
+                <?php $this->department->displayAvailabilityTable(['weekday'=>$selectedDay]);?>
+            </div>
 
             <div id="depDisableTime" class="hide">
                 <?php

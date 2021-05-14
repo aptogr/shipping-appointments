@@ -352,11 +352,22 @@ class Department {
 
 		    <?php
 		    $i = 0;
+
+            $weekDayNames = array(
+                'mon' => 'Monday',
+                'tue' => 'Tuesday',
+                'wed' => 'Wednesday',
+                'thu' => 'Thursday',
+                'fri' => 'Friday',
+                'sat' => 'Saturday',
+                'sun' => 'Sunday'
+            );
+
 		    foreach ($departmentAvailability as $day => $availabilityArray ) { ?>
 
                 <tr>
                     <td>
-					    <?php echo $allDaysFull[$i]; ?>
+					    <?php echo $weekDayNames[$day]; ?>
                     </td>
 
                     <td>
