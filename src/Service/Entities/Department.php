@@ -210,6 +210,7 @@ class Department {
 						    $allAvailability[$day]['times'][$user->ID] = array(
 							    $day. '_time_from' => $userObj->{$day."_time_from"},
 							    $day. '_time_to' => $userObj->{$day."_time_to"},
+							    'user'  => $userObj,
 						    );
 
 					    }
@@ -314,5 +315,126 @@ class Department {
 
     }
 
+
+    public function displayAvailabilityTable( $args ){
+
+	    $allDaysFull = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
+	    $departmentAvailability = $this->getAllDepartmentAvailability();
+
+//	    print("<pre>".print_r($departmentAvailability,true)."</pre>");
+
+        if( isset( $args['weekday'] ) && !empty( $args['weekday'] ) ){
+
+            $weekday = $args['weekday'];
+
+            if( isset( $departmentAvailability[$weekday] ) && !empty( $departmentAvailability[$weekday] ) ){
+
+	            $departmentAvailability = array(
+		            $weekday => $departmentAvailability[$weekday]
+	            );
+
+            }
+            else {
+	            $departmentAvailability = array();
+            }
+
+        }
+
+	    ?>
+
+        <table class="full-width">
+
+            <tr>
+                <th>Day</th>
+                <th>Daily Availability</th>
+                <th>Employees Availability</th>
+            </tr>
+
+		    <?php
+		    $i = 0;
+		    foreach ($departmentAvailability as $day => $availabilityArray ) { ?>
+
+                <tr>
+                    <td>
+					    <?php echo $allDaysFull[$i]; ?>
+                    </td>
+
+                    <td>
+					    <?php
+
+					    $possibleTimeRanges =  $this->calculateAllPossibleTimeRanges( $availabilityArray['times'], $day );
+					    $this->displayTimeRanges( $possibleTimeRanges );
+					    ?>
+                    </td>
+
+                    <td>
+                        <div class="employeeNameTimes flex flex-just-space-b" style="border-bottom: 1px solid #f0f0f0;">
+                            <div class="employeeName">
+                                By assignment
+                            </div>
+                            <div class="employeeTimes">
+							    <?php echo $availabilityArray['times']['department'][$day . "_time_from"]." - ".$availabilityArray['times']['department'][$day . "_time_to"];?>
+                            </div>
+                        </div>
+					    <?php
+
+					    foreach ($availabilityArray['times'] as $emplId => $dayTimes) {
+
+						    if ($emplId !== 'department') {
+
+							    /** @var $employee PlatformUser */
+							    $employee = $dayTimes['user'];
+
+							    ?>
+                                <div class="employeeNameTimes flex flex-just-space-b" style="border-bottom: 1px solid #f0f0f0;">
+                                    <div class="employeeName">
+									    <?php echo $employee->first_name . ' ' . $employee->last_name[0]; ?>
+                                    </div>
+                                    <div class="employeeTimes">
+									    <?php echo $dayTimes[$day . "_time_from"]." - ".$dayTimes[$day . "_time_to"];?>
+                                    </div>
+                                </div>
+
+							    <?php
+						    }
+					    }
+					    ?>
+                    </td>
+
+                </tr>
+
+			    <?php
+
+			    $i++;
+
+		    }
+
+		    ?>
+
+        </table>
+
+        <?php
+
+    }
+
+
+    public function displayTimeRanges( $timeRanges ){
+
+		if( is_array( $timeRanges ) && !empty( $timeRanges ) ){
+
+			foreach( $timeRanges as $timeRange ){
+
+
+				?>
+				<div class="time-range-item">
+					<?php echo $timeRange['from'] . ' - ' . $timeRange['to']; ?>
+				</div>
+				<?php
+
+			}
+
+		}
+
+    }
 
 }
