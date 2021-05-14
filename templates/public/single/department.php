@@ -6,7 +6,7 @@ $department = new \ShippingAppointments\Service\Entities\Department($post->ID);
 
 
 //echo "<pre>";
-//var_dump($department);
+//var_dump($department->users);
 //echo "</pre>";
 
 $shippingCompanyId =  $department->postMeta['shipping_department_company'][0];
@@ -19,6 +19,8 @@ $args = array(
 );
 
 
+
+//$users = $department->users;
 $users = get_users( $args );
 //echo count($users);
 

@@ -3,6 +3,24 @@
 
     $(document).ready(function(){
 
+        $("#toggleAppointmentsView").on( "click", function() {
+
+            if ($( "#appointmentsListView" ).hasClass( "hide" )) {
+                $("#toggleAppointmentsView").html('Calendar View');
+            } else {
+                $("#toggleAppointmentsView").html('List View');
+            }
+
+            $( "#appointmentsCalendarView" ).toggleClass( "hide" );
+            $( "#appointmentsListView" ).toggleClass( "hide" );
+
+        });
+
+        $('#appointmentCalendarOverlay').on( "click", function() {
+            $('#appointmentCalendarClick').addClass('hide');
+            $('#appointmentCalendarOverlay').addClass('hide');
+        })
+
         if ($('.appointments_schedule').length > 0) {
 
             console.log('appointments_schedule loaded');
@@ -13,7 +31,6 @@
                 themeVariant: 'light'                   // More info about themeVariant: https://docs.mobiscroll.com/5-4-0/eventcalendar#opt-themeVariant
             });
 
-            $(function () {
 
                 var inst = $('#appointments_schedule').mobiscroll().eventcalendar({
 
@@ -22,11 +39,6 @@
                         calendar: { labels: true }
                     },
                     onEventClick: function (event, inst) {  // More info about onEventClick: https://docs.mobiscroll.com/5-4-0/eventcalendar#event-onEventClick
-                        // mobiscroll.toast({
-                        //     message: event.event.title
-                        // });
-                        // console.log(event.event.id);
-                        // console.log(event.event.title);
 
                         jQuery.ajax({
                             url: AjaxController.ajax_url,
@@ -38,6 +50,10 @@
                             },
                             success: function (response) {
                                 console.log(response);
+                                $('#appointmentCalendarClick').html(response.html);
+                                $('#appointmentCalendarClick').removeClass('hide');
+                                $('#appointmentCalendarOverlay').removeClass('hide');
+
                             }
 
                         });//end ajax
@@ -45,16 +61,15 @@
                     }
                 }).mobiscroll('getInst');
 
-                $.getJSON('https://trial.mobiscroll.com/events/?vers=5&callback=?', function (events) {
-                    console.log('AJAX JSON',events);
-                    // inst.setEvents(events);
-                }, 'jsonp');
+                // $.getJSON('https://trial.mobiscroll.com/events/?vers=5&callback=?', function (events) {
+                //     console.log('AJAX JSON',events);
+                //     inst.setEvents(events);
+                // }, 'jsonp');
 
                 var appointmentsJSON = JSON.parse($('#jsontest').html());
-                console.log('appointmentsJSON',appointmentsJSON)
+                // console.log('appointmentsJSON',appointmentsJSON)
                 inst.setEvents(appointmentsJSON);
 
-            });
 
 
 

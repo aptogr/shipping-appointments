@@ -45,25 +45,30 @@ else {
 
         <div class="container">
 
-	        <?php if( !empty( get_query_var('company') ) ): ?>
+            <div class="flex flex-center full-width">
 
-                <h1>Company Appointments</h1>
+                <?php if( !empty( get_query_var('company') ) ): ?>
 
-            <?php elseif( !empty( get_query_var('department') ) ): ?>
+                    <h1>Company Appointments</h1>
 
-                <h1>
-                    <?php echo $department->departmentType->term->name; ?> Appointments
-                </h1>
+                <?php elseif( !empty( get_query_var('department') ) ): ?>
 
-            <?php else: ?>
+                    <h1>
+                        <?php echo $department->departmentType->term->name; ?> Appointments
+                    </h1>
 
-                <h1>My Appointments</h1>
+                <?php else: ?>
 
-	        <?php endif; ?>
+                    <h1>My Appointments</h1>
 
-            <div class="profenda-btn">
-                Change View
+                <?php endif; ?>
+
+                <div id="toggleAppointmentsView" class="profenda-btn margin-left-auto no-margin-right">
+                    Calendar View
+                </div>
+
             </div>
+
 
         </div>
 
@@ -73,45 +78,50 @@ else {
 
         <div class="container">
 
-            <div id="appointmentsCalendarView" class="row company-settings no-margin-bottom full-width">
+            <?php if( !empty( get_query_var('company') ) ): ?>
+
+                <div class="flex full-width department-appointments-items margin-bottom-50">
+
+                    <?php foreach ( $shippingCompany->departments as $departmentID ): $departmentEntity = new Department( $departmentID ); ?>
+
+                        <div class="department-appointments-item flex flex-center flex-grow">
+
+                            <div class="icon">
+
+                                <?php echo $departmentEntity->departmentType->svg; ?>
+
+                            </div>
+
+                            <div class="content">
+
+                                <h3>
+                                    <?php echo $departmentEntity->departmentType->term->name; ?>
+                                </h3>
+
+
+                                <a href="<?php echo site_url( 'dashboard/appointments/department/' . $departmentEntity->ID ); ?>" class="profenda-btn">
+                                    View Department's Appointments
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            <?php endif; ?>
+
+            <div id="trial-message"></div>
+
+            <div id="appointmentsCalendarView" class="row relative company-settings no-margin-bottom full-width hide">
+                <div id="appointmentCalendarOverlay" class="hide"></div>
+                <div id="appointmentCalendarClick" class="hide"></div>
                 <?php $dashboardAppointments->getAllAppointmentsJSON($pendingAppointments,$scheduledAppointments,$pastAppointments);?>
             </div>
-            <div id="appointmentsListView" class="row company-settings no-margin-bottom full-width hide">
 
-                <?php if( !empty( get_query_var('company') ) ): ?>
-
-                    <div class="flex full-width department-appointments-items margin-bottom-50">
-
-                        <?php foreach ( $shippingCompany->departments as $departmentID ): $departmentEntity = new Department( $departmentID ); ?>
-
-                           <div class="department-appointments-item flex flex-center flex-grow">
-
-                               <div class="icon">
-
-                                   <?php echo $departmentEntity->departmentType->svg; ?>
-
-                               </div>
-
-                               <div class="content">
-
-                                   <h3>
-	                                   <?php echo $departmentEntity->departmentType->term->name; ?>
-                                   </h3>
-
-
-                                   <a href="<?php echo site_url( 'dashboard/appointments/department/' . $departmentEntity->ID ); ?>" class="profenda-btn">
-                                       View Department's Appointments
-                                   </a>
-
-                               </div>
-
-                           </div>
-
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
+            <div id="appointmentsListView" class="row company-settings no-margin-bottom full-width">
 
                 <div id="main-navigation" class="">
 

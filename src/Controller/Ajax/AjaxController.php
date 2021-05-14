@@ -3,7 +3,9 @@
 namespace ShippingAppointments\Controller\Ajax;
 
 use ShippingAppointments\Interfaces\AjaxInterface;
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsRepository;
 use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
+use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
 
 class AjaxController implements AjaxInterface {
@@ -209,8 +211,27 @@ class AjaxController implements AjaxInterface {
     }
 
     public function  getAppointmentsSchedule() {
-        $id = $_POST['appointment_id'];
-        $result = $id;
+
+        $appointment = new Appointment( $_POST['appointment_id'] );
+
+        $dashboardAppointment = new DashboardAppointmentsRepository();
+
+        $result['time']                 = $appointment->time;
+        $result['date']                 = $appointment->date;
+        $result['ID']                   = $appointment->ID;
+        $result['status']               = $appointment->status;
+        $result['duration']             = $appointment->duration;
+        $result['appointment_method']   = $appointment->appointment_method;
+        $result['employeeName']         = $appointment->employeeUser->data->display_name;
+        $result['departmentName']       = $appointment->departmentObject->departmentType->term->name;
+        $result['supplierCompany']      = $appointment->supplierCompanyObject->post->post_title;
+        $result['supplierEmployee']     = $appointment->supplierEmployeeUser->data->display_name;
+
+        ob_start();
+
+        $dashboardAppointment->displayListItem($appointment);
+
+        $result['html'] = ob_get_clean();
 
         wp_send_json( $result );
         wp_die();
