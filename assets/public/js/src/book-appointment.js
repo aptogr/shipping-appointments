@@ -134,6 +134,23 @@
         if( $('#bookAppointment').length > 0 ) {
 
 
+            $(document).on('submit','form',function(e){
+
+
+                if ($('#bookTime').val() === "" ) {
+
+                    e.preventDefault();
+
+                    // $('#bookTime').stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
+                    $('#bookTime').addClass('shadow-required');
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#bookTime").offset().top - 150
+                    }, 1500);
+
+                }
+
+            });
+
             $(document).on('change', '#departmentField input', function(){
 
                 updateSteps();
