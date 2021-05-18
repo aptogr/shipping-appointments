@@ -17,35 +17,12 @@ class ApproveAppointmentController extends ServiceSaveController {
 
     }
 
-    public function saveField( $metaKey, $value ){
+    public function save( $formData ): bool {
 
-//        update_post_meta( $this->appointmentID, $metaKey, $value );
+	    $this->appointmentID = $formData['appointmentID'];
 
-        if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
-
-            $value = explode( ',', $value );
-
-        }
-
-        if (is_array($value)) {
-
-            delete_post_meta( $this->appointmentID, $metaKey );
-
-            foreach ( $value as $val ){
-                add_post_meta( $this->appointmentID, $metaKey, $val );
-            }
-
-        } else {
-            update_post_meta( $this->appointmentID, $metaKey, $value );
-        }
-
-    }
-
-    public function actionsBeforeSave($formData) {
-
-        $this->appointmentID = $formData['appointmentID'];
-
-        update_post_meta($this->appointmentID, $this->fieldsSlug['status'], 'confirmed');
+	    update_post_meta($this->appointmentID, $this->fieldsSlug['status'], 'confirmed');
+	    return true;
 
     }
 

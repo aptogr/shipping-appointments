@@ -64,6 +64,7 @@ Interface AppointmentInterface {
 			'options'         => array(
 				'confirmed'         => 'Confirmed',
 				'pending_approval'  => 'Pending Approval',
+				'rejected'          => 'Rejected',
 				'cancelled'         => 'Cancelled',
 			),
 			'multiple'        => false,

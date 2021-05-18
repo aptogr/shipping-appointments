@@ -3,6 +3,7 @@
 
 namespace ShippingAppointments\Controller\Save;
 
+use ShippingAppointments\Controller\Save\Service\RejectAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAvailabilityController;
 use ShippingAppointments\Controller\Save\Service\SaveBookingSettingsController;
@@ -18,8 +19,6 @@ class SaveController {
 
 		if( isset( $_POST['refresh_action'] ) ){
 
-//		    var_dump( $_POST );
-
             $action = false;
 
 			switch( $_POST['refresh_action'] ){
@@ -29,7 +28,7 @@ class SaveController {
 
 					$saveAvailabilityController = new SaveAvailabilityController();
 					$action                     = $saveAvailabilityController->save( $_POST );
-					$redirectUrl                = 'dashboard/booking/availability';
+					$redirectUrl                = site_url( 'dashboard/booking/availability' );
 
 					break;
 
@@ -41,28 +40,31 @@ class SaveController {
 
 					$saveBookingSettingsController  = new SaveBookingSettingsController();
 					$action                         = $saveBookingSettingsController->save( $_POST );
-                    $redirectUrl                    = 'dashboard/booking/settings';
+                    $redirectUrl                    = site_url('dashboard/booking/settings');
 
 					break;
 
                 case 'create_appointment':
 
-//                    echo '<pre>';
-//                    var_dump($_POST);
-//                    echo '</pre>';
-
                     $saveAppointmentController  = new SaveAppointmentController();
                     $action                         = $saveAppointmentController->save( $_POST );
-                    $redirectUrl                    = 'dashboard';
+                    $redirectUrl                    = site_url('dashboard');
 
                     break;
 
                 case 'approve_appointment':
 
-
                     $approveAppointmentController  = new ApproveAppointmentController();
                     $action                         = $approveAppointmentController->save( $_POST );
-                    $redirectUrl                    = 'dashboard';
+                    $redirectUrl                    = get_the_permalink( $approveAppointmentController->appointmentID );
+
+                    break;
+
+                case 'reject_appointment':
+
+                    $rejectAppointmentController    = new RejectAppointmentController();
+                    $action                         = $rejectAppointmentController->save( $_POST );
+                    $redirectUrl                    = get_the_permalink( $rejectAppointmentController->appointmentID );
 
                     break;
 
@@ -71,7 +73,7 @@ class SaveController {
 
                     $updateAppointmentController  = new UpdateAppointmentController();
                     $action                         = $updateAppointmentController->save( $_POST );
-                    $redirectUrl                    = 'dashboard';
+                    $redirectUrl                    = get_the_permalink( $updateAppointmentController->appointmentID );
 
                     break;
 
@@ -80,7 +82,7 @@ class SaveController {
 
                     $cancelAppointmentController  = new CancelAppointmentController();
                     $action                         = $cancelAppointmentController->save( $_POST );
-                    $redirectUrl                    = 'dashboard';
+                    $redirectUrl                    = site_url('dashboard');
 
                     break;
 
@@ -91,7 +93,7 @@ class SaveController {
 
                     $saveDepartmentSettingsController  = new SaveDepartmentSettingsController();
                     $action                         = $saveDepartmentSettingsController->save( $_POST );
-                    $redirectUrl                    = 'dashboard/manage/edit-departments/department/'.$_POST['departmentId'];
+                    $redirectUrl                    = site_url('dashboard/manage/edit-departments/department/'.$_POST['departmentId'] );
 
                     break;
 
@@ -99,7 +101,7 @@ class SaveController {
 
                     $saveCompanySettingsController  = new SaveCompanySettingsController();
                     $action                         = $saveCompanySettingsController->save( $_POST );
-                    $redirectUrl                    = 'dashboard/manage/edit-company/company/'.$_POST['companyId'];
+                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
 
                     break;
 
@@ -108,7 +110,7 @@ class SaveController {
 			if( !empty( $redirectUrl ) ) {
 
                 $status = ( $action ? 'success' : 'failed' );
-                wp_redirect( home_url( $redirectUrl . "?status=$status"  ) );
+                wp_redirect( $redirectUrl . "?status=$status" );
                 exit();
 
             }

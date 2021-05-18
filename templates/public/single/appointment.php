@@ -8,10 +8,6 @@ get_header();
 $appointment = new Appointment( get_queried_object_id() );
 $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
 
-echo "<pre>";
-print_r($appointment);
-echo "</pre>";
-
 ?>
 
     <div class="dashboard-panel-page-header full-width flex flex-center">
@@ -35,7 +31,7 @@ echo "</pre>";
 
 	<div class="container">
 
-		<div class="row company-settings no-margin-bottom full-width">
+		<div class="row company-settings no-margin-bottom full-width padding-bottom-50">
 
 			<div class="col s12">
 
@@ -266,15 +262,21 @@ echo "</pre>";
 
                         <div class="flex flex-center appointment-actions">
 
-                            <button type="submit" class="profenda-btn filled">
-                                <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.13 512.13" xml:space="preserve"><g><g><path d="M256.065,0C114.43,0,0,114.298,0,256.065S114.298,512.13,256.065,512.13S512.13,397.832,512.13,256.065S397.702,0,256.065,0z M256.065,477.892c-122.891,0-221.828-98.937-221.828-221.828S133.175,34.236,256.065,34.236s221.828,98.937,221.828,221.828S378.956,477.892,256.065,477.892z"></path></g></g><g><g><path d="M378.956,180.952c-6.769-6.771-17.054-6.771-23.953-0.001L223.651,312.304l-66.523-66.522c-6.769-6.769-17.054-6.769-23.953,0c-6.769,6.769-6.769,17.053,0,23.953l78.498,78.498c3.385,3.385,6.769,5.077,11.977,5.077c5.077,0,8.592-1.692,11.977-5.077l143.329-143.328C385.725,198.136,385.725,187.853,378.956,180.952z"></path></g></g></svg>
-                                Confirm Appointment
-                            </button>
+                            <form method="post" class="flex">
 
-                            <button type="submit" class="profenda-btn">
-                                <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 475.2 475.2" xml:space="preserve"><g><g><path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7C468.6,170.8,468.6,304.4,386.5,386.5z"></path><path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z"></path></g></g></svg>
-                                Reject Appointment
-                            </button>
+                                <input type="hidden" name="appointmentID" value="<?php echo $appointment->ID; ?>">
+
+                                <button type="submit" class="profenda-btn filled" name="refresh_action" value="approve_appointment">
+                                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.13 512.13" xml:space="preserve"><g><g><path d="M256.065,0C114.43,0,0,114.298,0,256.065S114.298,512.13,256.065,512.13S512.13,397.832,512.13,256.065S397.702,0,256.065,0z M256.065,477.892c-122.891,0-221.828-98.937-221.828-221.828S133.175,34.236,256.065,34.236s221.828,98.937,221.828,221.828S378.956,477.892,256.065,477.892z"></path></g></g><g><g><path d="M378.956,180.952c-6.769-6.771-17.054-6.771-23.953-0.001L223.651,312.304l-66.523-66.522c-6.769-6.769-17.054-6.769-23.953,0c-6.769,6.769-6.769,17.053,0,23.953l78.498,78.498c3.385,3.385,6.769,5.077,11.977,5.077c5.077,0,8.592-1.692,11.977-5.077l143.329-143.328C385.725,198.136,385.725,187.853,378.956,180.952z"></path></g></g></svg>
+                                    Confirm Appointment
+                                </button>
+
+                                <button type="submit" class="profenda-btn" name="refresh_action" value="reject_appointment">
+                                    <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 475.2 475.2" xml:space="preserve"><g><g><path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7C468.6,170.8,468.6,304.4,386.5,386.5z"></path><path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z"></path></g></g></svg>
+                                    Reject Appointment
+                                </button>
+
+                            </form>
 
                             <a href="#appointmentEditModal" class="profenda-btn margin-left-auto no-margin-right trigger-modal">
                                 <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" xml:space="preserve"><g><g><path d="M496.063,62.299l-46.396-46.4c-21.199-21.199-55.689-21.198-76.888,0C352.82,35.86,47.964,340.739,27.591,361.113c-2.17,2.17-3.624,5.054-4.142,7.875L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143L143,488.549c2.895-0.54,5.741-2.008,7.875-4.143l345.188-345.214C517.311,117.944,517.314,83.55,496.063,62.299z M33.721,478.276l14.033-75.784l61.746,61.75L33.721,478.276z M140.269,452.585L59.41,371.721L354.62,76.488l80.859,80.865L140.269,452.585z M474.85,117.979l-18.159,18.161l-80.859-80.865l18.159-18.161c9.501-9.502,24.96-9.503,34.463,0l46.396,46.4C484.375,93.039,484.375,108.453,474.85,117.979z"></path></g></g></svg>
@@ -288,6 +290,58 @@ echo "</pre>";
 
 			</div>
 
+            <div class="col l6 s12">
+
+                <div class="single-appointment-block margin-top-50">
+
+                    <div class="single-appointment-block--header">
+                        <h3 class="flex flex-center full-width">
+                           Meeting Information
+                        </h3>
+                    </div>
+
+                    <div class="single-appointment-block--content">
+                        Message info from supplier here
+
+                        <div class="input-field textarea-field col s12 no-padding-left no-padding-right margin-top-20 margin-bottom-20">
+                            <textarea name="notes"></textarea>
+                        </div>
+
+                        <a href="#" class="profenda-btn">
+                            Download Attachment
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="col l6 s12">
+
+                <div class="single-appointment-block margin-top-50">
+
+                    <div class="single-appointment-block--header">
+                        <h3 class="flex flex-center full-width">
+                            Meeting Notes
+                        </h3>
+                    </div>
+
+                    <div class="single-appointment-block--content">
+                        You can share some notes of how the meeting went with the rest of the employees of the department.
+
+                        <div class="input-field textarea-field col s12 no-padding-left no-padding-right margin-top-20">
+                             <textarea name="notes"></textarea>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
 		</div>
 
