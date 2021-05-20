@@ -30,6 +30,7 @@ class Appointment {
     public $zoom_link;
     public $webex_link;
     public $teams_link;
+    public $web_link;
 
     public $reason;
     public $questions;
@@ -168,5 +169,19 @@ class Appointment {
 	    return array( $from, $to );
 
     }
+
+	public function getDisplayDateTime() {
+
+		return $this->getDisplayDate() . ' at ' . $this->time;
+
+	}
+
+
+	public function isCompleted(): bool {
+
+		return $this->date <= date('Y-m-d') && $this->status === 'confirmed';
+
+	}
+
 
 }

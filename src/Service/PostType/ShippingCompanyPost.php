@@ -36,7 +36,7 @@ class ShippingCompanyPost implements TemplatesInterface{
 
 	/**
 	 * Post Type Meta Fields slugs
-	 * @var array 
+	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
 		'company_users_visibility'      => self::POST_TYPE_NAME . '_company_users_visibility',
@@ -58,6 +58,8 @@ class ShippingCompanyPost implements TemplatesInterface{
         'meeting_type'                  => self::POST_TYPE_NAME . '_meeting_types',
         'meeting_types_available'       => self::POST_TYPE_NAME . '_meeting_types_available',
         'instant_booking'               => self::POST_TYPE_NAME . '_instant_booking',
+
+        'premises'                      => self::POST_TYPE_NAME . '_premises',
 	];
 
 
@@ -290,6 +292,11 @@ class ShippingCompanyPost implements TemplatesInterface{
                     'name'              => 'Meeting Repetition Time Limit',
                     'id'                => self::META_FIELDS_SLUG['meeting_repetition_time'],
                     'type'              => 'number',
+                ),
+                array(
+                    'name'              => 'Premises',
+                    'id'                => self::META_FIELDS_SLUG['premises'],
+                    'type'              => 'text',
                 ),
 
 			),
