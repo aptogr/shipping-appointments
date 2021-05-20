@@ -317,6 +317,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
     }
 
+
 	public function setAppointments(){
 
 		$this->appointments = array();
@@ -341,6 +342,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 		}
 
 	}
+
 
 	public function getCountryDisplayName(){
 

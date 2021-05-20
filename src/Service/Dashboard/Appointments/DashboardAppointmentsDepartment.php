@@ -74,4 +74,5 @@ class DashboardAppointmentsDepartment extends DashboardAppointmentsRepository {
 
 	}
 
+
 }

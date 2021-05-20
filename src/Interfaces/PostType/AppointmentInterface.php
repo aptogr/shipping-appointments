@@ -48,6 +48,7 @@ Interface AppointmentInterface {
 		'zoom_link'                     => self::POST_TYPE_NAME . '_zoom_link',
 		'webex_link'                    => self::POST_TYPE_NAME . '_webex_link',
 		'teams_link'                    => self::POST_TYPE_NAME . '_teams_link',
+		'web_link'                      => self::POST_TYPE_NAME . '_web_link',
 
 		//Additional Information
 		'reason'                        => self::POST_TYPE_NAME . '_reason',
@@ -224,6 +225,11 @@ Interface AppointmentInterface {
 			'name'  =>  'Microsoft Team Link',
 			'type'  => 'text',
 		),
+		'web_link' => array(
+			'id'    => self::META_FIELDS_SLUG['web_link'],
+			'name'  =>  'Web Link',
+			'type'  => 'text',
+		),
 		'reason' => array(
 			'name'          =>  'Appointment Reason',
 			'id'            => self::META_FIELDS_SLUG['reason'],
@@ -279,6 +285,7 @@ Interface AppointmentInterface {
 		self::ALL_FIELDS['zoom_link'],
 		self::ALL_FIELDS['webex_link'],
 		self::ALL_FIELDS['teams_link'],
+		self::ALL_FIELDS['web_link'],
 		self::ALL_FIELDS['reason'],
 		self::ALL_FIELDS['questions'],
 		self::ALL_FIELDS['file'],

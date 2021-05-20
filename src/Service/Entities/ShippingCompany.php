@@ -41,6 +41,8 @@ class ShippingCompany {
     public $meeting_repetition;
     public $meeting_repetition_time;
 
+    public $premises;
+
 
 	public function __construct( $id ) {
 
