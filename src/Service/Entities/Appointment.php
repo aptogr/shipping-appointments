@@ -33,6 +33,7 @@ class Appointment {
 
     public $reason;
     public $questions;
+    public $file;
 
     public $company;
     public $department;

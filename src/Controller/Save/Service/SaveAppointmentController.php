@@ -44,7 +44,6 @@ class SaveAppointmentController extends ServiceSaveController {
 
     public function actionsBeforeSave($formData) {
 
-//        var_dump($formData);
 
             $postData = array(
                 'post_title'    => "Appointment " . $formData["date"],

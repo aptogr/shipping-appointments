@@ -305,13 +305,36 @@ $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
                     <div class="single-appointment-block--content">
                         Message info from supplier here
 
-                        <div class="input-field textarea-field col s12 no-padding-left no-padding-right margin-top-20 margin-bottom-20">
-                            <textarea name="notes"></textarea>
+                        <div class="appointment-meeting-message flex flex-start margin-top-30 margin-bottom-30">
+
+                            <div class="sender-info">
+
+                                <div class="image-icon">
+	                                <?php echo get_avatar( $appointment->supplierEmployeeUser->ID, 'thumbnail'); ?>
+
+                                    <div class="icon">
+                                        <svg height="682pt" viewBox="-21 -47 682.66669 682" width="682pt" xmlns="http://www.w3.org/2000/svg"><path d="m552.011719-1.332031h-464.023438c-48.515625 0-87.988281 39.464843-87.988281 87.988281v283.972656c0 48.414063 39.300781 87.816406 87.675781 87.988282v128.863281l185.191407-128.863281h279.144531c48.515625 0 87.988281-39.472657 87.988281-87.988282v-283.972656c0-48.523438-39.472656-87.988281-87.988281-87.988281zm50.488281 371.960937c0 27.835938-22.648438 50.488282-50.488281 50.488282h-290.910157l-135.925781 94.585937v-94.585937h-37.1875c-27.839843 0-50.488281-22.652344-50.488281-50.488282v-283.972656c0-27.84375 22.648438-50.488281 50.488281-50.488281h464.023438c27.839843 0 50.488281 22.644531 50.488281 50.488281zm0 0"/><path d="m171.292969 131.171875h297.414062v37.5h-297.414062zm0 0"/><path d="m171.292969 211.171875h297.414062v37.5h-297.414062zm0 0"/><path d="m171.292969 291.171875h297.414062v37.5h-297.414062zm0 0"/></svg>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <p>
+                                <?php echo $appointment->questions; ?>
+                            </p>
+
                         </div>
 
-                        <a href="#" class="profenda-btn">
-                            Download Attachment
-                        </a>
+                        <?php if( !empty( $appointment->file ) ): ?>
+
+                            <a href="<?php echo wp_get_attachment_url($appointment->file); ?>" class="profenda-btn" download>
+                                Download Attachment
+                                <svg xmlns="http://www.w3.org/2000/svg" height="511pt" version="1.1" viewBox="-53 1 511 511.99906" width="511pt" style="fill: #02569c;"><g id="surface1"><path d="M 276.410156 3.957031 C 274.0625 1.484375 270.84375 0 267.507812 0 L 67.777344 0 C 30.921875 0 0.5 30.300781 0.5 67.152344 L 0.5 444.84375 C 0.5 481.699219 30.921875 512 67.777344 512 L 338.863281 512 C 375.71875 512 406.140625 481.699219 406.140625 444.84375 L 406.140625 144.941406 C 406.140625 141.726562 404.65625 138.636719 402.554688 136.285156 Z M 279.996094 43.65625 L 364.464844 132.328125 L 309.554688 132.328125 C 293.230469 132.328125 279.996094 119.21875 279.996094 102.894531 Z M 338.863281 487.265625 L 67.777344 487.265625 C 44.652344 487.265625 25.234375 468.097656 25.234375 444.84375 L 25.234375 67.152344 C 25.234375 44.027344 44.527344 24.734375 67.777344 24.734375 L 255.261719 24.734375 L 255.261719 102.894531 C 255.261719 132.945312 279.503906 157.0625 309.554688 157.0625 L 381.40625 157.0625 L 381.40625 444.84375 C 381.40625 468.097656 362.113281 487.265625 338.863281 487.265625 Z M 338.863281 487.265625 " style=" stroke:none;fill-rule:nonzero;fill:#02569c;fill-opacity:1;"></path><path d="M 305.101562 401.933594 L 101.539062 401.933594 C 94.738281 401.933594 89.171875 407.496094 89.171875 414.300781 C 89.171875 421.101562 94.738281 426.667969 101.539062 426.667969 L 305.226562 426.667969 C 312.027344 426.667969 317.59375 421.101562 317.59375 414.300781 C 317.59375 407.496094 312.027344 401.933594 305.101562 401.933594 Z M 305.101562 401.933594 " style=" stroke:none;fill-rule:nonzero;fill:#02569c;fill-opacity:1;"></path><path d="M 194.292969 357.535156 C 196.644531 360.007812 199.859375 361.492188 203.320312 361.492188 C 206.785156 361.492188 210 360.007812 212.347656 357.535156 L 284.820312 279.746094 C 289.519531 274.796875 289.148438 266.882812 284.203125 262.308594 C 279.253906 257.609375 271.339844 257.976562 266.765625 262.925781 L 215.6875 317.710938 L 215.6875 182.664062 C 215.6875 175.859375 210.121094 170.296875 203.320312 170.296875 C 196.519531 170.296875 190.953125 175.859375 190.953125 182.664062 L 190.953125 317.710938 L 140 262.925781 C 135.300781 257.980469 127.507812 257.609375 122.5625 262.308594 C 117.617188 267.007812 117.246094 274.800781 121.945312 279.746094 Z M 194.292969 357.535156 " style=" stroke:none;fill-rule:nonzero;fill:#02569c;fill-opacity:1;"></path></g></svg>
+                            </a>
+
+                        <?php endif; ?>
 
                     </div>
 
@@ -322,7 +345,7 @@ $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
 
             <div class="col l6 s12">
 
-                <div class="single-appointment-block margin-top-50">
+                <div class="single-appointment-block relative margin-top-50">
 
                     <div class="single-appointment-block--header">
                         <h3 class="flex flex-center full-width">
@@ -332,6 +355,24 @@ $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
 
                     <div class="single-appointment-block--content">
                         You can share some notes of how the meeting went with the rest of the employees of the department.
+
+                        <?php if( $appointment->status !== 'confirmed'): ?>
+
+                            <div class="disabled-notes flex flex-dir-col flex-center flex-just-center center">
+
+                                <div class="icon">
+
+                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path style="fill:#FFDA2D;" d="M505.626,460.436c-8.488,14.717-23.715,23.505-40.711,23.505H47.085c-16.996,0-32.213-8.788-40.711-23.505c-8.498-14.717-8.498-32.293,0-47.01L215.289,51.564c8.498-14.717,23.715-23.505,40.711-23.505s32.213,8.788,40.711,23.505l208.915,361.862C514.125,428.143,514.125,445.719,505.626,460.436z"/><path style="fill:#FDBF00;" d="M505.626,460.436c-8.488,14.717-23.715,23.505-40.711,23.505H256V28.059c16.996,0,32.213,8.788,40.711,23.505l208.915,361.862C514.125,428.143,514.125,445.719,505.626,460.436z"/><g><path style="fill:#FFFFFF;" d="M298.121,179.586v109.436c0,23.235-18.896,42.131-42.121,42.131s-42.121-18.896-42.121-42.131V179.586c0-23.225,18.896-42.121,42.121-42.121S298.121,156.361,298.121,179.586z"/><path style="fill:#FFFFFF;" d="M298.121,386.262c0,23.225-18.896,42.121-42.121,42.121s-42.121-18.896-42.121-42.121c0-23.225,18.896-42.121,42.121-42.121S298.121,363.037,298.121,386.262z"/></g><g><path style="fill:#DCE6EB;" d="M298.121,386.262c0,23.225-18.896,42.121-42.121,42.121v-84.242C279.225,344.141,298.121,363.037,298.121,386.262z"/><path style="fill:#DCE6EB;" d="M298.121,179.586v109.436c0,23.235-18.896,42.131-42.121,42.131V137.465C279.225,137.465,298.121,156.361,298.121,179.586z"/></g></svg>
+
+                                </div>
+
+                                <h3>
+                                    Notes sharing will be available after the meeting has been conducted.
+                                </h3>
+
+                            </div>
+
+                        <?php endif; ?>
 
                         <div class="input-field textarea-field col s12 no-padding-left no-padding-right margin-top-20">
                              <textarea name="notes"></textarea>

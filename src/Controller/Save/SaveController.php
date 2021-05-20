@@ -46,9 +46,9 @@ class SaveController {
 
                 case 'create_appointment':
 
-                    $saveAppointmentController  = new SaveAppointmentController();
+                    $saveAppointmentController      = new SaveAppointmentController();
                     $action                         = $saveAppointmentController->save( $_POST );
-                    $redirectUrl                    = site_url('dashboard');
+                    $redirectUrl                    = site_url('dashboard/book/success/req/' . $saveAppointmentController->appointmentID );
 
                     break;
 

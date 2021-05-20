@@ -12,6 +12,7 @@ Interface PagesTemplatesInterface {
     const SUPPORTED_ENDPOINTS = array(
         'department',
         'company',
+        'req',
     );
 
 	/**

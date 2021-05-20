@@ -52,6 +52,7 @@ Interface AppointmentInterface {
 		//Additional Information
 		'reason'                        => self::POST_TYPE_NAME . '_reason',
 		'questions'                     => self::POST_TYPE_NAME . '_invite_questions',
+		'file'                          => self::POST_TYPE_NAME . '_file',
 
 	];
 
@@ -244,6 +245,11 @@ Interface AppointmentInterface {
 				'teeny'         => true,
 			),
 		),
+		'file' => array(
+			'id'    => self::META_FIELDS_SLUG['file'],
+			'name'  =>  'File Attached',
+			'type'  => 'file_advanced',
+		),
 	);
 
 	const PRIMARY_FIELDS = array(
@@ -275,6 +281,7 @@ Interface AppointmentInterface {
 		self::ALL_FIELDS['teams_link'],
 		self::ALL_FIELDS['reason'],
 		self::ALL_FIELDS['questions'],
+		self::ALL_FIELDS['file'],
 	);
 
 }
