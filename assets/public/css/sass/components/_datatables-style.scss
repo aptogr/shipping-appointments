@@ -1,0 +1,13 @@
+.dataTables_wrapper {
+
+  td,th {
+    padding: 15px!important;
+    border-bottom: 1px solid #b2c1d7!important;
+    border-radius: 0px!important;
+  }
+
+  #companyEmployeesTable_length, #companyEmployeesTable_filter,#departmentEmployeesTable_filter,#departmentEmployeesTable_length {
+    display: none!important;
+  }
+
+}

@@ -391,6 +391,7 @@ class DashboardBooking {
 		<?php endif; ?>
 
             <input type="text" class="timeSelect timepicker" id="bookTime" name="time" value="">
+            <input type="hidden" id="bookTimeHidden" name="bookTimeHidden" value="">
         </strong>
 
 

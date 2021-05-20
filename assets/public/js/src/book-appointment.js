@@ -11,33 +11,33 @@
 
         function insertParam(key, value) {
 
-            key = escape(key); value = escape(value);
-
-            var kvp = document.location.search.substr(1).split('&');
-            if (kvp === '') {
-                document.location.search = '?' + key + '=' + value;
-            }
-            else {
-
-                var i = kvp.length; var x; while (i--) {
-                    x = kvp[i].split('=');
-
-                    if (x[0] === key) {
-                        x[1] = value;
-                        kvp[i] = x.join('=');
-                        break;
-                    }
-                }
-
-                if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
-
-                if (history.pushState) {
-
-                    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + kvp.join('&');
-                    window.history.pushState({path: newurl}, '', newurl);
-                }
-
-            }
+            // key = escape(key); value = escape(value);
+            //
+            // var kvp = document.location.search.substr(1).split('&');
+            // if (kvp === '') {
+            //     document.location.search = '?' + key + '=' + value;
+            // }
+            // else {
+            //
+            //     var i = kvp.length; var x; while (i--) {
+            //         x = kvp[i].split('=');
+            //
+            //         if (x[0] === key) {
+            //             x[1] = value;
+            //             kvp[i] = x.join('=');
+            //             break;
+            //         }
+            //     }
+            //
+            //     if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
+            //
+            //     if (history.pushState) {
+            //
+            //         var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + kvp.join('&');
+            //         window.history.pushState({path: newurl}, '', newurl);
+            //     }
+            //
+            // }
 
         }
 
@@ -136,15 +136,20 @@
 
             // console.log( disabledTimes );
 
+            var defaultTime = $('#bookTime').val()
+            console.log(defaultTime)
 
             $('#bookTime').timepicker({
                 'timeFormat': 'H:i',
                 'step': 15,
                 'show2400': true,
-                'disableTimeRanges': disabledTimes
+                'disableTimeRanges': disabledTimes,
             });
 
             $('#bookTime').on('changeTime', function() {
+
+                $(this).attr("value", $(this).val());
+                $('#bookTimeHidden').attr("value", $(this).val());
                 insertParam($(this).attr('name'), $(this).val());
                 var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
                 bookingSteps(stepNum);
