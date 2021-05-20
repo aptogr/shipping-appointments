@@ -4,8 +4,42 @@
 
     $(document).ready(function(){
 
+
         var loading = $('.loading-field ');
         var yesterdayDate = new Date(Date.now() - 864e5).toJSON().slice(0,10).toString();
+
+
+        function insertParam(key, value) {
+
+            key = escape(key); value = escape(value);
+
+            var kvp = document.location.search.substr(1).split('&');
+            if (kvp === '') {
+                document.location.search = '?' + key + '=' + value;
+            }
+            else {
+
+                var i = kvp.length; var x; while (i--) {
+                    x = kvp[i].split('=');
+
+                    if (x[0] === key) {
+                        x[1] = value;
+                        kvp[i] = x.join('=');
+                        break;
+                    }
+                }
+
+                if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
+
+                if (history.pushState) {
+
+                    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + kvp.join('&');
+                    window.history.pushState({path: newurl}, '', newurl);
+                }
+
+            }
+
+        }
 
 
         function initCalendar(){
@@ -49,16 +83,14 @@
                         var that = $(this);
                         var date = that[0].dataset.date; //Hmerominia sto click
                         // console.log(date);
-                        // console.log('context',context);
-                        console.log('that',that[0]);
-                        console.log('event',event);
-                        console.log('context',context);
 
                         if (!that.hasClass('pignose-calendar-unit-disabled')) {
 
                             $('#date').val(date);
                             $('#date').trigger('change');
 
+                            // var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                            // bookingSteps(stepNum);
 
 
                         } else {
@@ -72,6 +104,22 @@
 
         }
 
+        function bookingSteps(stepNow) {
+
+            var stepNow = parseInt(stepNow);
+            var nextStep = stepNow + 1;
+
+            $('.book-step-' + stepNow).addClass('completed');
+            $('.book-step-' + nextStep).removeClass('disabled');
+
+
+            if (nextStep !== 7) {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $('.book-step-' + nextStep).offset().top - 150
+                }, 500);
+            }
+
+        }
 
         function initTimePicker(){
 
@@ -88,11 +136,18 @@
 
             // console.log( disabledTimes );
 
+
             $('#bookTime').timepicker({
                 'timeFormat': 'H:i',
                 'step': 15,
                 'show2400': true,
                 'disableTimeRanges': disabledTimes
+            });
+
+            $('#bookTime').on('changeTime', function() {
+                insertParam($(this).attr('name'), $(this).val());
+                var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                bookingSteps(stepNum);
             });
 
         }
@@ -153,7 +208,13 @@
 
             $(document).on('change', '#departmentField input', function(){
 
+                insertParam($(this).attr('name'), $(this).val());
+
+                var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                bookingSteps(stepNum);
+
                 updateSteps();
+
 
             });
 
@@ -171,7 +232,13 @@
                     $('#selectedEmployee').val($(this).attr('data-id'));
                     $('#employeeStep').addClass('completed');
 
+                    insertParam('selectedEmployee', $('#selectedEmployee').val());
+
+                    var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                    bookingSteps(stepNum);
+
                     updateSteps();
+
 
                 }
 
@@ -186,6 +253,10 @@
                     $('.select-employees-table').removeClass('hide');
                     $('#employeeStep').removeClass('completed');
                     $('#view-availability-dep').addClass('hide');
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $('.select-employees-table').offset().top - 150
+                    }, 1500);
+
 
                 }
 
@@ -196,7 +267,31 @@
                     $('#selectedEmployee').val('');
                     $('#view-availability-dep').removeClass('hide');
 
+                    insertParam($(this).attr('name'), $(this).val());
+                    var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                    bookingSteps(stepNum);
+
                 }
+
+                updateSteps();
+            });
+
+            $(document).on('change', '#meetingTypeStep input', function(){
+
+                insertParam($(this).attr('name'), $(this).val());
+
+                var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                bookingSteps(stepNum);
+
+                updateSteps();
+            });
+
+            $(document).on('change', '#meetingInformationStep input', function(){
+
+                insertParam($(this).attr('name'), $(this).val());
+
+                var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                bookingSteps(stepNum);
 
                 updateSteps();
             });
@@ -209,6 +304,11 @@
                 else{
                     $('#dateStep').removeClass('completed');
                 }
+
+                insertParam($(this).attr('name'), $(this).val());
+
+                var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
+                bookingSteps(stepNum);
 
                 updateSteps();
 

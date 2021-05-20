@@ -56,6 +56,7 @@ class DashboardSingleAppointment {
 
                 </div>
 
+
                 <div class="flex flex-center appointment-item-info">
 
                     <div class="icon">
@@ -70,6 +71,29 @@ class DashboardSingleAppointment {
                             <span class="font-weight-400">Buffer:</span>
                             <div class="input-field margin-left-auto no-margin-right">
                                 <input type="text" name="buffer" class="spinner1" value="<?php echo ( !empty( $this->appointment->buffer) ? $this->appointment->buffer : 10); ?>">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flex flex-center appointment-item-info">
+
+                    <div class="icon">
+
+                        <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m391 123v-33h30c8.284 0 15-6.716 15-15v-60c0-8.284-6.716-15-15-15h-330c-8.284 0-15 6.716-15 15v60c0 8.284 6.716 15 15 15h30v33c0 67.604 49.952 123.758 114.884 133.5-65.071 9.763-114.884 66.052-114.884 133.5v32h-30c-8.284 0-15 6.716-15 15v60c0 8.284 6.716 15 15 15h330c8.284 0 15-6.716 15-15v-60c0-8.284-6.716-15-15-15h-30v-32c0-67.394-49.759-123.729-114.884-133.5 64.932-9.742 114.884-65.896 114.884-133.5zm-285-93h300v30h-300zm255 60c-1.252 23.881 4.151 46.344-9.215 76h-191.57c-13.425-29.788-7.944-51.775-9.215-76zm45 392h-300v-30h300zm-255-60c.277-28.476-.734-35.29 1.217-48h73.783c11.187 0 21.746-4.057 30.002-11.476 7.974 7.132 18.493 11.476 29.998 11.476h73.783c.801 5.218 1.217 10.561 1.217 16v32zm199.372-78h-64.372c-8.285 0-15.036-6.74-15.05-15.025-.014-8.276-6.727-14.975-14.999-14.975-.009 0-.018 0-.025 0-8.284.014-14.989 6.74-14.976 15.025.014 8.272-6.677 14.975-14.95 14.975h-64.372c38.408-78.477 150.262-78.629 188.744 0zm-169.767-148h150.789c-41.312 42.655-109.448 42.684-150.789 0z"/></g></svg>
+
+                    </div>
+
+                    <div class="appointment-item--appointment">
+
+                        <div class="appointment-item--time font-weight-700 full-width flex flex-center">
+                            <span class="font-weight-400">Assign Employee:</span>
+
+
+                            <div class="input-field no-margin-right margin-left-auto">
                             </div>
 
                         </div>

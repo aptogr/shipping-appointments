@@ -59,7 +59,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
 			<div class="booking-steps margin-top-80 margin-bottom-50">
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-bottom-30 <?php echo( $dashboardBooking->department !== false ? 'completed' : ''); ?>">
+                <div class="booking-step-wrapper book-step-1 flex flex-center full-width padding-bottom-30 <?php echo( $dashboardBooking->department !== false ? 'completed' : ''); ?>">
 
                     <div class="step-counter">
                         1
@@ -99,7 +99,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
                 </div>
 
 
-                <div id="employeeStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="employeeStep" class="booking-step-wrapper book-step-2 flex flex-center full-width padding-top-30 padding-bottom-30">
 
                     <div class="step-counter">
                         2
@@ -130,7 +130,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div id="dateStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="dateStep" class="booking-step-wrapper book-step-3 flex flex-center full-width padding-top-30 padding-bottom-30 disabled">
 
                     <div class="step-counter">
                         3
@@ -161,7 +161,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div id="timeStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="timeStep" class="booking-step-wrapper book-step-4 flex flex-center full-width padding-top-30 padding-bottom-30 disabled">
 
                     <div class="step-counter">
                         4
@@ -192,7 +192,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div id="meetingTypeStep" class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="meetingTypeStep" class="booking-step-wrapper book-step-5 flex flex-center full-width padding-top-30 padding-bottom-30 disabled">
 
                     <div class="step-counter">
                         5
@@ -223,7 +223,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div id="meetingInformationStep" class="booking-step-wrapper book-step-6 flex flex-center full-width padding-top-30 padding-bottom-30 disabled">
 
                     <div class="step-counter">
                         6
@@ -254,7 +254,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
                 </div>
 
-                <div class="booking-step-wrapper flex flex-center full-width padding-top-30 padding-bottom-30">
+                <div class="booking-step-wrapper book-step-7 flex flex-center full-width padding-top-30 padding-bottom-30 disabled">
 
                     <div class="step-counter">
                         7

@@ -8,6 +8,8 @@ get_header();
 $appointment = new Appointment( get_queried_object_id() );
 $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
 
+//print_r($appointment);
+
 ?>
 
     <div class="dashboard-panel-page-header full-width flex flex-center">
