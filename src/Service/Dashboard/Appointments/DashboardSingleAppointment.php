@@ -20,6 +20,28 @@ class DashboardSingleAppointment {
         $this->appointment = $appointment;
     }
 
+    public function getAvailableUsers(){
+        ob_start();
+        ?>
+
+        <select class="assignEmployee" name="employee" id="assignEmployee">
+            <?php
+
+            foreach ($this->appointment->departmentObject->users as $user) {
+
+                echo '<option value="'.$user->data->ID.'">';
+                echo $user->data->display_name;
+                echo '</option>';
+
+            }
+
+            ?>
+        </select>
+
+        <?php
+        return ob_get_clean();
+    }
+
     public function getEditForm(){
 
         ob_start();
@@ -94,6 +116,9 @@ class DashboardSingleAppointment {
 
 
                             <div class="input-field no-margin-right margin-left-auto">
+                                <?php
+                                   echo $this->getAvailableUsers();
+                                ?>
                             </div>
 
                         </div>
@@ -187,7 +212,7 @@ class DashboardSingleAppointment {
 
                                     <div class="radio-item">
 
-                                        <input id="premises" type="radio" value="premises" name="one_to_one_location" <?php echo ( $this->appointment->one_to_one_location === 'premises' ? 'checked' : ''); ?>>
+                                        <input id="premises" class="one_to_one_location" type="radio" value="premises" name="one_to_one_location" <?php echo ( $this->appointment->one_to_one_location === 'premises' ? 'checked' : ''); ?>>
 
                                         <label for="premises" class="flex-grow flex flex-center <?php echo ( $this->appointment->one_to_one_location === 'premises' ? 'selected' : ''); ?>">
 
@@ -199,7 +224,7 @@ class DashboardSingleAppointment {
 
                                     <div class="radio-item">
 
-                                        <input id="otherLocation" type="radio" value="other" name="one_to_one_location" <?php echo ( $this->appointment->one_to_one_location === 'other' ? 'checked' : ''); ?>>
+                                        <input id="otherLocation" class="one_to_one_location" type="radio" value="other" name="one_to_one_location" <?php echo ( $this->appointment->one_to_one_location === 'other' ? 'checked' : ''); ?>>
 
                                         <label for="otherLocation" class="flex-grow flex flex-center <?php echo ( $this->appointment->one_to_one_location === 'other' ? 'selected' : ''); ?>">
 

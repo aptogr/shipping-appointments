@@ -8,7 +8,10 @@ get_header();
 $appointment = new Appointment( get_queried_object_id() );
 $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
 
+
+//echo '<pre>';
 //print_r($appointment);
+//echo '</pre>';
 
 ?>
 
