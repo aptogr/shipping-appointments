@@ -21,6 +21,23 @@ class DashboardSingleAppointment {
     }
 
 
+    public function appointmentsOverlap( Appointment $appointment1, Appointment $appointment2 ){
+
+        $timeRange1 = $appointment1->getTrueAppointmentTimeRange();
+        $timeRange2 = $appointment2->getTrueAppointmentTimeRange();
+
+	    if(($timeRange1[1] >= $timeRange2[0]) && ($timeRange2[1] >= $timeRange1[0])) {
+
+	        return true;
+
+	    }
+	    else {
+	        return false;
+        }
+
+
+    }
+
 
     public function getMethodInfoBox(){
 
@@ -118,34 +135,84 @@ class DashboardSingleAppointment {
 
         $dashboardAppointments  = new DashboardAppointmentsDepartment( $this->appointment->departmentObject );
 	    $appointments           = $dashboardAppointments->getDepartmentConfirmedAppointmentsByDate( $this->appointment->date );
+        $finalAppointmentUsers  = array();
         $finalAppointments      = array();
 
-	    foreach( $appointments as $appointment ){
+        if( !empty( $appointments ) ){
 
-	        if( $appointment !== $this->appointment->ID ){
+	        foreach( $appointments as $appointment ){
 
-		        $finalAppointments[] = $appointment;
+		        if( $appointment !== $this->appointment->ID ){
+
+		            $app = new Appointment( $appointment );
+
+			        $finalAppointmentUsers[] = $app->employeeUser->ID;
+			        $finalAppointments[$app->employeeUser->ID] = $app;
+		        }
 
 	        }
 
-	    }
+        }
 
-	    var_dump( $finalAppointments );
+
         ?>
 
-        <select class="assignEmployee" name="employee" id="assignEmployee">
-            <?php
+        <input type="hidden" name="employee" value="">
 
-            foreach ($this->appointment->departmentObject->users as $user) {
+        <div class="assign-employee-wrapper relative">
 
-                echo '<option value="'.$user->data->ID.'">';
-                echo $user->data->display_name;
-                echo '</option>';
+            <div class="assign-employee--trigger">
+                Choose an employee to assign
+            </div>
 
-            }
+            <ul class="assign-employee--list">
 
-            ?>
-        </select>
+		        <?php
+
+		        foreach ($this->appointment->departmentObject->users as $user) {
+
+		            $isAvailable = true;
+
+			        if( in_array( $user->ID, $finalAppointmentUsers )  ){
+
+				        $currentUserAppointment = $finalAppointments[$user->ID];
+				        $isAvailable = $this->appointmentsOverlap( $this->appointment, $currentUserAppointment ) === false;
+
+			        }
+
+
+			        if( $isAvailable  ){
+
+				        ?>
+
+                        <li data-id="<?php echo $user->data->ID; ?>">
+					        <?php echo $user->data->display_name; ?>
+                        </li>
+
+				        <?php
+
+			        }
+			        else {
+
+			            $message = "The employee has an appointment at $currentUserAppointment->time";
+				        ?>
+
+                        <li data-id="<?php echo $user->data->ID; ?>" title="<?php echo $message; ?>" class="not-available">
+                            <span class="indicator"></span>
+					        <?php echo $user->data->display_name; ?> (Not Available)
+                        </li>
+
+				        <?php
+			        }
+
+		        }
+
+		        ?>
+
+            </ul>
+
+        </div>
+
 
         <?php
         return ob_get_clean();

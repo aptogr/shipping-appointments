@@ -170,6 +170,15 @@ class Appointment {
 
     }
 
+    public function getTrueAppointmentTimeRange(){
+
+	    $from   = date("h:i", strtotime($this->time ) );
+	    $to     = date("h:i", strtotime($this->time) + ( $this->duration*60 ) + ( $this->buffer*60 ) );
+
+	    return array( $from, $to );
+
+    }
+
 	public function getDisplayDateTime() {
 
 		return $this->getDisplayDate() . ' at ' . $this->time;
