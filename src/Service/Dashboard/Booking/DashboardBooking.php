@@ -51,7 +51,7 @@ class DashboardBooking {
 		$this->selectedEmployeeUser = ( $this->selectedEmployee !== false  ? new PlatformUser( intval($this->selectedEmployee) ) : false );
 		$this->selectedDate         = ( isset( $settings['date'] ) && !empty( $settings['date'] ) ? $settings['date'] : false );
 		$this->selectedTime         = ( isset( $settings['time'] ) && !empty( $settings['time'] ) ? $settings['time'] : false );
-		$this->selectedMeetingType  = ( isset( $settings['type'] ) && !empty( $settings['type'] ) ? $settings['type'] : false );
+		$this->selectedMeetingType  = ( isset( $settings['appointment_method'] ) && !empty( $settings['appointment_method'] ) ? $settings['appointment_method'] : false );
 		$this->selectedReason       = ( isset( $settings['reason'] ) && !empty( $settings['reason'] ) ? $settings['reason'] : false );
 
 	}
@@ -319,14 +319,16 @@ class DashboardBooking {
                         array($to,'24:00'),
                 );
 
+                echo '<pre>';
+                print_r($disableTime);
+                echo '</pre>';
+
                 $userAppointments = $this->getBookedAppointments();
 
-//                echo count($userAppointments);
-
                 foreach ($userAppointments as $userAppointment) {
-//                    echo "<pre>";
-//                    var_dump($userAppointment);
-//                    echo "</pre>";
+                    echo "<pre style='background-color: #0c4400;'>";
+                    var_dump($userAppointment);
+                    echo "</pre>";
 
 //                    $userAppointmentTimeFrom = $userAppointment->time;
 //                    $userAppointmentDurationPlusBuffer = $userAppointment->duration + $userAppointment->buffer;
@@ -339,7 +341,15 @@ class DashboardBooking {
                     $userAppointmentsTimeRange = array($from, $to);
                     array_push($disableTime,$userAppointmentsTimeRange);
 
+//                    echo '<pre>';
+//                    print_r($userAppointmentsTimeRange);
+//                    echo '</pre>';
+
                 }
+
+            echo '<pre style="background-color: #440303;">';
+            print_r($disableTime);
+            echo '</pre>';
 
             ?>
 
@@ -363,6 +373,10 @@ class DashboardBooking {
 
             //Get the booked appointments for the selected date and add the time ranges to the disabled time ranges
             $appointments = $this->getBookedAppointments();
+
+//            echo '<pre>';
+//            print_r($appointments);
+//            echo '</pre>';
 
             if( is_array( $appointments ) && !empty( $appointments ) ){
 
@@ -390,7 +404,7 @@ class DashboardBooking {
 
 		<?php endif; ?>
 
-            <input type="text" class="timeSelect timepicker" id="bookTime" name="time" value="">
+            <input type="text" class="timeSelect timepicker" id="bookTime" name="time" value="<?php echo $this->selectedTime; ?>">
         </strong>
 
 
@@ -405,27 +419,32 @@ class DashboardBooking {
 	    ob_start();
 
 	    $availableMeetingTypes = $this->getAvailableMeetingTypes();
+
+//	    echo "<pre>";
+//	    print_r($this);
+//	    echo "</pre>";
+
 	    ?>
 
         <div class="flex full-width radio-with-icons">
 
-            <label for="one_to_one" class="radio-with-icon flex-grow flex flex-center <?php echo ( $this->selectedMeetingType === 'one_to_one' ? 'selected' : ''); ?> <?php echo ( !in_array('one_to_one', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
+            <label for="one_to_one" class="radio-with-icon flex-grow flex flex-center <?php echo ( $this->selectedMeetingType === 'physical_location' ? 'selected' : ''); ?> <?php echo ( !in_array('one_to_one', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
 
-                <input id="one_to_one" type="radio" value="physical_location" name="appointment_method" <?php echo ( $this->selectedMeetingType === 'one_to_one' ? 'checked' : ''); ?>>
+                <input id="one_to_one" type="radio" value="physical_location" name="appointment_method" <?php echo ( $this->selectedMeetingType === 'physical_location' ? 'checked' : ''); ?>>
 
                 <span class="department-icon">
                     <svg  id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M406,241c-41.353,0-75,33.647-75,75c0,41.353,33.647,75,75,75c41.353,0,75-33.647,75-75C481,274.647,447.353,241,406,241z"></path></g></g><g><g><path d="M479.251,391c-18.939,18.499-44.753,30-73.251,30c-28.498,0-54.313-11.501-73.251-30C313.217,410.08,301,436.608,301,466v31c0,8.291,6.709,15,15,15h181c8.291,0,15-6.709,15-15v-31C512,436.608,498.783,410.08,479.251,391z"></path></g></g><g><g><path d="M106,0C64.647,0,31,34.647,31,76c0,41.353,33.647,75,75,75c41.353,0,75-33.647,75-75C181,34.647,147.353,0,106,0z"></path></g></g><g><g><path d="M179.251,151c-18.939,18.499-44.753,30-73.251,30c-28.498,0-54.313-11.501-73.251-30C13.217,170.08,0,196.608,0,226v30c0,8.291,6.709,15,15,15h181c8.291,0,15-6.709,15-15v-30C211,196.608,198.783,170.08,179.251,151z"></path></g></g><g><g><path d="M256,61c-15.621,0-30.95,2.278-45.919,5.903C210.348,69.95,211,72.885,211,76c0,7.551-0.883,14.886-2.404,21.989C223.874,93.415,239.81,91,256,91c75.688,0,139.473,51.292,158.833,120.894c11.459,0.974,22.513,3.347,32.635,7.72C430.359,129.441,351.074,61,256,61z"></path></g></g><g><g><path d="M256,421c-75.366,0-138.95-50.85-158.604-120H66.451C86.847,386.864,163.99,451,256,451c5.574,0,11.083-0.379,16.577-0.839c1.262-10.704,3.571-21.114,7.293-31.077C272.009,420.222,264.073,421,256,421z"></path></g></g></svg>
                 </span>
 
                 <span class="department-name">
-                    One to One Meeting <?php echo ( !in_array('one_to_one', $availableMeetingTypes ) ? '<span>(Not Available)</span>' : '' ); ?>
+                    One to One Meeting <?php echo ( !in_array('physical_location', $availableMeetingTypes ) ? '<span>(Not Available)</span>' : '' ); ?>
                 </span>
 
             </label>
 
-            <label for="phone" class="radio-with-icon flex-grow flex flex-center <?php echo ( $this->selectedMeetingType === 'phone' ? 'selected' : ''); ?> <?php echo ( !in_array('phone', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
+            <label for="phone" class="radio-with-icon flex-grow flex flex-center <?php echo ( $this->selectedMeetingType === 'phone_call' ? 'selected' : ''); ?> <?php echo ( !in_array('phone', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
 
-                <input id="phone" type="radio" value="phone_call" name="appointment_method" <?php echo ( $this->selectedMeetingType === 'phone' ? 'checked' : ''); ?>>
+                <input id="phone" type="radio" value="phone_call" name="appointment_method" <?php echo ( $this->selectedMeetingType === 'phone_call' ? 'checked' : ''); ?>>
 
                 <span class="department-icon">
 
@@ -439,9 +458,9 @@ class DashboardBooking {
 
             </label>
 
-            <label for="web" class="radio-with-icon flex-grow flex flex-center no-margin-right <?php echo ( $this->selectedMeetingType === 'web' ? 'selected' : ''); ?> <?php echo ( !in_array('web', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
+            <label for="web" class="radio-with-icon flex-grow flex flex-center no-margin-right <?php echo ( $this->selectedMeetingType === 'remote_online' ? 'selected' : ''); ?> <?php echo ( !in_array('web', $availableMeetingTypes ) ? 'disabled' : '' ); ?>">
 
-                <input id="web" type="radio" value="remote_online" name="appointment_method" <?php echo ( $this->selectedMeetingType === 'web' ? 'checked' : ''); ?>>
+                <input id="web" type="radio" value="remote_online" name="appointment_method" <?php echo ( $this->selectedMeetingType === 'remote_online' ? 'checked' : ''); ?>>
 
                 <span class="department-icon">
 

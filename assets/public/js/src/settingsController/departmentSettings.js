@@ -5,6 +5,26 @@
 
         if( $('.department-settings').length > 0 ){
 
+            var companyEmployeesTable = $('#departmentEmployeesTable').DataTable({
+                "pageLength": 25
+            });
+
+            $('#searchEmployee').keyup(function(){
+                companyEmployeesTable.columns( 0 ).search($(this).val()).draw() ;
+            })
+
+            $('#userRoleFilter').on( 'change', function () {
+
+                var value = $( "#userRoleFilter option:selected" ).text()
+
+                if ($(this).val() !== 'all') {
+                    companyEmployeesTable.columns( 3 ).search( value ).draw();
+                } else {
+                    companyEmployeesTable.columns( 3 ).search('').draw();
+                }
+
+            } );
+
             $('#meeting_type input').on('change', function(){
 
                 if( $('#meeting_type input:checked').val() === 'department' ){

@@ -5,6 +5,86 @@
 
         if( $('.company-settings').length > 0 ){
 
+
+            $('.departmentCheckBox').on( 'change', function () {
+
+                var that = $(this);
+
+                if(this.checked) {
+
+                    // console.log(that.val());
+
+                    $('#departmentModal').addClass('active')
+                    $('#departmentModalOverlay').addClass('active')
+
+                    that.closest('.department-row').addClass('department-active')
+                    that.closest('.department-row').removeClass('department-inactive')
+
+                    var departmentName = that.closest('.department-row').find('.department-table-name').text()
+                    $('.profenda-modal-header').html('<h2>' + departmentName + '</h2>')
+
+                    var companyID = $('#com_id').val();
+                    // console.log('companyID',companyID);
+
+                    jQuery.ajax({
+                        url: AjaxController.ajax_url,
+                        type: 'POST',
+                        data: {
+                            action: AjaxController.getAdminsForDepartment,
+                            companyID: companyID
+                        },
+                        success: function (response) {
+                            console.log('response',response);
+                            // $('#selectedDepartmentAdmin');
+                            $('#selectedDepartmentAdmin').empty().append(response.html);
+                        }
+
+                    });//end ajax
+
+
+                }
+
+            } );
+
+            // $('#selectedDepartmentAdmin').on( 'click', function () {
+            //     console.log('klik');
+            // })
+
+            // DATATABLE
+            var companyEmployeesTable = $('#companyEmployeesTable').DataTable({
+                "pageLength": 25
+            });
+
+            $('#searchEmployee').keyup(function(){
+                companyEmployeesTable.columns( 0 ).search($(this).val()).draw() ;
+            })
+
+            $('#departmentFilter').on( 'change', function () {
+
+                var value = $( "#departmentFilter option:selected" ).text()
+
+                if ($(this).val() !== 'all') {
+                    companyEmployeesTable.columns( 2 ).search( value ).draw();
+                } else {
+                    companyEmployeesTable.columns( 2 ).search('').draw();
+                }
+            } );
+
+            $('#userRoleFilter').on( 'change', function () {
+
+                var value = $( "#userRoleFilter option:selected" ).text()
+
+                if ($(this).val() !== 'all') {
+                    companyEmployeesTable.columns( 3 ).search( value ).draw();
+                } else {
+                    companyEmployeesTable.columns( 3 ).search('').draw();
+                }
+
+            } );
+
+            // DATATABLE END
+
+
             $('#meeting_type input').on('change', function(){
 
                 if( $('#meeting_type input:checked').val() === 'company' ){

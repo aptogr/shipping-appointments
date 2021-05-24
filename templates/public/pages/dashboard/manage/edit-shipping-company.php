@@ -311,7 +311,7 @@ $dashboardCompany = new DashboardCompany();
                                                 <?php $companyDepartment = $companyObj->getDepartmentByType( $departmentType ); ?>
 
                                                 <?php if( $companyDepartment !== false ): ?>
-                                                <tr class="department-active">
+                                                <tr class="department-active department-row">
                                                     <td>
                                                         <div class="department-table-name flex flex-center">
 		                                                    <?php echo $departmentType->svg; ?>
@@ -323,7 +323,7 @@ $dashboardCompany = new DashboardCompany();
                                                     </td>
                                                     <td>
                                                         <div class="toggle-switch margin-left-auto toggle-trigger">
-                                                            <input type="checkbox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" checked />
+                                                            <input type="checkbox" class="departmentCheckBox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" checked />
                                                             <label for="<?php echo $departmentType->ID; ?>"></label>
                                                         </div>
                                                     </td>
@@ -343,7 +343,7 @@ $dashboardCompany = new DashboardCompany();
 
                                                 <?php else: ?>
 
-                                                    <tr class="department-inactive">
+                                                    <tr class="department-inactive department-row">
                                                         <td>
                                                             <div class="department-table-name flex flex-center">
 	                                                            <?php echo $departmentType->svg; ?>
@@ -355,7 +355,7 @@ $dashboardCompany = new DashboardCompany();
                                                         </td>
                                                         <td>
                                                             <div class="toggle-switch margin-left-auto toggle-trigger">
-                                                                <input type="checkbox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" />
+                                                                <input type="checkbox" class="departmentCheckBox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" />
                                                                 <label for="<?php echo $departmentType->ID; ?>"></label>
                                                             </div>
                                                         </td>
@@ -454,7 +454,7 @@ $dashboardCompany = new DashboardCompany();
 
                                         </div>
 
-                                        <table>
+                                        <table id="companyEmployeesTable">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -526,6 +526,56 @@ $dashboardCompany = new DashboardCompany();
         </div>
 
     </div>
+
+    <div id="departmentModal" class="profenda-modal">
+
+        <input type="hidden" id="com_id" name="com_id" value="<?php echo $companyId;?>">
+
+        <div class="profenda-modal-header">
+            Department
+        </div>
+
+        <div class="profenda-modal-content padding-top-30 padding-bottom-30">
+
+
+            <div class="main-section full-width setting-field-wrapper">
+                <div class="full-width">
+                    <h2>Be the department admin</h2>
+                </div>
+                <div class="full-width margin-top-20">
+                    <div class="toggle-switch margin-left-auto toggle-trigger">
+                        <input id="depAdmin" type="checkbox" value="1" name="depAdmin">
+                        <label for="depAdmin"></label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main-section full-width setting-field-wrapper">
+                <div class="full-width">
+                    <h2>Assign a department admin</h2>
+                </div>
+                <div class="full-width margin-top-20">
+                    <select name="selectedDepartmentAdmin" id="selectedDepartmentAdmin"></select>
+                </div>
+            </div>
+
+
+            <div class="main-section full-width setting-field-wrapper">
+                <div class="full-width">
+                    <h2>Invite user</h2>
+                </div>
+                <div class="full-width margin-top-20">
+                    invite user here
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <div id='departmentModalOverlay' class="modal-overlay"></div>
 
 <?php
 get_footer();

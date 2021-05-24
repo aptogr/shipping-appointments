@@ -37,6 +37,10 @@ Interface AjaxInterface {
             'callback' => 'getAppointmentsSchedule',
             'nopriv'   => false,
         ),
+        'getAdminsForDepartment' => array(
+            'callback' => 'getAdminsForDepartment',
+            'nopriv'   => false,
+        ),
     );
 
 }

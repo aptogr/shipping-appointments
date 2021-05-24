@@ -74,6 +74,7 @@ class PublicController implements PublicInterface {
 	public function enqueueScripts() {
 
 //		wp_enqueue_script( 'select2', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/select2.min.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'datatables', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/datatables.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'mobiscroll_calendar', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/settingsController/mobiscroll.jquery.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( $this->getPluginName(), $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'public.min.js', array( 'jquery','mobiscroll_calendar' ), null, true );
 

@@ -849,7 +849,7 @@ if (isset($department->excluded_dates)) {
 
                                 </div>
 
-                                <table>
+                                <table id="departmentEmployeesTable">
                                     <thead>
                                     <tr>
                                         <th>
