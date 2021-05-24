@@ -136,8 +136,6 @@
 
             // console.log( disabledTimes );
 
-            var defaultTime = $('#bookTime').val()
-            console.log(defaultTime)
 
             $('#bookTime').timepicker({
                 'timeFormat': 'H:i',
@@ -149,7 +147,6 @@
             $('#bookTime').on('changeTime', function() {
 
                 $(this).attr("value", $(this).val());
-                $('#bookTimeHidden').attr("value", $(this).val());
                 insertParam($(this).attr('name'), $(this).val());
                 var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
                 bookingSteps(stepNum);

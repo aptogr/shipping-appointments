@@ -11,17 +11,44 @@
                 var that = $(this);
 
                 if(this.checked) {
-                    console.log(that.val());
+
+                    // console.log(that.val());
+
                     $('#departmentModal').addClass('active')
                     $('#departmentModalOverlay').addClass('active')
+
                     that.closest('.department-row').addClass('department-active')
                     that.closest('.department-row').removeClass('department-inactive')
+
                     var departmentName = that.closest('.department-row').find('.department-table-name').text()
-                    $('.profenda-modal-header').text(departmentName)
-                    // department-table-name
+                    $('.profenda-modal-header').html('<h2>' + departmentName + '</h2>')
+
+                    var companyID = $('#com_id').val();
+                    // console.log('companyID',companyID);
+
+                    jQuery.ajax({
+                        url: AjaxController.ajax_url,
+                        type: 'POST',
+                        data: {
+                            action: AjaxController.getAdminsForDepartment,
+                            companyID: companyID
+                        },
+                        success: function (response) {
+                            console.log('response',response);
+                            // $('#selectedDepartmentAdmin');
+                            $('#selectedDepartmentAdmin').empty().append(response.html);
+                        }
+
+                    });//end ajax
+
+
                 }
 
             } );
+
+            // $('#selectedDepartmentAdmin').on( 'click', function () {
+            //     console.log('klik');
+            // })
 
             // DATATABLE
             var companyEmployeesTable = $('#companyEmployeesTable').DataTable({

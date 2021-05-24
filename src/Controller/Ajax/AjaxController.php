@@ -7,7 +7,9 @@ use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsRep
 use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
 use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\Department;
+use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\User\UserFields;
 
 class AjaxController implements AjaxInterface {
 
@@ -173,6 +175,35 @@ class AjaxController implements AjaxInterface {
 
 
         wp_send_json( $result );
+        wp_die();
+
+    }
+
+    public function getAdminsForDepartment(){
+
+        $companyID = intval( $_POST['companyID'] );
+
+        $users = get_users(array(
+            'role__in'      => ['shipping_company_admin','shipping_company_department_admin'],
+            'meta_key'      => UserFields::META_FIELDS_SLUG['shipping_company_id'],
+            'meta_value'    => $companyID
+        ));
+
+        $htmlList = [];
+
+        foreach ($users as $user) {
+            array_push($htmlList, '<option value="'.$user->ID.'">'.$user->data->display_name.'</option>');
+        }
+
+        $htmlList = implode("", $htmlList);
+
+        $result = array(
+            'html'          => $htmlList,
+//            'companyID'     => $companyID,
+            'users'         => $users,
+        );
+
+        wp_send_json($result);
         wp_die();
 
     }

@@ -529,12 +529,47 @@ $dashboardCompany = new DashboardCompany();
 
     <div id="departmentModal" class="profenda-modal">
 
-        <div class="profenda-modal-header">
-            profenda-modal-header
-        </div>
-        <div class="profenda-modal-content">
+        <input type="hidden" id="com_id" name="com_id" value="<?php echo $companyId;?>">
 
-            profenda-modal-content
+        <div class="profenda-modal-header">
+            Department
+        </div>
+
+        <div class="profenda-modal-content padding-top-30 padding-bottom-30">
+
+
+            <div class="main-section full-width setting-field-wrapper">
+                <div class="full-width">
+                    <h2>Be the department admin</h2>
+                </div>
+                <div class="full-width margin-top-20">
+                    <div class="toggle-switch margin-left-auto toggle-trigger">
+                        <input id="depAdmin" type="checkbox" value="1" name="depAdmin">
+                        <label for="depAdmin"></label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main-section full-width setting-field-wrapper">
+                <div class="full-width">
+                    <h2>Assign a department admin</h2>
+                </div>
+                <div class="full-width margin-top-20">
+                    <select name="selectedDepartmentAdmin" id="selectedDepartmentAdmin"></select>
+                </div>
+            </div>
+
+
+            <div class="main-section full-width setting-field-wrapper">
+                <div class="full-width">
+                    <h2>Invite user</h2>
+                </div>
+                <div class="full-width margin-top-20">
+                    invite user here
+                </div>
+            </div>
+
 
         </div>
 
