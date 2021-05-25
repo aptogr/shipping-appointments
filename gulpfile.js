@@ -72,6 +72,12 @@ var scripts = [
             config.srcDirJS + '/book-appointment.js',
             // config.srcDirJS + '/settingsController/mobiscroll.jquery.min.js',
             config.srcDirJS + '/settingsController/appointmentsSchedule.js',
+
+            // config.srcDirJS + '/tuiCalendar/chance.min.js',
+            // config.srcDirJS + '/tuiCalendar/tui-calendar.js',
+            // config.srcDirJS + '/tuiCalendar/tui-code-snippet.min.js',
+            // config.srcDirJS + '/tuiCalendar/tui-date-picker.min.js',
+            // config.srcDirJS + '/tuiCalendar/tui-time-picker.min.js',
         ],
         name : 'public.min',
         dest : config.destDirJS + ''

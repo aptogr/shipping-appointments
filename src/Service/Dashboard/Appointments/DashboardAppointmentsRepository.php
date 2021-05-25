@@ -412,14 +412,22 @@ class DashboardAppointmentsRepository {
 
             $singleAppointmentArray = array();
 
-            $singleAppointmentTimeFrom  = $singleAppointmentOBJ->date.'T'.$singleAppointmentOBJ->time.':00.000Z';
-            $singleAppointmentTimeTo      = $singleAppointmentOBJ->date.'T'.date("h:i", strtotime($singleAppointmentOBJ->time) + ( $singleAppointmentOBJ->duration*60 ) + ( $singleAppointmentOBJ->buffer*60 ) ).':00.000Z';
+//            $singleAppointmentTimeFrom  = $singleAppointmentOBJ->date.'T'.$singleAppointmentOBJ->time.':00.000Z';
+            $singleAppointmentTimeFrom  = date("D M j G:i:s T Y",strtotime($singleAppointmentOBJ->date.' '.$singleAppointmentOBJ->time.':00'));
 
-            $singleAppointmentArray['start']    = $singleAppointmentTimeFrom;
-            $singleAppointmentArray['end']      = $singleAppointmentTimeTo;
-            $singleAppointmentArray['title']    = $appointmentEmployeeName."<span class='calendarTime'>".$singleAppointmentOBJ->time."</span>";
-            $singleAppointmentArray['color']    = $appointmentStatusColor;
-            $singleAppointmentArray['id']       = $singleAppointmentOBJ->ID;
+//            $singleAppointmentTimeTo      = $singleAppointmentOBJ->date.'T'.date("H:i", strtotime($singleAppointmentOBJ->time) + ( $singleAppointmentOBJ->duration*60 ) + ( $singleAppointmentOBJ->buffer*60 ) ).':00.000Z';
+            $singleAppointmentTimeTo      = date("D M j G:i:s T Y",strtotime($singleAppointmentOBJ->date.' '.date("H:i", strtotime($singleAppointmentOBJ->time) + ( $singleAppointmentOBJ->duration*60 ) + ( $singleAppointmentOBJ->buffer*60 ) )));
+
+
+            $singleAppointmentArray['start']            = $singleAppointmentTimeFrom;
+            $singleAppointmentArray['end']              = $singleAppointmentTimeTo;
+            $singleAppointmentArray['title']            = $appointmentEmployeeName."<span class='calendarTime'>".$singleAppointmentOBJ->time."</span>";
+            $singleAppointmentArray['bgColor']          = $appointmentStatusColor;
+            $singleAppointmentArray['color']            = '#000000';
+            $singleAppointmentArray['id']               = $singleAppointmentOBJ->ID;
+            $singleAppointmentArray['calendarId']       = '1';
+            $singleAppointmentArray['dueDateClass']     = '';
+            $singleAppointmentArray['category']         = 'time';
 
             array_push($allAppointmentsJSON,$singleAppointmentArray);
 
@@ -438,7 +446,8 @@ class DashboardAppointmentsRepository {
         <div class="appointments_schedule">
 
             <div style="height:100%">
-                <div id="appointments_schedule" style="height:100%"></div>
+<!--                <div id="appointments_schedule" style="height:100%"></div>-->
+                <div id="tuiCalendar" style="height: 100vh;"></div>
             </div>
 
 
