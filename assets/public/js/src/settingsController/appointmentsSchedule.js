@@ -30,12 +30,13 @@
             var cal = new tui.Calendar('#tuiCalendar', {
                 defaultView: 'month',
                 taskView: true,
-                // useCreationPopup: true, // Did you turn this option on?
-                useDetailPopup: true,
+                useCreationPopup: false,
+                useDetailPopup: false,
                 disableClick: true,
                 disableDblClick: true
             });
 
+            console.log(appointmentsJSON);
             cal.createSchedules(appointmentsJSON);
 
 
@@ -68,6 +69,31 @@
                 }
                 renderRange.innerHTML = html.join('');
             }
+
+            cal.on({
+                'clickSchedule': function(e) {
+                    console.log('clickSchedule', e.schedule);
+
+                    jQuery.ajax({
+                        url: AjaxController.ajax_url,
+                        type: 'POST',
+                        data: {
+                            action: AjaxController.getAppointmentsSchedule,
+                            appointment_id: e.schedule.id,
+
+                        },
+                        success: function (response) {
+                            // console.log(response);
+                            $('#appointmentCalendarClick').html(response.html);
+                            $('#appointmentCalendarClick').removeClass('hide');
+                            $('#appointmentCalendarOverlay').removeClass('hide');
+
+                        }
+
+                    });//end ajax
+
+                }
+            });
 
             // mobiscroll.setOptions({
             //     locale: mobiscroll.localeEn,                // Specify language like: locale: mobiscroll.localePl or omit setting to use default
