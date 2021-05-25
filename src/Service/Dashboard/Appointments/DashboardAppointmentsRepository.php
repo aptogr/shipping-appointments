@@ -421,7 +421,7 @@ class DashboardAppointmentsRepository {
 
             $singleAppointmentArray['start']            = $singleAppointmentTimeFrom;
             $singleAppointmentArray['end']              = $singleAppointmentTimeTo;
-            $singleAppointmentArray['title']            = $appointmentEmployeeName."<span class='calendarTime'>".$singleAppointmentOBJ->time."</span>";
+            $singleAppointmentArray['title']            = $appointmentEmployeeName."<div class='calendarTime'>".$singleAppointmentOBJ->time."</div>";
             $singleAppointmentArray['bgColor']          = $appointmentStatusColor;
             $singleAppointmentArray['color']            = '#000000';
             $singleAppointmentArray['id']               = $singleAppointmentOBJ->ID;
@@ -446,7 +446,19 @@ class DashboardAppointmentsRepository {
         <div class="appointments_schedule">
 
             <div style="height:100%">
-<!--                <div id="appointments_schedule" style="height:100%"></div>-->
+                <div id="menu">
+                      <span id="menu-navi">
+                        <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+
+                        <button type="button" class="btn btn-default btn-sm move-day prev-month">
+                          Prev
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm move-day next-month">
+                          Next
+                        </button>
+                      </span>
+                    <span id="renderRange" class="render-range"></span>
+                </div>
                 <div id="tuiCalendar" style="height: 100vh;"></div>
             </div>
 

@@ -74,16 +74,18 @@ class PublicController implements PublicInterface {
 	public function enqueueScripts() {
 
 //		wp_enqueue_script( 'select2', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/select2.min.js', array( 'jquery' ), null, true );
-
 		wp_enqueue_script( 'datatables', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/datatables.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'mobiscroll_calendar', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/settingsController/mobiscroll.jquery.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( $this->getPluginName(), $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'public.min.js', array( 'jquery','mobiscroll_calendar' ), null, true );
 
-        wp_enqueue_script( 'chance.min.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/chance.min.js', array( 'jquery' ), null, true );
-        wp_enqueue_script( 'tui-calendar.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/tui-calendar.js', array( 'jquery' ), null, true );
         wp_enqueue_script( 'tui-code-snippet.min.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/tui-code-snippet.min.js', array( 'jquery' ), null, true );
         wp_enqueue_script( 'tui-date-picker.min.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/tui-date-picker.min.js', array( 'jquery' ), null, true );
         wp_enqueue_script( 'tui-time-picker.min.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/tui-time-picker.min.js', array( 'jquery' ), null, true );
+        wp_enqueue_script( 'chance.min.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/chance.min.js', array( 'jquery' ), null, true );
+        wp_enqueue_script( 'tui-calendar.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/tui-calendar.js', array( 'jquery' ), null, true );
+        wp_enqueue_script( 'calendars.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/calendars.js', array( 'jquery' ), null, true );
+        wp_enqueue_script( 'schedules.js', $this->getPluginDirUrl() . self::PUBLIC_JS_FOLDER . 'src/tuiCalendar/schedules.js', array( 'jquery' ), null, true );
+
 
         $ajaxController = new AjaxController();
         wp_localize_script(
