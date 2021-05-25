@@ -24,6 +24,7 @@
         if ($('.appointments_schedule').length > 0) {
 
             console.log('appointments_schedule loaded');
+            console.log('appointments_schedule loaded');
 
             // tuiCalendar
             var calendar = new tui.Calendar(document.getElementById('tuiCalendar'), {
