@@ -28,6 +28,7 @@ class Department {
 	 * @var $departmentType DepartmentTypeEntity
 	 */
 	public $departmentType;
+	public $status;
 
 	//Setting 1
 	public $users_visibility;
@@ -93,6 +94,7 @@ class Department {
 		$this->setDepartmentUsers();
 
 		$this->companyObject = new ShippingCompany( $this->company );
+		$this->status = boolval($this->status);
 
 	}
 

@@ -20,6 +20,7 @@ Interface DepartmentInterface {
 	const META_FIELDS_SLUG = [
 		'company'                           => self::POST_TYPE_NAME . '_company',
 		'type'                              => self::POST_TYPE_NAME . '_type',
+		'status'                            => self::POST_TYPE_NAME . '_status',
 
 		//Setting 1
 		'users_visibility'                  => self::POST_TYPE_NAME . '_users_visibility',
@@ -83,6 +84,14 @@ Interface DepartmentInterface {
 			'post_type'   => ShippingCompanyPost::POST_TYPE_NAME,
 			'field_type'  => 'select_advanced',
 			'placeholder' => 'Select a company',
+		),
+        'status' => array(
+			'id'   => self::META_FIELDS_SLUG['status'],
+			'name' => 'Department status',
+			'type'        => 'switch',
+            'style'     => 'rounded',
+            'on_label'  => 'Enabled',
+            'off_label' => 'Disabled',
 		),
 		'users_visibility'   =>array(
 			'name'              => 'Users Visibility',
@@ -329,6 +338,7 @@ Interface DepartmentInterface {
 
 	const SETTINGS_FIELDS = array(
 		self::ALL_FIELDS['company'],
+		self::ALL_FIELDS['status'],
 		self::ALL_FIELDS['users_visibility'],
 		self::ALL_FIELDS['availability_type'],
 		self::ALL_FIELDS['weekdays_available'],

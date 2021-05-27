@@ -12,6 +12,7 @@ use ShippingAppointments\Controller\Save\Service\SaveDepartmentSettingsControlle
 use ShippingAppointments\Controller\Save\Service\UpdateAppointmentController;
 use ShippingAppointments\Controller\Save\Service\CancelAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveCompanySettingsController;
+use ShippingAppointments\Controller\Save\Service\CreateDepartment;
 
 class SaveController {
 
@@ -102,6 +103,18 @@ class SaveController {
                     $saveCompanySettingsController  = new SaveCompanySettingsController();
                     $action                         = $saveCompanySettingsController->save( $_POST );
                     $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
+
+                    break;
+
+                case 'create_department':
+
+                    $createDepartment  = new CreateDepartment();
+                    $action                         = $createDepartment->save( $_POST );
+//                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
+
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
 
                     break;
 

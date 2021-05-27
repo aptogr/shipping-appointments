@@ -421,9 +421,9 @@ class DashboardAppointmentsRepository {
 
             $singleAppointmentArray['start']            = $singleAppointmentTimeFrom;
             $singleAppointmentArray['end']              = $singleAppointmentTimeTo;
-            $singleAppointmentArray['title']            = $appointmentEmployeeName."<div class='calendarTime'>".$singleAppointmentOBJ->time."</div>";
-            $singleAppointmentArray['color']          = strtolower($appointmentStatusColor);
-            $singleAppointmentArray['bgColor']            = '#000000';
+            $singleAppointmentArray['title']            = "<div class='calendarTitle'>".$appointmentEmployeeName."<div class='calendarTime'>".$singleAppointmentOBJ->time."</div></div>";
+            $singleAppointmentArray['color']            = strtolower($appointmentStatusColor);
+            $singleAppointmentArray['bgColor']          = '#000000';
             $singleAppointmentArray['id']               = $singleAppointmentOBJ->ID;
             $singleAppointmentArray['calendarId']       = '1';
             $singleAppointmentArray['dueDateClass']     = '';

@@ -22,8 +22,8 @@
         })
 
         if ($('.appointments_schedule').length > 0) {
-            console.log('appointments_schedule loaded!');
 
+            // console.log('appointments_schedule loaded!');
 
             var appointmentsJSON = JSON.parse($('#jsontest').html());
 
@@ -36,7 +36,7 @@
                 disableDblClick: true
             });
 
-            console.log(appointmentsJSON);
+            // console.log(appointmentsJSON);
             cal.createSchedules(appointmentsJSON);
 
 
@@ -72,7 +72,7 @@
 
             cal.on({
                 'clickSchedule': function(e) {
-                    console.log('clickSchedule', e.schedule);
+                    // console.log('clickSchedule', e.schedule);
 
                     jQuery.ajax({
                         url: AjaxController.ajax_url,

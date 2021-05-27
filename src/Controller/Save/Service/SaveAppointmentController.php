@@ -34,7 +34,6 @@ class SaveAppointmentController extends ServiceSaveController {
                 add_post_meta( $this->appointmentID, $metaKey, $val );
             }
 
-
         } else {
             update_post_meta( $this->appointmentID, $metaKey, $value );
         }
