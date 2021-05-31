@@ -19,16 +19,26 @@ Interface ShippingInvitationInterface {
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
+		'inviter'                           => self::POST_TYPE_NAME . '_inviter',
 		'company'                           => self::POST_TYPE_NAME . '_company',
 		'department'                        => self::POST_TYPE_NAME . '_department',
 		'role'                              => self::POST_TYPE_NAME . '_role',
-		'user'                              => self::POST_TYPE_NAME . '_user',
+		'invitee'                           => self::POST_TYPE_NAME . '_invitee',
 		'status'                            => self::POST_TYPE_NAME . '_status',
 		'email'                             => self::POST_TYPE_NAME . '_email',
 		'notified'                          => self::POST_TYPE_NAME . '_notified',
 	];
 
 	const ALL_FIELDS = array(
+		'inviter' => array(
+			'id'                => self::META_FIELDS_SLUG['inviter'],
+			'name'              => 'Inviter',
+			'type'              => 'user',
+			'field_type'        => 'select_advanced',
+			'placeholder'       => 'Select an Employee',
+			'multiple'          => false,
+			'query_args'        => array(),
+		),
 		'company' => array(
 			'id'            => self::META_FIELDS_SLUG['company'],
 			'name'          => 'Company',
@@ -56,9 +66,9 @@ Interface ShippingInvitationInterface {
 				'shipping_company_employee'             => 'Employee',
 			),
 		),
-		'user' => array(
-			'name'              => 'Platform User',
-			'id'                => self::META_FIELDS_SLUG['user'],
+		'invitee' => array(
+			'name'              => 'Invited User',
+			'id'                => self::META_FIELDS_SLUG['invitee'],
 			'type'              => 'user',
 			'field_type'        => 'select_advanced',
 			'placeholder'       => 'Select an Employee',
@@ -90,10 +100,11 @@ Interface ShippingInvitationInterface {
 
 
 	const INVITATION_FIELDS = array(
+		self::ALL_FIELDS['inviter'],
 		self::ALL_FIELDS['company'],
 		self::ALL_FIELDS['department'],
 		self::ALL_FIELDS['role'],
-		self::ALL_FIELDS['user'],
+		self::ALL_FIELDS['invitee'],
 		self::ALL_FIELDS['status'],
 		self::ALL_FIELDS['email'],
 		self::ALL_FIELDS['notified'],
