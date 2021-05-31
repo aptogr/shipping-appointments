@@ -32,7 +32,7 @@ class InvitationForm {
 	}
 
 
-	public function getInvitationFieldsItem( $companyID, $departmentID, $index = 0 ){
+	public function getInvitationFieldsItem( $companyID, $departmentID){
 
 		$companyObject = new ShippingCompany( $companyID );
 	    ob_start();
@@ -43,16 +43,16 @@ class InvitationForm {
 
             <div class="input-field col l4 s12">
 
-                <label for="invitation[<?php echo $index; ?>][email]">Email</label>
-                <input id="invitation[<?php echo $index; ?>][email]" name="invitation[<?php echo $index; ?>][email]" value="">
+                <label for="email">Email</label>
+                <input id="email" name="email" value="">
 
             </div>
 
             <div class="input-field col l4 s12">
 
-                <label for="invitation[<?php echo $index; ?>][role]">Role</label>
+                <label for="role">Role</label>
 
-                <select id="invitation[<?php echo $index; ?>][role]" name="invitation[<?php echo $index; ?>][role]">
+                <select id="role" name="role">
 
 					<?php foreach( ShippingInvitationPost::ALL_FIELDS['role']['options'] as $value => $label ): ?>
 
@@ -68,9 +68,9 @@ class InvitationForm {
 
             <div class="input-field col l4 s12 <?php echo ( $departmentID !== false ? 'predefined' : ''); ?>">
 
-                <label for="invitation[<?php echo $index; ?>][department]">Department</label>
+                <label for="department">Department</label>
 
-                <select id="invitation[<?php echo $index; ?>][department]" name="invitation[<?php echo $index; ?>][department]">
+                <select id="department" name="department">
 
 					<?php foreach( $companyObject->departments as $departmentID ): $department = new Department( $departmentID ); ?>
 
