@@ -18,6 +18,7 @@ class ShippingInvitation {
 	public $invitee;
 	public $status;
 	public $email;
+	public $code;
 	public $notified;
 
 

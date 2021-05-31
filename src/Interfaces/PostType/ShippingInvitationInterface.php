@@ -26,6 +26,7 @@ Interface ShippingInvitationInterface {
 		'invitee'                           => self::POST_TYPE_NAME . '_invitee',
 		'status'                            => self::POST_TYPE_NAME . '_status',
 		'email'                             => self::POST_TYPE_NAME . '_email',
+		'code'                              => self::POST_TYPE_NAME . '_code',
 		'notified'                          => self::POST_TYPE_NAME . '_notified',
 	];
 
@@ -91,6 +92,11 @@ Interface ShippingInvitationInterface {
 			'id'         => self::META_FIELDS_SLUG['email'],
 			'type'       => 'text',
 		),
+		'code' => array(
+			'name'       => 'Invitation Code',
+			'id'         => self::META_FIELDS_SLUG['code'],
+			'type'       => 'text',
+		),
 		'notified' => array(
 			'name'       => 'Notified',
 			'id'         => self::META_FIELDS_SLUG['notified'],
@@ -107,6 +113,7 @@ Interface ShippingInvitationInterface {
 		self::ALL_FIELDS['invitee'],
 		self::ALL_FIELDS['status'],
 		self::ALL_FIELDS['email'],
+		self::ALL_FIELDS['code'],
 		self::ALL_FIELDS['notified'],
 	);
 
