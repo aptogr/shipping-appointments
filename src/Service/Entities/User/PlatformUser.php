@@ -3,7 +3,9 @@
 
 namespace ShippingAppointments\Service\Entities\User;
 
+use DateTime;
 use ShippingAppointments\Interfaces\PlatformUserInterface;
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointments;
 use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\ShippingCompany;
@@ -485,6 +487,153 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 		<?php
 
     	return ob_get_clean();
+
+	}
+
+
+	public function createTimeRange($start, $end, $interval = '30 mins') {
+		$startTime = strtotime($start);
+		$endTime = strtotime($end);
+		$returnTimeFormat = 'H:i';
+
+		$current = time();
+		$addTime = strtotime('+'.$interval, $current);
+		$diff = $addTime - $current;
+
+		$times = array();
+		while ($startTime < $endTime) {
+			$times[] = date($returnTimeFormat, $startTime);
+			$startTime += $diff;
+		}
+		$times[] = date($returnTimeFormat, $startTime);
+		return $times;
+	}
+
+
+	public function getAvailabilityTimeRangeByDate( $date, $forDisplay = true ){
+
+		$dashboardAppointments      = new DashboardAppointments( $this );
+		$bookedAppointments         = $dashboardAppointments->getEmployeeConfirmedAppointmentsByDate( $date );
+		$selectedDay                = strtolower( date('D', strtotime( $date ) ) );
+
+		if( is_array( $bookedAppointments ) && !empty( $bookedAppointments ) ){
+
+			foreach( $bookedAppointments as $appointment ){
+
+				$bookedAppointment      = new Appointment( intval( $appointment ) );
+
+				if( $forDisplay === false ){
+					$from   = date("H:i",  strtotime("-15 minutes", strtotime("2021-01-01 $bookedAppointment->time") ) );
+					$to     = date("H:i",  strtotime("-15 minutes",strtotime($bookedAppointment->time) + ( $bookedAppointment->duration*60 ) + ( $bookedAppointment->buffer*60 ) ) );
+
+				}
+				else {
+
+					$from   = date("H:i",  strtotime("+15 minutes", strtotime("2021-01-01 $bookedAppointment->time") ) );
+					$to     = date("H:i",  strtotime("-15 minutes",strtotime($bookedAppointment->time) + ( $bookedAppointment->duration*60 ) + ( $bookedAppointment->buffer*60 ) ) );
+
+				}
+
+
+				$employeeDisabledTimes  = $this->createTimeRange( $from, $to, '15 mins' );
+
+
+			}
+
+		}
+
+		$from   = $selectedDay."_time_from";
+		$to     = $selectedDay."_time_to";
+		$times  = $this->createTimeRange( $this->{$from}, $this->{$to}, '15 mins' );
+
+
+		if( !empty( $employeeDisabledTimes ) ){
+
+//			print "<pre>";
+//			print_r($employeeDisabledTimes);
+//			print "</pre>";
+//
+//			print "<pre>";
+//			print_r($times);
+//			print "</pre>";
+
+
+			$finalTimes = array_diff( $times, $employeeDisabledTimes );
+
+		}
+		else {
+			$finalTimes = $times;
+		}
+
+		asort($finalTimes);
+		$finalTimes =  array_values( array_unique( $finalTimes ) );
+
+//		if( !empty( $employeeDisabledTimes ) ) {
+//			print "<pre>";
+//			print_r( $finalTimes );
+//			print "</pre>";
+//		}
+
+		return $finalTimes;
+
+	}
+
+	public function calculatePossibleTimeRanges( $timeAvailability ){
+
+		$startRangeTime = $timeAvailability[0];
+
+		for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
+
+			if( isset( $timeAvailability[$x] ) ){
+
+				$start_date = new DateTime( $timeAvailability[$x] );
+				$since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
+
+				$totalMinDiff = $since_start->h * 60 + $since_start->i;
+
+				if( $totalMinDiff !== 15 ){
+
+					$finalRanges[] = array(
+						'from' => $startRangeTime,
+						'to' => $timeAvailability[$x-1]
+					);
+
+					$startRangeTime = $timeAvailability[$x];
+
+				}
+
+			}
+
+		}
+
+		$finalRanges[] = array(
+			'from' => $startRangeTime,
+			'to' => $timeAvailability[count($timeAvailability)-1]
+		);
+
+		return $finalRanges;
+
+	}
+
+
+	public function displayTimeRanges( $timeRanges ){
+
+        $displayRanges = array();
+
+        if( !empty( $timeRanges ) ) {
+
+            foreach( $timeRanges as $timeRange ){
+
+                if( $timeRange['from'] !==  $timeRange['to'] ){
+	                $displayRanges[] = $timeRange['from'] . ' - ' . $timeRange['to'];
+                }
+
+
+            }
+
+        }
+
+        return implode( ' & ', $displayRanges );
 
 	}
 
