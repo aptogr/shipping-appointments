@@ -14,6 +14,11 @@
 
                     if (that.closest('tr').hasClass('existing-department')) {
                         console.log('existing-department');
+
+                        if ( that.closest('.department_availability').text() == 'Availability not set' ) {
+                            console.log('Availability not set');
+                        }
+
                     } else {
 
                         $('#departmentModal').addClass('active')
@@ -37,8 +42,7 @@
                                 companyID: companyID
                             },
                             success: function (response) {
-                                console.log('response',response);
-                                // $('#selectedDepartmentAdmin');
+                                // console.log('response',response);
                                 $('#selectedDepartmentAdmin').empty().append(response.html);
                             }
 

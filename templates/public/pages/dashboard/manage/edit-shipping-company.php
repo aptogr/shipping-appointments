@@ -11,6 +11,7 @@ $logedInUserObj = new PlatformUser( get_current_user_id() );
 $companyId = get_query_var('company');
 $companyObj = new ShippingCompany($companyId);
 $dashboardSettingsCompany = new DashboardSettingsCompany();
+$invitationForm = new \ShippingAppointments\Service\Invitation\InvitationForm();
 
 $dashboardCompany = new DashboardCompany();
 
@@ -72,6 +73,10 @@ $dashboardCompany = new DashboardCompany();
 
                             <li class="tab-link">
                                 Manage Employees
+                            </li>
+
+                            <li class="tab-link">
+                                Invitations
                             </li>
 
                         </ul>
@@ -330,7 +335,7 @@ $dashboardCompany = new DashboardCompany();
                                                     <td>
                                                         Active
                                                     </td>
-                                                    <td>
+                                                    <td class="department_availability">
                                                         <?php echo ( empty( $companyDepartment->weekdays_available ) ? 'Availability not set' : $companyDepartment->weekdays_available ); ?>
                                                     </td>
                                                     <td>
@@ -511,6 +516,146 @@ $dashboardCompany = new DashboardCompany();
 
                                 </div>
 
+                                <div class="swiper-slide">
+
+                                    <div class="col s12 margin-top-50">
+
+                                        <h2>
+                                            Invitations
+                                        </h2>
+
+                                        <p>
+                                            This section will be used for the company admins in order to send invitations for
+                                            company administrators and department administrators.
+                                            <br>
+                                            We can include invitations for the employees too at this section.
+                                        </p>
+
+                                        <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                            <?php
+
+                                                echo $invitationForm->getShippingInvitationForm($companyId);
+
+                                            ?>
+
+                                        </div>
+
+                                        <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                            <div class="profenda-filter-item flex flex-center">
+
+                                                <label for="searchEmployee" class="filter-label">
+                                                    Search Employee:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <input id="searchEmployee" name="employee_name" placeholder="Type a name or email">
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="profenda-filter-item flex flex-center margin-left-auto">
+
+                                                <label for="departmentFilter" class="filter-label">
+                                                    Department:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <select id="departmentFilter">
+                                                        <option value="all">All</option>
+                                                        <option value="shipping_company_admin">Technical</option>
+                                                        <option value="shipping_company_department_admin">Financial</option>
+                                                        <option value="shipping_company_employee">Marine</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="profenda-filter-item flex flex-center no-margin-right">
+
+                                                <label for="userRoleFilter" class="filter-label">
+                                                    User Role:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <select id="userRoleFilter">
+                                                        <option value="all">All</option>
+                                                        <option value="shipping_company_admin">Company Admin</option>
+                                                        <option value="shipping_company_department_admin">Department Admin</option>
+                                                        <option value="shipping_company_employee">Employee</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <table id="companyEmployeesTable">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    Name
+                                                </th>
+                                                <th>
+                                                    Email
+                                                </th>
+                                                <th>
+                                                    Department
+                                                </th>
+                                                <th>
+                                                    Role
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php foreach( $companyObj->getEmployees() as $employee ): /** @var $employee PlatformUser */ ?>
+
+                                                <tr>
+                                                    <td>
+                                                        <?php echo $employee->first_name . ' ' . $employee->last_name; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $employee->user_email; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $employee->department->departmentType->term->name; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+
+                                                        if( $employee->isShippingCompanyAdmin() ){
+                                                            echo "Company Admin";
+                                                        }
+                                                        else if(  $employee->isDepartmentAdmin() ){
+                                                            echo "Department Admin";
+                                                        }
+                                                        else {
+                                                            echo "Employee";
+                                                        }
+
+
+                                                        ?>
+                                                    </td>
+                                                </tr>
+
+                                            <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -575,7 +720,9 @@ $dashboardCompany = new DashboardCompany();
                     </div>
 
                     <div class="full-width margin-top-20">
-                        invite user here
+                        <?php
+                            echo $invitationForm->getShippingInvitationForm($companyId);
+                        ?>
                     </div>
 
                 </div>
