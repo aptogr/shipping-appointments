@@ -3,6 +3,7 @@
 
 namespace ShippingAppointments\Controller\Save;
 
+use ShippingAppointments\Controller\Save\Service\InvitationSend;
 use ShippingAppointments\Controller\Save\Service\RejectAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAvailabilityController;
@@ -112,9 +113,13 @@ class SaveController {
                     $action                         = $createDepartment->save( $_POST );
 //                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
 
-//                    echo '<pre>';
-//                    var_dump($_POST);
-//                    echo '</pre>';
+                    break;
+
+                case 'invitation_send':
+
+                    $invitationSend  = new InvitationSend();
+                    $action                         = $invitationSend->save( $_POST );
+//                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
 
                     break;
 

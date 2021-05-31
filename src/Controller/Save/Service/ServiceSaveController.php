@@ -41,6 +41,8 @@ class ServiceSaveController {
 
             }
 
+            $this->actionsAfterSave($formData);
+
             return true;
 
         }
@@ -56,6 +58,10 @@ class ServiceSaveController {
 
 
     public function actionsBeforeSave($formData){
+
+    }
+
+    public function actionsAfterSave($formData){
 
     }
 
