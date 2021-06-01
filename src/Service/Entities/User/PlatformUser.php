@@ -13,11 +13,14 @@ use ShippingAppointments\Service\Entities\SupplierCompany;
 use ShippingAppointments\Service\PostType\AppointmentPost;
 use ShippingAppointments\Service\Taxonomy\CountryTaxonomy;
 use ShippingAppointments\Service\User\UserFields;
+use ShippingAppointments\Traits\DateTimeFunctions;
 use WP_Query;
 use WP_User;
 use ShippingAppointments\Service\Entities\Availability;
 
 class PlatformUser extends WP_User implements PlatformUserInterface{
+
+    use DateTimeFunctions;
 
 	public $location;
 	public $timezone;
@@ -402,36 +405,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
         echo $this->getWeekdaysDisable($weekDays);
     }
 
-    public function getWeekdaysDisable($weekDays) {
 
-
-        $weekDaysReturnArray = array();
-
-        if (!stristr($weekDays, "mon")) {
-            array_push($weekDaysReturnArray, "1");
-        }
-        if (!stristr($weekDays, "tue")) {
-            array_push($weekDaysReturnArray, "2");
-        }
-        if (!stristr($weekDays, "wed")) {
-            array_push($weekDaysReturnArray, "3");
-        }
-        if (!stristr($weekDays, "thu")) {
-            array_push($weekDaysReturnArray, "4");
-        }
-        if (!stristr($weekDays, "fri")) {
-            array_push($weekDaysReturnArray, "5");
-        }
-        if (!stristr($weekDays, "sat")) {
-            array_push($weekDaysReturnArray, "6");
-        }
-        if (!stristr($weekDays, "sun")) {
-            array_push($weekDaysReturnArray, "0");
-        }
-
-        return implode(",", $weekDaysReturnArray);
-
-    }
 
     /**
      * @param $weekDays
@@ -440,7 +414,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
      * @return string
      */
     public function dayActive($weekDays, $day, $time) {
-// ( condition ? true : false)
+
 
         return (!stristr($weekDays, $day)? '-' : $time);
 
@@ -491,50 +465,30 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 	}
 
 
-	public function createTimeRange($start, $end, $interval = '30 mins') {
-		$startTime = strtotime($start);
-		$endTime = strtotime($end);
-		$returnTimeFormat = 'H:i';
 
-		$current = time();
-		$addTime = strtotime('+'.$interval, $current);
-		$diff = $addTime - $current;
+	public function getAvailabilityTimeRangeByDate( $date, $forDisplay = true ): array {
 
-		$times = array();
-		while ($startTime < $endTime) {
-			$times[] = date($returnTimeFormat, $startTime);
-			$startTime += $diff;
-		}
-		$times[] = date($returnTimeFormat, $startTime);
-		return $times;
-	}
+        //Get the Day of the week from the $date
+		$selectedDay = strtolower( date('D', strtotime( $date ) ) );
 
-
-	public function getAvailabilityTimeRangeByDate( $date, $forDisplay = true ){
-
-		$dashboardAppointments      = new DashboardAppointments( $this );
-		$bookedAppointments         = $dashboardAppointments->getEmployeeConfirmedAppointmentsByDate( $date );
-		$selectedDay                = strtolower( date('D', strtotime( $date ) ) );
+		//Get the booked appointments for the selected $date
+		$dashboardAppointments   = new DashboardAppointments( $this );
+		$bookedAppointments      = $dashboardAppointments->getEmployeeConfirmedAppointmentsByDate( $date );
 
 		if( is_array( $bookedAppointments ) && !empty( $bookedAppointments ) ){
 
+		    //Loop through the booked appointments
 			foreach( $bookedAppointments as $appointment ){
 
-				$bookedAppointment      = new Appointment( intval( $appointment ) );
+			    //Create an Appointment object
+				$bookedAppointment  = new Appointment( intval( $appointment ) );
 
-				if( $forDisplay === false ){
-					$from   = date("H:i",  strtotime("-15 minutes", strtotime("2021-01-01 $bookedAppointment->time") ) );
-					$to     = date("H:i",  strtotime("-15 minutes",strtotime($bookedAppointment->time) + ( $bookedAppointment->duration*60 ) + ( $bookedAppointment->buffer*60 ) ) );
+				//Calculate the start and end of the appointment
+				$minDiff    = ( $forDisplay === false ? "-15 minutes" : "+15 minutes" );
+				$from       = date("H:i",  strtotime( $minDiff, strtotime("2021-01-01 $bookedAppointment->time") ) );
+				$to         = date("H:i",  strtotime("-15 minutes", strtotime($bookedAppointment->time) + ( $bookedAppointment->duration * 60 ) + ( $bookedAppointment->buffer * 60 ) ) );
 
-				}
-				else {
-
-					$from   = date("H:i",  strtotime("+15 minutes", strtotime("2021-01-01 $bookedAppointment->time") ) );
-					$to     = date("H:i",  strtotime("-15 minutes",strtotime($bookedAppointment->time) + ( $bookedAppointment->duration*60 ) + ( $bookedAppointment->buffer*60 ) ) );
-
-				}
-
-
+                //Create a time range based on the starting and ending time
 				$employeeDisabledTimes  = $this->createTimeRange( $from, $to, '15 mins' );
 
 
@@ -542,98 +496,48 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
 
 		}
 
+
+		//Create a time range based on the employee availability
 		$from   = $selectedDay."_time_from";
 		$to     = $selectedDay."_time_to";
-		$times  = $this->createTimeRange( $this->{$from}, $this->{$to}, '15 mins' );
+//		$timeTo = ( $forDisplay === false ? date("H:i",  strtotime( "-15 minutes", strtotime("2021-01-01 " . $this->{$to} ) ) ) : $this->{$to} );
+		$times  = $this->createTimeRange( $this->{$from},  $this->{$to}, '15 mins' );
 
 
-		if( !empty( $employeeDisabledTimes ) ){
+//		print "<pre>";
+//		print_r($times);
+//		print "</pre>";
+		//If there are disabled times remove them from the final available times of the user
+		$finalTimes = ( !empty( $employeeDisabledTimes ) ? array_diff( $times, $employeeDisabledTimes ) : $times );
 
-//			print "<pre>";
+
+		//Sort the array and get the unique final times
+		asort($finalTimes);
+		$finalTimes =  array_values( array_unique( $finalTimes ) );
+
+
+		//If the function is not used for displaying the time ranges then remove the last time
+		if( $forDisplay === false ){
+		    array_pop($finalTimes);
+		}
+
+//		if( !empty( $employeeDisabledTimes ) ) {
+//
+//
+//            print "<pre>";
 //			print_r($employeeDisabledTimes);
 //			print "</pre>";
 //
 //			print "<pre>";
 //			print_r($times);
 //			print "</pre>";
-
-
-			$finalTimes = array_diff( $times, $employeeDisabledTimes );
-
-		}
-		else {
-			$finalTimes = $times;
-		}
-
-		asort($finalTimes);
-		$finalTimes =  array_values( array_unique( $finalTimes ) );
-
-//		if( !empty( $employeeDisabledTimes ) ) {
+//
 //			print "<pre>";
 //			print_r( $finalTimes );
 //			print "</pre>";
 //		}
 
 		return $finalTimes;
-
-	}
-
-	public function calculatePossibleTimeRanges( $timeAvailability ){
-
-		$startRangeTime = $timeAvailability[0];
-
-		for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
-
-			if( isset( $timeAvailability[$x] ) ){
-
-				$start_date = new DateTime( $timeAvailability[$x] );
-				$since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
-
-				$totalMinDiff = $since_start->h * 60 + $since_start->i;
-
-				if( $totalMinDiff !== 15 ){
-
-					$finalRanges[] = array(
-						'from' => $startRangeTime,
-						'to' => $timeAvailability[$x-1]
-					);
-
-					$startRangeTime = $timeAvailability[$x];
-
-				}
-
-			}
-
-		}
-
-		$finalRanges[] = array(
-			'from' => $startRangeTime,
-			'to' => $timeAvailability[count($timeAvailability)-1]
-		);
-
-		return $finalRanges;
-
-	}
-
-
-	public function displayTimeRanges( $timeRanges ){
-
-        $displayRanges = array();
-
-        if( !empty( $timeRanges ) ) {
-
-            foreach( $timeRanges as $timeRange ){
-
-                if( $timeRange['from'] !==  $timeRange['to'] ){
-	                $displayRanges[] = $timeRange['from'] . ' - ' . $timeRange['to'];
-                }
-
-
-            }
-
-        }
-
-        return implode( ' & ', $displayRanges );
 
 	}
 

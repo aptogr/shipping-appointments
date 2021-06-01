@@ -301,8 +301,7 @@ class DashboardBooking {
         $selectedDay = strtolower(date('D', strtotime($this->selectedDate)));
 		?>
 
-
-        <strong>
+        <div class="flex full-width flex-start">
 		<?php if( $this->selectedEmployeeType === 'specific' && $this->selectedEmployeeUser !== false ): ?>
 
             Show times based on the availability of <?php echo $this->selectedEmployeeUser->getFullName(); ?> and the selected date: <?php echo $this->selectedDate; ?>
@@ -319,7 +318,6 @@ class DashboardBooking {
                         array($to,'24:00'),
                 );
 
-
                 $userAppointments = $this->getBookedAppointments();
 
                 foreach ($userAppointments as $userAppointment) {
@@ -327,10 +325,6 @@ class DashboardBooking {
                     array_push($disableTime, $userAppointment->getAppointmentTimeRange() );
 
                 }
-
-//			print "<pre>";
-//			print_r($disableTime);
-//			print "</pre>";
 
             ?>
 
@@ -341,55 +335,53 @@ class DashboardBooking {
 
 		<?php else: ?>
 
-        <?php
+            <?php
 
-            //Get the overall availability of the selected department
-			$allAvailability = $this->department->getAllDepartmentAvailability();
+                //Get the overall availability of the selected department
+                $allAvailability = $this->department->getAllDepartmentAvailability();
 
-			//Get all the possible time ranges for the selected day
-//            $timesRanges = $this->department->calculateAllPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay);
-            $timesRanges = $this->department->calculateAllBookingPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay, $this->selectedDate );
+                //Get all the possible time ranges for the selected day
+                $timesRanges = $this->department->calculateAllBookingPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay, $this->selectedDate, false );
 
-            //Get the disabled time ranges of the department based on the availability
-			$depDisableTime = $this->department->getDisabledTimeRangesArray( $timesRanges );
+                //Get the disabled time ranges of the department based on the availability
+                $depDisableTime = $this->department->getDisabledTimeRangesArray( $timesRanges );
 
-            //Get the booked appointments for the selected date and add the time ranges to the disabled time ranges
-//            $appointments = $this->getBookedAppointments();
-//
-//
-//
-//            if( is_array( $appointments ) && !empty( $appointments ) ){
-//
-//	            foreach( $appointments as $appointment ){ /** @var $appointment Appointment */
-//
-//		            $depDisableTime[] = $appointment->getAppointmentTimeRange();
-//
-//	            }
-//
-//            }
 
             ?>
 
-            <div>
-                <?php $this->department->displayAvailabilityTable([
+            <div class="col l7 s12 no-padding-left">
+                <?php $this->displayDepartmentAvailabilityTable([
                         'weekday'   =>  $selectedDay,
-                        'date'      =>  $this->selectedDate
                 ]);?>
             </div>
 
             <div id="depDisableTime" class="hide">
-                <?php
-                echo json_encode($depDisableTime);
-                ?>
+                <?php echo json_encode($depDisableTime); ?>
             </div>
-
-            Show times based on the overall availability of the <?php echo $this->department->departmentType->term->name; ?> and the selected date: <?php echo $this->selectedDate; ?>
 
 		<?php endif; ?>
 
-            <input type="text" class="timeSelect timepicker" id="bookTime" name="time" value="<?php echo $this->selectedTime; ?>">
-        </strong>
+            <div class="col l5 s12">
 
+                <div class="input-field full-width time-select-field flex flex-center full-width">
+
+                    <div class="icon">
+
+                        <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M347.216,301.211l-71.387-53.54V138.609c0-10.966-8.864-19.83-19.83-19.83c-10.966,0-19.83,8.864-19.83,19.83v118.978c0,6.246,2.935,12.136,7.932,15.864l79.318,59.489c3.569,2.677,7.734,3.966,11.878,3.966c6.048,0,11.997-2.717,15.884-7.952C357.766,320.208,355.981,307.775,347.216,301.211z"></path></g></g><g><g><path d="M256,0C114.833,0,0,114.833,0,256s114.833,256,256,256s256-114.833,256-256S397.167,0,256,0z M256,472.341c-119.275,0-216.341-97.066-216.341-216.341S136.725,39.659,256,39.659c119.295,0,216.341,97.066,216.341,216.341S375.275,472.341,256,472.341z"></path></g></g></svg>
+
+                    </div>
+
+                    <label for="bookTime">Appointment time:</label>
+                    <input id="bookTime" type="text" class="timeSelect timepicker"  name="time" value="<?php echo $this->selectedTime; ?>">
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="clearfix"></div>
 
 		<?php
 
@@ -610,6 +602,136 @@ class DashboardBooking {
 		}
 
         return $appointments;
+
+    }
+
+
+    public function displayDepartmentAvailabilityTable( $args ){
+
+	    $departmentAvailability = $this->department->getAllDepartmentAvailability();
+
+	    if( isset( $args['weekday'] ) && !empty( $args['weekday'] ) ){
+
+		    $weekday = $args['weekday'];
+
+		    if( isset( $departmentAvailability[$weekday] ) && !empty( $departmentAvailability[$weekday] ) ){
+
+			    $departmentAvailability = array(
+				    $weekday => $departmentAvailability[$weekday]
+			    );
+
+		    }
+		    else {
+			    $departmentAvailability = array();
+		    }
+
+	    }
+
+	    ?>
+
+        <table class="full-width date-availability-table">
+
+            <thead>
+                <tr>
+                    <th style="width:180px;">Department Availability</th>
+                    <th>Availability Breakdown</th>
+                </tr>
+            </thead>
+            <tbody>
+		    <?php
+		    $i = 0;
+
+
+		    foreach ($departmentAvailability as $day => $availabilityArray ) { ?>
+
+                <tr>
+
+                    <td>
+					    <?php
+
+                            $possibleTimeRanges =  $this->department->calculateAllBookingPossibleTimeRanges( $availabilityArray['times'], $day, $this->selectedDate, true );
+                            $this->department->displayTimeRanges( $possibleTimeRanges );
+
+					    ?>
+                    </td>
+
+                    <td style="padding: 0;">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Employee
+                                    </th>
+                                    <th>
+                                        <?php echo ucfirst($day); ?>.
+                                    </th>
+                                    <th>
+                                        <?php echo date('d/m/Y', strtotime( $this->selectedDate ) ); ?>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        By assignment
+                                    </td>
+                                    <td class="day-range">
+	                                    <?php echo $availabilityArray['times']['department'][$day . "_time_from"]." - ".$availabilityArray['times']['department'][$day . "_time_to"];?>
+                                    </td>
+                                    <td>
+	                                    <?php echo $availabilityArray['times']['department'][$day . "_time_from"]." - ".$availabilityArray['times']['department'][$day . "_time_to"];?>
+                                    </td>
+                                </tr>
+
+                                <?php foreach ($availabilityArray['times'] as $emplId => $dayTimes) {
+
+	                                if ($emplId !== 'department') {
+
+		                                /** @var $employee PlatformUser */
+		                                $employee = $dayTimes['user'];
+
+		                                ?>
+
+                                        <tr>
+                                            <td>
+	                                            <?php echo $employee->first_name . ' ' . $employee->last_name[0]; ?>
+                                            </td>
+                                            <td class="day-range">
+	                                            <?php echo $dayTimes[$day . "_time_from"]." - ".$dayTimes[$day . "_time_to"];?>
+                                            </td>
+                                            <td>
+	                                            <?php
+
+                                                    echo $employee->timeRangesToString(  $employee->calculateAllTimeRanges( $employee->getAvailabilityTimeRangeByDate( $this->selectedDate ) )  );
+
+	                                            ?>
+                                            </td>
+
+                                        </tr>
+
+		                                <?php
+	                                }
+                                }
+                                ?>
+
+                            </tbody>
+                        </table>
+
+                    </td>
+                </tr>
+
+			    <?php
+
+			    $i++;
+
+		    }
+
+		    ?>
+            </tbody>
+        </table>
+
+	    <?php
 
     }
 

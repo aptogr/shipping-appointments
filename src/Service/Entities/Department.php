@@ -11,10 +11,12 @@ use ShippingAppointments\Service\Entities\DepartmentType as DepartmentTypeEntity
 use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Service\User\UserRoles;
 use ShippingAppointments\Traits\Core\PostEntity;
+use ShippingAppointments\Traits\DateTimeFunctions;
 
 class Department {
 
 	use PostEntity;
+	use DateTimeFunctions;
 
 	public $users;
 
@@ -135,55 +137,6 @@ class Department {
         echo $this->getWeekdaysDisable($weekDays);
     }
 
-    public function getWeekdaysDisable($weekDays) {
-
-
-        $weekDaysReturnArray = array();
-
-        if (!stristr($weekDays, "mon")) {
-            array_push($weekDaysReturnArray, "1");
-        }
-        if (!stristr($weekDays, "tue")) {
-            array_push($weekDaysReturnArray, "2");
-        }
-        if (!stristr($weekDays, "wed")) {
-            array_push($weekDaysReturnArray, "3");
-        }
-        if (!stristr($weekDays, "thu")) {
-            array_push($weekDaysReturnArray, "4");
-        }
-        if (!stristr($weekDays, "fri")) {
-            array_push($weekDaysReturnArray, "5");
-        }
-        if (!stristr($weekDays, "sat")) {
-            array_push($weekDaysReturnArray, "6");
-        }
-        if (!stristr($weekDays, "sun")) {
-            array_push($weekDaysReturnArray, "0");
-        }
-
-        return implode(",", $weekDaysReturnArray);
-
-    }
-
-
-    public function createTimeRange($start, $end, $interval = '30 mins') {
-        $startTime = strtotime($start);
-        $endTime = strtotime($end);
-        $returnTimeFormat = 'H:i';
-
-        $current = time();
-        $addTime = strtotime('+'.$interval, $current);
-        $diff = $addTime - $current;
-
-        $times = array();
-        while ($startTime < $endTime) {
-            $times[] = date($returnTimeFormat, $startTime);
-            $startTime += $diff;
-        }
-        $times[] = date($returnTimeFormat, $startTime);
-        return $times;
-    }
 
 
     public function getAllDepartmentAvailability(){
@@ -268,7 +221,7 @@ class Department {
     }
 
 
-    public function calculateAllPossibleTimeRanges( $availableTimes, $day ){
+    public function calculateAllPossibleTimeRanges( $availableTimes, $day ): array {
 
         $finalRanges = array();
         $timeAvailability = array();
@@ -282,70 +235,32 @@ class Department {
         asort($timeAvailability);
         $timeAvailability = array_values( array_unique( $timeAvailability ) );
 
-
-        $startRangeTime = $timeAvailability[0];
-
-        for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
-
-            if( isset( $timeAvailability[$x] ) ){
-
-                $start_date = new DateTime( $timeAvailability[$x] );
-                $since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
-
-                $totalMinDiff = $since_start->h * 60 + $since_start->i;
-
-                if( $totalMinDiff !== 15 ){
-
-                    $finalRanges[] = array(
-                        'from' => $startRangeTime,
-                        'to' => $timeAvailability[$x-1]
-                    );
-
-                    $startRangeTime = $timeAvailability[$x];
-
-                }
-
-            }
-
-        }
-
-        $finalRanges[] = array(
-            'from' => $startRangeTime,
-            'to' => $timeAvailability[count($timeAvailability)-1]
-        );
-
-        return $finalRanges;
+        return $this->calculateAllTimeRanges( $timeAvailability );
 
     }
 
 
 
 
-    public function calculateAllBookingPossibleTimeRanges( $availableTimes, $day, $date ){
+    public function calculateAllBookingPossibleTimeRanges( $availableTimes, $day, $date, $forDisplay = true ): array {
 
-        $finalRanges = array();
         $timeAvailability = array();
 
         foreach( $availableTimes as $timeRange ){
 
             $employee = end( $timeRange );
 
-	        $employeeDisabledTimes = array();
             if( $employee instanceof PlatformUser ){
 
-	            $times = $employee->getAvailabilityTimeRangeByDate( $date, false );
+	            $times = $employee->getAvailabilityTimeRangeByDate( $date, $forDisplay );
 
             }
             else {
 
-	            $times = $this->createTimeRange( $timeRange[$day . "_time_from"], $timeRange[$day . "_time_to"], '15 mins' );
+                $timeTo = ( $forDisplay === false ? date("H:i",  strtotime( "-15 minutes", strtotime("2021-01-01 " . $timeRange[$day . "_time_to"] ) ) ) : $timeRange[$day . "_time_to"] );
+	            $times = $this->createTimeRange( $timeRange[$day . "_time_from"], $timeTo, '15 mins' );
 
             }
-
-
-//	        print "<pre>";
-//	        print_r($times);
-//	        print "</pre>";
 
             $timeAvailability = array_merge( $timeAvailability, $times );
 
@@ -354,39 +269,7 @@ class Department {
         asort($timeAvailability);
         $timeAvailability = array_values( array_unique( $timeAvailability ) );
 
-
-        $startRangeTime = $timeAvailability[0];
-
-        for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
-
-            if( isset( $timeAvailability[$x] ) ){
-
-                $start_date = new DateTime( $timeAvailability[$x] );
-                $since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
-
-                $totalMinDiff = $since_start->h * 60 + $since_start->i;
-
-                if( $totalMinDiff !== 15 ){
-
-                    $finalRanges[] = array(
-                        'from' => $startRangeTime,
-                        'to' => $timeAvailability[$x-1]
-                    );
-
-                    $startRangeTime = $timeAvailability[$x];
-
-                }
-
-            }
-
-        }
-
-        $finalRanges[] = array(
-            'from' => $startRangeTime,
-            'to' => $timeAvailability[count($timeAvailability)-1]
-        );
-
-        return $finalRanges;
+	    return $this->calculateAllTimeRanges( $timeAvailability );
 
     }
 
@@ -396,10 +279,7 @@ class Department {
 
     public function displayAvailabilityTable( $args ){
 
-	    $allDaysFull = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
 	    $departmentAvailability = $this->getAllDepartmentAvailability();
-
-//	    print("<pre>".print_r($departmentAvailability,true)."</pre>");
 
         if( isset( $args['weekday'] ) && !empty( $args['weekday'] ) ){
 
@@ -488,9 +368,8 @@ class Department {
                                             <?php
 
                                                 $dateEmployeeAvailability = $employee->getAvailabilityTimeRangeByDate( $args['date'] );
-//                                                var_dump( $employee->calculatePossibleTimeRanges( $dateEmployeeAvailability ) );
-                                                echo $employee->displayTimeRanges(  $employee->calculatePossibleTimeRanges( $dateEmployeeAvailability )  );
-//                                                echo $dateEmployeeAvailability[0] . ' - ' . end( $dateEmployeeAvailability );
+                                                echo $employee->timeRangesToString(  $employee->calculateAllTimeRanges( $dateEmployeeAvailability )  );
+
                                             ?>
 
                                         </div>
@@ -503,8 +382,6 @@ class Department {
 					    }
 					    ?>
                     </td>
-
-
                 </tr>
 
 			    <?php
@@ -528,12 +405,13 @@ class Department {
 
 			foreach( $timeRanges as $timeRange ){
 
+                if( $timeRange['from'] !== $timeRange['to'] ):	?>
 
-				?>
-				<div class="time-range-item">
-					<?php echo $timeRange['from'] . ' - ' . $timeRange['to']; ?>
-				</div>
-				<?php
+                    <div class="time-range-item">
+                        <?php echo $timeRange['from'] . ' - ' . $timeRange['to']; ?>
+                    </div>
+
+				<?php endif;
 
 			}
 
