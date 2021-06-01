@@ -13,6 +13,7 @@ Interface PagesTemplatesInterface {
         'department',
         'company',
         'req',
+        'invitation',
     );
 
 	/**

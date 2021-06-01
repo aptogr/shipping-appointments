@@ -62,4 +62,18 @@ class ShippingInvitation {
 		$this->inviteeUser      = ( !empty( $this->inviteeUser) ? new PlatformUser( intval( $this->invitee ) ) : false );
 	}
 
+	public function getFieldToString( $field ){
+
+		if( property_exists( $this, $field ) ){
+
+			return ( ShippingInvitationPost::ALL_FIELDS[ $field ]['options'][ $this->{$field} ] ?? $this->{$field} );
+
+		}
+		else {
+			return '-';
+		}
+
+
+	}
+
 }

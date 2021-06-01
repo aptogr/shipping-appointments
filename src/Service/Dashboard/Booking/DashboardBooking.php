@@ -84,19 +84,23 @@ class DashboardBooking {
 
 	        <?php foreach( $activeDepartments as $department ): ?>
 
-                <label for="<?php echo $department->ID; ?>" class="radio-with-icon flex-grow flex flex-center  <?php echo ( $department->ID === $this->selectedDepartment ? 'selected' : ''); ?>">
+                <?php if( intval( $department->status ) ): ?>
 
-                    <input id="<?php echo $department->ID; ?>" type="radio" value="<?php echo $department->ID; ?>" name="department" <?php echo ( $department->ID === $this->selectedDepartment ? 'checked' : ''); ?>>
+                    <label for="<?php echo $department->ID; ?>" class="radio-with-icon flex-grow flex flex-center  <?php echo ( $department->ID === $this->selectedDepartment ? 'selected' : ''); ?>">
 
-                    <span class="department-icon">
-                        <?php echo $department->departmentType->svg; ?>
-                    </span>
+                        <input id="<?php echo $department->ID; ?>" type="radio" value="<?php echo $department->ID; ?>" name="department" <?php echo ( $department->ID === $this->selectedDepartment ? 'checked' : ''); ?>>
 
-                    <span class="department-name">
-                         <?php echo $department->departmentType->term->name; ?>
-                    </span>
+                        <span class="department-icon">
+                            <?php echo $department->departmentType->svg; ?>
+                        </span>
 
-                </label>
+                        <span class="department-name">
+                             <?php echo $department->departmentType->term->name; ?>
+                        </span>
+
+                    </label>
+
+                <?php endif; ?>
 
 	        <?php endforeach; ?>
 
@@ -249,11 +253,15 @@ class DashboardBooking {
 	            $cal_weekdaysDisable    = false;
 
             }
-            else {
+            else if( $this->department instanceof Department ){
 
 	            $cal_excluded_dates     = $this->department->excluded_dates;
 	            $cal_weekdaysDisable    = $this->department->getWeekdaysDisable($this->department->weekdays_available);
 
+            }
+            else {
+	            $cal_excluded_dates     = false;
+	            $cal_weekdaysDisable    = false;
             }
 
         ?>
@@ -333,7 +341,7 @@ class DashboardBooking {
             </div>
 
 
-		<?php else: ?>
+		<?php elseif( $this->department instanceof Department ): ?>
 
             <?php
 
@@ -357,6 +365,12 @@ class DashboardBooking {
 
             <div id="depDisableTime" class="hide">
                 <?php echo json_encode($depDisableTime); ?>
+            </div>
+
+        <?php else: ?>
+
+            <div class="col l7 s12 no-padding-left">
+                You need to select a department to book an appointment with.
             </div>
 
 		<?php endif; ?>

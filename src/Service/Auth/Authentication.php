@@ -6,6 +6,8 @@ namespace ShippingAppointments\Service\Auth;
 
 use ShippingAppointments\Interfaces\Auth\RegisterInterface;
 use ShippingAppointments\Service\Dashboard\Access\DashboardEncryption;
+use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\PostType\ShippingInvitationPost;
 use ShippingAppointments\Service\User\UserFields;
 use WP_Error;
 use WP_User;
@@ -29,30 +31,45 @@ class Authentication implements RegisterInterface {
                 $user_args[ $userField['field_name'] ] = filter_input( INPUT_POST, $userField['field_name'], constant( $userField['sanitize'] ) );
             }
 
-            $user_args['user_login'] = $user_args['first_name'] . ' ' . $user_args['last_name'];
-            $user_args['role']       = 'homi_user';
+	        $email = $user_args['user_email'];
+	        $parts = explode('@', $email );
+
+
+	        $username = $parts[0];
+	        if( empty( $username ) || username_exists( $username ) ){
+		        $username = $username . time();
+	        }
+
+            $user_args['user_login'] = $username;
+            $user_args['role']       = ( $_POST['role'] ?? 'subscriber' );
 
             $user_id = wp_insert_user( $user_args );
 
-            if( $user_id && isset( $_POST['redirect_to'] ) ){
+            if( $user_id ){
 
-                $registerUrl = $_POST['redirect_to'];
+                $platformUser = new PlatformUser( $user_id );
 
-                update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['register_url'], $_POST['redirect_to'] );
+                if( $platformUser->isSupplierCompanyAdmin() || $platformUser->isSupplierCompanyEmployee() ){
 
-                $parts = parse_url($registerUrl);
-                parse_str($parts['query'], $query);
+	                update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['supplier_company_id'], intval( $_POST['supplier'] ) );
 
-                if( isset( $query['phone'] ) && !empty( $query['phone'] ) ){
+                }
+                else {
 
-                    update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['mobilePhone'], $query['phone'] );
+	                update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['shipping_company_id'], intval( $_POST['company'] ) );
+	                update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['shipping_company_department_id'], intval( $_POST['department'] ) );
 
                 }
 
+                if( isset( $_POST['invitation'] ) ){
+
+                    update_post_meta( $_POST['invitation'], ShippingInvitationPost::META_FIELDS_SLUG['status'], 'accepted' );
+
+                }
+
+	            do_action('profenda_user_registered', $user_id );
 
             }
-
-            do_action('profenda_user_registered', $user_id );
 
             $authRedirect = new AuthRedirect();
             wp_redirect( $authRedirect->redirectAfterRegister( $user_id ) );
@@ -75,20 +92,6 @@ class Authentication implements RegisterInterface {
                 wp_set_auth_cookie( $userToLogin->ID );
                 do_action( 'wp_login', $userToLogin->ID, $userToLogin );
 
-//                $user = wp_signon( array( 'user_login' => $userToLogin->user_login, 'remember' => true  ), true );
-//                wp_set_current_user( $user->ID, $user->user_login );
-//                clean_user_cache( $user->ID);
-//                wp_clear_auth_cookie();
-//                wp_set_current_user( $user->ID );
-//                wp_set_auth_cookie( $user->ID, true, false);
-
-
-                if( class_exists('WpFastestCache') ){
-
-                    $cache = new WpFastestCache();
-                    $cache->deleteCache( true );
-
-                }
 
                 if( is_user_logged_in() ){
 
@@ -98,12 +101,6 @@ class Authentication implements RegisterInterface {
                     exit();
 
                 }
-//                else {
-//
-//                    var_dump( is_user_logged_in() );
-//                    exit();
-//
-//                }
 
 
             }
