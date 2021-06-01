@@ -319,37 +319,18 @@ class DashboardBooking {
                         array($to,'24:00'),
                 );
 
-                echo '<pre>';
-                print_r($disableTime);
-                echo '</pre>';
 
                 $userAppointments = $this->getBookedAppointments();
 
                 foreach ($userAppointments as $userAppointment) {
-                    echo "<pre style='background-color: #0c4400;'>";
-                    var_dump($userAppointment);
-                    echo "</pre>";
 
-//                    $userAppointmentTimeFrom = $userAppointment->time;
-//                    $userAppointmentDurationPlusBuffer = $userAppointment->duration + $userAppointment->buffer;
-//                    $userAppointmentTimeTo = date("H:i", strtotime('+'.$userAppointmentDurationPlusBuffer.' minutes', strtotime($userAppointment->time)));
-//                    $userAppointmentsTimeRange = array($userAppointmentTimeFrom, $userAppointmentTimeTo);
-//                    array_push($disableTime,$userAppointmentsTimeRange);
-
-                    $from   = date("h:i", strtotime("-29 minutes", strtotime("2021-01-01 $userAppointment->time")));
-                    $to     = date("h:i", strtotime($userAppointment->time) + ( $userAppointment->duration*60 ) + ( $userAppointment->buffer*60 ) );
-                    $userAppointmentsTimeRange = array($from, $to);
-                    array_push($disableTime,$userAppointmentsTimeRange);
-
-//                    echo '<pre>';
-//                    print_r($userAppointmentsTimeRange);
-//                    echo '</pre>';
+                    array_push($disableTime, $userAppointment->getAppointmentTimeRange() );
 
                 }
 
-            echo '<pre style="background-color: #440303;">';
-            print_r($disableTime);
-            echo '</pre>';
+//			print "<pre>";
+//			print_r($disableTime);
+//			print "</pre>";
 
             ?>
 
@@ -366,32 +347,34 @@ class DashboardBooking {
 			$allAvailability = $this->department->getAllDepartmentAvailability();
 
 			//Get all the possible time ranges for the selected day
-            $timesRanges = $this->department->calculateAllPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay);
+//            $timesRanges = $this->department->calculateAllPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay);
+            $timesRanges = $this->department->calculateAllBookingPossibleTimeRanges($allAvailability[$selectedDay]['times'],$selectedDay, $this->selectedDate );
 
             //Get the disabled time ranges of the department based on the availability
 			$depDisableTime = $this->department->getDisabledTimeRangesArray( $timesRanges );
 
             //Get the booked appointments for the selected date and add the time ranges to the disabled time ranges
-            $appointments = $this->getBookedAppointments();
-
-//            echo '<pre>';
-//            print_r($appointments);
-//            echo '</pre>';
-
-            if( is_array( $appointments ) && !empty( $appointments ) ){
-
-	            foreach( $appointments as $appointment ){ /** @var $appointment Appointment */
-
-		            $depDisableTime[] = $appointment->getAppointmentTimeRange();
-
-	            }
-
-            }
+//            $appointments = $this->getBookedAppointments();
+//
+//
+//
+//            if( is_array( $appointments ) && !empty( $appointments ) ){
+//
+//	            foreach( $appointments as $appointment ){ /** @var $appointment Appointment */
+//
+//		            $depDisableTime[] = $appointment->getAppointmentTimeRange();
+//
+//	            }
+//
+//            }
 
             ?>
 
             <div>
-                <?php $this->department->displayAvailabilityTable(['weekday'=>$selectedDay]);?>
+                <?php $this->department->displayAvailabilityTable([
+                        'weekday'   =>  $selectedDay,
+                        'date'      =>  $this->selectedDate
+                ]);?>
             </div>
 
             <div id="depDisableTime" class="hide">

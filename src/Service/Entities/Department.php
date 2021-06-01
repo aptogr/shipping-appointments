@@ -3,6 +3,7 @@
 namespace ShippingAppointments\Service\Entities;
 
 use DateTime;
+use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointments;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\Taxonomy\DepartmentType;
@@ -318,6 +319,81 @@ class Department {
     }
 
 
+
+
+    public function calculateAllBookingPossibleTimeRanges( $availableTimes, $day, $date ){
+
+        $finalRanges = array();
+        $timeAvailability = array();
+
+        foreach( $availableTimes as $timeRange ){
+
+            $employee = end( $timeRange );
+
+	        $employeeDisabledTimes = array();
+            if( $employee instanceof PlatformUser ){
+
+	            $times = $employee->getAvailabilityTimeRangeByDate( $date, false );
+
+            }
+            else {
+
+	            $times = $this->createTimeRange( $timeRange[$day . "_time_from"], $timeRange[$day . "_time_to"], '15 mins' );
+
+            }
+
+
+//	        print "<pre>";
+//	        print_r($times);
+//	        print "</pre>";
+
+            $timeAvailability = array_merge( $timeAvailability, $times );
+
+        }
+
+        asort($timeAvailability);
+        $timeAvailability = array_values( array_unique( $timeAvailability ) );
+
+
+        $startRangeTime = $timeAvailability[0];
+
+        for ( $x = 1; $x <= count( $timeAvailability ); $x++) {
+
+            if( isset( $timeAvailability[$x] ) ){
+
+                $start_date = new DateTime( $timeAvailability[$x] );
+                $since_start = $start_date->diff(new DateTime( $timeAvailability[$x - 1] ) );
+
+                $totalMinDiff = $since_start->h * 60 + $since_start->i;
+
+                if( $totalMinDiff !== 15 ){
+
+                    $finalRanges[] = array(
+                        'from' => $startRangeTime,
+                        'to' => $timeAvailability[$x-1]
+                    );
+
+                    $startRangeTime = $timeAvailability[$x];
+
+                }
+
+            }
+
+        }
+
+        $finalRanges[] = array(
+            'from' => $startRangeTime,
+            'to' => $timeAvailability[count($timeAvailability)-1]
+        );
+
+        return $finalRanges;
+
+    }
+
+
+
+
+
     public function displayAvailabilityTable( $args ){
 
 	    $allDaysFull = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
@@ -348,7 +424,7 @@ class Department {
 
             <tr>
                 <th>Day</th>
-                <th>Daily Availability</th>
+                <th>Overall Availability</th>
                 <th>Employees Availability</th>
             </tr>
 
@@ -406,6 +482,20 @@ class Department {
                                     <div class="employeeTimes">
 									    <?php echo $dayTimes[$day . "_time_from"]." - ".$dayTimes[$day . "_time_to"];?>
                                     </div>
+                                    <?php if( isset( $args['date'] ) ): ?>
+
+                                        <div class="employeeTimesDate">
+                                            <?php
+
+                                                $dateEmployeeAvailability = $employee->getAvailabilityTimeRangeByDate( $args['date'] );
+//                                                var_dump( $employee->calculatePossibleTimeRanges( $dateEmployeeAvailability ) );
+                                                echo $employee->displayTimeRanges(  $employee->calculatePossibleTimeRanges( $dateEmployeeAvailability )  );
+//                                                echo $dateEmployeeAvailability[0] . ' - ' . end( $dateEmployeeAvailability );
+                                            ?>
+
+                                        </div>
+
+                                    <?php endif; ?>
                                 </div>
 
 							    <?php
@@ -413,6 +503,7 @@ class Department {
 					    }
 					    ?>
                     </td>
+
 
                 </tr>
 
