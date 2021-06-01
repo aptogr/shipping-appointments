@@ -86,7 +86,7 @@ class InvitationForm {
             <div class="input-field col l4 s12">
 
                 <div class="full-width">
-                    <button type="submit" class="saveBooking save-button" name="refresh_action" value="invitation_send">Create Department</button>
+                    <button type="submit" class="invitationSend save-button" name="refresh_action" value="invitation_send">Send Invitation</button>
                 </div>
 
             </div>

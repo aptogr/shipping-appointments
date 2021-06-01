@@ -599,58 +599,17 @@ $dashboardCompany = new DashboardCompany();
 
                                         </div>
 
-                                        <table id="companyEmployeesTable">
-                                            <thead>
-                                            <tr>
-                                                <th>
-                                                    Name
-                                                </th>
-                                                <th>
-                                                    Email
-                                                </th>
-                                                <th>
-                                                    Department
-                                                </th>
-                                                <th>
-                                                    Role
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php foreach( $companyObj->getEmployees() as $employee ): /** @var $employee PlatformUser */ ?>
+                                        <div id="invitationTableDiv">
 
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $employee->first_name . ' ' . $employee->last_name; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $employee->user_email; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $employee->department->departmentType->term->name; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
+                                            <?php
 
-                                                        if( $employee->isShippingCompanyAdmin() ){
-                                                            echo "Company Admin";
-                                                        }
-                                                        else if(  $employee->isDepartmentAdmin() ){
-                                                            echo "Department Admin";
-                                                        }
-                                                        else {
-                                                            echo "Employee";
-                                                        }
+                                            $invitationTable = new \ShippingAppointments\Service\Invitation\InvitationTable();
 
+                                            echo $invitationTable->getShippingCompanyInvitationTable($companyId);
 
-                                                        ?>
-                                                    </td>
-                                                </tr>
+                                            ?>
 
-                                            <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-
+                                        </div>
 
                                     </div>
 

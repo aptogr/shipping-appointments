@@ -41,6 +41,10 @@ Interface AjaxInterface {
             'callback' => 'getAdminsForDepartment',
             'nopriv'   => false,
         ),
+        'createInvitation' => array(
+            'callback' => 'createInvitation',
+            'nopriv'   => false,
+        ),
     );
 
 }

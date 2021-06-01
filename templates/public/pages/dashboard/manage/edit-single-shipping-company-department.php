@@ -6,6 +6,12 @@ use ShippingAppointments\Service\Dashboard\Settings\DashboardSettingsDepartment;
 
 $department = new Department( intval( get_query_var('department') ) );
 $dashboardSettingsDepartment = new DashboardSettingsDepartment();
+$invitationForm = new \ShippingAppointments\Service\Invitation\InvitationForm();
+$companyID = $department->company;
+
+//echo "<pre>";
+//print_r();
+//echo "</pre>";
 
 
 if (isset($department->weekdays_available)) {
@@ -52,6 +58,10 @@ if (isset($department->excluded_dates)) {
 
                     <li class="tab-link">
                         Manage Employees
+                    </li>
+
+                    <li class="tab-link">
+                        Invitations
                     </li>
 
                 </ul>
@@ -905,6 +915,47 @@ if (isset($department->excluded_dates)) {
                             </div>
 
                         </div>
+
+
+                        <div class="swiper-slide">
+
+                            <div class="col s12">
+
+                                <h2>
+                                    Invitations
+                                </h2>
+
+                                <p>
+                                    This section will be used for the company admins in order to send invitations for
+                                    company administrators and department administrators.
+                                </p>
+
+                                <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                    <?php
+
+                                    echo $invitationForm->getShippingInvitationForm($companyID,$department->ID);
+
+                                    ?>
+
+                                </div>
+
+                                <div id="invitationTableDiv">
+
+                                    <?php
+
+                                    $invitationTable = new \ShippingAppointments\Service\Invitation\InvitationTable();
+
+                                    echo $invitationTable->getDepartmentInvitationTable($department->ID);
+
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
 
                     </div>
 
