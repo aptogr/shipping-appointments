@@ -70,7 +70,7 @@ var scripts = [
             config.srcDirJS + '/settingsController/departmentSettings.js',
             config.srcDirJS + '/settingsController/userSettings.js',
             config.srcDirJS + '/book-appointment.js',
-            // config.srcDirJS + '/settingsController/mobiscroll.jquery.min.js',
+            config.srcDirJS + '/invitations.js',
             config.srcDirJS + '/settingsController/appointmentsSchedule.js',
         ],
         name : 'public.min',

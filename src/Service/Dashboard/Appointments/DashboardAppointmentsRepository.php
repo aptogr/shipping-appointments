@@ -421,8 +421,9 @@ class DashboardAppointmentsRepository {
 
             $singleAppointmentArray['start']            = $singleAppointmentTimeFrom;
             $singleAppointmentArray['end']              = $singleAppointmentTimeTo;
-            $singleAppointmentArray['title']            = "<div class='calendarTitle'>".$appointmentEmployeeName."<div class='calendarTime'>".$singleAppointmentOBJ->time."</div></div>";
-            $singleAppointmentArray['color']            = strtolower($appointmentStatusColor);
+            $singleAppointmentArray['title']            = $appointmentEmployeeName." - ".$singleAppointmentOBJ->time;
+//            $singleAppointmentArray['title']            = "<div class='calendarTitle'>".$appointmentEmployeeName."<div class='calendarTime'>".$singleAppointmentOBJ->time."</div></div>";
+            $singleAppointmentArray['color']            = $appointmentStatusColor;
             $singleAppointmentArray['bgColor']          = '#000000';
             $singleAppointmentArray['id']               = $singleAppointmentOBJ->ID;
             $singleAppointmentArray['calendarId']       = '1';
@@ -442,25 +443,26 @@ class DashboardAppointmentsRepository {
 //            print_r($allAppointmentsJSON);
 //            echo "</pre>";
         ?>
-        <div id="jsontest" class="hide"><?php echo json_encode($allAppointmentsJSON, JSON_HEX_QUOT | JSON_HEX_TAG); ?></div>
+        <div id="jsonAppointments" class="hide"><?php echo json_encode($allAppointmentsJSON, JSON_HEX_QUOT | JSON_HEX_TAG); ?></div>
 
         <div class="appointments_schedule">
 
             <div style="height:100%">
-                <div id="menu">
-                      <span id="menu-navi">
-                        <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
 
-                        <button type="button" class="btn btn-default btn-sm move-day prev-month">
-                          Prev
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm move-day next-month">
-                          Next
-                        </button>
-                      </span>
-                    <span id="renderRange" class="render-range"></span>
+                <div id="tui-menu" class="flex flex-just-space-b">
+
+                    <div id="renderRange" class="render-range"></div>
+
+                    <div id="menu-navi">
+                      <button type="button" class="prev-month"><</button>
+                      <button type="button" class="move-today">Today</button>
+                      <button type="button" class="next-month">></button>
+                    </div>
+
                 </div>
+
                 <div id="tuiCalendar" style="height: 100vh;"></div>
+
             </div>
 
 

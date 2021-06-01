@@ -1,7 +1,16 @@
 (function ($) {
     'use strict';
 
+
+
+    // $(window).load(function() {
+    //     $('#appointmentsListView').addClass('hide');
+    //     console.log('page loaded')
+    // });
+
     $(document).ready(function(){
+
+        // $('#appointmentsListView').addClass('hide');
 
         $("#toggleAppointmentsView").on( "click", function() {
 
@@ -23,9 +32,9 @@
 
         if ($('.appointments_schedule').length > 0) {
 
-            // console.log('appointments_schedule loaded!');
+            console.log('appointments_schedule loaded!');
 
-            var appointmentsJSON = JSON.parse($('#jsontest').html());
+            var appointmentsJSON = JSON.parse($('#jsonAppointments').html());
 
             var cal = new tui.Calendar('#tuiCalendar', {
                 defaultView: 'month',
@@ -33,23 +42,39 @@
                 useCreationPopup: false,
                 useDetailPopup: false,
                 disableClick: true,
-                disableDblClick: true
+                disableDblClick: true,
+                month: {
+                    narrowWeekend: false,
+                    startDayOfWeek: 1, // monday
+                },
             });
 
-            // console.log(appointmentsJSON);
+            function monthDisplay() {
+                var daDate = cal._renderDate._date;
+                var daMonth = daDate.toLocaleString('en-EN', { month: 'long' });
+                var daYear = daDate.toLocaleString('en-EN', { year: 'numeric' });
+                // console.log(daYear)
+                $('#renderRange').text( daMonth + ' ' + daYear)
+            }
+
+            monthDisplay()
+
             cal.createSchedules(appointmentsJSON);
 
 
             $('.prev-month').on( "click", function() {
                 cal.prev();
+                monthDisplay()
             })
 
             $('.next-month').on( "click", function() {
                 cal.next();
+                monthDisplay()
             })
 
             $('.move-today').on( "click", function() {
                 cal.today();
+                monthDisplay()
             })
 
             function setRenderRangeText() {

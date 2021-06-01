@@ -1,3 +1,77 @@
+
+
+.tui-view-6 {
+  height: 50px!important;
+
+  .tui-full-calendar-month-dayname {
+    padding: 10px 0px;
+  }
+
+  .tui-full-calendar-holiday-sun {
+    color: #333!important;
+  }
+
+}
+
+.tui-full-calendar-holiday-sun {
+  span {
+    color: #333!important;
+  }
+}
+.tui-full-calendar-extra-date {
+  span {
+    color: rgba(51, 51, 51, 0.4)!important;
+  }
+}
+
+#tui-menu {
+  background-color: $color-palette-1;
+  padding: 15px;
+
+
+  #renderRange {
+    font-size: 20px;
+    color:$hospital-white;
+    padding-left: 10px;
+  }
+
+  .prev-month,.next-month {
+    border: none;
+    color:$hospital-white;
+    background-color: $color-palette-1;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 5px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: $hospital-white;
+      color: $color-palette-1;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  }
+
+  .move-today {
+    border: none;
+    color:$hospital-white;
+    background-color: $color-palette-1;
+    font-size: 17px;
+    padding: 5px 10px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: $hospital-white;
+      color: $color-palette-1;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  }
+
+}
+
 .count-appointments {
   background-color: #1259af;
   color: #fff;

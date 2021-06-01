@@ -1,5 +1,19 @@
 @import "../project/colors";
 
+.ui-timepicker-disabled {
+  display: none;
+}
+
+.ui-timepicker-wrapper {
+  width:200px;
+  text-align: center;
+
+  li {
+    padding: 5px;
+    border-bottom: 1px solid #b2c1d7;
+  }
+}
+
 .platform-dashboard-page {
 
   //ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,

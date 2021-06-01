@@ -2,6 +2,7 @@
 
 namespace ShippingAppointments\Controller\Ajax;
 
+use ShippingAppointments\Controller\Save\Service\InvitationSend;
 use ShippingAppointments\Interfaces\AjaxInterface;
 use ShippingAppointments\Service\Dashboard\Appointments\DashboardAppointmentsRepository;
 use ShippingAppointments\Service\Dashboard\Booking\DashboardBooking;
@@ -9,6 +10,7 @@ use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\Invitation\InvitationTable;
 use ShippingAppointments\Service\User\UserFields;
 
 class AjaxController implements AjaxInterface {
@@ -282,6 +284,25 @@ class AjaxController implements AjaxInterface {
         $dashboardAppointment->displayListItem($appointment);
 
         $result['html'] = ob_get_clean();
+
+        wp_send_json( $result );
+        wp_die();
+
+    }
+
+    public function createInvitation() {
+
+        $params = array();
+        $result = array();
+        $invitationTable = new InvitationTable();
+
+        parse_str( $_POST['formData'], $params );
+
+        $invitationSend  = new InvitationSend();
+        $action = $invitationSend->save( $params );
+
+        $result['ID'] = $invitationSend->invitation;
+        $result['html'] = $invitationTable->getShippingCompanyInvitationTable($params['company']);
 
         wp_send_json( $result );
         wp_die();
