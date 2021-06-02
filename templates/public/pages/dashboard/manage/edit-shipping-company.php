@@ -328,7 +328,7 @@ $dashboardCompany = new DashboardCompany();
                                                     </td>
                                                     <td>
                                                         <div class="toggle-switch margin-left-auto toggle-trigger">
-                                                            <input type="checkbox" class="departmentCheckBox" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" <?php echo ( $companyDepartment->status == 1 ? 'checked' : '' ); ?>  />
+                                                            <input type="checkbox" class="departmentCheckBox" data-department="<?php echo $companyDepartment->ID;?>" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" <?php echo ( $companyDepartment->status == 1 ? 'checked' : '' ); ?>  />
                                                             <label for="<?php echo $departmentType->ID; ?>"></label>
                                                         </div>
                                                     </td>
@@ -531,7 +531,7 @@ $dashboardCompany = new DashboardCompany();
                                             We can include invitations for the employees too at this section.
                                         </p>
 
-                                        <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+                                        <div class="company-users-filters flex-grow flex flex-center full-width margin-bottom-30 margin-top-50">
 
                                             <?php
 
@@ -541,32 +541,50 @@ $dashboardCompany = new DashboardCompany();
 
                                         </div>
 
-                                        <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+                                        <div class="company-users-filters flex-grow flex flex-center full-width margin-bottom-30 margin-top-50">
 
                                             <div class="profenda-filter-item flex flex-center">
 
-                                                <label for="searchEmployee" class="filter-label">
+                                                <label for="searchEmployeeInvitation" class="filter-label">
                                                     Search Employee:
                                                 </label>
 
                                                 <div class="filter-field">
 
-                                                    <input id="searchEmployee" name="employee_name" placeholder="Type a name or email">
+                                                    <input id="searchEmployeeInvitation" name="employee_name" placeholder="Type a name or email">
 
                                                 </div>
 
                                             </div>
 
+                                            <div class="profenda-filter-item flex-grow flex flex-center margin-left-auto">
 
-                                            <div class="profenda-filter-item flex flex-center margin-left-auto">
+                                                <label for="statusFilterInvitation" class="filter-label">
+                                                    Status:
+                                                </label>
 
-                                                <label for="departmentFilter" class="filter-label">
+                                                <div class="filter-field">
+
+                                                    <select id="statusFilterInvitation">
+                                                        <option value="all">All</option>
+                                                        <option value="expired">Expired</option>
+                                                        <option value="accepted">Accepted</option>
+                                                        <option value="pending">Pending</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="profenda-filter-item  flex-grow flex flex-center margin-left-auto">
+
+                                                <label for="departmentFilterInvitation" class="filter-label">
                                                     Department:
                                                 </label>
 
                                                 <div class="filter-field">
 
-                                                    <select id="departmentFilter">
+                                                    <select id="departmentFilterInvitation">
                                                         <option value="all">All</option>
                                                         <option value="shipping_company_admin">Technical</option>
                                                         <option value="shipping_company_department_admin">Financial</option>
@@ -578,15 +596,15 @@ $dashboardCompany = new DashboardCompany();
                                             </div>
 
 
-                                            <div class="profenda-filter-item flex flex-center no-margin-right">
+                                            <div class="profenda-filter-item flex-grow flex flex-center no-margin-right">
 
-                                                <label for="userRoleFilter" class="filter-label">
+                                                <label for="userRoleFilterInvitation" class="filter-label">
                                                     User Role:
                                                 </label>
 
                                                 <div class="filter-field">
 
-                                                    <select id="userRoleFilter">
+                                                    <select id="userRoleFilterInvitation">
                                                         <option value="all">All</option>
                                                         <option value="shipping_company_admin">Company Admin</option>
                                                         <option value="shipping_company_department_admin">Department Admin</option>

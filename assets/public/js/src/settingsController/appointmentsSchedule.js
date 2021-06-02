@@ -47,6 +47,11 @@
                     narrowWeekend: false,
                     startDayOfWeek: 1, // monday
                 },
+                theme: {
+                    'month.schedule.marginTop': '10px',
+                },
+                // 'week..marginTop': '2px',
+
             });
 
             function monthDisplay() {

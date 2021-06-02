@@ -309,4 +309,13 @@ class AjaxController implements AjaxInterface {
 
     }
 
+    public function updateDepartmentStatus() {
+
+
+        wp_send_json( $result );
+        wp_die();
+
+    }
+
+
 }
