@@ -11,6 +11,7 @@ use ShippingAppointments\Service\Entities\Department;
 use ShippingAppointments\Service\Entities\ShippingCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
 use ShippingAppointments\Service\Invitation\InvitationTable;
+use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\User\UserFields;
 
 class AjaxController implements AjaxInterface {
@@ -311,8 +312,12 @@ class AjaxController implements AjaxInterface {
 
     public function updateDepartmentStatus() {
 
+        $existingDepartmentID = $_POST['existingDepartmentID'];
+        $status = $_POST['status'];
 
-        wp_send_json( $result );
+        update_post_meta($existingDepartmentID, DepartmentPost::META_FIELDS_SLUG['status'], $status);
+
+        wp_send_json( $status );
         wp_die();
 
     }

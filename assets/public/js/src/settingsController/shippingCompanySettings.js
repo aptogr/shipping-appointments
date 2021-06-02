@@ -13,7 +13,28 @@
                 if(this.checked) {
 
                     if (that.closest('tr').hasClass('existing-department')) {
-                        console.log('existing-department');
+
+                        that.closest('tr').addClass('department-active');
+                        that.closest('tr').removeClass('department-inactive');
+                        that.parent().parent().parent().find('.departmentStatus').text('Enabled');
+                        // that.closest('tr .departmentStatus').text('Enabled');
+
+
+                        var existingDepartmentID = that.attr('data-department')
+
+                        jQuery.ajax({
+                            url: AjaxController.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: AjaxController.updateDepartmentStatus,
+                                existingDepartmentID: existingDepartmentID,
+                                status: 'enabled',
+                            },
+                            success: function (response) {
+                                console.log('response',response);
+                            }
+
+                        });//end ajax
 
                         if ( that.closest('.department_availability').text() == 'Availability not set' ) {
                             console.log('Availability not set');
@@ -26,6 +47,7 @@
 
                         that.closest('.department-row').addClass('department-active')
                         that.closest('.department-row').removeClass('department-inactive')
+                        that.parent().parent().parent().find('.departmentStatus').text('Enabled');
 
                         var departmentName = that.closest('.department-row').find('.department-table-name').text()
                         $('.profenda-modal-header').html('<h2>' + departmentName + '</h2>')
@@ -49,6 +71,28 @@
                         });//end ajax
 
                     }
+
+                } else {
+
+                    var existingDepartmentID = that.attr('data-department')
+
+                    that.closest('tr').removeClass('department-active');
+                    that.closest('tr').addClass('department-inactive');
+                    that.parent().parent().parent().find('.departmentStatus').text('Disabled');
+
+                    jQuery.ajax({
+                        url: AjaxController.ajax_url,
+                        type: 'POST',
+                        data: {
+                            action: AjaxController.updateDepartmentStatus,
+                            existingDepartmentID: existingDepartmentID,
+                            status: 'disabled',
+                        },
+                        success: function (response) {
+                            console.log('response',response);
+                        }
+
+                    });//end ajax
 
                 }
 

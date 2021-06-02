@@ -85,14 +85,19 @@ Interface DepartmentInterface {
 			'field_type'  => 'select_advanced',
 			'placeholder' => 'Select a company',
 		),
+
         'status' => array(
-			'id'   => self::META_FIELDS_SLUG['status'],
-			'name' => 'Department status',
-			'type'        => 'switch',
-            'style'     => 'rounded',
-            'on_label'  => 'Enabled',
-            'off_label' => 'Disabled',
+			'id'        => self::META_FIELDS_SLUG['status'],
+			'name'      => 'Department status',
+            'type'      => 'radio',
+            'options'   => array(
+                'enabled'   => 'Enabled',
+                'disabled'  => 'Disabled',
+                'inactive'  => 'Inactive',
+            ),
+            'inline'    => true,
 		),
+
 		'users_visibility'   =>array(
 			'name'              => 'Users Visibility',
 			'id'                => self::META_FIELDS_SLUG['users_visibility'],

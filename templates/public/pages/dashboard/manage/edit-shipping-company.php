@@ -91,7 +91,7 @@ $dashboardCompany = new DashboardCompany();
 
                                 <div class="swiper-slide">
 
-                                    <div class="col s12 margin-top-50">
+                                    <div class="col s12 margin-top-50 swiper-no-swiping">
 
                                         <form action="" method="post">
 
@@ -259,7 +259,7 @@ $dashboardCompany = new DashboardCompany();
 
                                 <div class="swiper-slide">
 
-                                    <div class="col s12 margin-top-50">
+                                    <div class="col s12 margin-top-50 swiper-no-swiping">
 
                                         <h2>
                                             Profile Settings (Under development)
@@ -275,7 +275,7 @@ $dashboardCompany = new DashboardCompany();
 
                                 <div class="swiper-slide">
 
-                                    <div class="col s12 margin-top-50">
+                                    <div class="col s12 margin-top-50 swiper-no-swiping">
 
                                         <h2>
                                             Manage departments
@@ -300,7 +300,7 @@ $dashboardCompany = new DashboardCompany();
                                                     Enabled
                                                 </th>
                                                 <th>
-                                                    Active
+                                                    Status
                                                 </th>
                                                 <th>
                                                     Availability
@@ -316,7 +316,7 @@ $dashboardCompany = new DashboardCompany();
                                                 <?php $companyDepartment = $companyObj->getDepartmentByType( $departmentType ); ?>
 
                                                 <?php if( $companyDepartment !== false ): ?>
-                                                <tr class="<?php echo ( $companyDepartment->status == 1 ? 'department-active' : 'department-inactive' ); ?> department-row existing-department">
+                                                <tr class="<?php echo ( $companyDepartment->status == 'enabled' ? 'department-active' : 'department-inactive' ); ?> department-row existing-department">
                                                     <td>
                                                         <div class="department-table-name flex flex-center">
 		                                                    <?php echo $departmentType->svg; ?>
@@ -328,12 +328,12 @@ $dashboardCompany = new DashboardCompany();
                                                     </td>
                                                     <td>
                                                         <div class="toggle-switch margin-left-auto toggle-trigger">
-                                                            <input type="checkbox" class="departmentCheckBox" data-department="<?php echo $companyDepartment->ID;?>" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" <?php echo ( $companyDepartment->status == 1 ? 'checked' : '' ); ?>  />
+                                                            <input type="checkbox" class="departmentCheckBox" data-department="<?php echo $companyDepartment->ID;?>" id="<?php echo $departmentType->ID; ?>" value="<?php echo $departmentType->ID; ?>" name="departments[]" <?php echo ( $companyDepartment->status == 'enabled' ? 'checked' : '' ); ?>  />
                                                             <label for="<?php echo $departmentType->ID; ?>"></label>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        Active
+                                                    <td class="departmentStatus">
+                                                        <?php echo ( $companyDepartment->status == 'enabled' ? 'Enabled' : 'Disabled' ); ?>
                                                     </td>
                                                     <td class="department_availability">
                                                         <?php echo ( empty( $companyDepartment->weekdays_available ) ? 'Availability not set' : $companyDepartment->weekdays_available ); ?>
@@ -387,7 +387,7 @@ $dashboardCompany = new DashboardCompany();
 
                                 <div class="swiper-slide">
 
-                                    <div class="col s12 margin-top-50">
+                                    <div class="col s12 margin-top-50 swiper-no-swiping">
 
                                         <h2>
                                             Manage Employees
@@ -518,7 +518,7 @@ $dashboardCompany = new DashboardCompany();
 
                                 <div class="swiper-slide">
 
-                                    <div class="col s12 margin-top-50">
+                                    <div class="col s12 margin-top-50 swiper-no-swiping">
 
                                         <h2>
                                             Invitations

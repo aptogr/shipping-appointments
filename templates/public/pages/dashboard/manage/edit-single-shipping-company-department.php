@@ -940,6 +940,82 @@ if (isset($department->excluded_dates)) {
 
                                 </div>
 
+                                <div class="company-users-filters flex-grow flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                    <div class="profenda-filter-item flex flex-center">
+
+                                        <label for="searchEmployeeInvitation" class="filter-label">
+                                            Search Employee:
+                                        </label>
+
+                                        <div class="filter-field">
+
+                                            <input id="searchEmployeeInvitation" name="employee_name" placeholder="Type a name or email">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="profenda-filter-item flex-grow flex flex-center margin-left-auto">
+
+                                        <label for="statusFilterInvitation" class="filter-label">
+                                            Status:
+                                        </label>
+
+                                        <div class="filter-field">
+
+                                            <select id="statusFilterInvitation">
+                                                <option value="all">All</option>
+                                                <option value="expired">Expired</option>
+                                                <option value="accepted">Accepted</option>
+                                                <option value="pending">Pending</option>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="profenda-filter-item  flex-grow flex flex-center margin-left-auto">
+
+                                        <label for="departmentFilterInvitation" class="filter-label">
+                                            Department:
+                                        </label>
+
+                                        <div class="filter-field">
+
+                                            <select id="departmentFilterInvitation">
+                                                <option value="all">All</option>
+                                                <option value="shipping_company_admin">Technical</option>
+                                                <option value="shipping_company_department_admin">Financial</option>
+                                                <option value="shipping_company_employee">Marine</option>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="profenda-filter-item flex-grow flex flex-center no-margin-right">
+
+                                        <label for="userRoleFilterInvitation" class="filter-label">
+                                            User Role:
+                                        </label>
+
+                                        <div class="filter-field">
+
+                                            <select id="userRoleFilterInvitation">
+                                                <option value="all">All</option>
+                                                <option value="shipping_company_admin">Company Admin</option>
+                                                <option value="shipping_company_department_admin">Department Admin</option>
+                                                <option value="shipping_company_employee">Employee</option>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                                 <div id="invitationTableDiv">
 
                                     <?php

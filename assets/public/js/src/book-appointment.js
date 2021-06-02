@@ -150,6 +150,7 @@
                 insertParam($(this).attr('name'), $(this).val());
                 var stepNum = $(this).closest('.booking-step-wrapper').find('.step-counter').text();
                 bookingSteps(stepNum);
+                updateSteps();
             });
 
         }

@@ -74,6 +74,57 @@
 
             });
 
+// DATATABLE invitationTable
+
+            var invitationTable = $('#invitationTable').DataTable({
+                "pageLength": 25
+            });
+
+            $('#searchEmployeeInvitation').keyup(function(){
+                invitationTable.columns( 0 ).search($(this).val()).draw() ;
+            })
+
+            $('#statusFilterInvitation').on( 'change', function () {
+
+                var value = $( "#statusFilterInvitation option:selected" ).text()
+
+                if ($(this).val() !== 'all') {
+                    invitationTable.columns( 1 ).search( value ).draw();
+                } else {
+                    invitationTable.columns( 1 ).search('').draw();
+                }
+            } );
+
+            $('#userRoleFilterInvitation').on( 'change', function () {
+
+                var value = $( "#userRoleFilterInvitation option:selected" ).text()
+
+                if ($(this).val() !== 'all') {
+                    invitationTable.columns( 2 ).search( value ).draw();
+                } else {
+                    invitationTable.columns( 2 ).search('').draw();
+                }
+            } );
+
+            $('.copyLink').on( 'click', function () {
+                var code = $(this).attr('data-code');
+                var copyText = "https://profenda.com/register/shipping/employee/invitation/" + code + "/"
+                var $temp = $("<input class='hidden'>");
+                $("body").append($temp);
+                $temp.val(copyText).select();
+                document.execCommand("copy");
+                $temp.remove();
+
+                $.toast({
+                    type: 'success',
+                    autoDismiss: true,
+                    message: 'Link copied.',
+                });
+
+            } );
+
+            // DATATABLE invitationTable END
+
         }
 
 

@@ -97,7 +97,7 @@ class Department {
 		$this->setDepartmentUsers();
 
 		$this->companyObject = new ShippingCompany( $this->company );
-		$this->status = boolval($this->status);
+//		$this->status = boolval($this->status);
 
 	}
 
