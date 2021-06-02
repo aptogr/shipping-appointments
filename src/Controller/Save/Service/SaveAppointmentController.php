@@ -5,8 +5,11 @@ namespace ShippingAppointments\Controller\Save\Service;
 
 
 use ShippingAppointments\Service\PostType\AppointmentPost;
+use ShippingAppointments\Traits\MediaUploader;
 
 class SaveAppointmentController extends ServiceSaveController {
+
+	use MediaUploader;
 
     public $appointmentID;
 
@@ -19,8 +22,6 @@ class SaveAppointmentController extends ServiceSaveController {
 
     public function saveField( $metaKey, $value ){
 
-//        var_dump($value);
-//        update_post_meta( $this->appointmentID, $metaKey, $value );
 
         if ( is_array( explode( ',', $value ) ) && count(explode( ',', $value )) > 1 ){
             $value = explode( ',', $value );
@@ -53,6 +54,23 @@ class SaveAppointmentController extends ServiceSaveController {
 
             $this->appointmentID = wp_insert_post( $postData );
             update_post_meta($this->appointmentID, $this->fieldsSlug['status'], 'pending_approval');
+
+    }
+
+
+    public function uploadAndSaveFile( $fileData ){
+
+    	if( isset( $fileData['myFile'] ) ){
+
+		    $attachID = $this->uploadFile( $fileData['myFile'] );
+
+		    if ( $attachID ){
+
+    			update_post_meta( $this->appointmentID, $this->fieldsSlug['file'], $attachID );
+
+		    }
+
+	    }
 
     }
 

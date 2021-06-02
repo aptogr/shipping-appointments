@@ -50,7 +50,12 @@ class SaveController {
 
                     $saveAppointmentController      = new SaveAppointmentController();
                     $action                         = $saveAppointmentController->save( $_POST );
-                    $redirectUrl                    = site_url('dashboard/book/success/req/' . $saveAppointmentController->appointmentID );
+	                $saveAppointmentController->uploadAndSaveFile( $_FILES );
+
+	                if( $saveAppointmentController->appointmentID ){
+		                $redirectUrl = site_url('dashboard/book/success/req/' . $saveAppointmentController->appointmentID );
+	                }
+
 
                     break;
 

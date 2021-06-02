@@ -40,8 +40,7 @@ $dashboardBooking = new DashboardBooking( $companyID, $_GET );
 
 	<div class="container">
 
-		<form method="post" class="col s12">
-
+		<form method="post" class="col s12" enctype="multipart/form-data">
 
 
             <input type="hidden" name="company" value="<?php echo $companyID; ?>">
