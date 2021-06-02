@@ -83,7 +83,7 @@ class AuthRedirect {
     }
 
 
-    public function redirectAfterRegister( $user_id ){
+    public function redirectAfterRegister( $user_id, $companyID = false ){
 
         if ( ! $user_id instanceof WP_Error ) {
 
@@ -94,32 +94,34 @@ class AuthRedirect {
             $user = get_user_by( 'id', $user_id );
             do_action( 'wp_login', $user->user_login, $user );
 
-            if( class_exists('WpFastestCache') ){
-
-                $cache = new WpFastestCache();
-                $cache->deleteCache( true );
-
-            }
-
             global $wp;
 
             $redirect = home_url($wp->request);
 
-            if( isset( $_POST['redirect_to'] ) && !empty( $_POST['redirect_to'] ) ){
+            if( $companyID !== false ){
 
-                $redirect = $_POST['redirect_to'];
-
-            }
-
-            if( isset( $_GET['redirect_to'] ) && !empty( $_GET['redirect_to'] ) ){
-
-                $redirect = $_GET['redirect_to'];
+            	$redirect = site_url("dashboard/manage/edit-company/company/$companyID");
 
             }
+            else {
+
+	            if( isset( $_POST['redirect_to'] ) && !empty( $_POST['redirect_to'] ) ){
+
+		            $redirect = $_POST['redirect_to'];
+
+	            }
+
+	            if( isset( $_GET['redirect_to'] ) && !empty( $_GET['redirect_to'] ) ){
+
+		            $redirect = $_GET['redirect_to'];
+
+	            }
 
 
-            if( empty( $redirect ) ){
-                $redirect = home_url('dashboard');
+	            if( empty( $redirect ) ){
+		            $redirect = home_url('dashboard');
+	            }
+
             }
 
         }

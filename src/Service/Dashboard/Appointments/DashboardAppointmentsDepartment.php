@@ -4,6 +4,7 @@
 namespace ShippingAppointments\Service\Dashboard\Appointments;
 
 
+use ShippingAppointments\Service\Entities\Appointment;
 use ShippingAppointments\Service\Entities\Department;
 
 class DashboardAppointmentsDepartment extends DashboardAppointmentsRepository {
@@ -74,5 +75,26 @@ class DashboardAppointmentsDepartment extends DashboardAppointmentsRepository {
 
 	}
 
+
+	public function confirmedAppointmentByDateTime( $date, $time ): array {
+
+		$confirmedAppointments = array();
+		$appointments = $this->getDepartmentConfirmedAppointmentsByDate( $date );
+
+		foreach( $appointments as $appointmentID ){
+
+			$bookedAppointment  = new Appointment( intval( $appointmentID ) );
+
+			if( $bookedAppointment->time === $time ){
+
+				$confirmedAppointments[] = $bookedAppointment;
+
+			}
+
+		}
+
+		return $confirmedAppointments;
+
+	}
 
 }

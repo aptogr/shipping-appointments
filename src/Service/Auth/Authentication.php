@@ -4,6 +4,7 @@
 namespace ShippingAppointments\Service\Auth;
 
 
+use ShippingAppointments\Controller\Save\Service\ShippingCompanySaveController;
 use ShippingAppointments\Interfaces\Auth\RegisterInterface;
 use ShippingAppointments\Service\Dashboard\Access\DashboardEncryption;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
@@ -24,26 +25,7 @@ class Authentication implements RegisterInterface {
 
         if( isset( $_POST['new_user'] ) ) {
 
-            $user_args = array();
-
-            foreach ( self::DEFAULT_USER_FIELDS as $userField ) {
-
-                $user_args[ $userField['field_name'] ] = filter_input( INPUT_POST, $userField['field_name'], constant( $userField['sanitize'] ) );
-            }
-
-	        $email = $user_args['user_email'];
-	        $parts = explode('@', $email );
-
-
-	        $username = $parts[0];
-	        if( empty( $username ) || username_exists( $username ) ){
-		        $username = $username . time();
-	        }
-
-            $user_args['user_login'] = $username;
-            $user_args['role']       = ( $_POST['role'] ?? 'subscriber' );
-
-            $user_id = wp_insert_user( $user_args );
+	        $user_id = $this->insertNewUser( $_POST );
 
             if( $user_id ){
 
@@ -71,11 +53,59 @@ class Authentication implements RegisterInterface {
 
             }
 
-            $authRedirect = new AuthRedirect();
-            wp_redirect( $authRedirect->redirectAfterRegister( $user_id ) );
-            exit();
+
 
         }
+        elseif( isset( $_POST['new_shipping_company'] ) ) {
+
+	        $user_id = $this->insertNewUser( $_POST );
+
+	        $formData = $_POST;
+	        $formData['user_id'] = $user_id;
+
+	        $companySaveController = new ShippingCompanySaveController();
+	        $companySaveController->save( $formData );
+	        $companySaveController->uploadAndSaveFile( $_FILES );
+
+	        update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['shipping_company_id'], $companySaveController->companyID );
+
+
+	        $authRedirect = new AuthRedirect();
+	        wp_redirect( $authRedirect->redirectAfterRegister( $user_id, $companySaveController->companyID ) );
+	        exit();
+
+        }
+
+    }
+
+
+    public function insertNewUser( $formData ){
+
+	    $user_args = array();
+
+	    foreach ( self::DEFAULT_USER_FIELDS as $userField ) {
+
+	        if( isset( $formData[ $userField['field_name'] ] ) ){
+
+		        $user_args[ $userField['field_name'] ] = $formData[ $userField['field_name'] ];
+
+            }
+
+	    }
+
+	    $email = $user_args['user_email'];
+	    $parts = explode('@', $email );
+
+
+	    $username = $parts[0];
+	    if( empty( $username ) || username_exists( $username ) ){
+		    $username = $username . time();
+	    }
+
+	    $user_args['user_login'] = $username;
+	    $user_args['role']       = ( $formData['role'] ?? 'subscriber' );
+
+	    return wp_insert_user( $user_args );
 
     }
 

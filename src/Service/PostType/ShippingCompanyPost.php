@@ -60,6 +60,8 @@ class ShippingCompanyPost implements TemplatesInterface{
         'instant_booking'               => self::POST_TYPE_NAME . '_instant_booking',
 
         'premises'                      => self::POST_TYPE_NAME . '_premises',
+        'company_email'                 => self::POST_TYPE_NAME . '_company_email',
+        'company_phone'                 => self::POST_TYPE_NAME . '_company_phone',
 	];
 
 
@@ -296,6 +298,16 @@ class ShippingCompanyPost implements TemplatesInterface{
                 array(
                     'name'              => 'Premises',
                     'id'                => self::META_FIELDS_SLUG['premises'],
+                    'type'              => 'text',
+                ),
+                array(
+                    'name'              => 'Company Email',
+                    'id'                => self::META_FIELDS_SLUG['company_email'],
+                    'type'              => 'text',
+                ),
+                array(
+                    'name'              => 'Company Phone',
+                    'id'                => self::META_FIELDS_SLUG['company_phone'],
                     'type'              => 'text',
                 ),
 

@@ -84,7 +84,7 @@ class DashboardBooking {
 
 	        <?php foreach( $activeDepartments as $department ): ?>
 
-                <?php if( intval( $department->status ) ): ?>
+                <?php if( $department->status === 'enabled' ):?>
 
                     <label for="<?php echo $department->ID; ?>" class="radio-with-icon flex-grow flex flex-center  <?php echo ( $department->ID === $this->selectedDepartment ? 'selected' : ''); ?>">
 
@@ -389,6 +389,70 @@ class DashboardBooking {
                     <input id="bookTime" type="text" class="timeSelect timepicker"  name="time" value="<?php echo $this->selectedTime; ?>">
 
                 </div>
+
+                <?php
+
+                    if( !empty( $this->selectedTime ) && !empty( $this->selectedDate ) ){
+
+                        $departmentAppointments = new DashboardAppointmentsDepartment( $this->department );
+                        $hasAppointment = $departmentAppointments->confirmedAppointmentByDateTime( $this->selectedDate, $this->selectedTime );
+
+                        if( ( count($hasAppointment) + 1 ) > $this->department->simultaneous_meetings ){
+
+                            ?>
+
+                            <div class="notice-in-page notice-flat flex flex-center margin-top-20">
+
+                                <div class="flex flex-center">
+
+                                    <div class="icon">
+
+                                        <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                    </div>
+
+                                    <div class="notice-message">
+                                        <strong>You cannot book an appointment for this time.</strong>
+                                        <br>The department does not allow to have more than <?php echo $this->department->simultaneous_meetings; ?> meetings at the same time.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <?php
+
+                        }
+                        else if( count($hasAppointment) > 0 ){
+
+	                        ?>
+
+                            <div class="notice-in-page notice-flat flex flex-center margin-top-20">
+
+                                <div class="flex flex-center">
+
+                                    <div class="icon">
+
+                                        <svg height="509.87489pt" viewBox="0 0 509.87489 509.87489" width="509.87489pt" xmlns="http://www.w3.org/2000/svg"><path d="m23.503906 198.367188 174.863282-174.863282c31.242187-31.242187 81.898437-31.242187 113.140624 0l174.863282 174.863282c31.242187 31.242187 31.242187 81.898437 0 113.140624l-174.863282 174.863282c-31.242187 31.242187-81.898437 31.242187-113.140624 0l-174.863282-174.863282c-31.242187-31.242187-31.242187-81.898437 0-113.140624zm0 0" fill="#ffda6b" style="fill: #fba919;"></path><g fill="#fff"><path d="m254.929688 142.9375c8.835937 0 16 7.164062 16 16v128c0 8.835938-7.164063 16-16 16-8.835938 0-16-7.164062-16-16v-128c0-8.835938 7.164062-16 16-16zm0 0"></path><path d="m238.929688 334.9375h32v32h-32zm0 0"></path></g></svg>
+
+                                    </div>
+
+                                    <div class="notice-message">
+                                        <strong>The selected datetime you have chosen is busy.</strong>
+                                        <br>Please choose another time or note that your appointment might be rejected.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+	                        <?php
+
+                        }
+
+                    }
+
+                ?>
 
             </div>
 
