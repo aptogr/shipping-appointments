@@ -72,6 +72,35 @@
 
 }
 
+.appointments_schedule {
+
+  .tui-full-calendar-weekday-schedule-bullet {
+    position: absolute;
+    padding: 0;
+    width: 4px;
+    height: 100%;
+    top: 0 !important;
+    left: 0;
+    border-radius: 0;
+  }
+
+  .tui-full-calendar-weekday-schedule-title {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    padding-left: 3px;
+    font-weight: bold;
+    background-color: #e6f1ff;
+    padding-left: 15px !important;
+  }
+
+}
+
+
+
+
 .count-appointments {
   background-color: #1259af;
   color: #fff;

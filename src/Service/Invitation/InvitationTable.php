@@ -92,12 +92,15 @@ class InvitationTable {
 
 		<?php if( !empty( $invitations ) && is_array( $invitations ) ): ?>
 
-			<table id="companyEmployeesTable">
+			<table id="invitationTable">
 				<thead>
 					<tr>
 						<th>
 							Email
 						</th>
+                        <th>
+                            Status
+                        </th>
 						<th>
 							Role
 						</th>
@@ -110,6 +113,9 @@ class InvitationTable {
 						<th>
 							Code
 						</th>
+                        <th>
+							Actions
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -120,8 +126,13 @@ class InvitationTable {
 						<td>
 							<?php echo $invitation->email; ?>
 						</td>
+                        <td>
+                            <div class="status <?php echo $invitation->status;?>">
+                                <?php echo $invitation->getFieldToString('status'); ?>
+                            </div>
+                        </td>
 						<td>
-							<?php echo $invitation->role; ?>
+							<?php echo $invitation->getFieldToString('role'); ?>
 						</td>
 						<td>
 							<?php echo $invitation->departmentObject->departmentType->term->name; ?>
@@ -132,6 +143,9 @@ class InvitationTable {
 						<td>
 							<?php echo $invitation->code; ?>
 						</td>
+                        <td data-code="<?php echo $invitation->code; ?>" class="copyLink">
+                            Copy link
+                        </td>
 					</tr>
 
 				<?php endforeach; ?>

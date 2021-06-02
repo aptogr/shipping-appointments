@@ -57,6 +57,7 @@ var scripts = [
     },
     {
         src : [
+            config.srcDirJS + '/toast.js',
             config.srcDirJS + '/jquery.timepicker.min.js',
             config.srcDirJS + '/moment.js',
             config.srcDirJS + '/pignose.calendar.min.js',
@@ -72,6 +73,7 @@ var scripts = [
             config.srcDirJS + '/book-appointment.js',
             config.srcDirJS + '/invitations.js',
             config.srcDirJS + '/settingsController/appointmentsSchedule.js',
+
         ],
         name : 'public.min',
         dest : config.destDirJS + ''
