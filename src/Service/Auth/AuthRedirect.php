@@ -64,12 +64,6 @@ class AuthRedirect {
 
         }
 
-        if( class_exists('WpFastestCache') ){
-
-            $cache = new WpFastestCache();
-            $cache->deleteCache( true );
-
-        }
 
         $redirect_to = add_query_arg(
             array(

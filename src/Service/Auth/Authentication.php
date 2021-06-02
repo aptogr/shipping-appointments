@@ -54,7 +54,6 @@ class Authentication implements RegisterInterface {
             }
 
 
-
         }
         elseif( isset( $_POST['new_shipping_company'] ) ) {
 
@@ -122,7 +121,6 @@ class Authentication implements RegisterInterface {
                 wp_set_auth_cookie( $userToLogin->ID );
                 do_action( 'wp_login', $userToLogin->ID, $userToLogin );
 
-
                 if( is_user_logged_in() ){
 
                     $redirectUrl = site_url( parse_url( $_SERVER["REQUEST_URI"], PHP_URL_PATH) );
@@ -132,9 +130,7 @@ class Authentication implements RegisterInterface {
 
                 }
 
-
             }
-
 
         }
 
