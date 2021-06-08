@@ -6,7 +6,7 @@
     border-radius: 0px!important;
   }
 
-  #companyEmployeesTable_length, #companyEmployeesTable_filter,#departmentEmployeesTable_filter,#departmentEmployeesTable_length {
+  .dataTables_length, .dataTables_filter{
     display: none!important;
   }
 

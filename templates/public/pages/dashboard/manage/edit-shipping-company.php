@@ -336,7 +336,17 @@ $dashboardCompany = new DashboardCompany();
                                                         <?php echo ( $companyDepartment->status == 'enabled' ? 'Enabled' : 'Disabled' ); ?>
                                                     </td>
                                                     <td class="department_availability">
-                                                        <?php echo ( empty( $companyDepartment->weekdays_available ) ? 'Availability not set' : $companyDepartment->weekdays_available ); ?>
+
+                                                        <?php
+                                                            if ($companyDepartment->hasAvailability()) {
+                                                                ?>
+                                                                <div id="view-availability-single-department" data-depid="<?php echo $companyDepartment->ID;?>" class="profenda-btn display-inline-block view-availability-single-department">Preview Availability</div>
+                                                                <?php
+                                                            } else {
+                                                                echo "Not set.";
+                                                            }
+                                                        ?>
+
                                                     </td>
                                                     <td>
                                                         <a href="<?php echo site_url('dashboard/manage/edit-departments/department/' . $companyDepartment->ID ); ?>">
@@ -400,7 +410,6 @@ $dashboardCompany = new DashboardCompany();
                                             We can include invitations for the employees too at this section.
                                         </p>
 
-
                                         <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
 
                                             <div class="profenda-filter-item flex flex-center">
@@ -426,11 +435,17 @@ $dashboardCompany = new DashboardCompany();
 
                                                 <div class="filter-field">
 
+
                                                     <select id="departmentFilter">
                                                         <option value="all">All</option>
-                                                        <option value="shipping_company_admin">Technical</option>
-                                                        <option value="shipping_company_department_admin">Financial</option>
-                                                        <option value="shipping_company_employee">Marine</option>
+                                                        <?php
+                                                        foreach ($companyObj->departments as $dadepartment ) {
+                                                            $dadepartmentOBJ = new \ShippingAppointments\Service\Entities\Department($dadepartment);
+                                                            echo "<option value=".$dadepartmentOBJ->departmentType->term->slug.">";
+                                                            echo $dadepartmentOBJ->departmentType->term->name;
+                                                            echo "</option>";
+                                                        }
+                                                        ?>
                                                     </select>
 
                                                 </div>
@@ -448,9 +463,14 @@ $dashboardCompany = new DashboardCompany();
 
                                                     <select id="userRoleFilter">
                                                         <option value="all">All</option>
-                                                        <option value="shipping_company_admin">Company Admin</option>
-                                                        <option value="shipping_company_department_admin">Department Admin</option>
-                                                        <option value="shipping_company_employee">Employee</option>
+                                                        <?php
+                                                            foreach ($companyObj->departments as $dadepartment ) {
+                                                                $dadepartmentOBJ = new \ShippingAppointments\Service\Entities\Department($dadepartment);
+                                                                echo "<option value=".$dadepartmentOBJ->departmentType->term->slug.">";
+                                                                echo $dadepartmentOBJ->departmentType->term->name;
+                                                                echo "</option>";
+                                                            }
+                                                        ?>
                                                     </select>
 
                                                 </div>
@@ -586,9 +606,16 @@ $dashboardCompany = new DashboardCompany();
 
                                                     <select id="departmentFilterInvitation">
                                                         <option value="all">All</option>
-                                                        <option value="shipping_company_admin">Technical</option>
-                                                        <option value="shipping_company_department_admin">Financial</option>
-                                                        <option value="shipping_company_employee">Marine</option>
+                                                        <?php
+                                                        foreach ($companyObj->departments as $dadepartment ) {
+
+                                                            $dadepartmentOBJ = new \ShippingAppointments\Service\Entities\Department($dadepartment);
+
+                                                            echo "<option value=".$dadepartmentOBJ->departmentType->term->slug.">";
+                                                            echo $dadepartmentOBJ->departmentType->term->name;
+                                                            echo "</option>";
+                                                        }
+                                                        ?>
                                                     </select>
 
                                                 </div>
@@ -719,6 +746,17 @@ $dashboardCompany = new DashboardCompany();
 
     </div>
     <div id='departmentModalOverlay' class="modal-overlay"></div>
+    <div id="availabilityModal" class="profenda-modal">
+
+        <div class="profenda-modal-header">
+            Availability
+        </div>
+        <div class="profenda-modal-content">
+
+        </div>
+
+    </div>
+    <div class="modal-overlay"></div>
 
 <?php
 get_footer();

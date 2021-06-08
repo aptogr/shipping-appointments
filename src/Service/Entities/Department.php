@@ -160,9 +160,9 @@ class Department {
 
 				    if( in_array( $day, $weekdays_available_toArray ) ){
 
-					    $available = true;
-					    if ((!is_null($userObj->{$day."_time_from"})) && (!is_null($userObj->{$day."_time_to"}))) {
 
+					    if ((!is_null($userObj->{$day."_time_from"})) && (!is_null($userObj->{$day."_time_to"}))) {
+                            $available = true;
 						    $allAvailability[$day]['times'][$user->ID] = array(
 							    $day. '_time_from' => $userObj->{$day."_time_from"},
 							    $day. '_time_to' => $userObj->{$day."_time_to"},
@@ -181,6 +181,7 @@ class Department {
 		    if( in_array( $day, $weekdays_availableArray ) ){
 
 			    if ((!is_null($this->{$day."_time_from"})) && (!is_null($this->{$day."_time_to"}))) {
+                    $available = true;
 				    $allAvailability[$day]['times']['department'] = array(
 					    $day . '_time_from' => $this->{$day . "_time_from"},
 					    $day . '_time_to' => $this->{$day . "_time_to"},
@@ -234,8 +235,14 @@ class Department {
 
         asort($timeAvailability);
         $timeAvailability = array_values( array_unique( $timeAvailability ) );
+        $returnTimes = $this->calculateAllTimeRanges( $timeAvailability );
 
-        return $this->calculateAllTimeRanges( $timeAvailability );
+//        if (empty($timeAvailability)) {
+//            $returnTimes = NULL;
+//        }
+
+
+        return $returnTimes;
 
     }
 
@@ -274,6 +281,14 @@ class Department {
     }
 
 
+
+    public function hasAvailability() {
+	    $allAvailability = $this->getAllDepartmentAvailability();
+	    $availabilityBoolen = array_column($allAvailability,'available');
+
+	    return in_array(true,$availabilityBoolen);
+
+    }
 
 
 
@@ -332,7 +347,15 @@ class Department {
 					    <?php
 
 					    $possibleTimeRanges =  $this->calculateAllPossibleTimeRanges( $availabilityArray['times'], $day );
-					    $this->displayTimeRanges( $possibleTimeRanges );
+//					    var_dump($availabilityArray['times']);
+
+
+                        $this->displayTimeRanges( $possibleTimeRanges );
+
+//					    if (empty($this->displayTimeRanges( $possibleTimeRanges ))) {
+//					        echo 'Availability not set';
+//                        }
+
 					    ?>
                     </td>
 

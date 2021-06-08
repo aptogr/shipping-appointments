@@ -130,6 +130,19 @@
                 }
             } );
 
+            $('#departmentFilterInvitation').on( 'change', function () {
+
+
+                var value = $( "#departmentFilterInvitation option:selected" ).text()
+
+                if ($(this).val() !== 'all') {
+                    invitationTable.columns( 3 ).search( value ).draw();
+                } else {
+                    invitationTable.columns( 3 ).search('').draw();
+                }
+
+            } );
+
             $('.copyLink').on( 'click', function () {
                 var code = $(this).attr('data-code');
                 var copyText = "https://profenda.com/register/shipping/employee/invitation/" + code + "/"
@@ -183,6 +196,7 @@
 
             } );
 
+
             // DATATABLE companyEmployeesTable END
 
 
@@ -234,6 +248,36 @@
                 else {
                     $('#instant_booking_products_brands').addClass('hide');
                 }
+
+            });
+
+
+            $(document).on('click', '#view-availability-single-department', function(e){
+
+                var depID = $(this).attr('data-depid');
+                console.log(depID);
+
+                jQuery.ajax({
+                    url: AjaxController.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: AjaxController.bookGetDepartmentAvailability,
+                        depid: depID
+                    },
+                    beforeSend: function() {
+
+                        $('#availabilityModal').addClass('active');
+                        $('.modal-overlay').addClass('active');
+                        $('.profenda-modal-header').text('Availability of Department' );
+
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        $('#availabilityModal .profenda-modal-content').html( response.html );
+
+                    }
+
+                });//end ajax
 
             });
 
