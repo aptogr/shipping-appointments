@@ -158,7 +158,7 @@
                     message: 'Link copied.',
                 });
 
-            } );
+            });
 
             // DATATABLE invitationTable END
 
@@ -174,7 +174,6 @@
             })
 
             $('#departmentFilter').on( 'change', function () {
-
                 var value = $( "#departmentFilter option:selected" ).text()
 
                 if ($(this).val() !== 'all') {

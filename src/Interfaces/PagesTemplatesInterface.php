@@ -23,6 +23,7 @@ Interface PagesTemplatesInterface {
 	 */
 	const PAGE_TEMPLATES    = array(
 		'front/homepage.php'                                            => 'Profenda Homepage',
+		'front/pricing.php'                                             => 'Profenda Pricing',
 		'dashboard/dashboard.php'                                       => 'Profenda Dashboard',
 		'dashboard/availability.php'                                    => 'Profenda Availability',
         'dashboard/appointments/appointments.php'                       => 'Profenda / Appointments',

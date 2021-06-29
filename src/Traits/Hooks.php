@@ -36,6 +36,7 @@ use ShippingAppointments\Service\User\UserCapabilities;
 use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Service\User\UserRoles;
 use ShippingAppointments\Service\User\UserTemplates;
+use ShippingAppointments\Service\Woocommerce\WoocommerceActions;
 
 Trait Hooks {
 
@@ -475,6 +476,16 @@ Trait Hooks {
 		$saveController = new SaveController();
 		$this->loader->addAction('wp_loaded', $saveController, 'saveFields');
 
+
+        /**
+         * User Fields
+         *
+         * Functions Hooked:
+         * @see WoocommerceActions::custom_rewrite_tag()
+         */
+//        $woocommerceObj = new WoocommerceActions();
+//        $this->loader->addAction('init', $woocommerceObj, 'custom_rewrite_tag', 10);
+//        add_action('init', 'custom_rewrite_tag', 10, 0);
 
         /**
          * Ajax Controller

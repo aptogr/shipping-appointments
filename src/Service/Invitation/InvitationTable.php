@@ -123,29 +123,37 @@ class InvitationTable {
 				<?php foreach( $invitations as $invitationID ): $invitation = new ShippingInvitation( $invitationID ); ?>
 
 					<tr>
+
 						<td>
 							<?php echo $invitation->email; ?>
 						</td>
+
                         <td>
                             <div class="status <?php echo $invitation->status;?>">
                                 <?php echo $invitation->getFieldToString('status'); ?>
                             </div>
                         </td>
+
 						<td>
 							<?php echo $invitation->getFieldToString('role'); ?>
 						</td>
+
 						<td>
 							<?php echo $invitation->departmentObject->departmentType->term->name; ?>
 						</td>
+
 						<td>
 							<?php echo $invitation->inviterUser->getFullName(); ?>
 						</td>
+
 						<td>
 							<?php echo $invitation->code; ?>
 						</td>
+
                         <td data-code="<?php echo $invitation->code; ?>" class="copyLink">
                             Copy link
                         </td>
+
 					</tr>
 
 				<?php endforeach; ?>

@@ -1,0 +1,131 @@
+.page-template-pricing {
+
+  #main {
+    background-color: $color-palette-6;
+  }
+
+  #pricing {
+
+    width: 50%;
+    margin: auto;
+    padding: 50px 0;
+
+
+    .price-toggle {
+
+      background-color: $color-palette-1;
+      color: $hospital-white;
+      padding: 15px 20px 10px;
+      border-radius: 5px;
+
+      .price-checkbox {
+        label {
+          &::after {
+            background: $color-palette-1;
+          }
+        }
+      }
+
+    }
+
+
+
+    .pricing-card {
+
+      width: 400px;
+      box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+
+      .pricing-card-head {
+        text-align: center;
+        font-size: 22px;
+        //color: $color-palette-1;
+        padding: 15px 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .pricing-card-price {
+        text-align: center;
+        font-size: 30px;
+        padding: 0 0 10px;
+        font-weight: 700;
+      }
+
+      .pricing-card-body {
+        padding: 30px 70px;
+        //text-align: center;
+        li {
+          padding-bottom: 10px;
+        }
+
+      }
+
+      .pricing-card-footer {
+        padding-bottom: 30px;
+
+        .pricing-card-subscribe {
+          width: 200px;
+          margin: auto;
+          text-align: center;
+          border: 1px solid $color-palette-1;
+          background-color: $color-palette-1;
+          padding: 10px;
+          color: $hospital-white;
+          transition: 0.3s;
+          font-weight: bold;
+
+          &:hover {
+            background-color: $hospital-white;
+            color: $color-palette-1;
+          }
+
+        }
+
+
+      }
+
+    }
+
+    .silver-pack {
+      background-color: $hospital-white;
+      .pricing-card-head {
+        color: $black-metal;
+      }
+      .pricing-card-price {
+        color: $color-palette-1;
+        background-color: $hospital-white;
+        border-bottom: 1px solid $color-palette-6;
+      }
+    }
+
+    .gold-pack {
+      background-color: $color-palette-1;
+
+      .pricing-card-head {
+        color: $hospital-white;
+      }
+
+      .pricing-card-price {
+        color: $hospital-white;
+        background-color: $color-palette-1;
+        border-bottom: 1px solid $color-palette-3;
+      }
+
+      .pricing-card-body {
+        color: $hospital-white;
+      }
+
+      .pricing-card-footer {
+
+        .pricing-card-subscribe {
+          background-color: #20ade3;
+        }
+
+      }
+    }
+
+  }
+
+
+}
+

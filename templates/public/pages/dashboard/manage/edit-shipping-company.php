@@ -261,13 +261,97 @@ $dashboardCompany = new DashboardCompany();
 
                                     <div class="col s12 margin-top-50 swiper-no-swiping">
 
-                                        <h2>
-                                            Profile Settings (Under development)
-                                        </h2>
+                                        <form action="" method="post" enctype="multipart/form-data">
 
-                                        <p>
-                                            Settings can be: company logo, description, premises
-                                        </p>
+                                            <input type="hidden" name="companyId" value="<?php echo $companyId; ?>" >
+
+                                            <section class="main-section full-width setting-field-wrapper">
+
+                                                <div class="full-width">
+
+                                                    <h2>Company Email</h2>
+                                                </div>
+
+                                                <div id="company_users_visibility_section" class="full-width relative margin-top-20">
+
+                                                    <input type="text" class="width300" name="company_email" value="<?php echo $companyObj->company_email;?>">
+
+                                                </div>
+
+                                            </section>
+
+                                            <section class="main-section full-width setting-field-wrapper">
+
+                                                <div class="full-width">
+                                                    <h2>Company Phone</h2>
+                                                </div>
+
+                                                <div id="company_users_visibility_section" class="full-width relative margin-top-20">
+
+                                                    <input type="text" class="width300" name="company_phone" value="<?php echo $companyObj->company_phone;?>">
+
+                                                </div>
+
+                                            </section>
+
+                                            <section class="main-section full-width setting-field-wrapper">
+
+                                                <div class="full-width">
+                                                    <h2>Company Premises</h2>
+                                                </div>
+
+                                                <div id="company_users_visibility_section" class="full-width relative margin-top-20">
+
+                                                    <input type="text" class="width300" name="premises" value="<?php echo $companyObj->premises;?>">
+
+                                                </div>
+
+                                            </section>
+
+                                            <section class="main-section full-width setting-field-wrapper">
+
+                                                <div class="full-width">
+                                                    <h2>Company Description</h2>
+                                                </div>
+
+                                                <div id="company_users_visibility_section" class="full-width relative margin-top-20">
+
+                                                    <textarea id="companyDescription" name="companyDescription" rows="8" cols="50">
+
+                                                        <?php
+
+                                                        echo apply_filters('the_content', get_post_field('post_content', $companyId));
+
+                                                        ?>
+
+                                                    </textarea>
+
+                                                </div>
+
+                                            </section>
+
+                                            <section class="main-section full-width setting-field-wrapper">
+
+                                                <div class="full-width">
+                                                    <h2>Upload Icon</h2>
+                                                </div>
+
+                                                <div id="company_users_visibility_section" class="drop-zone full-width relative margin-top-20">
+
+                                                    <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                                    <input id="file" type="file" name="myFileThumbnail" class="drop-zone__input">
+
+                                                </div>
+
+                                            </section>
+
+                                            <section class="main-section full-width setting-field-wrapper">
+
+                                                <button type="submit" class="save-button" name="refresh_action" value="update_company_info">Save Settings</button>
+
+                                            </section>
+
+                                        </form>
 
                                     </div>
 

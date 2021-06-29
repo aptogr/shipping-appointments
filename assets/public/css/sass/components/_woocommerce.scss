@@ -1,0 +1,171 @@
+.woocommerce-checkout, .woocommerce-cart, .woocommerce-shop {
+
+  #main {
+    background-color: $color-palette-6;
+
+    .page-template {
+      padding: 20px 0px;
+    }
+
+  }
+
+  .woocommerce {
+    width: 75%;
+    margin: auto;
+    background-color: $hospital-white;
+    padding: 30px;
+    //box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+
+    .woocommerce-thankyou-order-received {
+      margin-top: 0px!important;
+    }
+
+
+    .button {
+      padding: 15px 30px!important;
+      font-weight: bold;
+      background-color: $color-palette-1!important;
+      border: 1px solid $color-palette-1;
+      color: $hospital-white;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: $hospital-white!important;
+        color: $color-palette-1!important;
+      }
+
+    }
+
+
+    address, table {
+      background-color: $color-palette-6;
+      box-shadow: none;
+      border-radius: 5px;
+      border: 1px solid rgba(0,0,0,.1);
+      border-collapse: separate;
+    }
+
+  }
+
+}
+
+.woocommerce-account {
+
+  .woocommerce {
+    padding: 50px 5%;
+
+    .woocommerce-MyAccount-content {
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+
+      .my_account_subscriptions {
+        padding: 0;
+      }
+
+      table {
+
+        th {
+          padding: 15px 10px !important;
+        }
+
+        .pay, .view, .cancel {
+          margin-right: 5px;
+          width: 70px;
+          text-align: center;
+        }
+
+      }
+
+    }
+
+    .woocommerce-MyAccount-navigation {
+      width:100% !important;
+      padding: 0 !important;
+      margin: 0 0 15px 0!important;
+
+      .is-active {
+        background-color: $color-palette-2;
+        color: $hospital-white;
+      }
+
+      ul {
+        display: flex;
+
+        li {
+          flex-grow: 1;
+          transition: 0.3s;
+          text-align: center;
+
+          &:hover {
+            background-color: $color-palette-2;
+            color: $hospital-white;
+          }
+
+        }
+
+      }
+
+    }
+
+    .woocommerce-MyAccount-navigation-link--dashboard,
+    .woocommerce-MyAccount-navigation-link--edit-account,
+    .woocommerce-MyAccount-navigation-link--downloads,
+    .woocommerce-MyAccount-navigation-link--customer-logout {
+      display: none;
+    }
+
+    .woocommerce-Addresses {
+      padding: 30px;
+      background-color: $hospital-white;
+      box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+      border: 1px solid rgba(0,0,0,.1);
+      border-collapse: separate;
+      border-radius: 5px;
+
+      .edit {
+        color:$color-palette-1;
+        background-color: $hospital-white;
+        border: 1px solid $color-palette-1;
+        padding: 5px 15px;
+        border-radius: 4px;
+        transition: 0.3s;
+
+        &:hover {
+          color:$hospital-white;
+          background-color: $color-palette-1;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+.woocommerce-edit-address {
+
+  p {
+    box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-collapse: separate;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: $hospital-white;
+  }
+
+}
+
+.woocommerce-view-order {
+
+  p:first-of-type {
+    box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-collapse: separate;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: $hospital-white;
+  }
+
+}

@@ -66,6 +66,7 @@ var scripts = [
             config.srcDirJS + '/calendar.js',
             config.srcDirJS + '/appointments.js',
             config.srcDirJS + '/products.js',
+            config.srcDirJS + '/pricing.js',
             config.srcDirJS + '/brands.js',
             config.srcDirJS + '/settingsController/shippingCompanySettings.js',
             config.srcDirJS + '/settingsController/departmentSettings.js',
@@ -73,6 +74,7 @@ var scripts = [
             config.srcDirJS + '/book-appointment.js',
             config.srcDirJS + '/invitations.js',
             config.srcDirJS + '/settingsController/appointmentsSchedule.js',
+
 
         ],
         name : 'public.min',

@@ -62,8 +62,10 @@ class ShippingCompanyPost implements TemplatesInterface{
         'premises'                      => self::POST_TYPE_NAME . '_premises',
         'company_email'                 => self::POST_TYPE_NAME . '_company_email',
         'company_phone'                 => self::POST_TYPE_NAME . '_company_phone',
-	];
 
+
+
+	];
 
 
 	/**
