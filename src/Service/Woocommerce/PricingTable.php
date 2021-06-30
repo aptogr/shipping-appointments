@@ -48,7 +48,18 @@ class PricingTable {
             </div>
 
             <div class="pricing-card-footer margin-top-auto">
-                <a class='' href="<?php echo $product->add_to_cart_url();?>">
+
+                <?php
+
+                if (is_user_logged_in()) {
+                    $productUrl = $product->add_to_cart_url();
+                } else {
+                    $productUrl = '/register/supplier/new-company/';
+                }
+
+                ?>
+
+                <a class='' href="<?php echo $productUrl; ?>">
                     <div class="pricing-card-subscribe">Subscribe</div>
                 </a>
             </div>

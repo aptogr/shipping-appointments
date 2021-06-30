@@ -10,8 +10,6 @@ $PricingTable = new PricingTable();
 
 <div id="pricing" class="pricing row">
 
-
-
     <div class="full-width margin-bottom-50 flex flex-dir-row flex-just-center">
 
         <div class="toggle-switch toggle-trigger price-toggle">
