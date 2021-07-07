@@ -73,6 +73,7 @@ var scripts = [
             config.srcDirJS + '/settingsController/userSettings.js',
             config.srcDirJS + '/book-appointment.js',
             config.srcDirJS + '/invitations.js',
+            config.srcDirJS + '/register.js',
             config.srcDirJS + '/settingsController/appointmentsSchedule.js',
 
 

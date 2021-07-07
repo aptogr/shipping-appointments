@@ -5,6 +5,7 @@ namespace ShippingAppointments\Service\Auth;
 
 
 use ShippingAppointments\Controller\Save\Service\ShippingCompanySaveController;
+use ShippingAppointments\Controller\Save\Service\SupplierCompanySaveController;
 use ShippingAppointments\Interfaces\Auth\RegisterInterface;
 use ShippingAppointments\Service\Dashboard\Access\DashboardEncryption;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
@@ -71,6 +72,24 @@ class Authentication implements RegisterInterface {
 
 	        $authRedirect = new AuthRedirect();
 	        wp_redirect( $authRedirect->redirectAfterRegister( $user_id, $companySaveController->companyID ) );
+	        exit();
+
+        }
+
+        elseif( isset( $_POST['new_supplier_company'] ) ) {
+
+	        $user_id = $this->insertNewUser( $_POST );
+
+	        $formData = $_POST;
+	        $formData['user_id'] = $user_id;
+
+	        $supplierCompanySaveController = new SupplierCompanySaveController();
+	        $supplierCompanySaveController->save( $formData );
+	        $supplierCompanySaveController->uploadAndSaveFile( $_FILES );
+
+	        update_user_meta( $user_id, UserFields::META_FIELDS_SLUG['supplier_company_id'], $supplierCompanySaveController->companyID );
+
+	        wp_redirect( '/pricing/' );
 	        exit();
 
         }

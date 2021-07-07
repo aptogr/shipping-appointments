@@ -15,6 +15,7 @@ use ShippingAppointments\Controller\Save\Service\CancelAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveCompanySettingsController;
 use ShippingAppointments\Controller\Save\Service\CreateDepartment;
 use ShippingAppointments\Controller\Save\Service\UpdateCompanyInfo;
+use ShippingAppointments\Controller\Save\Service\UpdateSupplierCompanyController;
 
 class SaveController {
 
@@ -132,6 +133,20 @@ class SaveController {
                     $action             = $updateCompanyInfo->save( $_POST );
                     $updateCompanyInfo->uploadAndSaveImage( $_FILES );
                     $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
+
+                    break;
+
+
+                case 'update_supplier_company_info':
+
+                    echo '<pre>';
+                    var_dump($_POST);
+                    echo '</pre>';
+
+                    $updateCompanyInfo  = new UpdateSupplierCompanyController();
+//                    $action             = $updateCompanyInfo->save( $_POST );
+//                    $updateCompanyInfo->uploadAndSaveImage( $_FILES );
+//                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
 
                     break;
 

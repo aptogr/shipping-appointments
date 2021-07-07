@@ -38,7 +38,7 @@ Interface PagesTemplatesInterface {
 		'dashboard/manage/edit-shipping-company.php'                    => 'Profenda / Manage / Edit Shipping Company',
 		'dashboard/book/appointment.php'                                => 'Profenda / Book / Appointment',
 		'dashboard/book/success.php'                                    => 'Profenda / Book / Success',
-
+        'dashboard/manage/edit-supplier-company.php'                    => 'Profenda / Manage / Edit Supplier Company',
 
 		//=============================================================================================
 		// Authentication Pages

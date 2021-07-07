@@ -7,7 +7,6 @@
 
             var inputText = $( this ).val();
 
-
             if (inputText.length > 2) {
                 jQuery.ajax({
                     url: AjaxController.ajax_url,

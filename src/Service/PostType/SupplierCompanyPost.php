@@ -38,7 +38,10 @@ class SupplierCompanyPost implements TemplatesInterface{
 	 * @var array
 	 */
 	const META_FIELDS_SLUG = [
-		'google'  => self::POST_TYPE_NAME . '_google',
+		'company_email'         => self::POST_TYPE_NAME . '_company_email',
+		'company_phone'         => self::POST_TYPE_NAME . '_company_phone',
+		'company_products'      => self::POST_TYPE_NAME . '_company_products',
+		'company_brands'        => self::POST_TYPE_NAME . '_company_brands',
 	];
 
 
@@ -148,11 +151,26 @@ class SupplierCompanyPost implements TemplatesInterface{
 			'priority'   => 'default',
 			'autosave'   => 'false',
 			'fields'     => array(
-				array(
-					'id'   => self::META_FIELDS_SLUG['google'],
-					'name' => esc_html__( 'Google Podcast', ShippingAppointments::PLUGIN_NAME ),
-					'type' => 'text',
-				),
+                array(
+                    'name'              => 'Company Email',
+                    'id'                => self::META_FIELDS_SLUG['company_email'],
+                    'type'              => 'text',
+                ),
+                array(
+                    'name'              => 'Company Phone',
+                    'id'                => self::META_FIELDS_SLUG['company_phone'],
+                    'type'              => 'text',
+                ),
+                array(
+                    'name'              => 'Products',
+                    'id'                => self::META_FIELDS_SLUG['company_products'],
+                    'type'              => 'text',
+                ),
+                array(
+                    'name'              => 'Brands',
+                    'id'                => self::META_FIELDS_SLUG['company_brands'],
+                    'type'              => 'text',
+                ),
 			),
 		);
 

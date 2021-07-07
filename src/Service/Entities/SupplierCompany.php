@@ -22,6 +22,11 @@ class SupplierCompany {
 	public $brands;
 	public $employees;
 
+	public $company_email;
+	public $company_phone;
+	public $company_products;
+	public $company_brands;
+
 	public function __construct( $id ) {
 
 		$this->ID         = $id;
