@@ -84,6 +84,8 @@ class Department {
 	public $availability_period;
 	public $availability_period_saved_date;
 
+	public $cancellations;
+
 
 	public function __construct( $id ) {
 

@@ -462,6 +462,7 @@ class UserFields {
         'instant_booking'                   => 'user_instant_booking',
         'instant_booking_products'          => 'user_instant_booking_products',
         'instant_booking_brands'            => 'user_instant_booking_brands',
+        'cancellations'                     => 'user_cancellations',
         // Avail
         'weekdays_available'                => 'user_weekdays_available',
         'mon_time_from'                     => 'user_mon_time_from',
@@ -668,6 +669,11 @@ class UserFields {
                         'user_not_visibile' => 'No',
                     ),
                     'inline' => true,
+                ),
+                array(
+                    'name'       => 'Cancellations',
+                    'id'         => self::META_FIELDS_SLUG['cancellations'],
+                    'type'       => 'number',
                 ),
 
 

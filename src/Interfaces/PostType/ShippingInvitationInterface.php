@@ -4,6 +4,7 @@ namespace ShippingAppointments\Interfaces\PostType;
 
 use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
+use ShippingAppointments\Service\PostType\SupplierCompanyPost;
 
 Interface ShippingInvitationInterface {
 
@@ -21,8 +22,10 @@ Interface ShippingInvitationInterface {
 	const META_FIELDS_SLUG = [
 		'inviter'                           => self::POST_TYPE_NAME . '_inviter',
 		'company'                           => self::POST_TYPE_NAME . '_company',
+		'company_supplier'                  => self::POST_TYPE_NAME . '_company_supplier',
 		'department'                        => self::POST_TYPE_NAME . '_department',
 		'role'                              => self::POST_TYPE_NAME . '_role',
+		'role_supplier'                     => self::POST_TYPE_NAME . '_role_supplier',
 		'invitee'                           => self::POST_TYPE_NAME . '_invitee',
 		'status'                            => self::POST_TYPE_NAME . '_status',
 		'email'                             => self::POST_TYPE_NAME . '_email',
@@ -42,12 +45,20 @@ Interface ShippingInvitationInterface {
 		),
 		'company' => array(
 			'id'            => self::META_FIELDS_SLUG['company'],
-			'name'          => 'Company',
+			'name'          => 'Shipping Company',
 			'type'          => 'post',
 			'post_type'     => ShippingCompanyPost::POST_TYPE_NAME,
 			'field_type'    => 'select_advanced',
 			'placeholder'   => 'Select a company',
 		),
+        'company_supplier' => array(
+            'id'            => self::META_FIELDS_SLUG['company_supplier'],
+            'name'          => 'Supplier Company',
+            'type'          => 'post',
+            'post_type'     => SupplierCompanyPost::POST_TYPE_NAME,
+            'field_type'    => 'select_advanced',
+            'placeholder'   => 'Select a supplier company',
+        ),
 		'department' => array(
 			'id'            => self::META_FIELDS_SLUG['department'],
 			'name'          => 'Department',
@@ -67,6 +78,16 @@ Interface ShippingInvitationInterface {
 				'shipping_company_employee'             => 'Employee',
 			),
 		),
+        'role_supplier' => array(
+            'name'              => 'Role',
+            'id'                => self::META_FIELDS_SLUG['role_supplier'],
+            'type'              => 'radio',
+            'inline'            => false,
+            'options'           => array(
+                'supplier_company_admin'                => 'Company Admin',
+                'supplier_company_employee'             => 'Employee',
+            ),
+        ),
 		'invitee' => array(
 			'name'              => 'Invited User',
 			'id'                => self::META_FIELDS_SLUG['invitee'],
@@ -108,8 +129,10 @@ Interface ShippingInvitationInterface {
 	const INVITATION_FIELDS = array(
 		self::ALL_FIELDS['inviter'],
 		self::ALL_FIELDS['company'],
+		self::ALL_FIELDS['company_supplier'],
 		self::ALL_FIELDS['department'],
 		self::ALL_FIELDS['role'],
+		self::ALL_FIELDS['role_supplier'],
 		self::ALL_FIELDS['invitee'],
 		self::ALL_FIELDS['status'],
 		self::ALL_FIELDS['email'],

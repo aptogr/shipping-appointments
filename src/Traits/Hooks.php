@@ -27,6 +27,7 @@ use ShippingAppointments\Service\PostType\DepartmentPost;
 use ShippingAppointments\Service\PostType\ShippingCompanyPost;
 use ShippingAppointments\Service\PostType\ShippingInvitationPost;
 use ShippingAppointments\Service\PostType\SupplierCompanyPost;
+use ShippingAppointments\Service\PostType\SupplierInvitationPost;
 use ShippingAppointments\Service\Taxonomy\BrandTaxonomy;
 use ShippingAppointments\Service\Taxonomy\CountryTaxonomy;
 use ShippingAppointments\Service\Taxonomy\DepartmentType;
@@ -37,6 +38,7 @@ use ShippingAppointments\Service\User\UserFields;
 use ShippingAppointments\Service\User\UserRoles;
 use ShippingAppointments\Service\User\UserTemplates;
 use ShippingAppointments\Service\Woocommerce\WoocommerceActions;
+use ShippingAppointments\Controller\Woocommerce\CartRedirect;
 
 Trait Hooks {
 
@@ -325,13 +327,23 @@ Trait Hooks {
 		 * Appointment Post Type hooks
 		 *
 		 * Functions Hooked:
-		 * @see AppointmentPost::registerPostType()
-		 * @see AppointmentPost::addMetaBoxes()
+		 * @see ShippingInvitationPost::registerPostType()
+		 * @see ShippingInvitationPost::addMetaBoxes()
 		 */
 		$shippingInvitationPost = new ShippingInvitationPost( $this->getPluginName(), $this->getPluginDirPath() );
 		$this->loader->addAction( 'init', $shippingInvitationPost, 'registerPostType' );
 		$this->loader->addAction( 'rwmb_meta_boxes', $shippingInvitationPost, 'addMetaBoxes', 33, 1 );
 
+        /**
+         * Appointment Post Type hooks
+         *
+         * Functions Hooked:
+         * @see SupplierInvitationPost::registerPostType()
+         * @see SupplierInvitationPost::addMetaBoxes()
+         */
+        $supplierInvitationPost = new SupplierInvitationPost( $this->getPluginName(), $this->getPluginDirPath() );
+        $this->loader->addAction( 'init', $supplierInvitationPost, 'registerPostType' );
+        $this->loader->addAction( 'rwmb_meta_boxes', $supplierInvitationPost, 'addMetaBoxes', 33, 1 );
 
 		/**
 		 * User Fields
@@ -486,6 +498,16 @@ Trait Hooks {
 //        $woocommerceObj = new WoocommerceActions();
 //        $this->loader->addAction('init', $woocommerceObj, 'custom_rewrite_tag', 10);
 //        add_action('init', 'custom_rewrite_tag', 10, 0);
+
+
+        /**
+         *
+         * Add to card Redirect to Checkout
+         */
+        $checkoutRedirection = new CartRedirect();
+        $this->loader->addFilter( 'woocommerce_add_to_cart_redirect', $checkoutRedirection, 'checkoutRedirection', 10, 1 );
+
+
 
         /**
          * Ajax Controller

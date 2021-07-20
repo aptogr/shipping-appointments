@@ -2,6 +2,7 @@
 
 use ShippingAppointments\Service\Entities\SupplierCompany;
 use ShippingAppointments\Service\Entities\User\PlatformUser;
+use ShippingAppointments\Service\Invitation\InvitationFormSupplier;
 
 get_header();
 
@@ -9,6 +10,7 @@ $logedInUserObj = new PlatformUser( get_current_user_id() );
 
 $supplier_company_id = $logedInUserObj->supplier_company_id;
 $companyObj = new SupplierCompany($supplier_company_id);
+$invitationForm = new InvitationFormSupplier();
 
 ?>
 
@@ -155,6 +157,8 @@ $companyObj = new SupplierCompany($supplier_company_id);
 
                                     <form action="" method="post" enctype="multipart/form-data">
 
+                                        <input type="hidden" name="companyId" value="<?php echo $supplier_company_id; ?>">
+
                                         <section class="main-section full-width setting-field-wrapper">
 
                                             <div class="full-width">
@@ -175,6 +179,7 @@ $companyObj = new SupplierCompany($supplier_company_id);
                                                             <?php
 
                                                             $allProducts = [];
+
 
                                                             if ((!empty($companyObj->productCategories))) {
 
@@ -222,9 +227,13 @@ $companyObj = new SupplierCompany($supplier_company_id);
 
                                                             <?php
 
+                                                            $allBrands = [];
+
                                                             if ((!empty($companyObj->brands))) {
 
                                                                 foreach ($companyObj->brands as $selected_brand) {
+
+                                                                    array_push($allBrands, $selected_brand->term_id);
 
                                                                     ?>
                                                                     <div class="brand-item brand-item-<?php echo $selected_brand->term_id; ?>" data-id="<?php echo $selected_brand->term_id; ?>"><?php echo $selected_brand->name;?></div>
@@ -233,10 +242,12 @@ $companyObj = new SupplierCompany($supplier_company_id);
                                                                 }
                                                             }
 
+                                                            $allBrands = implode(",", $allBrands);
+
                                                             ?>
 
                                                         </div>
-                                                        <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="">
+                                                        <input type="hidden" name="selected_brands" id="selectedBrandsInput" value="<?php echo $allBrands;?>">
                                                     </div>
                                                 </div>
 
@@ -361,7 +372,94 @@ $companyObj = new SupplierCompany($supplier_company_id);
                             <div class="swiper-slide">
 
                                 <div class="col s12 margin-top-50 swiper-no-swiping">
-                                    slide 4
+
+                                        <h2>
+                                            Invitations
+                                        </h2>
+
+                                        <p>
+                                            This section will be used for the company admins in order to send invitations for
+                                            company administrators and department administrators.
+                                        </p>
+
+                                        <div class="company-users-filters flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                            <?php
+
+                                            echo $invitationForm->getSupplierInvitationForm($supplier_company_id);
+//                                            getShippingInvitationForm
+                                            ?>
+
+                                        </div>
+
+                                        <div class="company-users-filters flex-grow flex flex-center full-width margin-bottom-30 margin-top-50">
+
+                                            <div class="profenda-filter-item flex flex-center">
+
+                                                <label for="searchEmployeeInvitation" class="filter-label">
+                                                    Search Employee:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <input id="searchEmployeeInvitation" name="employee_name" placeholder="Type a name or email">
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="profenda-filter-item flex-grow flex flex-center margin-left-auto">
+
+                                                <label for="statusFilterInvitation" class="filter-label">
+                                                    Status:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <select id="statusFilterInvitation">
+                                                        <option value="all">All</option>
+                                                        <option value="expired">Expired</option>
+                                                        <option value="accepted">Accepted</option>
+                                                        <option value="pending">Pending</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="profenda-filter-item flex-grow flex flex-center no-margin-right">
+
+                                                <label for="userRoleFilterInvitation" class="filter-label">
+                                                    User Role:
+                                                </label>
+
+                                                <div class="filter-field">
+
+                                                    <select id="userRoleFilterInvitation">
+                                                        <option value="all">All</option>
+                                                        <option value="shipping_company_admin">Company Admin</option>
+                                                        <option value="shipping_company_department_admin">Department Admin</option>
+                                                        <option value="shipping_company_employee">Employee</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div id="invitationTableDiv" class="full-width margin-top-50">
+
+                                                <?php
+
+                                                $invitationTable = new \ShippingAppointments\Service\Invitation\InvitationTableSupplier();
+
+                                                echo $invitationTable->getSupplierCompanyInvitationTable($supplier_company_id);
+
+                                                ?>
+
+                                            </div>
+
+                                        </div>
+
                                 </div>
 
                             </div>
@@ -370,7 +468,7 @@ $companyObj = new SupplierCompany($supplier_company_id);
 
                     </div>
 
-                <article
+                <article>
 
             </div>
 

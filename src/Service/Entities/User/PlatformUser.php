@@ -46,6 +46,7 @@ class PlatformUser extends WP_User implements PlatformUserInterface{
     public $instant_booking;
     public $instant_booking_products;
     public $instant_booking_brands;
+    public $cancellations;
 
     // Avail
     public $weekdays_available;

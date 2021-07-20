@@ -4,6 +4,7 @@
 namespace ShippingAppointments\Controller\Save;
 
 use ShippingAppointments\Controller\Save\Service\InvitationSend;
+use ShippingAppointments\Controller\Save\Service\InvitationSupplierSend;
 use ShippingAppointments\Controller\Save\Service\RejectAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAppointmentController;
 use ShippingAppointments\Controller\Save\Service\SaveAvailabilityController;
@@ -139,14 +140,27 @@ class SaveController {
 
                 case 'update_supplier_company_info':
 
-                    echo '<pre>';
-                    var_dump($_POST);
-                    echo '</pre>';
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
 
                     $updateCompanyInfo  = new UpdateSupplierCompanyController();
-//                    $action             = $updateCompanyInfo->save( $_POST );
-//                    $updateCompanyInfo->uploadAndSaveImage( $_FILES );
+                    $action             = $updateCompanyInfo->save( $_POST );
+                    $updateCompanyInfo->uploadAndSaveImage( $_FILES );
 //                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
+
+                    break;
+
+
+                case 'invitation_supplier_send':
+
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
+
+                    $invitationSupplierSend  = new InvitationSupplierSend();
+                    $action                         = $invitationSupplierSend->save( $_POST );
+////                    $redirectUrl                    = site_url('dashboard/manage/edit-company/company/'.$_POST['companyId'] );
 
                     break;
 

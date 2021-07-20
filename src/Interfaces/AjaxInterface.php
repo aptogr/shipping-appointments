@@ -49,6 +49,10 @@ Interface AjaxInterface {
             'callback' => 'updateDepartmentStatus',
             'nopriv'   => false,
         ),
+        'createSupplerInvitation' => array(
+            'callback' => 'createSupplerInvitation',
+            'nopriv'   => false,
+        ),
     );
 
 }

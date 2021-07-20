@@ -27,6 +27,7 @@ Interface DepartmentInterface {
 
 		//Setting 2
 		'availability_type'                 => self::POST_TYPE_NAME . '_availability_type',
+		'cancellations'                     => self::POST_TYPE_NAME . '_cancellations',
 		'weekdays_available'                => self::POST_TYPE_NAME . '_weekdays_available',
 		'mon_time_from'                     => self::POST_TYPE_NAME . '_mon_time_from',
 		'mon_time_to'                       => self::POST_TYPE_NAME . '_mon_time_to',
@@ -242,6 +243,12 @@ Interface DepartmentInterface {
 			'inline'            => false,
 			'select_all_none'   => true,
 		),
+
+        'cancellations' => array(
+            'id'   => self::META_FIELDS_SLUG['cancellations'],
+            'name' => 'Cancellations',
+            'type' => 'number',
+        ),
 		'weekdays_available' => array(
 			'id'   => self::META_FIELDS_SLUG['weekdays_available'],
 			'name' => 'Week days Available',
@@ -346,6 +353,7 @@ Interface DepartmentInterface {
 		self::ALL_FIELDS['status'],
 		self::ALL_FIELDS['users_visibility'],
 		self::ALL_FIELDS['availability_type'],
+		self::ALL_FIELDS['cancellations'],
 		self::ALL_FIELDS['weekdays_available'],
 		self::ALL_FIELDS['mon_time_from'],
 		self::ALL_FIELDS['mon_time_to'],

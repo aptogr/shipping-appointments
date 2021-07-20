@@ -55,7 +55,7 @@ class InvitationTable {
 		$args = array(
 			'post_type'         => ShippingInvitationPost::POST_TYPE_NAME,
 			'posts_per_page'    => -1,
-			'meta_query'        => $metaQuery,
+			'meta_query'        => array($metaQuery),
 		);
 
 		$query = new WP_Query( $args );
