@@ -11,9 +11,9 @@ $appointment = new Appointment( get_queried_object_id() );
 $dashboardSingleAppointment = new DashboardSingleAppointment($appointment);
 $cancelations = new \ShippingAppointments\Service\Cancelations\Cancelations();
 
-echo '<pre>';
-print_r($appointment);
-echo '</pre>';
+//echo '<pre>';
+//print_r($appointment);
+//echo '</pre>';
 
 ?>
 
@@ -290,11 +290,11 @@ echo '</pre>';
 
                                 <?php
 
-                                if ($appointment->status == 'confirmed') {
-                                    echo $cancelations->getCancellationPaymentButton();
-                                }
+                                    if ($appointment->status == 'confirmed') {
+                                        echo $cancelations->getCancellationPaymentButton();
+                                    }
 
-                                    ?>
+                                ?>
 
                                 <?php endif; ?>
 
@@ -312,7 +312,7 @@ echo '</pre>';
                         </div>
 
                     </div>
-				</div>
+				</div> 
 
 			</div>
 

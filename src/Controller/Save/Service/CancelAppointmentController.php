@@ -17,16 +17,14 @@ class CancelAppointmentController extends ServiceSaveController {
 
     }
 
-    public function saveField( $metaKey, $value ){
-
-        update_post_meta($this->appointmentID, $this->fieldsSlug['status'], 'cancelled');
-
-    }
-
-    public function actionsBeforeSave($formData) {
+    public function save( $formData ): bool {
 
         $this->appointmentID = $formData['appointmentID'];
 
+        update_post_meta($this->appointmentID, $this->fieldsSlug['status'], 'cancelled');
+        return true;
+
     }
+
 
 }

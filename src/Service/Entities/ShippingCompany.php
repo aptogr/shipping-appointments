@@ -45,6 +45,8 @@ class ShippingCompany {
     public $company_email;
     public $company_phone;
 
+    public $cancellations;
+
 
 	public function __construct( $id ) {
 

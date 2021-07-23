@@ -81,7 +81,7 @@ class SaveController {
                 case 'update_appointment':
 
 
-                    $updateAppointmentController  = new UpdateAppointmentController();
+                    $updateAppointmentController    = new UpdateAppointmentController();
                     $action                         = $updateAppointmentController->save( $_POST );
                     $redirectUrl                    = get_the_permalink( $updateAppointmentController->appointmentID );
 
@@ -89,10 +89,13 @@ class SaveController {
 
                 case 'cancel_appointment':
 
+//                    echo '<pre>';
+//                    var_dump($_POST);
+//                    echo '</pre>';
 
-                    $cancelAppointmentController  = new CancelAppointmentController();
+                    $cancelAppointmentController    = new CancelAppointmentController();
                     $action                         = $cancelAppointmentController->save( $_POST );
-                    $redirectUrl                    = site_url('dashboard');
+//                    $redirectUrl                    = site_url('dashboard');
 
                     break;
 

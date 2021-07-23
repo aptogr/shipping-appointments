@@ -14,7 +14,7 @@ class Cancelations
 
         ?>
 
-        <button class="profenda-btn" data-product="" name="refresh_action" value="cancel_appointment">
+        <button class="profenda-btn" data-product="" name="refresh_action" value="cancel_appointment" >
             Cancel Appointment
         </button>
 

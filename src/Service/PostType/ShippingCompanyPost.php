@@ -63,6 +63,8 @@ class ShippingCompanyPost implements TemplatesInterface{
         'company_email'                 => self::POST_TYPE_NAME . '_company_email',
         'company_phone'                 => self::POST_TYPE_NAME . '_company_phone',
 
+        'cancellations'                 => self::POST_TYPE_NAME . '_cancellations',
+
 
 
 	];
@@ -185,6 +187,14 @@ class ShippingCompanyPost implements TemplatesInterface{
                     ),
                 ),
 
+                array(
+                    'type' => 'divider',
+                ),
+                array(
+                    'name'       => 'Cancellations',
+                    'id'         => self::META_FIELDS_SLUG['cancellations'],
+                    'type'       => 'number',
+                ),
                 array(
                     'type' => 'divider',
                 ),
