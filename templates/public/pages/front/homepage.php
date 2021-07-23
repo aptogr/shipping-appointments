@@ -490,7 +490,7 @@ get_header();
                     </h3>
 
                     <p class="color-white">
-                        The corporate landscape in the industry is constantly changing and it's time to make the leap to the future.
+                        The corporate landscape in the industry is constantly changing and it's time to take the leap to the future.
                         Embrace the new digital tools and help your business keep up with the accelerated transformations in the shipping world.
                     </p>
 

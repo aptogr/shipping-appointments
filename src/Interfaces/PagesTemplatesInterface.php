@@ -24,6 +24,10 @@ Interface PagesTemplatesInterface {
 	const PAGE_TEMPLATES    = array(
 		'front/homepage.php'                                            => 'Profenda Homepage',
 		'front/pricing.php'                                             => 'Profenda Pricing',
+		'front/landing-suppliers.php'                                   => 'Profenda / Landing / Suppliers',
+		'front/landing-shipping-companies.php'                          => 'Profenda / Landing / Shipping Companies',
+		'front/about.php'                                               => 'Profenda / About Us',
+		'front/contact.php'                                             => 'Profenda / Contact Us',
 		'dashboard/dashboard.php'                                       => 'Profenda Dashboard',
 		'dashboard/availability.php'                                    => 'Profenda Availability',
         'dashboard/appointments/appointments.php'                       => 'Profenda / Appointments',
