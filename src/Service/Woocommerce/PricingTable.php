@@ -60,7 +60,7 @@ class PricingTable {
                 ?>
 
                 <a class='' href="<?php echo $productUrl; ?>">
-                    <div class="pricing-card-subscribe">Subscribe</div>
+                    <div class="pricing-card-subscribe">Start Free Trial</div>
                 </a>
             </div>
 

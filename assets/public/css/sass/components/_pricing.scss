@@ -31,40 +31,51 @@
 
 
     .pricing-card {
-
+      font-family: 'STIX Two Math', serif;
       width: 400px;
       box-shadow: 0 2px 9px 0 rgba(126,136,172,0.18);
 
-      .pricing-card-head {
+      .pricing-card-head  {
         text-align: center;
-        font-size: 22px;
-        //color: $color-palette-1;
-        padding: 15px 0 0;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        font-size: 20px;
+        padding: 30px 0 0;
+        font-family: 'STIX Two Math', serif;
+        font-weight: 400;
       }
 
       .pricing-card-price {
         text-align: center;
         font-size: 30px;
-        padding: 0 0 10px;
+        padding: 0 0 25px;
         font-weight: 700;
+        font-family:Myriad Pro, Roboto, serif;
       }
 
       .pricing-card-body {
-        padding: 30px 70px;
-        //text-align: center;
+        padding: 30px 50px;
+
         li {
           padding-bottom: 10px;
+          font-size: 15px;
+
+          strong {
+            font-family:Myriad Pro, Roboto, serif;
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+            font-size: 17px;
+          }
+
         }
 
       }
 
       .pricing-card-footer {
-        padding-bottom: 30px;
+        padding: 0 25px 30px;
 
         .pricing-card-subscribe {
-          width: 200px;
+          width: 100%;
+          font-family:Myriad Pro, Roboto, serif;
           margin: auto;
           text-align: center;
           border: 1px solid $color-palette-1;
@@ -73,6 +84,8 @@
           color: $hospital-white;
           transition: 0.3s;
           font-weight: bold;
+          height:50px;
+          line-height: 30px;
 
           &:hover {
             background-color: $hospital-white;
@@ -93,8 +106,8 @@
       }
       .pricing-card-price {
         color: $color-palette-1;
-        background-color: $hospital-white;
-        border-bottom: 1px solid $color-palette-6;
+        background-color: #fff;
+        border-bottom: 1px solid #e5e5e5;
       }
     }
 
@@ -106,9 +119,9 @@
       }
 
       .pricing-card-price {
-        color: $hospital-white;
-        background-color: $color-palette-1;
-        border-bottom: 1px solid $color-palette-3;
+        color: #fde943;
+        background-color: #02569c;
+        border-bottom: 1px solid #0e66ae;
       }
 
       .pricing-card-body {
@@ -118,7 +131,8 @@
       .pricing-card-footer {
 
         .pricing-card-subscribe {
-          background-color: #20ade3;
+          background-color: #fde943;
+          color: #02569c;
         }
 
       }

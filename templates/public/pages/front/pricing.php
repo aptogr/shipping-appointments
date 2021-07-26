@@ -144,6 +144,184 @@ $PricingTable = new PricingTable();
 
     </section>
 
+    <section id="homepageCTA" class="profenda-section relative overflow-hidden bg-white padding-top-80 padding-bottom-80">
+
+        <svg width="1280" height="517" viewBox="0 0 1280 517" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;top: 29%;z-index: 0;left: -16px;width: 81%;height: auto;transform: rotate(-90deg);">
+            <path d="M-809 422.805C-510.936 542.865 -405.413 -3.92245 146.206 422.805C392.568 620.432 668.75 429.161 909.382 231.535C1025.49 138.777 1389.55 19.4762 1507 11" stroke="#006BFF" stroke-width="22" stroke-miterlimit="10" style="stroke: #f9fbff;"></path>
+            <path d="M909.383 231.535C668.75 429.162 392.569 620.432 146.207 422.806" stroke="#E55CFF" stroke-width="22" stroke-miterlimit="10" style="stroke: #f9fbff;"></path>
+        </svg>
+        <div class="container relative z-index-1 center">
+
+            <h2 class="section-heading relative display-inline-block">
+                For Shipping Companies
+                <span class="bg-heading">
+                   PRICING
+                </span>
+            </h2>
+
+            <h3 class="section-subheading">
+                Pricing & Fees
+            </h3>
+
+        </div>
+
+        <div class="container relative z-index-1">
+
+            <div class="flex full-width flex-center margin-bottom-50">
+
+                <div class="col l6 m6 s12">
+
+                    <div class="container">
+						<?php echo wp_get_attachment_image( 864, 'full' ); ?>
+                    </div>
+
+                </div>
+
+                <div class="col l6 m6 s12">
+
+                    <h2 class="section-heading relative display-inline-block">
+                        No Subscription Fee
+                        <span class="bg-heading">
+                           FREE OF USE
+                        </span>
+                    </h2>
+
+                    <p class="color-black">
+                        The Profenda platform is free of charge for the shipping companies. Maybe explain here in marketing way why shipping companies don't get charged.
+                    </p>
+
+                    <p class="color-black">
+                        However fees will be applied to the shipping company in the cases below
+                    </p>
+
+                    <a href="#" class="profenda-btn cta-btn bg-dark-blue color-white display-inline-block margin-top-30">
+                        Register your company
+                    </a>
+
+
+                </div>
+
+            </div>
+
+            <div class="flex full-width flex-center margin-bottom-50">
+
+                <div class="col l6 m6 s12">
+
+                    <h2 class="section-heading relative display-inline-block">
+                        Fees for statistics data
+                        <span class="bg-heading">
+                           reports data
+                        </span>
+                    </h2>
+
+
+                    <p class="color-black">
+                        The shipping company requests for data and statistics regarding the meetings quarterly or annually as a whole company, per department or per person.
+                    </p>
+
+                    <p class="color-black">
+                        The reports include blah blah blah.
+                    </p>
+
+                </div>
+
+                <div class="col l6 m6 s12">
+
+                    <table>
+                        <thead class="bg-dark-blue color-white">
+                        <tr>
+                            <th>Report Type</th>
+                            <th>Quarterly Data</th>
+                            <th>Annual Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                Per Shipping Company
+                            </td>
+                            <td>
+                                10€/ per quarter
+                            </td>
+                            <td>
+                                30 €/ per year
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Per Department
+                            </td>
+                            <td>
+                                20€/ per quarter
+                            </td>
+                            <td>
+                                60 €/ per year
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Per Employee
+                            </td>
+                            <td>
+                                40€/ per quarter
+                            </td>
+                            <td>
+                                120 €/ per year
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                All Info
+                            </td>
+                            <td>
+                                50€/ per quarter
+                            </td>
+                            <td>
+                                150 €/ per year
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="flex full-width flex-center margin-bottom-50">
+
+                <div class="col l6 m6 s12">
+
+                    <div class="container">
+						<?php echo wp_get_attachment_image( 865, 'full' ); ?>
+                    </div>
+
+                </div>
+
+                <div class="col l6 m6 s12">
+
+                    <h2 class="section-heading relative display-inline-block">
+                        Cancellations Fees
+                        <span class="bg-heading">
+                          Cancelling
+                        </span>
+                    </h2>
+
+                    <p class="color-black">
+                        We offer 4 cancellations per shipping company or 2 cancellations per department per year for free.
+                        If you exceed the limits you will be charged for every cancellation the amount of <strong class="color-blue">30 €</strong>
+                    </p>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+    </section>
+
 </div>
 
 
